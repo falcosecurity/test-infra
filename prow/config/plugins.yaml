@@ -1,8 +1,8 @@
-require-matching-label:
+require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: office-hours
-    prs: true
+    issues: true
     regexp: ^kind/
     missing_comment: |
       There is not label identifying the kind of issue/PR.
