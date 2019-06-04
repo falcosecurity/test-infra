@@ -9,6 +9,10 @@ require-matching-label:
       Please specify it either using `/kind <group>` or manually from the side menu.
       In case you do not know which kind this issue/PR is please mention the maintainers using `@team/maintainers`.
 
+label:
+  additional_labels:
+    - kind/pr
+    - kind/issue
 plugins:
   falcosecurity/office-hours:
     - blunderbuss
@@ -16,3 +20,4 @@ plugins:
     - dog
     - require-matching-label
     - lgtm
+    - labels
