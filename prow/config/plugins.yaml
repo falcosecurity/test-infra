@@ -1,0 +1,18 @@
+require-matching-label:
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: office-hours
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not label identifying the kind of issue/PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+      In case you do not know which kind this issue/PR is please mention the maintainers using `@team/maintainers`.
+
+plugins:
+  falcosecurity/office-hours:
+    - blunderbuss
+    - cat
+    - dog
+    - require-matching-label
+    - lgtm

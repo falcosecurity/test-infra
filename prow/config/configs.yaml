@@ -1,0 +1,10 @@
+prowjob_namespace: default
+pod_namespace: test-pods
+periodics:
+- interval: 30m
+  agent: kubernetes
+  name: echo-test
+  spec:
+    containers:
+    - image: alpine
+      command: ["/bin/date"]
