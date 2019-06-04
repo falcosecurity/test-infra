@@ -36,7 +36,7 @@ This assumes that you are in the `prow` directory and that you can reach your wo
 
 1. Create a bot account (we have our own [poiana](https://github.com/poiana)).
 
-    1.1. Grant it owner level accedd to the GitHub organisations on which prow will operate on.
+    1.1. Grant it **owner** level accedd to the GitHub organisations on which prow will operate on.
 
     1.2. Generate a [personal access token](https://github.com/settings/tokens) for the bot with full `repo` scope and `admin:org`, `admin:repo_hook`, and `admin:org_hook` too (in case you want prow to operate at organisation level).
 
@@ -59,7 +59,7 @@ This assumes that you are in the `prow` directory and that you can reach your wo
     4.1. Install the `add-hook` tool
 
     ```bash
-	go install k8s.io/test-infra/experiment/add-hook
+	go get -u k8s.io/test-infra/experiment/add-hook
     ```
 
     4.2. Attach it to the organisation using `--repo` flag (or to a precise repo using `MY_ORG/MY_REPO` convention)
