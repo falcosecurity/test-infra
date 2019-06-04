@@ -1,2 +1,2 @@
 prow/*secret
-prow/cluster/*token
+prow/cluster/*token.yaml
