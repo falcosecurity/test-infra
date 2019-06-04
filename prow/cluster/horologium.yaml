@@ -30,7 +30,7 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   namespace: default
-name: "horologium"
+  name: "horologium"
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -62,4 +62,4 @@ spec:
       volumes:
       - name: config
         configMap:
-name: config
+          name: config

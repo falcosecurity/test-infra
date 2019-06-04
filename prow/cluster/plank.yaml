@@ -99,4 +99,4 @@ spec:
           secretName: oauth-token
       - name: config
         configMap:
-name: config
+          name: config
