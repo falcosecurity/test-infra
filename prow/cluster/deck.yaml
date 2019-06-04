@@ -123,5 +123,3 @@ spec:
       - name: config
         configMap:
           name: config
-      nodeSelector:
-        prod: prow
