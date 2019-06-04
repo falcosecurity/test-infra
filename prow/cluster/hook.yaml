@@ -121,4 +121,5 @@ spec:
     app: hook
   ports:
   - port: 8888
+    nodePort: 31942
   type: NodePort
