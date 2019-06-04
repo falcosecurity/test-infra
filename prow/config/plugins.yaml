@@ -29,6 +29,7 @@ plugins:
     - config-updater
   falcosecurity/office-hours:
     - blunderbuss
+    - cat
     - label
     - lgtm
     - require-matching-label
