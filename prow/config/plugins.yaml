@@ -16,8 +16,6 @@ label:
 plugins:
   falcosecurity/office-hours:
     - blunderbuss
-    - cat
-    - dog
-    - require-matching-label
+    - label
     - lgtm
-    - labels
+    - require-matching-label
