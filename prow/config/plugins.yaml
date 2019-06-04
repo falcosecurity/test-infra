@@ -1,3 +1,14 @@
+approve:
+  - repos:
+    - falcosecurity/office-hours
+    - falcosecurity/test-infra
+    lgtm_acts_as_approve: true
+
+blunderbuss:
+  max_request_count: 2
+  file_weight_count: 1
+  use_status_availability: true
+
 config_updater:
   config_file: prow/config/config.yaml
   plugins_file: prow/config/plugins.yaml
@@ -6,6 +17,18 @@ config_updater:
       name: config
     prow/config/plugins.yaml:
       name: plugins
+
+label:
+  additional_labels:
+    - kind/pr
+    - kind/issue
+
+lgtm:
+  - repos:
+    - falcosecurity/office-hours
+    - falcosecurity/test-infra
+    review_acts_as_lgtm: true
+    store_tree_hash: true
 
 require_matching_label:
   - missing_label: needs-kind
@@ -19,17 +42,29 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
       In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
 
-label:
-  additional_labels:
-    - kind/pr
-    - kind/issue
+size:
+  s: 10
+  m: 30
+  l: 90
+  xl: 270
+  xxl: 520
 
 plugins:
-  falcosecurity/test-infra:
-    - config-updater
   falcosecurity/office-hours:
+    - approve
+    - assign
     - blunderbuss
     - cat
     - label
     - lgtm
     - require-matching-label
+    - size
+    - verify-owners
+  falcosecurity/test-infra:
+    - approve
+    - assign
+    - blunderbuss
+    - config-updater
+    - lgtm
+    - size
+    - verify-owners
