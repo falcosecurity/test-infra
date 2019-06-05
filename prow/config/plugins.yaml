@@ -56,6 +56,7 @@ plugins:
     - blunderbuss
     - cat
     - dco
+    - hold
     - label
     - lgtm
     - require-matching-label
@@ -69,6 +70,7 @@ plugins:
     - blunderbuss
     - config-updater
     - dco
+    - hold
     - lgtm
     - size
     - verify-owners
