@@ -55,16 +55,20 @@ plugins:
     - assign
     - blunderbuss
     - cat
+    - dco
     - label
     - lgtm
     - require-matching-label
     - size
     - verify-owners
+    - wip
   falcosecurity/test-infra:
     - approve
     - assign
     - blunderbuss
     - config-updater
+    - dco
     - lgtm
     - size
     - verify-owners
+    - wip
