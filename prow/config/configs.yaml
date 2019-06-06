@@ -6,3 +6,28 @@ tide:
   merge_method:
     falcosecurity/office-hours: rebase
     falcosecurity/test-infra: rebase
+  queries:
+  - repos:
+    - falcosecurity/test-infra
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progess
+    - needs-rebase
+  - repos:
+    - falcosecurity/office-hours
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progess
+    - needs-rebase
