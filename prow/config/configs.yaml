@@ -1,3 +1,8 @@
 prowjob_namespace: default
 pod_namespace: test-pods
 log_level: debug
+
+tide:
+  merge_method:
+    falcosecurity/office-hours: rebase
+    falcosecurity/test-infra: rebase
