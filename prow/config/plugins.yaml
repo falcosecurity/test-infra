@@ -59,12 +59,12 @@ plugins:
     - dco
     - hold
     - label
+    - lifecycle
     - lgtm
     - require-matching-label
     - size
     - verify-owners
     - wip
-    - lifecycle
   falcosecurity/test-infra:
     - approve
     - assign
@@ -73,11 +73,11 @@ plugins:
     - config-updater
     - dco
     - hold
+    - lifecycle
     - lgtm
     - size
     - verify-owners
     - wip
-    - lifecycle
 
 external_plugins:
   falcosecurity/office-hours:
