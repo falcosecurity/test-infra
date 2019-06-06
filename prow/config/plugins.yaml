@@ -54,6 +54,7 @@ plugins:
     - approve
     - assign
     - blunderbuss
+    - branchcleaner
     - cat
     - dco
     - hold
@@ -68,6 +69,7 @@ plugins:
     - approve
     - assign
     - blunderbuss
+    - branchcleaner
     - config-updater
     - dco
     - hold
