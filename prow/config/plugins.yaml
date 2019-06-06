@@ -78,3 +78,13 @@ plugins:
     - verify-owners
     - wip
     - lifecycle
+
+external_plugins:
+  falcosecurity/office-hours:
+  - name: needs-rebase
+    events:
+      - pull_request
+  falcosecurity/test-infra:
+  - name: needs-rebase
+    events:
+      - pull_request
