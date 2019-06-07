@@ -98,7 +98,8 @@ spec:
         args:
         - --tide-url=http://tide/
         - --hook-url=http://hook:8888/plugin-help
-        - --job-config-path=/etc/config/config.yaml
+        # fixme
+        # - --job-config-path=/etc/config/config.yaml
         ports:
           - name: http
             containerPort: 8080
