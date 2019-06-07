@@ -1,6 +1,41 @@
-prowjob_namespace: default
-pod_namespace: test-pods
+branch-protection:
+  orgs:
+    falcosecurity:
+      repos:
+        office-hours:
+          enforce_admins: true # rules apply to admins
+          protect: true # protect all branches
+          restrictions:
+            teams: ["admins"] # always allow team "admins" to push
+          required_pull_request_reviews:
+            dismiss_stale_reviews: true # automatically dismiss old reviews
+            dismissal_restrictions: # allow review dismissals
+              teams:
+              - admins
+            require_code_owner_reviews: true # require a code owner approval
+            required_approving_review_count: 1 # number of approvals
+          required_status_checks:
+            strict: true # require PR branch to be up to date
+        test-infra:
+          enforce_admins: true
+          protect: true
+          restrictions:
+            teams: ["admins"]
+          required_pull_request_reviews:
+            dismiss_stale_reviews: true # automatically dismiss old reviews
+            dismissal_restrictions: # allow review dismissals
+              teams:
+              - admins
+            require_code_owner_reviews: true # require a code owner approval
+            required_approving_review_count: 1 # number of approvals
+          required_status_checks:
+            strict: true # require PR branch to be up to date
+
 log_level: debug
+
+pod_namespace: test-pods
+
+prowjob_namespace: default
 
 tide:
   merge_method:
@@ -8,7 +43,7 @@ tide:
     falcosecurity/test-infra: rebase
   queries:
   - repos:
-    - falcosecurity/test-infra
+    - falcosecurity/office-hours
     labels:
     - approved
     - lgtm
@@ -20,7 +55,7 @@ tide:
     - do-not-merge/work-in-progess
     - needs-rebase
   - repos:
-    - falcosecurity/office-hours
+    - falcosecurity/test-infra
     labels:
     - approved
     - lgtm
