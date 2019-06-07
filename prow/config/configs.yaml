@@ -3,30 +3,32 @@ branch-protection:
     falcosecurity:
       repos:
         office-hours:
+          branches:
+            master:
+              protect: true
           enforce_admins: true # rules apply to admins
-          protect: true # protect all branches
           restrictions:
-            teams: ["admins"] # always allow team "admins" to push
+            teams: ["admins", "machine_users"] # always allow team "admins" to push
           required_pull_request_reviews:
             dismiss_stale_reviews: true # automatically dismiss old reviews
             dismissal_restrictions: # allow review dismissals
               teams:
               - admins
-            require_code_owner_reviews: true # require a code owner approval
             required_approving_review_count: 1 # number of approvals
           required_status_checks:
             strict: true # require PR branch to be up to date
         test-infra:
+          branches:
+            master:
+              protect: true
           enforce_admins: true
-          protect: true
           restrictions:
-            teams: ["admins"]
+            teams: ["admins", "machine_users"]
           required_pull_request_reviews:
             dismiss_stale_reviews: true # automatically dismiss old reviews
             dismissal_restrictions: # allow review dismissals
               teams:
               - admins
-            require_code_owner_reviews: true # require a code owner approval
             required_approving_review_count: 1 # number of approvals
           required_status_checks:
             strict: true # require PR branch to be up to date

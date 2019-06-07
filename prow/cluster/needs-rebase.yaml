@@ -33,7 +33,7 @@ spec:
         imagePullPolicy: Always
         args:
         - --dry-run=false
-        # todo > use ghproxy to cache GitHub API requests
+        # todo > use ghproxy (https://github.com/kubernetes/test-infra/master/ghproxy) to cache GitHub API requests
         # - --github-endpoint=http://ghproxy
         # - --github-endpoint=https://api.github.com
         ports:
