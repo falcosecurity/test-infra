@@ -42,6 +42,24 @@ log_level: debug
 
 pod_namespace: test-pods
 
+presubmits:
+  falcosecurity/test-infra:
+  - name: check-prow-config
+    branches:
+    - master
+    decorate: true
+    always_run: true
+    skip_report: false
+    spec:
+      containers:
+        - image: gcr.io/k8s-prow/checkconfig:v20190607-6c71cb47c
+          command:
+          - /checkconfig
+          args:
+          - --config-path=/etc/config/config.yaml
+          # fixme
+          # - --job-config-path=...
+
 prowjob_namespace: default
 
 tide:
