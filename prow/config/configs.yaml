@@ -53,12 +53,11 @@ presubmits:
     spec:
       containers:
         - image: gcr.io/k8s-prow/checkconfig:v20190607-6c71cb47c
+          imagePullPolicy: Always
           command:
           - /checkconfig
           args:
           - --config-path=/etc/config/config.yaml
-          # fixme
-          # - --job-config-path=...
 
 prowjob_namespace: default
 
