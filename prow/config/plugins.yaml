@@ -112,6 +112,7 @@ plugins:
     - lifecycle
     - lgtm
     - size
+    - trigger
     - verify-owners
     - wip
 
