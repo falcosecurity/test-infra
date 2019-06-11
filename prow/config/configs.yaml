@@ -4,11 +4,15 @@ branch-protection:
       repos:
         falco:
           branches:
+            agent-master:
+              protect: true
+            dev:
+              protect: true
             master:
               protect: true
           enforce_admins: true # rules apply to admins
           restrictions:
-            teams: ["admins", "machine_users"]
+            teams: ["maintainers", "machine_users"]
           required_pull_request_reviews:
             dismiss_stale_reviews: true # automatically dismiss old reviews
             dismissal_restrictions: # allow review dismissals
@@ -23,7 +27,7 @@ branch-protection:
               protect: true
           enforce_admins: true # rules apply to admins
           restrictions:
-            teams: ["admins", "machine_users"] # always allow team "admins" to push
+            teams: ["maintainers", "machine_users"]
           required_pull_request_reviews:
             dismiss_stale_reviews: true # automatically dismiss old reviews
             dismissal_restrictions: # allow review dismissals
@@ -38,7 +42,7 @@ branch-protection:
               protect: true
           enforce_admins: true # rules apply to admins
           restrictions:
-            teams: ["admins", "machine_users"]
+            teams: ["maintainers", "machine_users"]
           required_pull_request_reviews:
             dismiss_stale_reviews: true # automatically dismiss old reviews
             dismissal_restrictions: # allow review dismissals
