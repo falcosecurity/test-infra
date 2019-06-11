@@ -41,6 +41,7 @@ prowjob_namespace: default
 
 tide:
   merge_method:
+    falcosecurity/falco: rebase
     falcosecurity/office-hours: rebase
     falcosecurity/test-infra: rebase
   queries:
