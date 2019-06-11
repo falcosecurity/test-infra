@@ -57,11 +57,10 @@ require_matching_label:
     repo: falco
     prs: true
     regexp: ^kind/
-     missing_comment: |
+    missing_comment: |
       There is not a label identifying the kind of this PR.
       Please specify it either using `/kind <group>` or manually from the side menu.
       In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
-  
 
 size:
   s: 10
