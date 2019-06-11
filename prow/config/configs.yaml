@@ -1,4 +1,15 @@
 branch-protection:
+  enforce_admins: true # rules apply to admins
+  restrictions:
+    teams: ["maintainers", "machine_users"]
+  required_pull_request_reviews:
+    dismiss_stale_reviews: true # automat dismiss old reviews
+    dismissal_restrictions: # allow review dismissals
+      teams:
+      - admins
+    required_approving_review_count: 1 # number of approvals
+  required_status_checks:
+    strict: true # require PR branch to be up to date
   orgs:
     falcosecurity:
       repos:
@@ -10,47 +21,14 @@ branch-protection:
               protect: true
             master:
               protect: true
-          enforce_admins: true # rules apply to admins
-          restrictions:
-            teams: ["maintainers", "machine_users"]
-          required_pull_request_reviews:
-            dismiss_stale_reviews: true # automatically dismiss old reviews
-            dismissal_restrictions: # allow review dismissals
-              teams:
-              - admins
-            required_approving_review_count: 1 # number of approvals
-          required_status_checks:
-            strict: true # require PR branch to be up to date
         office-hours:
           branches:
             master:
               protect: true
-          enforce_admins: true # rules apply to admins
-          restrictions:
-            teams: ["maintainers", "machine_users"]
-          required_pull_request_reviews:
-            dismiss_stale_reviews: true # automatically dismiss old reviews
-            dismissal_restrictions: # allow review dismissals
-              teams:
-              - admins
-            required_approving_review_count: 1 # number of approvals
-          required_status_checks:
-            strict: true # require PR branch to be up to date
         test-infra:
           branches:
             master:
               protect: true
-          enforce_admins: true # rules apply to admins
-          restrictions:
-            teams: ["maintainers", "machine_users"]
-          required_pull_request_reviews:
-            dismiss_stale_reviews: true # automatically dismiss old reviews
-            dismissal_restrictions: # allow review dismissals
-              teams:
-              - admins
-            required_approving_review_count: 1 # number of approvals
-          required_status_checks:
-            strict: true # require PR branch to be up to date
 
 log_level: debug
 
