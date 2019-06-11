@@ -48,11 +48,19 @@ require_matching_label:
     repo: falco
     issues: true
     regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco
     prs: true
     regexp: ^kind/
+     missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
   
 
 size:
