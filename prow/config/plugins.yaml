@@ -1,5 +1,6 @@
 approve:
   - repos:
+    - falcosecurity/falco
     - falcosecurity/office-hours
     - falcosecurity/test-infra
     lgtm_acts_as_approve: true
@@ -25,6 +26,7 @@ label:
 
 lgtm:
   - repos:
+    - falcosecurity/falco
     - falcosecurity/office-hours
     - falcosecurity/test-infra
     review_acts_as_lgtm: true
@@ -41,6 +43,17 @@ require_matching_label:
       Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity/falco).
       Please specify it either using `/kind <group>` or manually from the side menu.
       In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco
+    issues: true
+    regexp: ^kind/
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco
+    prs: true
+    regexp: ^kind/
+  
 
 size:
   s: 10
@@ -50,6 +63,22 @@ size:
   xxl: 520
 
 plugins:
+  falcosecurity/falco:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - require-matching-label
+    - size
+    - verify-owners
+    - wip
+    - release-note
   falcosecurity/office-hours:
     - approve
     - assign

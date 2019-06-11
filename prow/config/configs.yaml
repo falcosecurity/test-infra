@@ -45,6 +45,19 @@ tide:
     falcosecurity/test-infra: rebase
   queries:
   - repos:
+    - falcosecurity/falco
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progess
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
     - falcosecurity/office-hours
     labels:
     - approved
