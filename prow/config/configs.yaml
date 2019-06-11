@@ -56,6 +56,11 @@ pod_namespace: test-pods
 
 prowjob_namespace: default
 
+sinker:
+  resync_period: 1m
+  max_prowjob_age: 48h
+  max_pod_age: 24h
+
 tide:
   merge_method:
     falcosecurity/office-hours: rebase
