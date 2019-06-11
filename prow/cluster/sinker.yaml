@@ -79,6 +79,7 @@ spec:
       - name: sinker
         image: gcr.io/k8s-prow/sinker:v20190528-0d7c4b53a
         args:
+        - --dry-run=false
         - --config-path=/etc/config/config.yaml
         volumeMounts:
         - name: config
