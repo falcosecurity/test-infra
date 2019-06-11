@@ -70,7 +70,7 @@ tide:
     - do-not-merge
     - do-not-merge/hold
     - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progess
+    - do-not-merge/work-in-progress
     - do-not-merge/release-note-label-needed
     - needs-rebase
   - repos:
@@ -83,7 +83,7 @@ tide:
     - do-not-merge
     - do-not-merge/hold
     - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progess
+    - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
     - falcosecurity/test-infra
@@ -95,5 +95,5 @@ tide:
     - do-not-merge
     - do-not-merge/hold
     - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progess
+    - do-not-merge/work-in-progress
     - needs-rebase
