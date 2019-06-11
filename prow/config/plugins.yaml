@@ -72,10 +72,9 @@ size:
 triggers:
   - repos:
     - falcosecurity/test-infra
+    only_org_members: true
     # fixme > a link redirecting users to instructions in joining the org in order to become trusted members
     # join_org_url: ...
-    # /ok-to-test only from org members
-    only_org_members: true
 
 plugins:
   falcosecurity/falco:
