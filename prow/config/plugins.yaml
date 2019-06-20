@@ -69,6 +69,11 @@ size:
   xl: 270
   xxl: 520
 
+triggers:
+  - repos:
+    - falcosecurity/test-infra
+    only_org_members: true
+
 plugins:
   falcosecurity/falco:
     - approve
@@ -112,6 +117,7 @@ plugins:
     - lifecycle
     - lgtm
     - size
+    - trigger
     - verify-owners
     - wip
 
@@ -124,3 +130,5 @@ external_plugins:
   - name: needs-rebase
     events:
       - pull_request
+
+
