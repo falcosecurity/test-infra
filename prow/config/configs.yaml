@@ -38,7 +38,7 @@ prowjob_namespace: default
 
 tide:
   context_options:
-    skip-unknown-contexts: false
+    skip-unknown-contexts: true
     from-branch-protection: true
   merge_method:
     falcosecurity/falco: rebase
