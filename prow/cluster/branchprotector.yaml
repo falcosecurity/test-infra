@@ -17,7 +17,7 @@ spec:
           - name: branchprotector
             image: gcr.io/k8s-prow/branchprotector:v20190528-0d7c4b53a
             args:
-            - --config-path=/etc/config/config.yaml
+            - --config-path=/etc/config/configs.yaml
             # fixme
             # - --job-config-path=/etc/job-config
             - --github-token-path=/etc/github/oauth
@@ -29,7 +29,7 @@ spec:
             - name: oauth
               mountPath: /etc/github
               readOnly: true
-            - name: config
+            - name: configs
               mountPath: /etc/config
               readOnly: true
           restartPolicy: Never
@@ -37,6 +37,6 @@ spec:
           - name: oauth
             secret:
               secretName: oauth-token
-          - name: config
+          - name: configs
             configMap:
-              name: config
+              name: configs

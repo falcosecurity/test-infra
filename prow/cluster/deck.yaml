@@ -98,13 +98,14 @@ spec:
         args:
         - --tide-url=http://tide/
         - --hook-url=http://hook:8888/plugin-help
+        - --config-path=/etc/config/configs.yaml
         # fixme
-        # - --job-config-path=/etc/config/config.yaml
+        # - --job-config-path=/etc/config/configs.yaml
         ports:
           - name: http
             containerPort: 8080
         volumeMounts:
-        - name: config
+        - name: configs
           mountPath: /etc/config
           readOnly: true
         livenessProbe:
@@ -121,6 +122,6 @@ spec:
           periodSeconds: 3
           timeoutSeconds: 600
       volumes:
-      - name: config
+      - name: configs
         configMap:
-          name: config
+          name: configs

@@ -67,6 +67,7 @@ spec:
         image: gcr.io/k8s-prow/tide:v20181220-899fabe
         args:
         - --dry-run=false
+        - --config-path=/etc/config/configs.yaml
         # todo > use ghproxy (https://github.com/kubernetes/test-infra/master/ghproxy) to cache GitHub API requests
         # - --github-endpoint=http://ghproxy
         # - --github-endpoint=https://api.github.com
@@ -77,13 +78,13 @@ spec:
         - name: oauth
           mountPath: /etc/github
           readOnly: true
-        - name: config
+        - name: configs
           mountPath: /etc/config
           readOnly: true
       volumes:
       - name: oauth
         secret:
           secretName: oauth-token
-      - name: config
+      - name: configs
         configMap:
-          name: config
+          name: configs

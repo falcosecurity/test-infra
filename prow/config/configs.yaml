@@ -6,14 +6,22 @@ branch-protection:
     dismiss_stale_reviews: true # automat dismiss old reviews
     dismissal_restrictions: # allow review dismissals
       teams:
-      - admins
+      - maintainers
+      - machine_users
     required_approving_review_count: 1 # number of approvals
   required_status_checks:
     strict: true # require PR branch to be up to date
   orgs:
     falcosecurity:
+      required_status_checks:
+        contexts:
+          - dco
       repos:
         falco:
+          required_status_checks:
+            contexts:
+              - "Travis CI - Branch"
+              - "Travis CI - Pull Request"
           branches:
             agent-master:
               protect: true
