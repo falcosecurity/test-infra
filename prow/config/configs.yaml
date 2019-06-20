@@ -47,7 +47,7 @@ presubmits:
   - name: check-prow-config
     branches:
     - master
-    decorate: true
+    decorate: false
     always_run: true
     skip_report: false
     spec:
@@ -57,7 +57,7 @@ presubmits:
           command:
           - /checkconfig
           args:
-          - --config-path=/etc/config/config.yaml
+          - --config-path=/etc/config/configs.yaml
 
 prowjob_namespace: default
 
