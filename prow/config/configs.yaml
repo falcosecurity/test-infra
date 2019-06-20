@@ -7,7 +7,7 @@ branch-protection:
     dismissal_restrictions: # allow review dismissals
       teams:
       - admins
-    # required_approving_review_count: 1 # number of approvals
+    required_approving_review_count: 1 # number of approvals
   required_status_checks:
     strict: true # require PR branch to be up to date
   orgs:
