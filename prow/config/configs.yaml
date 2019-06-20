@@ -47,7 +47,7 @@ presubmits:
   - name: check-prow-config
     branches:
     - master
-    decorate: false
+    decorate: false # todo(fntlnz,leodido): we need plank for this, but it has a bug that only make it work on gcs
     always_run: true
     skip_report: false
     spec:
@@ -60,6 +60,11 @@ presubmits:
           - --config-path=/etc/config/configs.yaml
 
 prowjob_namespace: default
+
+sinker:
+  resync_period: 1m
+  max_prowjob_age: 48h
+  max_pod_age: 24h
 
 tide:
   context_options:
