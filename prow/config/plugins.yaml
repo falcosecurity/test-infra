@@ -15,7 +15,7 @@ config_updater:
   plugins_file: prow/config/plugins.yaml
   maps:
     prow/config/configs.yaml:
-      name: config
+      name: configs
     prow/config/plugins.yaml:
       name: plugins
 

@@ -13,4 +13,4 @@ plugins: config/plugins.yaml
 	kubectl create configmap plugins --from-file=plugins.yaml=config/plugins.yaml --dry-run -o yaml | kubectl replace configmap plugins -f -
 
 configs: config/configs.yaml
-	kubectl create configmap config --from-file=config.yaml=config/configs.yaml --dry-run -o yaml | kubectl replace configmap config -f -
+	kubectl create configmap configs --from-file=configs.yaml=config/configs.yaml --dry-run -o yaml | kubectl replace configmap configs -f -
