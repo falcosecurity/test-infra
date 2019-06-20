@@ -37,6 +37,9 @@ pod_namespace: test-pods
 prowjob_namespace: default
 
 tide:
+  context_options:
+    skip-unknown-contexts: false
+    from-branch-protection: true
   merge_method:
     falcosecurity/falco: rebase
     falcosecurity/office-hours: rebase
