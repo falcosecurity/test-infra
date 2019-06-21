@@ -15,13 +15,13 @@ branch-protection:
     falcosecurity:
       required_status_checks:
         contexts:
-          - dco
+        - dco
       repos:
         falco:
           required_status_checks:
             contexts:
-              - "Travis CI - Branch"
-              - "Travis CI - Pull Request"
+            - Travis CI - Branch
+            - Travis CI - Pull Request
           branches:
             agent-master:
               protect: true
