@@ -4,7 +4,7 @@ approve:
     - falcosecurity/office-hours
     - falcosecurity/test-infra
     lgtm_acts_as_approve: true
-    implicit_self_approve: false
+    require_self_approval: true
 
 blunderbuss:
   max_request_count: 2
