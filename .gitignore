@@ -1,2 +1,4 @@
 prow/*secret
 prow/cluster/*token.yaml
+.DS_Store
+.idea

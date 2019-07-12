@@ -36,7 +36,7 @@ This assumes that you are in the `prow` directory and that you can reach your wo
 
 1. Create a bot account (we have our own [poiana](https://github.com/poiana)).
 
-    1.1. Grant it **owner** level accedd to the GitHub organisations on which prow will operate on.
+    1.1. Grant it **owner** level access to the GitHub organisations on which prow will operate on.
 
     1.2. Generate a [personal access token](https://github.com/settings/tokens) for the bot with full `repo` scope and `admin:org`, `admin:repo_hook`, and `admin:org_hook` too (in case you want prow to operate at organisation level).
 
