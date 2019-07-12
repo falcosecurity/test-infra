@@ -42,7 +42,7 @@ This assumes that you are in the `prow` directory and that you can reach your wo
 
     1.3 Save such OAuth token to `prow/oauth_secret` file.
 
-2. Create a token for GitHub webooks.
+2. Create a token for GitHub webhooks.
 
     ```bash
     openssl rand -hex 20 > prow/hmac_secret
