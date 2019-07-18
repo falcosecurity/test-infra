@@ -20,7 +20,6 @@ branch-protection:
         falco:
           required_status_checks:
             contexts:
-            - Travis CI - Branch
             - Travis CI - Pull Request
           branches:
             agent-master:
