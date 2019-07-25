@@ -81,11 +81,12 @@ plugins:
     - label
     - lifecycle
     - lgtm
+    - release-note
     - require-matching-label
     - size
     - verify-owners
+    - welcome
     - wip
-    - release-note
   falcosecurity/office-hours:
     - approve
     - assign
@@ -100,6 +101,7 @@ plugins:
     - require-matching-label
     - size
     - verify-owners
+    - welcome
     - wip
   falcosecurity/test-infra:
     - approve
@@ -113,6 +115,7 @@ plugins:
     - lgtm
     - size
     - verify-owners
+    - welcome
     - wip
 
 external_plugins:
