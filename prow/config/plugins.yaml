@@ -1,5 +1,6 @@
 approve:
   - repos:
+    - falcosecurity/client-go
     - falcosecurity/falco
     - falcosecurity/office-hours
     - falcosecurity/test-infra
@@ -26,6 +27,7 @@ label:
 
 lgtm:
   - repos:
+    - falcosecurity/client-go
     - falcosecurity/falco
     - falcosecurity/office-hours
     - falcosecurity/test-infra
@@ -51,16 +53,14 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this issue.
       Please specify it either using `/kind <group>` or manually from the side menu.
-      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
   - missing_label: needs-kind
     org: falcosecurity
-    repo: falco
+    repo: client-go
     prs: true
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this PR.
       Please specify it either using `/kind <group>` or manually from the side menu.
-      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
 
 size:
   s: 10
@@ -70,6 +70,23 @@ size:
   xxl: 520
 
 plugins:
+  falcosecurity/client-go:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - release-note
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/falco:
     - approve
     - assign
@@ -122,6 +139,14 @@ plugins:
     - wip
 
 external_plugins:
+  falcosecurity/client-go:
+  - name: needs-rebase
+    events:
+      - pull_request
+  falcosecurity/falco:
+  - name: needs-rebase
+    events:
+      - pull_request
   falcosecurity/office-hours:
   - name: needs-rebase
     events:
