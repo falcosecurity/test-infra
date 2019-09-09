@@ -17,6 +17,10 @@ branch-protection:
         contexts:
         - dco
       repos:
+        client-go:
+          branches:
+            master:
+              protect: true
         falco:
           required_status_checks:
             contexts:
@@ -48,10 +52,24 @@ tide:
     skip-unknown-contexts: true
     from-branch-protection: true
   merge_method:
+    falcosecurity/client-go: rebase
     falcosecurity/falco: rebase
     falcosecurity/office-hours: rebase
     falcosecurity/test-infra: rebase
   queries:
+  - repos:
+    - falcosecurity/client-go
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
   - repos:
     - falcosecurity/falco
     labels:
