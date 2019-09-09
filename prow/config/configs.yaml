@@ -10,7 +10,7 @@ branch-protection:
       - machine_users
     required_approving_review_count: 1 # number of approvals
   required_status_checks:
-    strict: true # require PR branch to be up to date
+    strict: false # we don't want to block any PR if it's not up to date, we have the rebase merge strategy and needs-rebase plugin
   orgs:
     falcosecurity:
       required_status_checks:
