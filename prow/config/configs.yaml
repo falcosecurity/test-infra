@@ -36,6 +36,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        falco-website:
+          branches:
+            master:
+              protect: true
         office-hours:
           branches:
             master:
@@ -58,6 +62,8 @@ tide:
   merge_method:
     falcosecurity/client-go: rebase
     falcosecurity/falco: rebase
+    falcosecurity/falcoctl: rebase
+    falcosecurity/falco-website: rebase
     falcosecurity/office-hours: rebase
     falcosecurity/test-infra: rebase
   queries:
@@ -99,6 +105,18 @@ tide:
     - do-not-merge/invalid-owners-file
     - do-not-merge/work-in-progress
     - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/falco-website
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
     - falcosecurity/office-hours

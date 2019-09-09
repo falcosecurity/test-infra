@@ -3,6 +3,7 @@ approve:
     - falcosecurity/client-go
     - falcosecurity/falco
     - falcosecurity/falcoctl
+    - falcosecurity/falco-website
     - falcosecurity/office-hours
     - falcosecurity/test-infra
     lgtm_acts_as_approve: true
@@ -31,6 +32,7 @@ lgtm:
     - falcosecurity/client-go
     - falcosecurity/falco
     - falcosecurity/falcoctl
+    - falcosecurity/falco-website
     - falcosecurity/office-hours
     - falcosecurity/test-infra
     review_acts_as_lgtm: true
@@ -39,14 +41,12 @@ lgtm:
 require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
-    repo: office-hours
-    issues: true
+    repo: client-go
+    prs: true
     regexp: ^kind/
     missing_comment: |
-      There is not a label identifying the kind of this proposal.
-      Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity/falco).
+      There is not a label identifying the kind of this PR.
       Please specify it either using `/kind <group>` or manually from the side menu.
-      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco
@@ -65,12 +65,14 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
-    repo: client-go
-    prs: true
+    repo: office-hours
+    issues: true
     regexp: ^kind/
     missing_comment: |
-      There is not a label identifying the kind of this PR.
+      There is not a label identifying the kind of this proposal.
+      Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity/falco).
       Please specify it either using `/kind <group>` or manually from the side menu.
+      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
 
 size:
   s: 10
@@ -133,6 +135,22 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/falco-website:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/office-hours:
     - approve
     - assign
@@ -176,6 +194,10 @@ external_plugins:
     events:
       - pull_request
   falcosecurity/falcoctl:
+  - name: needs-rebase
+    events:
+      - pull_request
+  falcosecurity/falco-website:
   - name: needs-rebase
     events:
       - pull_request
