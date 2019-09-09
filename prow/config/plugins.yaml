@@ -2,6 +2,7 @@ approve:
   - repos:
     - falcosecurity/client-go
     - falcosecurity/falco
+    - falcosecurity/falcoctl
     - falcosecurity/office-hours
     - falcosecurity/test-infra
     lgtm_acts_as_approve: true
@@ -29,6 +30,7 @@ lgtm:
   - repos:
     - falcosecurity/client-go
     - falcosecurity/falco
+    - falcosecurity/falcoctl
     - falcosecurity/office-hours
     - falcosecurity/test-infra
     review_acts_as_lgtm: true
@@ -48,6 +50,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falcoctl
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -105,6 +115,24 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/falcoctl:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - release-note
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/office-hours:
     - approve
     - assign
@@ -144,6 +172,10 @@ external_plugins:
     events:
       - pull_request
   falcosecurity/falco:
+  - name: needs-rebase
+    events:
+      - pull_request
+  falcosecurity/falcoctl:
   - name: needs-rebase
     events:
       - pull_request
