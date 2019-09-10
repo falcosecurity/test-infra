@@ -65,6 +65,14 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
+    repo: falco-website
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
     repo: office-hours
     issues: true
     regexp: ^kind/
@@ -147,6 +155,7 @@ plugins:
     - label
     - lifecycle
     - lgtm
+    - require-matching-label
     - size
     - verify-owners
     - welcome
