@@ -89,6 +89,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - golint
     - hold
     - label
     - lifecycle
@@ -124,6 +125,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - golint
     - help
     - hold
     - label
