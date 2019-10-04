@@ -38,6 +38,17 @@ lgtm:
     review_acts_as_lgtm: true
     store_tree_hash: true
 
+repo_milestone:
+  # Default/fallback milestone maintainers
+  # To obtain the team ID: curl -H "Authorization: token <token>" "https://api.github.com/orgs/falcosecurity/teams"
+  '':
+    maintainers_id: 3283563
+    maintainers_team: maintainers
+  falcosecurity/falco:
+    maintainers_id: 3283563
+    maintainers_team: maintainers
+    maintainers_friendly_name: Falco maintainers
+
 require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
@@ -120,6 +131,7 @@ plugins:
     - label
     - lifecycle
     - lgtm
+    - milestone
     - release-note
     - require-matching-label
     - size
