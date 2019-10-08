@@ -40,7 +40,7 @@ branch-protection:
           branches:
             master:
               protect: true
-        office-hours:
+        community:
           branches:
             master:
               protect: true
@@ -64,7 +64,7 @@ tide:
     falcosecurity/falco: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
-    falcosecurity/office-hours: rebase
+    falcosecurity/community: rebase
     falcosecurity/test-infra: rebase
   queries:
   - repos:
@@ -119,7 +119,7 @@ tide:
     - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
-    - falcosecurity/office-hours
+    - falcosecurity/community
     labels:
     - approved
     - lgtm

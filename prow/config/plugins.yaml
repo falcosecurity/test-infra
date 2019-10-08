@@ -4,7 +4,7 @@ approve:
     - falcosecurity/falco
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
-    - falcosecurity/office-hours
+    - falcosecurity/community
     - falcosecurity/test-infra
     lgtm_acts_as_approve: true
     require_self_approval: true
@@ -33,7 +33,7 @@ lgtm:
     - falcosecurity/falco
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
-    - falcosecurity/office-hours
+    - falcosecurity/community
     - falcosecurity/test-infra
     review_acts_as_lgtm: true
     store_tree_hash: true
@@ -84,7 +84,7 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
-    repo: office-hours
+    repo: community
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -174,7 +174,7 @@ plugins:
     - verify-owners
     - welcome
     - wip
-  falcosecurity/office-hours:
+  falcosecurity/community:
     - approve
     - assign
     - blunderbuss
@@ -224,7 +224,7 @@ external_plugins:
   - name: needs-rebase
     events:
       - pull_request
-  falcosecurity/office-hours:
+  falcosecurity/community:
   - name: needs-rebase
     events:
       - pull_request
