@@ -32,6 +32,10 @@ branch-protection:
               protect: true
             master:
               protect: true
+        falco-exporter:
+          branches:
+            master:
+              protect: true
         falcoctl:
           branches:
             master:
@@ -62,6 +66,7 @@ tide:
   merge_method:
     falcosecurity/client-go: rebase
     falcosecurity/falco: rebase
+    falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
     falcosecurity/community: rebase
@@ -69,6 +74,32 @@ tide:
   queries:
   - repos:
     - falcosecurity/client-go
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/falco
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/falco-exporter
     labels:
     - approved
     - lgtm
