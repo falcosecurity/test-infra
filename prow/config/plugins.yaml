@@ -2,6 +2,7 @@ approve:
   - repos:
     - falcosecurity/client-go
     - falcosecurity/falco
+    - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
     - falcosecurity/community
@@ -31,6 +32,7 @@ lgtm:
   - repos:
     - falcosecurity/client-go
     - falcosecurity/falco
+    - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
     - falcosecurity/community
@@ -61,6 +63,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-exporter
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -132,6 +142,25 @@ plugins:
     - lifecycle
     - lgtm
     - milestone
+    - release-note
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/falco-exporter:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - golint
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
     - release-note
     - require-matching-label
     - size
@@ -213,6 +242,10 @@ external_plugins:
     events:
       - pull_request
   falcosecurity/falco:
+  - name: needs-rebase
+    events:
+      - pull_request
+  falcosecurity/falco-exporter:
   - name: needs-rebase
     events:
       - pull_request
