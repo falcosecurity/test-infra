@@ -1,12 +1,13 @@
 approve:
   - repos:
+    - falcosecurity/advocacy
     - falcosecurity/client-go
     - falcosecurity/client-py
+    - falcosecurity/community
     - falcosecurity/falco
     - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
-    - falcosecurity/community
     - falcosecurity/test-infra
     lgtm_acts_as_approve: true
     require_self_approval: true
@@ -31,13 +32,14 @@ label:
 
 lgtm:
   - repos:
+    - falcosecurity/advocacy
     - falcosecurity/client-go
     - falcosecurity/client-py
+    - falcosecurity/community
     - falcosecurity/falco
     - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
-    - falcosecurity/community
     - falcosecurity/test-infra
     review_acts_as_lgtm: true
     store_tree_hash: true
@@ -121,6 +123,23 @@ size:
   xxl: 520
 
 plugins:
+  falcosecurity/advocacy:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/client-go:
     - approve
     - assign
@@ -151,6 +170,23 @@ plugins:
     - lifecycle
     - lgtm
     - release-note
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/community:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
     - require-matching-label
     - size
     - verify-owners
@@ -230,23 +266,6 @@ plugins:
     - verify-owners
     - welcome
     - wip
-  falcosecurity/community:
-    - approve
-    - assign
-    - blunderbuss
-    - branchcleaner
-    - cat
-    - dco
-    - help
-    - hold
-    - label
-    - lifecycle
-    - lgtm
-    - require-matching-label
-    - size
-    - verify-owners
-    - welcome
-    - wip
   falcosecurity/test-infra:
     - approve
     - assign
@@ -264,6 +283,10 @@ plugins:
     - wip
 
 external_plugins:
+  falcosecurity/advocacy:
+  - name: needs-rebase
+    events:
+      - pull_request
   falcosecurity/client-go:
   - name: needs-rebase
     events:
@@ -272,6 +295,10 @@ external_plugins:
   - name: needs-rebase
     events:
       - pull_request
+  falcosecurity/community:
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/falco:
   - name: needs-rebase
     events:
@@ -285,10 +312,6 @@ external_plugins:
     events:
       - pull_request
   falcosecurity/falco-website:
-  - name: needs-rebase
-    events:
-      - pull_request
-  falcosecurity/community:
   - name: needs-rebase
     events:
       - pull_request
