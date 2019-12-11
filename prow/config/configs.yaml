@@ -17,11 +17,18 @@ branch-protection:
         contexts:
         - dco
       repos:
+        advocacy:
+          branches: master
+            protect: true
         client-go:
           branches:
             master:
               protect: true
         client-py:
+          branches:
+            master:
+              protect: true
+        community:
           branches:
             master:
               protect: true
@@ -48,10 +55,6 @@ branch-protection:
           branches:
             master:
               protect: true
-        community:
-          branches:
-            master:
-              protect: true
         test-infra:
           branches:
             master:
@@ -68,15 +71,28 @@ tide:
     skip-unknown-contexts: true
     from-branch-protection: true
   merge_method:
+    falcosecurity/advocacy: rebase
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
+    falcosecurity/community: rebase
     falcosecurity/falco: rebase
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
-    falcosecurity/community: rebase
     falcosecurity/test-infra: rebase
   queries:
+  - repos:
+    - falcosecurity/advocacy
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - needs-rebase
   - repos:
     - falcosecurity/client-go
     labels:
@@ -115,6 +131,18 @@ tide:
     - do-not-merge/invalid-owners-file
     - do-not-merge/work-in-progress
     - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/community
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
     - falcosecurity/falco
@@ -170,18 +198,6 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/falco-website
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/community
     labels:
     - approved
     - lgtm
