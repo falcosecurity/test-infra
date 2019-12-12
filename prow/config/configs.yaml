@@ -17,6 +17,10 @@ branch-protection:
         contexts:
         - dco
       repos:
+        .github:
+          branches:
+            master:
+              protect: true
         advocacy:
           branches: master
             protect: true
@@ -71,6 +75,7 @@ tide:
     skip-unknown-contexts: true
     from-branch-protection: true
   merge_method:
+    falcosecurity/.github: rebase
     falcosecurity/advocacy: rebase
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
@@ -81,6 +86,18 @@ tide:
     falcosecurity/falco-website: rebase
     falcosecurity/test-infra: rebase
   queries:
+  - repos:
+    - falcosecurity/.github
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - needs-rebase
   - repos:
     - falcosecurity/advocacy
     labels:
