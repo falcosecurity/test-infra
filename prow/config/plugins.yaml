@@ -9,6 +9,7 @@ approve:
     - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
+    - falcosecurity/template-repository
     - falcosecurity/test-infra
     lgtm_acts_as_approve: true
     require_self_approval: true
@@ -42,6 +43,7 @@ lgtm:
     - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
     - falcosecurity/falco-website
+    - falcosecurity/template-repository
     - falcosecurity/test-infra
     review_acts_as_lgtm: true
     store_tree_hash: true
@@ -293,6 +295,21 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/template-repository:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - dco
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/test-infra:
     - approve
     - assign
@@ -346,7 +363,11 @@ external_plugins:
   - name: needs-rebase
     events:
       - pull_request
-  falcosecurity/test-infra:
+  falcosecurity/template-repository:
   - name: needs-rebase
     events:
       - pull_request
+  falcosecurity/test-infra:
+    - name: needs-rebase
+      events:
+        - pull_request
