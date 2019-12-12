@@ -59,6 +59,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        template-repository:
+          branches:
+            master:
+              protect: true
         test-infra:
           branches:
             master:
@@ -84,6 +88,7 @@ tide:
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
+    falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
   queries:
   - repos:
@@ -227,6 +232,18 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/test-infra
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - needs-rebase
+  - repos:
+    - falcosecurity/template-repository
     labels:
     - approved
     - lgtm
