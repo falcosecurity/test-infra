@@ -127,6 +127,9 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
       In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
 
+retitle:
+  allow_closed_issues: true
+
 size:
   s: 10
   m: 30
@@ -176,6 +179,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - docs-no-retest
     - golint
     - hold
     - label
@@ -183,6 +187,7 @@ plugins:
     - lgtm
     - release-note
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -194,12 +199,14 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - docs-no-retest
     - hold
     - label
     - lifecycle
     - lgtm
     - release-note
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -217,6 +224,7 @@ plugins:
     - lifecycle
     - lgtm
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -228,14 +236,17 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - docs-no-retest
     - help
     - hold
     - label
     - lifecycle
     - lgtm
+    - mergecommitblocker
     - milestone
     - release-note
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -247,6 +258,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - docs-no-retest
     - golint
     - help
     - hold
@@ -255,6 +267,7 @@ plugins:
     - lgtm
     - release-note
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -266,6 +279,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - docs-no-retest
     - golint
     - help
     - hold
@@ -274,6 +288,7 @@ plugins:
     - lgtm
     - release-note
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -291,6 +306,7 @@ plugins:
     - lifecycle
     - lgtm
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -317,10 +333,12 @@ plugins:
     - branchcleaner
     - config-updater
     - dco
+    - docs-no-retest
     - help
     - hold
     - lifecycle
     - lgtm
+    - retitle
     - size
     - verify-owners
     - welcome
