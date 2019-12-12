@@ -8,6 +8,7 @@ branch-protection:
       teams:
       - maintainers
       - machine_users
+    require_code_owner_reviews: true  # require a code owner approval
     required_approving_review_count: 1 # number of approvals
   required_status_checks:
     strict: false # we don't want to block any PR if it's not up to date, we have the rebase merge strategy and needs-rebase plugin
