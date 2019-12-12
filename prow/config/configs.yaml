@@ -59,6 +59,109 @@ branch-protection:
 
 log_level: debug
 
+# todo > use placeholders in comment? https://github.com/kubernetes/test-infra/blob/888ff5ffe5991efad27997c7bd176e37a9a85b2f/robots/commenter/main.go#L44
+periodics:
+  - name: periodic-stale
+    interval: 1h
+    decorate: false
+    spec:
+      containers:
+      - image: gcr.io/k8s-prow/commenter:v20190528-0d7c4b53a
+        command:
+        - /app/robots/commenter/app.binary
+        args:
+        - |-
+          --query=org:falcosecurity
+          -label:lifecycle/frozen
+          -label:lifecycle/stale
+          -label:lifecycle/rotten
+        - --updated=2160h
+        - --token=/etc/github/oauth
+        - |-
+          --comment=Issues go stale after 90d of inactivity.
+          Mark the issue as fresh with `/remove-lifecycle stale`.
+          Stale issues rot after an additional 30d of inactivity and eventually close.
+          If this issue is safe to close now please do so with `/close`.
+          Provide feedback via https://github.com/falcosecurity/community.
+          /lifecycle stale
+        - --template
+        - --confirm
+        volumeMounts:
+        - name: oauth
+          mountPath: /etc/github
+          readOnly: true
+      volumes:
+      - name: oauth
+        secret:
+          secretName: oauth-token
+
+  - name: periodic-close
+    interval: 1h
+    decorate: false
+    spec:
+      containers:
+      - image: gcr.io/k8s-prow/commenter:v20190528-0d7c4b53a
+        command:
+        - /app/robots/commenter/app.binary
+        args:
+        - |-
+          --query=org:falcosecurity
+          -label:lifecycle/frozen
+          label:lifecycle/rotten
+        - --updated=720h
+        - --token=/etc/github/oauth
+        - |-
+          --comment=Rotten issues close after 30d of inactivity.
+          Reopen the issue with `/reopen`.
+          Mark the issue as fresh with `/remove-lifecycle rotten`.
+          Provide feedback via https://github.com/falcosecurity/community.
+          /close
+        - --template
+        - --confirm
+        volumeMounts:
+        - name: oauth
+          mountPath: /etc/github
+          readOnly: true
+      volumes:
+      - name: oauth
+        secret:
+        secretName: oauth-token
+
+  - name: periodic-rotten
+    interval: 1h
+    decorate: false
+    spec:
+      containers:
+      - image: gcr.io/k8s-prow/commenter:v20190528-0d7c4b53a
+        command:
+        - /app/robots/commenter/app.binary
+        args:
+        - |-
+          --query=org:falcosecurity
+          -label:lifecycle/frozen
+          label:lifecycle/stale
+          -label:lifecycle/rotten
+        - --updated=720h
+        - --token=/etc/github/oauth
+        - |-
+          --comment=Stale issues rot after 30d of inactivity.
+          Mark the issue as fresh with `/remove-lifecycle rotten`.
+          Rotten issues close after an additional 30d of inactivity.
+          If this issue is safe to close now please do so with `/close`.
+          Provide feedback via https://github.com/falcosecurity/community.
+          /lifecycle rotten
+        - --template
+        - --confirm
+        volumeMounts:
+        - name: oauth
+          mountPath: /etc/github
+          readOnly: true
+        volumes:
+        - name: oauth
+          secret:
+          secretName: oauth-token
+
+
 pod_namespace: test-pods
 
 prowjob_namespace: default
