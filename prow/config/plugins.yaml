@@ -148,6 +148,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - dog
     - goose
     - help
     - hold
@@ -166,6 +167,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - dog
     - goose
     - help
     - hold
@@ -185,6 +187,7 @@ plugins:
     - cat
     - dco
     - docs-no-retest
+    - dog
     - golint
     - goose
     - hold
@@ -206,6 +209,7 @@ plugins:
     - cat
     - dco
     - docs-no-retest
+    - dog
     - goose
     - hold
     - label
@@ -225,6 +229,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - dog
     - goose
     - help
     - hold
@@ -245,6 +250,7 @@ plugins:
     - cat
     - dco
     - docs-no-retest
+    - dog
     - goose
     - help
     - hold
@@ -268,6 +274,7 @@ plugins:
     - cat
     - dco
     - docs-no-retest
+    - dog
     - golint
     - goose
     - help
@@ -290,6 +297,7 @@ plugins:
     - cat
     - dco
     - docs-no-retest
+    - dog
     - golint
     - goose
     - help
@@ -311,6 +319,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - dog
     - goose
     - help
     - hold
@@ -330,6 +339,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - dog
     - help
     - hold
     - label
@@ -348,6 +358,7 @@ plugins:
     - config-updater
     - dco
     - docs-no-retest
+    - dog
     - goose
     - help
     - hold
