@@ -84,6 +84,8 @@ spec:
         - name: plugins
           mountPath: /etc/plugins
           readOnly: true
+        - name: unsplash
+          mountPath: /etc/unsplash
         livenessProbe:
           httpGet:
             path: /healthz
@@ -110,6 +112,12 @@ spec:
       - name: plugins
         configMap:
           name: plugins
+      - name: unsplash
+        secret:
+          secretName: unsplash-token
+          items:
+          - key: unsplash_secret
+            path: honk
 ---
 apiVersion: v1
 kind: Service
