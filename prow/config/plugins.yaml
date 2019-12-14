@@ -328,6 +328,7 @@ plugins:
     - assign
     - blunderbuss
     - branchcleaner
+    - cat
     - dco
     - help
     - hold
@@ -343,6 +344,7 @@ plugins:
     - assign
     - blunderbuss
     - branchcleaner
+    - cat
     - config-updater
     - dco
     - docs-no-retest
