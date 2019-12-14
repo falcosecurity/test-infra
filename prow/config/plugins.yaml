@@ -27,6 +27,9 @@ config_updater:
     prow/config/plugins.yaml:
       name: plugins
 
+goose:
+  key_path: /etc/unsplash/honk
+
 label:
   additional_labels:
     - kind/pr
@@ -145,6 +148,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - goose
     - help
     - hold
     - label
@@ -162,6 +166,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - goose
     - help
     - hold
     - label
@@ -181,6 +186,7 @@ plugins:
     - dco
     - docs-no-retest
     - golint
+    - goose
     - hold
     - label
     - lifecycle
@@ -200,6 +206,7 @@ plugins:
     - cat
     - dco
     - docs-no-retest
+    - goose
     - hold
     - label
     - lifecycle
@@ -218,6 +225,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - goose
     - help
     - hold
     - label
@@ -237,6 +245,7 @@ plugins:
     - cat
     - dco
     - docs-no-retest
+    - goose
     - help
     - hold
     - label
@@ -260,6 +269,7 @@ plugins:
     - dco
     - docs-no-retest
     - golint
+    - goose
     - help
     - hold
     - label
@@ -281,6 +291,7 @@ plugins:
     - dco
     - docs-no-retest
     - golint
+    - goose
     - help
     - hold
     - label
@@ -300,6 +311,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - goose
     - help
     - hold
     - label
@@ -334,6 +346,7 @@ plugins:
     - config-updater
     - dco
     - docs-no-retest
+    - goose
     - help
     - hold
     - lifecycle
