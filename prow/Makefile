@@ -6,6 +6,9 @@ cluster/oauth-token.yaml: oauth_secret
 cluster/hmac-token.yaml: hmac_secret
 	kubectl create secret generic --dry-run -o yaml hmac-token --from-file=$< >> $@
 
+cluster/unsplash-token.yaml: unsplash_secret
+	kubectl create secret generic --dry-run -o yaml unsplash-token --from-file=$< >> $@
+
 prow: cluster/oauth-token.yaml cluster/hmac-token.yaml cluster/*.yaml
 	kubectl apply -f cluster
 
