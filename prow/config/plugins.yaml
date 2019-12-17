@@ -4,6 +4,9 @@ approve:
     - falcosecurity/advocacy
     - falcosecurity/client-go
     - falcosecurity/client-py
+    - falcosecurity/cloud-native-security-hub
+    - falcosecurity/cloud-native-security-hub-frontend
+    - falcosecurity/cloud-native-security-hub-backend
     - falcosecurity/community
     - falcosecurity/falco
     - falcosecurity/falco-exporter
@@ -38,6 +41,9 @@ lgtm:
     - falcosecurity/advocacy
     - falcosecurity/client-go
     - falcosecurity/client-py
+    - falcosecurity/cloud-native-security-hub
+    - falcosecurity/cloud-native-security-hub-frontend
+    - falcosecurity/cloud-native-security-hub-backend
     - falcosecurity/community
     - falcosecurity/falco
     - falcosecurity/falco-exporter
@@ -79,6 +85,30 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: client-py
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: cloud-native-security-hub
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: cloud-native-security-hub-frontend
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: cloud-native-security-hub-backend
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -194,6 +224,58 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - release-note
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/cloud-native-security-hub:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - release-note
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/cloud-native-security-hub-frontend:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - release-note
+    - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/cloud-native-security-hub-backend:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - golint
     - hold
     - label
     - lifecycle
@@ -343,6 +425,18 @@ external_plugins:
   - name: needs-rebase
     events:
       - pull_request
+  falcosecurity/cloud-native-security-hub:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/cloud-native-security-hub-frontend:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/cloud-native-security-hub-backend:
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/community:
     - name: needs-rebase
       events:
