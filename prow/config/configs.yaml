@@ -22,8 +22,9 @@ branch-protection:
             master:
               protect: true
         advocacy:
-          branches: master
-            protect: true
+          branches:
+            master:
+              protect: true
         client-go:
           branches:
             master:
