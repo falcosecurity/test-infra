@@ -34,6 +34,18 @@ branch-protection:
           branches:
             master:
               protect: true
+        cloud-native-security-hub:
+          branches:
+            master:
+              protect: true
+        cloud-native-security-hub-frontend:
+          branches:
+            master:
+              protect: true
+        cloud-native-security-hub-backend:
+          branches:
+            master:
+              protect: true
         community:
           branches:
             master:
@@ -85,6 +97,9 @@ tide:
     falcosecurity/advocacy: rebase
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
+    falcosecurity/cloud-native-security-hub: rebase
+    falcosecurity/cloud-native-security-hub-frontend: rebase
+    falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
     falcosecurity/falco: rebase
     falcosecurity/falco-exporter: rebase
@@ -145,6 +160,45 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/client-py
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/cloud-native-security-hub
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/cloud-native-security-hub-frontend
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/cloud-native-security-hub-backend
     labels:
     - approved
     - lgtm
