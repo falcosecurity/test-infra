@@ -34,6 +34,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        client-rs:
+          branches:
+            master:
+              protect: true
         cloud-native-security-hub:
           branches:
             master:
@@ -97,6 +101,7 @@ tide:
     falcosecurity/advocacy: rebase
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
+    falcosecurity/client-rs: rebase
     falcosecurity/cloud-native-security-hub: rebase
     falcosecurity/cloud-native-security-hub-frontend: rebase
     falcosecurity/cloud-native-security-hub-backend: rebase
@@ -160,6 +165,19 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/client-py
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/client-rs
     labels:
     - approved
     - lgtm

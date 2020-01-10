@@ -4,6 +4,7 @@ approve:
     - falcosecurity/advocacy
     - falcosecurity/client-go
     - falcosecurity/client-py
+    - falcosecurity/client-rs
     - falcosecurity/cloud-native-security-hub
     - falcosecurity/cloud-native-security-hub-frontend
     - falcosecurity/cloud-native-security-hub-backend
@@ -44,6 +45,7 @@ lgtm:
     - falcosecurity/advocacy
     - falcosecurity/client-go
     - falcosecurity/client-py
+    - falcosecurity/client-rs
     - falcosecurity/cloud-native-security-hub
     - falcosecurity/cloud-native-security-hub-frontend
     - falcosecurity/cloud-native-security-hub-backend
@@ -88,6 +90,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: client-py
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: client-rs
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -232,6 +242,27 @@ plugins:
     - welcome
     - wip
   falcosecurity/client-py:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - docs-no-retest
+    - dog
+    - goose
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - release-note
+    - require-matching-label
+    - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/client-rs:
     - approve
     - assign
     - blunderbuss
@@ -466,6 +497,10 @@ external_plugins:
     events:
       - pull_request
   falcosecurity/client-py:
+  - name: needs-rebase
+    events:
+      - pull_request
+  falcosecurity/client-rs:
   - name: needs-rebase
     events:
       - pull_request
