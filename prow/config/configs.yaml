@@ -59,8 +59,6 @@ branch-protection:
             contexts:
             - Travis CI - Pull Request
           branches:
-            agent-master:
-              protect: true
             dev:
               protect: true
             master:
