@@ -6,9 +6,9 @@ branch-protection:
     dismiss_stale_reviews: true # automat dismiss old reviews
     dismissal_restrictions: # allow review dismissals
       teams:
-      - maintainers
-      - machine_users
-    require_code_owner_reviews: true  # require a code owner approval
+        - maintainers
+        - machine_users
+    require_code_owner_reviews: true # require a code owner approval
     required_approving_review_count: 1 # number of approvals
   required_status_checks:
     strict: false # we don't want to block any PR if it's not up to date, we have the rebase merge strategy and needs-rebase plugin
@@ -16,7 +16,7 @@ branch-protection:
     falcosecurity:
       required_status_checks:
         contexts:
-        - dco
+          - dco
       repos:
         .github:
           branches:
@@ -55,9 +55,12 @@ branch-protection:
             master:
               protect: true
         falco:
+          required_pull_request_reviews:
+            required_approving_review_count: 2
           required_status_checks:
             contexts:
-            - Travis CI - Pull Request
+              - "ci/circleci: integration"
+              - "ci/circleci: centos8"
           branches:
             dev:
               protect: true
