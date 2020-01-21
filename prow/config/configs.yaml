@@ -60,7 +60,7 @@ branch-protection:
           required_status_checks:
             contexts:
               - "ci/circleci: integration"
-              - "ci/circleci: centos8"
+              - "ci/circleci: centos7"
           branches:
             dev:
               protect: true
