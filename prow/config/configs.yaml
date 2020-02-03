@@ -62,8 +62,6 @@ branch-protection:
               - "ci/circleci: integration"
               - "ci/circleci: centos7"
           branches:
-            dev:
-              protect: true
             master:
               protect: true
         falco-exporter:
