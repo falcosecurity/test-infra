@@ -230,6 +230,7 @@ plugins:
     - dog
     - golint
     - goose
+    - help
     - hold
     - label
     - lifecycle
@@ -251,6 +252,7 @@ plugins:
     - docs-no-retest
     - dog
     - goose
+    - help
     - hold
     - label
     - lifecycle
@@ -272,6 +274,7 @@ plugins:
     - docs-no-retest
     - dog
     - goose
+    - help
     - hold
     - label
     - lifecycle
@@ -290,6 +293,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - help
     - hold
     - label
     - lifecycle
@@ -307,6 +311,7 @@ plugins:
     - branchcleaner
     - cat
     - dco
+    - help
     - hold
     - label
     - lifecycle
@@ -325,6 +330,7 @@ plugins:
     - cat
     - dco
     - golint
+    - help
     - hold
     - label
     - lifecycle
