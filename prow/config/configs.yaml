@@ -26,6 +26,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        build-service:
+          branches:
+            master:
+              protect: true
         client-go:
           branches:
             master:
@@ -98,6 +102,7 @@ tide:
   merge_method:
     falcosecurity/.github: rebase
     falcosecurity/advocacy: rebase
+    falcosecurity/build-service: rebase
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
     falcosecurity/client-rs: rebase
@@ -126,6 +131,18 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/advocacy
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - needs-rebase
+  - repos:
+    - falcosecurity/build-service
     labels:
     - approved
     - lgtm
