@@ -229,7 +229,7 @@ plugins:
     - verify-owners
     - welcome
     - wip
-  falcosecurity/advocacy:
+  falcosecurity/build-service:
     - approve
     - assign
     - blunderbuss
