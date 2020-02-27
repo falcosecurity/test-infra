@@ -26,10 +26,6 @@ branch-protection:
           branches:
             master:
               protect: true
-        build-service:
-          branches:
-            master:
-              protect: true
         client-go:
           branches:
             master:
@@ -55,6 +51,10 @@ branch-protection:
             master:
               protect: true
         community:
+          branches:
+            master:
+              protect: true
+        driverkit:
           branches:
             master:
               protect: true
@@ -102,7 +102,6 @@ tide:
   merge_method:
     falcosecurity/.github: rebase
     falcosecurity/advocacy: rebase
-    falcosecurity/build-service: rebase
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
     falcosecurity/client-rs: rebase
@@ -110,6 +109,7 @@ tide:
     falcosecurity/cloud-native-security-hub-frontend: rebase
     falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
+    falcosecurity/driverkit: rebase
     falcosecurity/falco: rebase
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
@@ -142,18 +142,6 @@ tide:
     - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
-    - falcosecurity/build-service
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
     - falcosecurity/client-go
     labels:
     - approved
@@ -165,6 +153,18 @@ tide:
     - do-not-merge/invalid-owners-file
     - do-not-merge/work-in-progress
     - do-not-merge/release-note-label-needed
+    - needs-rebase
+  - repos:
+    - falcosecurity/driverkit
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
     - needs-rebase
   - repos:
     - falcosecurity/falco
