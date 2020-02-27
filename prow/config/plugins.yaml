@@ -2,7 +2,6 @@ approve:
   - repos:
     - falcosecurity/.github
     - falcosecurity/advocacy
-    - falcosecurity/build-service
     - falcosecurity/client-go
     - falcosecurity/client-py
     - falcosecurity/client-rs
@@ -10,6 +9,7 @@ approve:
     - falcosecurity/cloud-native-security-hub-frontend
     - falcosecurity/cloud-native-security-hub-backend
     - falcosecurity/community
+    - falcosecurity/driverkit
     - falcosecurity/falco
     - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
@@ -44,7 +44,6 @@ lgtm:
   - repos:
     - falcosecurity/.github
     - falcosecurity/advocacy
-    - falcosecurity/build-service
     - falcosecurity/client-go
     - falcosecurity/client-py
     - falcosecurity/client-rs
@@ -52,6 +51,7 @@ lgtm:
     - falcosecurity/cloud-native-security-hub-frontend
     - falcosecurity/cloud-native-security-hub-backend
     - falcosecurity/community
+    - falcosecurity/driverkit
     - falcosecurity/falco
     - falcosecurity/falco-exporter
     - falcosecurity/falcoctl
@@ -76,14 +76,6 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: .github
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: build-service
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -132,6 +124,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: cloud-native-security-hub-backend
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: driverkit
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -218,26 +218,6 @@ plugins:
     - cat
     - dco
     - dog
-    - goose
-    - help
-    - hold
-    - label
-    - lifecycle
-    - lgtm
-    - require-matching-label
-    - size
-    - verify-owners
-    - welcome
-    - wip
-  falcosecurity/build-service:
-    - approve
-    - assign
-    - blunderbuss
-    - branchcleaner
-    - cat
-    - dco
-    - dog
-    - golint
     - goose
     - help
     - hold
@@ -387,6 +367,26 @@ plugins:
     - lgtm
     - require-matching-label
     - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/driverkit:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - golint
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - require-matching-label
     - size
     - verify-owners
     - welcome
@@ -528,10 +528,6 @@ external_plugins:
   - name: needs-rebase
     events:
       - pull_request
-  falcosecurity/build-service:
-    - name: needs-rebase
-      events:
-        - pull_request
   falcosecurity/client-go:
   - name: needs-rebase
     events:
@@ -557,6 +553,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/community:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/driverkit:
     - name: needs-rebase
       events:
         - pull_request
