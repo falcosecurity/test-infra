@@ -1,21 +1,21 @@
 approve:
   - repos:
-    - falcosecurity/.github
-    - falcosecurity/advocacy
-    - falcosecurity/client-go
-    - falcosecurity/client-py
-    - falcosecurity/client-rs
-    - falcosecurity/cloud-native-security-hub
-    - falcosecurity/cloud-native-security-hub-frontend
-    - falcosecurity/cloud-native-security-hub-backend
-    - falcosecurity/community
-    - falcosecurity/driverkit
-    - falcosecurity/falco
-    - falcosecurity/falco-exporter
-    - falcosecurity/falcoctl
-    - falcosecurity/falco-website
-    - falcosecurity/template-repository
-    - falcosecurity/test-infra
+      - falcosecurity/.github
+      - falcosecurity/advocacy
+      - falcosecurity/client-go
+      - falcosecurity/client-py
+      - falcosecurity/client-rs
+      - falcosecurity/cloud-native-security-hub
+      - falcosecurity/cloud-native-security-hub-frontend
+      - falcosecurity/cloud-native-security-hub-backend
+      - falcosecurity/community
+      - falcosecurity/driverkit
+      - falcosecurity/falco
+      - falcosecurity/falco-exporter
+      - falcosecurity/falcoctl
+      - falcosecurity/falco-website
+      - falcosecurity/template-repository
+      - falcosecurity/test-infra
     lgtm_acts_as_approve: true
     require_self_approval: true
 
@@ -42,29 +42,29 @@ label:
 
 lgtm:
   - repos:
-    - falcosecurity/.github
-    - falcosecurity/advocacy
-    - falcosecurity/client-go
-    - falcosecurity/client-py
-    - falcosecurity/client-rs
-    - falcosecurity/cloud-native-security-hub
-    - falcosecurity/cloud-native-security-hub-frontend
-    - falcosecurity/cloud-native-security-hub-backend
-    - falcosecurity/community
-    - falcosecurity/driverkit
-    - falcosecurity/falco
-    - falcosecurity/falco-exporter
-    - falcosecurity/falcoctl
-    - falcosecurity/falco-website
-    - falcosecurity/template-repository
-    - falcosecurity/test-infra
+      - falcosecurity/.github
+      - falcosecurity/advocacy
+      - falcosecurity/client-go
+      - falcosecurity/client-py
+      - falcosecurity/client-rs
+      - falcosecurity/cloud-native-security-hub
+      - falcosecurity/cloud-native-security-hub-frontend
+      - falcosecurity/cloud-native-security-hub-backend
+      - falcosecurity/community
+      - falcosecurity/driverkit
+      - falcosecurity/falco
+      - falcosecurity/falco-exporter
+      - falcosecurity/falcoctl
+      - falcosecurity/falco-website
+      - falcosecurity/template-repository
+      - falcosecurity/test-infra
     review_acts_as_lgtm: true
     store_tree_hash: true
 
 repo_milestone:
   # Default/fallback milestone maintainers
   # To obtain the team ID: curl -H "Authorization: token <token>" "https://api.github.com/orgs/falcosecurity/teams"
-  '':
+  "":
     maintainers_id: 3283563
     maintainers_team: maintainers
   falcosecurity/falco:
@@ -387,6 +387,7 @@ plugins:
     - lifecycle
     - lgtm
     - require-matching-label
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -525,21 +526,21 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/advocacy:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/client-go:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/client-py:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/client-rs:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/cloud-native-security-hub:
     - name: needs-rebase
       events:
@@ -561,25 +562,25 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falco:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/falco-exporter:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/falcoctl:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/falco-website:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/template-repository:
-  - name: needs-rebase
-    events:
-      - pull_request
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/test-infra:
     - name: needs-rebase
       events:
