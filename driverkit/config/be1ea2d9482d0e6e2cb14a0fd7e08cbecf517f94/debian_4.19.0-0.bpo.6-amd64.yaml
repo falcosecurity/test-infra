@@ -1,0 +1,5 @@
+kernelrelease: 4.19.0-0.bpo.6-amd64
+output:
+    module: output/be1ea2d9482d0e6e2cb14a0fd7e08cbecf517f94/falco_debian_4.19.0-0.bpo.6-amd64.ko
+    probe: output/be1ea2d9482d0e6e2cb14a0fd7e08cbecf517f94/falco_debian_4.19.0-0.bpo.6-amd64.o
+target: debian
