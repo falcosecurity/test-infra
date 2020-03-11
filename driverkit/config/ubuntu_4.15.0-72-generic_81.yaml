@@ -1,0 +1,6 @@
+kernelrelease: 4.15.0-72-generic
+kernelversion: 81
+target: ubuntu-generic
+output:
+    module: output/falco_ubuntu_4.15.0-72-generic_81.ko
+    probe: output/falco_ubuntu_4.15.0-72-generic_81.o
