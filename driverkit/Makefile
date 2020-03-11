@@ -1,10 +1,15 @@
 SHELL := /bin/bash
 
-VERSIONS := be1ea2d9482d0e6e2cb14a0fd7e08cbecf517f94
+VERSIONS := be1ea2d9482d0e6e2cb14a0fd7e08cbecf517f94 dev
 DRIVERKIT ?= $(shell which driverkit)
-CONFIGS := $(shell ls config/*)
+CONFIGS := $(wildcard config/*.yaml)
 
-all: $(addprefix be1ea2d9482d0e6e2cb14a0fd7e08cbecf517f94_, $(notdir $(wildcard config/*)))
+define all
+all: $(1)
+endef
+$(foreach VERSION,$(VERSIONS),\
+	$(eval $(call all,$(addprefix $(VERSION)_,$(notdir $(CONFIGS)))))\
+)
 
 # $(1): the driver version
 # $(2): the driverkit yaml configuration
