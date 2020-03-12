@@ -52,3 +52,6 @@ $(foreach VERSION,$(VERSIONS),\
 	$(eval $(call gen_publish_targets,$(VERSION)))\
 )
 
+.PHONY: clean
+clean:
+	@find output -type f -not -name '.gitignore' -delete
