@@ -42,11 +42,16 @@ endif
 
 prepare_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
 	@echo "upserting falcosecurity/driver/kernel-module/$(1) version..."
+	@echo "jfrog bt vu falcosecurity/driver/kernel-module/$(1) --desc="Falco kernel module" --released=`date -u +"%Y-%m-%dT%H:%M:%S.000Z"` --user poiana --key ${BINTRAY_SECRET}"
 	@echo "upserting falcosecurity/driver/ebpf-probe/$(1) version..."
+	@echo "jfrog bt vu falcosecurity/driver/ebpf-probe/$(1) --desc="Falco eBPF probe" --released=`date -u +"%Y-%m-%dT%H:%M:%S.000Z"` --user poiana --key ${BINTRAY_SECRET}"
 
 publish_$(1): prepare_$(1)
 	@echo "publishing kernel modules to bintray ..."
+	@echo "jfrog bt u output/$(1)/kernel-module falcosecurity/driver/kernel-module/$(1) x86_64/ --user poiana --key ${BINTRAY_SECRET} --publish --override"
 	@echo "publishing eBPF probes to bintray ..."
+	@echo "jfrog bt u output/$(1)/ebpf-probe falcosecurity/driver/ebpf-probe/$(1) x86_64/ --user poiana --key ${BINTRAY_SECRET} --publish --override"
+
 endef
 $(foreach VERSION,$(VERSIONS),\
 	$(eval $(call gen_publish_targets,$(VERSION)))\
