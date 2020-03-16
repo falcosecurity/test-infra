@@ -12,9 +12,9 @@ jobs:
             cd driverkit
             make all
       - persist_to_workspace:
-          root: driverkit/output
+          root: driverkit
           paths:
-            - *
+            - output
   "driverkit/publish":
     docker:
       - image: docker.bintray.io/jfrog/jfrog-cli-go:latest
