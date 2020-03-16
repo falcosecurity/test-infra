@@ -1,0 +1,53 @@
+version: 2
+jobs:
+  "driverkit/build":
+    docker:
+      - image: docker.io/falcosecurity/driverkit:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Build drivers
+          command: |
+            cd driverkit
+            make all
+      - persist_to_workspace:
+          root: driverkit/output
+          paths:
+            - *
+  "driverkit/publish":
+    docker:
+      - image: docker.bintray.io/jfrog/jfrog-cli-go:latest
+    steps:
+      - checkout
+      - attach_workspace:
+          at: driverkit/output
+      - run:
+          name: Prepare environment
+          command: |
+            apk update
+            apk add make
+      - run:
+          name: Publish drivers on bintray
+          command: |
+            cd driverkit
+            make publish
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "driverkit/build":
+          context: falco
+          filters:
+            branches:
+              only:
+                - master
+      - "driverkit/publish":
+          context: falco
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - "driverkit/build"
