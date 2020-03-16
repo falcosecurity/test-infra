@@ -58,6 +58,9 @@ branch-protection:
           branches:
             master:
               protect: true
+          required_status_checks:
+            contexts:
+              - "ci/circleci: test"
         falco:
           required_pull_request_reviews:
             required_approving_review_count: 2
