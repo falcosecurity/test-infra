@@ -7,6 +7,11 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add make bash git
+      - run:
           name: Build drivers
           command: |
             cd driverkit
@@ -30,7 +35,7 @@ jobs:
           name: Prepare environment
           command: |
             apk update
-            apk add make
+            apk add make git
       - run:
           name: Publish drivers on bintray
           command: |
