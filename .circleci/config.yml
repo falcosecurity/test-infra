@@ -2,7 +2,7 @@ version: 2
 jobs:
   "driverkit/build":
     docker:
-      - image: docker.io/falcosecurity/driverkit:latest
+      - image: docker.io/falcosecurity/driverkit:549602bff340ee92e7f523ad4c6f51140bb7b236
     steps:
       - setup_remote_docker
       - checkout
