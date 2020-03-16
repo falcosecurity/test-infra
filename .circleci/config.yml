@@ -14,10 +14,10 @@ jobs:
       - run:
           name: Build drivers
           command: |
-            cd driverkit
-            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff driverkit)
+            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
             if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ]; 
             then
+              cd driverkit
               make all
             fi
       - persist_to_workspace:
@@ -39,10 +39,10 @@ jobs:
       - run:
           name: Publish drivers on bintray
           command: |
-            cd driverkit
-            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff driverkit)
+            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
             if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ]; 
             then
+              cd driverkit
               make publish
             fi
 workflows:
