@@ -54,12 +54,12 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - fix/build-grid
       - "driverkit/publish":
           context: falco
           filters:
             branches:
               only:
-                - master
+                - fix/build-grid
           requires:
             - "driverkit/build"
