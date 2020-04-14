@@ -10,6 +10,7 @@ approve:
       - falcosecurity/cloud-native-security-hub-backend
       - falcosecurity/community
       - falcosecurity/driverkit
+      - falcosecurity/event-generator
       - falcosecurity/falco
       - falcosecurity/falco-exporter
       - falcosecurity/falcoctl
@@ -52,6 +53,7 @@ lgtm:
       - falcosecurity/cloud-native-security-hub-backend
       - falcosecurity/community
       - falcosecurity/driverkit
+      - falcosecurity/event-generator
       - falcosecurity/falco
       - falcosecurity/falco-exporter
       - falcosecurity/falcoctl
@@ -132,6 +134,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: driverkit
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: event-generator
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -392,6 +402,27 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/event-generator:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - golint
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - require-matching-label
+    - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/falco:
     - approve
     - assign
@@ -558,6 +589,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/driverkit:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/event-generator:
     - name: needs-rebase
       events:
         - pull_request
