@@ -1,5 +1,5 @@
 branch-protection:
-  enforce_admins: true # rules apply to admins
+  enforce_admins: true # rules apply to admins too!
   restrictions:
     teams: ["maintainers", "machine_users"]
   required_pull_request_reviews:
@@ -61,6 +61,10 @@ branch-protection:
           required_status_checks:
             contexts:
               - "ci/circleci: test"
+        event-generator:
+          branches:
+            master:
+              protect: true
         falco:
           required_pull_request_reviews:
             required_approving_review_count: 2
@@ -113,6 +117,7 @@ tide:
     falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
     falcosecurity/driverkit: rebase
+    falcosecurity/event-generator: rebase
     falcosecurity/falco: rebase
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
@@ -159,6 +164,18 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/driverkit
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - needs-rebase
+  - repos:
+    - falcosecurity/event-generator
     labels:
     - approved
     - lgtm
