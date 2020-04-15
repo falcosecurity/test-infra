@@ -12,8 +12,8 @@ jobs:
             DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
             cd driverkit
             CID=$(docker create --rm falcosecurity/driverkit:latest)
-            docker cp $CID:/bin/driverkit driverkit
-            make -e DRIVERKIT="./driverkit" -j2 all
+            docker cp $CID:/bin/driverkit /bin/driverkit
+            make -j2 all
       - persist_to_workspace:
           root: driverkit
           paths:
@@ -54,6 +54,6 @@ workflows:
           filters:
             branches:
               only:
-                - fix/build-grid
+                - master
           requires:
             - "driverkit/build"

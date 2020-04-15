@@ -17,6 +17,9 @@ publish: $(addprefix publish_,$(VERSIONS))
 define gen_build_targets
 $(1): $(3)
 	@mkdir -p output/$(2)
+ifndef DRIVERKIT
+$(error DRIVERKIT is not set)
+endif
 	@${DRIVERKIT} docker --loglevel=debug -c $(3) --driverversion $(2)
 endef
 $(foreach CONFIG,$(CONFIGS),\
