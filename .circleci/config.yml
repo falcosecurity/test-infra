@@ -2,18 +2,24 @@ version: 2
 jobs:
   "driverkit/build":
     docker:
-      - image: cimg/base:2020.01
+      - image: docker.io/falcosecurity/driverkit:latest
     steps:
       - setup_remote_docker
       - checkout
       - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add make bash git
+      - run:
           name: Build drivers
           command: |
             DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
-            cd driverkit
-            CID=$(docker create --rm falcosecurity/driverkit:latest)
-            docker cp $CID:/bin/driverkit /bin/driverkit
-            make -j2 all
+            if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
+            then
+              cd driverkit
+              make -j2 all
+            fi
       - persist_to_workspace:
           root: driverkit
           paths:
