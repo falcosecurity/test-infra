@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: driverkit/output
+          at: driverkit
       - run:
           name: Prepare environment
           command: |
@@ -54,12 +54,12 @@ workflows:
           filters:
             branches:
               only:
-                - fix/build-grid
+                - master
       - "driverkit/publish":
           context: falco
           filters:
             branches:
               only:
-                - fix/build-grid
+                - master
           requires:
             - "driverkit/build"

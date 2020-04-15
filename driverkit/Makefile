@@ -41,9 +41,9 @@ ifneq ("$(wildcard output/$(1)/*.o)","")
 endif
 
 prepare_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
-	@echo -n "upserting falcosecurity/driver/kernel-module/$(1) version..."
+	@echo "upserting falcosecurity/driver/kernel-module/$(1) version..."
 	jfrog bt vs falcosecurity/driver/kernel-module/$(1) --user poiana --key ${BINTRAY_SECRET} || jfrog bt vc falcosecurity/driver/kernel-module/$(1) --desc="Falco kernel module" --released=`date -u +"%Y-%m-%dT%H:%M:%S.000Z"` --user poiana --key ${BINTRAY_SECRET}
-	@echo -n "upserting falcosecurity/driver/ebpf-probe/$(1) version..."
+	@echo "upserting falcosecurity/driver/ebpf-probe/$(1) version..."
 	jfrog bt vs falcosecurity/driver/ebpf-probe/$(1) --user poiana --key ${BINTRAY_SECRET} || jfrog bt vc falcosecurity/driver/ebpf-probe/$(1) --desc="Falco eBPF probe" --released=`date -u +"%Y-%m-%dT%H:%M:%S.000Z"` --user poiana --key ${BINTRAY_SECRET}
 
 publish_$(1): prepare_$(1)
