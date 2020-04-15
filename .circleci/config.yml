@@ -60,6 +60,6 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - fix/build-grid
           requires:
             - "driverkit/build"
