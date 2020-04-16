@@ -14,6 +14,7 @@ branch-protection:
     strict: false # we don't want to block any PR if it's not up to date, we have the rebase merge strategy and needs-rebase plugin
   orgs:
     falcosecurity:
+      # dco check is required for all PRs of any falcosecurity project
       required_status_checks:
         contexts:
           - dco
@@ -30,9 +31,9 @@ branch-protection:
           branches:
             master:
               protect: true
-            required_status_checks:
-              contexts:
-                - "ci/circleci: test"
+          required_status_checks:
+            contexts:
+              - "ci/circleci: test"
         client-py:
           branches:
             master:
@@ -86,9 +87,9 @@ branch-protection:
           branches:
             master:
               protect: true
-            required_status_checks:
-              contexts:
-                - "ci/circleci: test"
+          required_status_checks:
+            contexts:
+              - "ci/circleci: test"
         falcoctl:
           branches:
             master:
@@ -97,9 +98,9 @@ branch-protection:
           branches:
             master:
               protect: true
-            required_status_checks:
-              contexts:
-                - "netlify/falcosecurity/deploy-preview"
+          required_status_checks:
+            contexts:
+              - "netlify/falcosecurity/deploy-preview"
         template-repository:
           branches:
             master:
@@ -108,6 +109,9 @@ branch-protection:
           branches:
             master:
               protect: true
+          required_status_checks:
+            contexts:
+              - "ci/circleci: build"
 
 log_level: debug
 
