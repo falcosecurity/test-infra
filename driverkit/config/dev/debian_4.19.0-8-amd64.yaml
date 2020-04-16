@@ -1,0 +1,5 @@
+kernelrelease: 4.19.0-8-amd64
+target: debian
+output:
+  module: output/dev/falco_debian_4.19.0-8-amd64.ko
+  probe: output/dev/falco_debian_4.19.0-8-amd64.o
