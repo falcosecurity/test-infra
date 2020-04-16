@@ -97,6 +97,9 @@ branch-protection:
           branches:
             master:
               protect: true
+            required_status_checks:
+              contexts:
+                - "netlify/falcosecurity/deploy-preview"
         template-repository:
           branches:
             master:
