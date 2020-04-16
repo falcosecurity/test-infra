@@ -1,4 +1,0 @@
-kernelrelease: 2.6.32-754.14.2.el6.x86_64
-target: centos
-output:
-    module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_centos_2.6.32-754.14.2.el6.x86_64.ko

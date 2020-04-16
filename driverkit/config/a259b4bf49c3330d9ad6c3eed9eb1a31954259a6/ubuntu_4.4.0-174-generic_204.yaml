@@ -1,5 +1,0 @@
-kernelrelease: 4.4.0-174-generic
-kernelversion: 204
-target: ubuntu-generic
-output:
-    module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu_4.4.0-174-generic_204.ko

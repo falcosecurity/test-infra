@@ -1,0 +1,5 @@
+kernelrelease: 5.5.0-1-amd64
+target: debian
+output:
+  module: output/dev/falco_debian_5.5.0-1-amd64.ko
+  probe: output/dev/falco_debian_5.5.0-1-amd64.o

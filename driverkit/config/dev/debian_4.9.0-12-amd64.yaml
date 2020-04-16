@@ -1,0 +1,4 @@
+kernelrelease: 4.9.0-12-amd64
+target: debian
+output:
+  module: output/dev/falco_debian_4.9.0-12-amd64.ko

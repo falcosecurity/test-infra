@@ -1,4 +1,0 @@
-kernelrelease: 4.18.0-147.5.1.el8_1.x86_64
-target: centos
-output:
-    module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_centos_4.18.0-147.5.1.el8_1.x86_64.ko
