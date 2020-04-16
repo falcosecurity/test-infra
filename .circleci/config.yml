@@ -20,6 +20,14 @@ jobs:
               cd driverkit
               make -j2 all
             fi
+      - run:
+          name: Prepare artifacts
+          command: |
+            mkdir -p /tmp/dbg-logs
+            cp output/failing.log /tmp/dbg-logs/failing.log
+      - store_artifacts:
+          path: /tmp/dbg-logs
+          destination: /dbg-logs
       - persist_to_workspace:
           root: driverkit
           paths:
