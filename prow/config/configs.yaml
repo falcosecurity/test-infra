@@ -54,6 +54,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        contrib:
+          branches:
+            master:
+              protect: true
         driverkit:
           branches:
             master:
@@ -116,6 +120,7 @@ tide:
     falcosecurity/cloud-native-security-hub-frontend: rebase
     falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
+    falcosecurity/contrib: rebase
     falcosecurity/driverkit: rebase
     falcosecurity/event-generator: rebase
     falcosecurity/falco: rebase
@@ -266,6 +271,18 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/community
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - needs-rebase
+  - repos:
+    - falcosecurity/contrib
     labels:
     - approved
     - lgtm
