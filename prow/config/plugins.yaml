@@ -418,6 +418,7 @@ plugins:
     - lifecycle
     - lgtm
     - require-matching-label
+    - release-note
     - retitle
     - size
     - verify-owners
