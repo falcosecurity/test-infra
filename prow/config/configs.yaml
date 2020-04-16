@@ -30,6 +30,9 @@ branch-protection:
           branches:
             master:
               protect: true
+            required_status_checks:
+              contexts:
+                - "ci/circleci: test"
         client-py:
           branches:
             master:
