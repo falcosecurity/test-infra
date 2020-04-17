@@ -14,6 +14,7 @@ jobs:
       - run:
           name: Build drivers
           command: |
+            touch driverkit/output/failing.log
             DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
             if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
             then
@@ -59,10 +60,6 @@ workflows:
     jobs:
       - "driverkit/build":
           context: falco
-          filters:
-            branches:
-              only:
-                - master
       - "driverkit/publish":
           context: falco
           filters:
