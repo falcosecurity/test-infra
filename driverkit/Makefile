@@ -17,7 +17,7 @@ publish: $(addprefix publish_,$(VERSIONS))
 define gen_build_targets
 $(1): $(3)
 	@mkdir -p output/$(2)
-	@${DRIVERKIT} docker --loglevel=debug -c $(3) --driverversion $(2) --timeout 120 || echo $(3) >> output/failing.log
+	@${DRIVERKIT} docker --loglevel=debug -c $(3) --driverversion $(2) --timeout 1000 || echo $(3) >> output/failing.log
 endef
 $(foreach CONFIG,$(CONFIGS),\
 	$(eval INNER := $(patsubst config/%,%,$(CONFIG)))\
