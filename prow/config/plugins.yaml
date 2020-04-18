@@ -391,7 +391,7 @@ plugins:
     - verify-owners
     - welcome
     - wip
-  falcosecurity/community:
+  falcosecurity/contrib:
     - approve
     - assign
     - blunderbuss
