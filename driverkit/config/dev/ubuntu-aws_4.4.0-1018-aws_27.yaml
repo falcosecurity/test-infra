@@ -1,0 +1,5 @@
+kernelversion: 27
+kernelrelease: 4.4.0-1018-aws
+target: ubuntu-aws
+output:
+  module: output/dev/falco_ubuntu-aws_4.4.0-1018-aws_27.ko

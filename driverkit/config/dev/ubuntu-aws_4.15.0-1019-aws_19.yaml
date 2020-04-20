@@ -1,0 +1,6 @@
+kernelversion: 19
+kernelrelease: 4.15.0-1019-aws
+target: ubuntu-aws
+output:
+  module: output/dev/falco_ubuntu-aws_4.15.0-1019-aws_19.ko
+  probe: output/dev/falco_ubuntu-aws_4.15.0-1019-aws_19.o

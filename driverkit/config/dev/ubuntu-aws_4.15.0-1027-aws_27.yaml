@@ -1,0 +1,6 @@
+kernelversion: 27
+kernelrelease: 4.15.0-1027-aws
+target: ubuntu-aws
+output:
+  module: output/dev/falco_ubuntu-aws_4.15.0-1027-aws_27.ko
+  probe: output/dev/falco_ubuntu-aws_4.15.0-1027-aws_27.o
