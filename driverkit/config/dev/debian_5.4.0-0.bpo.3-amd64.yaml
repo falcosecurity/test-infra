@@ -1,5 +1,0 @@
-kernelrelease: 5.4.0-0.bpo.3-amd64
-target: debian
-output:
-  module: output/dev/falco_debian_5.4.0-0.bpo.3-amd64.ko
-  probe: output/dev/falco_debian_5.4.0-0.bpo.3-amd64.o
