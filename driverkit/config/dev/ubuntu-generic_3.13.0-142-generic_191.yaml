@@ -1,0 +1,5 @@
+kernelversion: 191
+kernelrelease: 3.13.0-142-generic
+target: ubuntu-generic
+output:
+  module: output/dev/falco_ubuntu-generic_3.13.0-142-generic_191.ko

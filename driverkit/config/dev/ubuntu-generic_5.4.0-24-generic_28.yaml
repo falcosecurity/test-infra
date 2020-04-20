@@ -1,0 +1,6 @@
+kernelversion: 28
+kernelrelease: 5.4.0-24-generic
+target: ubuntu-generic
+output:
+  module: output/dev/falco_ubuntu-generic_5.4.0-24-generic_28.ko
+  probe: output/dev/falco_ubuntu-generic_5.4.0-24-generic_28.o

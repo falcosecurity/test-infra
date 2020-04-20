@@ -1,0 +1,6 @@
+kernelversion: 97
+kernelrelease: 4.15.0-96-generic
+target: ubuntu-generic
+output:
+  module: output/dev/falco_ubuntu-generic_4.15.0-96-generic_97.ko
+  probe: output/dev/falco_ubuntu-generic_4.15.0-96-generic_97.o
