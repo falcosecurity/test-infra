@@ -19,7 +19,7 @@ jobs:
             if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
             then
               cd driverkit
-              make all
+              make -j2 all
             fi
       - run:
           name: Prepare artifacts
