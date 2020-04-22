@@ -2,4 +2,4 @@ kernelversion: 165
 kernelrelease: 4.4.0-139-generic
 target: ubuntu-generic
 output:
-  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-generic_4.4.0-139-generic_165.ko
+  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-generic_4.4.0-139-generic_165.ko
