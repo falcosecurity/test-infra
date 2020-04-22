@@ -2,5 +2,5 @@ kernelversion: 98
 kernelrelease: 4.15.0-97-generic
 target: ubuntu-generic
 output:
-  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-generic_4.15.0-97-generic_98.ko
-  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-generic_4.15.0-97-generic_98.o
+  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-generic_4.15.0-97-generic_98.ko
+  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-generic_4.15.0-97-generic_98.o

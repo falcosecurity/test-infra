@@ -2,4 +2,4 @@ kernelversion: 80
 kernelrelease: 4.4.0-59-generic
 target: ubuntu-generic
 output:
-  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-generic_4.4.0-59-generic_80.ko
+  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-generic_4.4.0-59-generic_80.ko

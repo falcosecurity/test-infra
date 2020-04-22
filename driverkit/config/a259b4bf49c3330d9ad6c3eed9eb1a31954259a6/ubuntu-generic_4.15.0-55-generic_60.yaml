@@ -2,5 +2,5 @@ kernelversion: 60
 kernelrelease: 4.15.0-55-generic
 target: ubuntu-generic
 output:
-  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-generic_4.15.0-55-generic_60.ko
-  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-generic_4.15.0-55-generic_60.o
+  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-generic_4.15.0-55-generic_60.ko
+  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-generic_4.15.0-55-generic_60.o

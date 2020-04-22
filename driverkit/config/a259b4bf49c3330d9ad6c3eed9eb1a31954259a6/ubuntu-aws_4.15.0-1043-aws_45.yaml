@@ -2,5 +2,5 @@ kernelversion: 45
 kernelrelease: 4.15.0-1043-aws
 target: ubuntu-aws
 output:
-  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-aws_4.15.0-1043-aws_45.ko
-  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6//falco_ubuntu-aws_4.15.0-1043-aws_45.o
+  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-aws_4.15.0-1043-aws_45.ko
+  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-aws_4.15.0-1043-aws_45.o
