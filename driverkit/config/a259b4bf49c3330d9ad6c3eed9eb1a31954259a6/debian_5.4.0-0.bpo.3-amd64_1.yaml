@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 5.4.0-0.bpo.3-amd64
+target: debian
+output:
+  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_debian_5.4.0-0.bpo.3-amd64_1.ko
+  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_debian_5.4.0-0.bpo.3-amd64_1.o
