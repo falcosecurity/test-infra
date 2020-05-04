@@ -1,5 +1,0 @@
-kernelversion: 101
-kernelrelease: 3.2.0-67-generic
-target: ubuntu-generic
-output:
-  module: output/dev/falco_ubuntu-generic_3.2.0-67-generic_101.ko
