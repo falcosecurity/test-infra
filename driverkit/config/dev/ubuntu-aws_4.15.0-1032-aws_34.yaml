@@ -1,6 +1,0 @@
-kernelversion: 34
-kernelrelease: 4.15.0-1032-aws
-target: ubuntu-aws
-output:
-  module: output/dev/falco_ubuntu-aws_4.15.0-1032-aws_34.ko
-  probe: output/dev/falco_ubuntu-aws_4.15.0-1032-aws_34.o

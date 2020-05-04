@@ -1,5 +1,0 @@
-kernelversion: 82
-kernelrelease: 4.4.0-1072-aws
-target: ubuntu-aws
-output:
-  module: output/dev/falco_ubuntu-aws_4.4.0-1072-aws_82.ko

@@ -1,5 +1,0 @@
-kernelversion: 117
-kernelrelease: 4.4.0-1106-aws
-target: ubuntu-aws
-output:
-  module: output/dev/falco_ubuntu-aws_4.4.0-1106-aws_117.ko

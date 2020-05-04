@@ -1,5 +1,0 @@
-kernelversion: 198
-kernelrelease: 4.4.0-169-generic
-target: ubuntu-generic
-output:
-  module: output/dev/falco_ubuntu-generic_4.4.0-169-generic_198.ko

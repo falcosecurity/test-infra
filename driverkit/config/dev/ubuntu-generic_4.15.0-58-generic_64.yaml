@@ -1,6 +1,0 @@
-kernelversion: 64
-kernelrelease: 4.15.0-58-generic
-target: ubuntu-generic
-output:
-  module: output/dev/falco_ubuntu-generic_4.15.0-58-generic_64.ko
-  probe: output/dev/falco_ubuntu-generic_4.15.0-58-generic_64.o

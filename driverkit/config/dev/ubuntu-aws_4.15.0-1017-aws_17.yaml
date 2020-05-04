@@ -1,6 +1,0 @@
-kernelversion: 17
-kernelrelease: 4.15.0-1017-aws
-target: ubuntu-aws
-output:
-  module: output/dev/falco_ubuntu-aws_4.15.0-1017-aws_17.ko
-  probe: output/dev/falco_ubuntu-aws_4.15.0-1017-aws_17.o

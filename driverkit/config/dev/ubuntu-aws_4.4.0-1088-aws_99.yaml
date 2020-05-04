@@ -1,5 +1,0 @@
-kernelversion: 99
-kernelrelease: 4.4.0-1088-aws
-target: ubuntu-aws
-output:
-  module: output/dev/falco_ubuntu-aws_4.4.0-1088-aws_99.ko
