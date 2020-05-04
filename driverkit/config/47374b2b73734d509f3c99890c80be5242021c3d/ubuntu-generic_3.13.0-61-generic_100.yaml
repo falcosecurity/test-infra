@@ -1,0 +1,5 @@
+kernelversion: 100
+kernelrelease: 3.13.0-61-generic
+target: ubuntu-generic
+output:
+  module: output/47374b2b73734d509f3c99890c80be5242021c3d/falco_ubuntu-generic_3.13.0-61-generic_100.ko

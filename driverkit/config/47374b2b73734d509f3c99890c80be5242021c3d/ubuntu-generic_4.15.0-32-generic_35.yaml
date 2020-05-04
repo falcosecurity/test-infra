@@ -1,0 +1,6 @@
+kernelversion: 35
+kernelrelease: 4.15.0-32-generic
+target: ubuntu-generic
+output:
+  module: output/47374b2b73734d509f3c99890c80be5242021c3d/falco_ubuntu-generic_4.15.0-32-generic_35.ko
+  probe: output/47374b2b73734d509f3c99890c80be5242021c3d/falco_ubuntu-generic_4.15.0-32-generic_35.o
