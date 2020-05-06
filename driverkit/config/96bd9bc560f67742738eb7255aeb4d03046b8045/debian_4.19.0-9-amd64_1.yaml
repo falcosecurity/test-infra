@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 4.19.0-9-amd64
+target: debian
+output:
+  module: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_debian_4.19.0-9-amd64_1.ko
+  probe: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_debian_4.19.0-9-amd64_1.o
