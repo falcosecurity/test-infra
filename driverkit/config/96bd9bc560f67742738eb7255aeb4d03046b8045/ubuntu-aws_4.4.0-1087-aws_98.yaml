@@ -1,0 +1,5 @@
+kernelversion: 98
+kernelrelease: 4.4.0-1087-aws
+target: ubuntu-aws
+output:
+  module: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_ubuntu-aws_4.4.0-1087-aws_98.ko
