@@ -6,7 +6,7 @@ metadata:
   name: "sinker"
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "sinker"
@@ -20,7 +20,7 @@ rules:
       - list
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: test-pods
   name: "sinker"
@@ -34,7 +34,7 @@ rules:
       - list
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "sinker"
@@ -47,7 +47,7 @@ subjects:
   name: "sinker"
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: test-pods
   name: "sinker"
@@ -60,7 +60,7 @@ subjects:
   name: "sinker"
   namespace: default
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
@@ -69,6 +69,9 @@ metadata:
     app: sinker
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: sinker
   template:
     metadata:
       labels:
@@ -84,7 +87,7 @@ spec:
         - name: configs
           mountPath: /etc/config
           readOnly: true
-      volumes:
+    volumes:
       - name: configs
         configMap:
           name: configs

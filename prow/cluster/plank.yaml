@@ -6,7 +6,7 @@ metadata:
   name: "plank"
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "plank"
@@ -22,7 +22,7 @@ rules:
       - update
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: test-pods
   name: "plank"
@@ -37,7 +37,7 @@ rules:
       - list
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "plank"
@@ -50,7 +50,7 @@ subjects:
   name: "plank"
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: test-pods
   name: "plank"
@@ -63,7 +63,7 @@ subjects:
   name: "plank"
   namespace: default
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
@@ -72,6 +72,9 @@ metadata:
     app: plank
 spec:
   replicas: 1 # Do not scale up.
+  selector:
+    matchLabels:
+      app: plank
   strategy:
     type: Recreate
   template:

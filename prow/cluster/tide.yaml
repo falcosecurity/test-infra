@@ -19,7 +19,7 @@ metadata:
   name: "tide"
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "tide"
@@ -31,9 +31,11 @@ rules:
     verbs:
       - create
       - list
+      - watch
+      - get
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "tide"
@@ -45,7 +47,7 @@ subjects:
 - kind: ServiceAccount
   name: "tide"
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
@@ -54,6 +56,9 @@ metadata:
     app: tide
 spec:
   replicas: 1 # Do not scale up.
+  selector:
+    matchLabels:
+      app: tide
   strategy:
     type: Recreate
   template:

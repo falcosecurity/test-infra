@@ -6,7 +6,7 @@ metadata:
   name: "deck"
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "deck"
@@ -19,7 +19,7 @@ subjects:
   name: "deck"
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: test-pods
   name: "deck"
@@ -33,7 +33,7 @@ subjects:
   namespace: default
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "deck"
@@ -47,7 +47,7 @@ rules:
       - list
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: test-pods
   name: "deck"
@@ -72,7 +72,7 @@ spec:
     nodePort: 30754
   type: NodePort
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deck
@@ -80,6 +80,9 @@ metadata:
     app: deck
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: deck
   strategy:
     type: RollingUpdate
     rollingUpdate:
