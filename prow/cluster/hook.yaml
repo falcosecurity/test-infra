@@ -6,7 +6,7 @@ metadata:
   name: "hook"
 ---
 kind: Role
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "hook"
@@ -28,7 +28,7 @@ rules:
       - update
 ---
 kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   namespace: default
   name: "hook"
@@ -40,7 +40,7 @@ subjects:
 - kind: ServiceAccount
   name: "hook"
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
@@ -49,6 +49,9 @@ metadata:
     app: hook
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: hook
   strategy:
     type: RollingUpdate
     rollingUpdate:

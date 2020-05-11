@@ -12,7 +12,7 @@ spec:
     targetPort: 8888
   type: NodePort
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: default
@@ -21,6 +21,9 @@ metadata:
     app: needs-rebase
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: needs-rebase
   template:
     metadata:
       labels:
