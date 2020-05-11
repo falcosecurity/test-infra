@@ -1,4 +1,6 @@
 prow/*secret
+prow/hmac
+prow/oauth
 prow/cluster/*token.yaml
 .DS_Store
 .idea
