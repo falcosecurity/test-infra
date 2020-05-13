@@ -101,6 +101,10 @@ branch-protection:
           required_status_checks:
             contexts:
               - "netlify/falcosecurity/deploy-preview"
+        pdig:
+          branches:
+            master:
+              protect: true
         template-repository:
           branches:
             master:
@@ -140,6 +144,7 @@ tide:
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
+    falcosecurity/pdig: rebase
     falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
   queries:
@@ -360,6 +365,18 @@ tide:
     - needs-rebase
   - repos:
     - falcosecurity/falco-website
+    labels:
+    - approved
+    - lgtm
+    - "dco-signoff: yes"
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/work-in-progress
+    - needs-rebase
+  - repos:
+    - falcosecurity/pdig
     labels:
     - approved
     - lgtm
