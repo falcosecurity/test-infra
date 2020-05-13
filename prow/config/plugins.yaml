@@ -16,6 +16,7 @@ approve:
       - falcosecurity/falco-exporter
       - falcosecurity/falcoctl
       - falcosecurity/falco-website
+      - falcosecurity/pdig
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     lgtm_acts_as_approve: true
@@ -60,6 +61,7 @@ lgtm:
       - falcosecurity/falco-exporter
       - falcosecurity/falcoctl
       - falcosecurity/falco-website
+      - falcosecurity/pdig
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     review_acts_as_lgtm: true
@@ -135,6 +137,16 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
+    repo: community
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this proposal.
+      Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity/falco).
+      Please specify it either using `/kind <group>` or manually from the side menu.
+      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
+  - missing_label: needs-kind
+    org: falcosecurity
     repo: contrib
     prs: true
     regexp: ^kind/
@@ -189,16 +201,6 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this issue.
       Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: community
-    issues: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this proposal.
-      Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity/falco).
-      Please specify it either using `/kind <group>` or manually from the side menu.
-      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
 
 retitle:
   allow_closed_issues: true
@@ -544,6 +546,28 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/pdig:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - mergecommitblocker
+    - milestone
+    - require-matching-label
+    - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/template-repository:
     - approve
     - assign
@@ -644,6 +668,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falco-website:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/pdig:
     - name: needs-rebase
       events:
         - pull_request
