@@ -562,7 +562,6 @@ plugins:
     - lgtm
     - mergecommitblocker
     - milestone
-    - require-matching-label
     - retitle
     - size
     - verify-owners
