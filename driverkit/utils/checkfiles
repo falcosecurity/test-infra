@@ -15,16 +15,25 @@ output_probe=
 create_variables "$input"
 
 # Check whether the config filename follows the convention otherwise exit
-[ "$filename" = "${target}_${kernelrelease}_${kernelversion}.yaml" ] || >&2 echo "config filename is wrong (${1})"
+if [ "$filename" != "${target}_${kernelrelease}_${kernelversion}.yaml" ]; then
+    >&2 echo "config filename is wrong (${1})"
+    exit 1
+fi
 
 # Check whether the eBPF probe filename follows the convention otherwise exit
 if [ -n "${output_probe}" ]; then
     output_probe_filename="${output_probe##*/}"
-    [ "${output_probe_filename}" = "falco_${target}_${kernelrelease}_${kernelversion}.o" ] || >&2 echo "output probe filename is wrong (${1})"
+    if [ "${output_probe_filename}" != "falco_${target}_${kernelrelease}_${kernelversion}.o" ]; then
+        >&2 echo "output probe filename is wrong (${1})"
+        exit 1
+    fi
 fi
 
 # Check whether the kernel module filename follows the convention otherwise exit
 if [ -n "${output_module}" ]; then
     output_module_filename="${output_module##*/}"
-    [ "${output_module_filename}" = "falco_${target}_${kernelrelease}_${kernelversion}.ko" ] || >&2 echo "output module filename is wrong (${1})"
+    if [ "${output_module_filename}" != "falco_${target}_${kernelrelease}_${kernelversion}.ko" ]; then
+        >&2 echo "output module filename is wrong (${1})"
+        exit 1
+    fi
 fi
