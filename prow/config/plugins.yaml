@@ -2,6 +2,7 @@ approve:
   - repos:
       - falcosecurity/.github
       - falcosecurity/advocacy
+      - falcosecurity/charts
       - falcosecurity/client-go
       - falcosecurity/client-py
       - falcosecurity/client-rs
@@ -47,6 +48,7 @@ lgtm:
   - repos:
       - falcosecurity/.github
       - falcosecurity/advocacy
+      - falcosecurity/charts
       - falcosecurity/client-go
       - falcosecurity/client-py
       - falcosecurity/client-rs
@@ -247,6 +249,26 @@ plugins:
     - lifecycle
     - lgtm
     - require-matching-label
+    - size
+    - verify-owners
+    - welcome
+    - wip
+  falcosecurity/charts:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - mergecommitblocker
+    - retitle
     - size
     - verify-owners
     - welcome
@@ -611,6 +633,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/advocacy:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/charts:
     - name: needs-rebase
       events:
         - pull_request
