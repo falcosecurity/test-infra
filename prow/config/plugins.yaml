@@ -41,9 +41,7 @@ goose:
 
 label:
   additional_labels:
-    - kind/pr
-    - kind/issue
-    # Custom kind/* lables for evolution repository
+    # Custom kind/* labels for evolution repository
     - kind/sandbox
     - kind/incubation
     - kind/officialsupport
