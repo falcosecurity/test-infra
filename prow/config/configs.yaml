@@ -62,7 +62,7 @@ branch-protection:
           branches:
             master:
               protect: true
-        contrib:
+        evolution:
           branches:
             master:
               protect: true
@@ -142,7 +142,7 @@ tide:
     falcosecurity/cloud-native-security-hub-frontend: rebase
     falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
-    falcosecurity/contrib: rebase
+    falcosecurity/evolution: rebase
     falcosecurity/driverkit: rebase
     falcosecurity/event-generator: rebase
     falcosecurity/falco: rebase
@@ -153,279 +153,279 @@ tide:
     falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
   queries:
-  - repos:
-    - falcosecurity/.github
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/advocacy
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/charts
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/client-go
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/driverkit
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/event-generator
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/falco
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/client-py
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/client-rs
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/cloud-native-security-hub
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/cloud-native-security-hub-frontend
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/cloud-native-security-hub-backend
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/community
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/contrib
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/falco
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/falco-exporter
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/falco
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/falcoctl
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - do-not-merge/release-note-label-needed
-    - needs-rebase
-  - repos:
-    - falcosecurity/falco-website
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/pdig
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/test-infra
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
-  - repos:
-    - falcosecurity/template-repository
-    labels:
-    - approved
-    - lgtm
-    - "dco-signoff: yes"
-    missingLabels:
-    - do-not-merge
-    - do-not-merge/hold
-    - do-not-merge/invalid-owners-file
-    - do-not-merge/work-in-progress
-    - needs-rebase
+    - repos:
+        - falcosecurity/.github
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/advocacy
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/charts
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/client-go
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/driverkit
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/event-generator
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/falco
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/client-py
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/client-rs
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/cloud-native-security-hub
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/cloud-native-security-hub-frontend
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/cloud-native-security-hub-backend
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/community
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/evolution
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/falco
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/falco-exporter
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/falco
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/falcoctl
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/falco-website
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/pdig
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/test-infra
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/template-repository
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
