@@ -31,6 +31,8 @@ branch-protection:
           branches:
             master:
               protect: true
+            gh-pages:
+              protect: true
         client-go:
           branches:
             master:
