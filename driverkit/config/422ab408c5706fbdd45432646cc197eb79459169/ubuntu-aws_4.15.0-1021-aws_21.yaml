@@ -1,0 +1,6 @@
+kernelversion: 21
+kernelrelease: 4.15.0-1021-aws
+target: ubuntu-aws
+output:
+  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-aws_4.15.0-1021-aws_21.ko
+  probe: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-aws_4.15.0-1021-aws_21.o

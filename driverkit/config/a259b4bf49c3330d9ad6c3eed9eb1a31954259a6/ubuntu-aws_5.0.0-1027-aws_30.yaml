@@ -1,6 +1,0 @@
-kernelversion: 30
-kernelrelease: 5.0.0-1027-aws
-target: ubuntu-aws
-output:
-  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-aws_5.0.0-1027-aws_30.ko
-  probe: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-aws_5.0.0-1027-aws_30.o

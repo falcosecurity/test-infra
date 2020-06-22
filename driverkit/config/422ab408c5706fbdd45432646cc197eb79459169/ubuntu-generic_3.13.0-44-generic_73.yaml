@@ -1,0 +1,5 @@
+kernelversion: 73
+kernelrelease: 3.13.0-44-generic
+target: ubuntu-generic
+output:
+  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-generic_3.13.0-44-generic_73.ko

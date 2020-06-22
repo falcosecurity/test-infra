@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 7.6.1810
+target: centos
+output:
+  module: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_centos_7.6.1810_1.ko
+  probe: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_centos_7.6.1810_1.o

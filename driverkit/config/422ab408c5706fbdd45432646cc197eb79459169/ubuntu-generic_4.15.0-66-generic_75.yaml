@@ -1,0 +1,6 @@
+kernelversion: 75
+kernelrelease: 4.15.0-66-generic
+target: ubuntu-generic
+output:
+  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-generic_4.15.0-66-generic_75.ko
+  probe: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-generic_4.15.0-66-generic_75.o

@@ -1,0 +1,5 @@
+kernelversion: 1
+kernelrelease: 4.9.27-14.33.amzn1.x86_64
+target: amazonlinux
+output:
+  module: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_amazonlinux_4.9.27-14.33.amzn1.x86_64_1.ko
