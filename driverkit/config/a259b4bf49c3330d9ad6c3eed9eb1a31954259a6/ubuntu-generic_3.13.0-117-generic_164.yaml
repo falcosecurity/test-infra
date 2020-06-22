@@ -1,5 +1,0 @@
-kernelversion: 164
-kernelrelease: 3.13.0-117-generic
-target: ubuntu-generic
-output:
-  module: output/a259b4bf49c3330d9ad6c3eed9eb1a31954259a6/falco_ubuntu-generic_3.13.0-117-generic_164.ko

@@ -1,0 +1,6 @@
+kernelversion: 42
+kernelrelease: 5.4.0-38-generic
+target: ubuntu-generic
+output:
+  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-generic_5.4.0-38-generic_42.ko
+  probe: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-generic_5.4.0-38-generic_42.o
