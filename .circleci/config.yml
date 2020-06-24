@@ -236,4 +236,9 @@ workflows:
               only:
                 - master
           requires:
-            - "driverkit/build"
+            - "driverkit/build/amazonlinux"
+            - "driverkit/build/amazonlinux2"
+            - "driverkit/build/centos"
+            - "driverkit/build/debian"
+            - "driverkit/build/ubuntu-aws"
+            - "driverkit/build/ubuntu-generic"
