@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  "driverkit/build":
+  "driverkit/build/amazonlinux":
     docker:
       - image: docker.io/falcosecurity/driverkit:latest
     steps:
@@ -14,18 +14,177 @@ jobs:
       - run:
           name: Build drivers
           command: |
-            touch driverkit/output/failing.log
             DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
             if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
             then
               cd driverkit
-              make all
+              make -e TARGET_DISTRO=amazonlinux specific_target
             fi
       - run:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
-            cp driverkit/output/failing.log /tmp/dbg-logs/failing.log
+            cp driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux.log
+      - store_artifacts:
+          path: /tmp/dbg-logs
+          destination: /dbg-logs
+      - persist_to_workspace:
+          root: driverkit
+          paths:
+            - output
+  "driverkit/build/amazonlinux2":
+    docker:
+      - image: docker.io/falcosecurity/driverkit:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add make bash git
+      - run:
+          name: Build drivers
+          command: |
+            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
+            if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
+            then
+              cd driverkit
+              make -e TARGET_DISTRO=amazonlinux2 specific_target
+            fi
+      - run:
+          name: Prepare artifacts
+          command: |
+            mkdir -p /tmp/dbg-logs
+            cp driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux2.log
+      - store_artifacts:
+          path: /tmp/dbg-logs
+          destination: /dbg-logs
+      - persist_to_workspace:
+          root: driverkit
+          paths:
+            - output
+  "driverkit/build/centos":
+    docker:
+      - image: docker.io/falcosecurity/driverkit:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add make bash git
+      - run:
+          name: Build drivers
+          command: |
+            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
+            if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
+            then
+              cd driverkit
+              make -e TARGET_DISTRO=centos specific_target
+            fi
+      - run:
+          name: Prepare artifacts
+          command: |
+            mkdir -p /tmp/dbg-logs
+            cp driverkit/output/failing.log /tmp/dbg-logs/failing-centos.log
+      - store_artifacts:
+          path: /tmp/dbg-logs
+          destination: /dbg-logs
+      - persist_to_workspace:
+          root: driverkit
+          paths:
+            - output
+  "driverkit/build/debian":
+    docker:
+      - image: docker.io/falcosecurity/driverkit:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add make bash git
+      - run:
+          name: Build drivers
+          command: |
+            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
+            if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
+            then
+              cd driverkit
+              make -e TARGET_DISTRO=debian specific_target
+            fi
+      - run:
+          name: Prepare artifacts
+          command: |
+            mkdir -p /tmp/dbg-logs
+            cp driverkit/output/failing.log /tmp/dbg-logs/failing-debian.log
+      - store_artifacts:
+          path: /tmp/dbg-logs
+          destination: /dbg-logs
+      - persist_to_workspace:
+          root: driverkit
+          paths:
+            - output
+  "driverkit/build/ubuntu-aws":
+    docker:
+      - image: docker.io/falcosecurity/driverkit:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add make bash git
+      - run:
+          name: Build drivers
+          command: |
+            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
+            if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
+            then
+              cd driverkit
+              make -e TARGET_DISTRO=ubuntu-aws specific_target
+            fi
+      - run:
+          name: Prepare artifacts
+          command: |
+            mkdir -p /tmp/dbg-logs
+            cp driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-aws.log
+      - store_artifacts:
+          path: /tmp/dbg-logs
+          destination: /dbg-logs
+      - persist_to_workspace:
+          root: driverkit
+          paths:
+            - output
+  "driverkit/build/ubuntu-generic":
+    docker:
+      - image: docker.io/falcosecurity/driverkit:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add make bash git
+      - run:
+          name: Build drivers
+          command: |
+            DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
+            if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
+            then
+              cd driverkit
+              make -e TARGET_DISTRO=ubuntu-generic specific_target
+            fi
+      - run:
+          name: Prepare artifacts
+          command: |
+            mkdir -p /tmp/dbg-logs
+            cp driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-generic.log
       - store_artifacts:
           path: /tmp/dbg-logs
           destination: /dbg-logs
@@ -58,7 +217,17 @@ workflows:
   version: 2
   build:
     jobs:
-      - "driverkit/build":
+      - "driverkit/build/amazonlinux":
+          context: falco
+      - "driverkit/build/amazonlinux2":
+          context: falco
+      - "driverkit/build/centos":
+          context: falco
+      - "driverkit/build/debian":
+          context: falco
+      - "driverkit/build/ubuntu-aws":
+          context: falco
+      - "driverkit/build/ubuntu-generic":
           context: falco
       - "driverkit/publish":
           context: falco
