@@ -6,8 +6,14 @@ This folder contains the configuration files for the driverkit build grid.
 
 Just make is enough! :heart:
 
-```
+```console
 make
+```
+
+In case you want to build the drivers for just a distro, use the following make target as below.
+
+```console
+make -e TARGET_DISTRO=amazonlinux2 specific_target
 ```
 
 ## FAQ
