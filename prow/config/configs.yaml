@@ -121,7 +121,12 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - "ci/circleci: build"
+              - "ci/circleci: build/amazonlinux"
+              - "ci/circleci: build/amazonlinux2"
+              - "ci/circleci: build/centos"
+              - "ci/circleci: build/debian"
+              - "ci/circleci: build/ubuntu-aws"
+              - "ci/circleci: build/ubuntu-generic"
 
 log_level: debug
 
