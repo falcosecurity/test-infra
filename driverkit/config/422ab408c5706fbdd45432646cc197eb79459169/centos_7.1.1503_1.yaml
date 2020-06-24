@@ -1,6 +1,0 @@
-kernelversion: 1
-kernelrelease: 7.1.1503
-target: centos
-output:
-  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_centos_7.1.1503_1.ko
-  probe: output/422ab408c5706fbdd45432646cc197eb79459169/falco_centos_7.1.1503_1.o
