@@ -5,8 +5,11 @@ DRIVERKIT ?= $(shell which driverkit)
 CONFIGS := $(wildcard config/*/*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
 VERSIONS := $(VERSIONS:/=)
+TARGET_DISTRO ?=
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
+
+specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_DISTRO}_*)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
