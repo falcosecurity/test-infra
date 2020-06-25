@@ -5,7 +5,7 @@ DRIVERKIT ?= $(shell which driverkit)
 CONFIGS := $(wildcard config/*/*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
 VERSIONS := $(VERSIONS:/=)
-TARGET_DISTRO ?= 
+TARGET_DISTRO ?=
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
