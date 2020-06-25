@@ -246,7 +246,7 @@ workflows:
           filters:
             branches:
               only:
-                - fix/ci-publish # temporary test
+                - master
           requires:
             - "driverkit/build/amazonlinux"
             - "driverkit/build/amazonlinux2"
