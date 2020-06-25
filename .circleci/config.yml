@@ -25,6 +25,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
+            rm -f driverkit/output/.gitignore
             mv driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux.log
       - store_artifacts:
           path: /tmp/dbg-logs
@@ -58,6 +59,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
+            rm -f driverkit/output/.gitignore
             mv driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux2.log
       - store_artifacts:
           path: /tmp/dbg-logs
@@ -91,6 +93,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
+            rm -f driverkit/output/.gitignore
             mv driverkit/output/failing.log /tmp/dbg-logs/failing-centos.log
       - store_artifacts:
           path: /tmp/dbg-logs
@@ -124,6 +127,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
+            rm -f driverkit/output/.gitignore
             mv driverkit/output/failing.log /tmp/dbg-logs/failing-debian.log
       - store_artifacts:
           path: /tmp/dbg-logs
@@ -157,6 +161,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
+            rm -f driverkit/output/.gitignore
             mv driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-aws.log
       - store_artifacts:
           path: /tmp/dbg-logs
@@ -190,6 +195,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
+            rm -f driverkit/output/.gitignore
             mv driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-generic.log
       - store_artifacts:
           path: /tmp/dbg-logs
@@ -240,7 +246,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - fix/ci-publish # temporary test
           requires:
             - "driverkit/build/amazonlinux"
             - "driverkit/build/amazonlinux2"
