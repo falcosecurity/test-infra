@@ -25,7 +25,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
-            cp driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux.log
+            mv driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux.log
       - store_artifacts:
           path: /tmp/dbg-logs
           destination: /dbg-logs
@@ -58,7 +58,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
-            cp driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux2.log
+            mv driverkit/output/failing.log /tmp/dbg-logs/failing-amazonlinux2.log
       - store_artifacts:
           path: /tmp/dbg-logs
           destination: /dbg-logs
@@ -91,7 +91,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
-            cp driverkit/output/failing.log /tmp/dbg-logs/failing-centos.log
+            mv driverkit/output/failing.log /tmp/dbg-logs/failing-centos.log
       - store_artifacts:
           path: /tmp/dbg-logs
           destination: /dbg-logs
@@ -124,7 +124,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
-            cp driverkit/output/failing.log /tmp/dbg-logs/failing-debian.log
+            mv driverkit/output/failing.log /tmp/dbg-logs/failing-debian.log
       - store_artifacts:
           path: /tmp/dbg-logs
           destination: /dbg-logs
@@ -157,7 +157,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
-            cp driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-aws.log
+            mv driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-aws.log
       - store_artifacts:
           path: /tmp/dbg-logs
           destination: /dbg-logs
@@ -190,7 +190,7 @@ jobs:
           name: Prepare artifacts
           command: |
             mkdir -p /tmp/dbg-logs
-            cp driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-generic.log
+            mv driverkit/output/failing.log /tmp/dbg-logs/failing-ubuntu-generic.log
       - store_artifacts:
           path: /tmp/dbg-logs
           destination: /dbg-logs
