@@ -14,6 +14,10 @@ You can find more about it [here](/driverkit).
 
 This directory contains the resources composing the Falco's workflow & testing infrastructure.
 
+Are you looking for Deck to check the merge queue and prow jobs?
+
+- http://147.75.81.50:30754/
+
 ### Components
 
 Listing the deployments we are currently using.
