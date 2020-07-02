@@ -14,8 +14,9 @@ approve:
       - falcosecurity/driverkit
       - falcosecurity/event-generator
       - falcosecurity/falco
-      - falcosecurity/falco-exporter
       - falcosecurity/falcoctl
+      - falcosecurity/falcosidekick
+      - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/pdig
       - falcosecurity/template-repository
@@ -62,8 +63,9 @@ lgtm:
       - falcosecurity/driverkit
       - falcosecurity/event-generator
       - falcosecurity/falco
-      - falcosecurity/falco-exporter
       - falcosecurity/falcoctl
+      - falcosecurity/falcosidekick
+      - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/pdig
       - falcosecurity/template-repository
@@ -151,7 +153,7 @@ require_matching_label:
       In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
   - missing_label: needs-kind
     org: falcosecurity
-    repo: evolution
+    repo: driverkit
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -159,7 +161,7 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
-    repo: driverkit
+    repo: evolution
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -180,6 +182,14 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falcosidekick
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
@@ -504,6 +514,29 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/falcosidekick:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - golint
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - mergecommitblocker
+    - release-note
+    - require-matching-label
+    - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/falco-exporter:
     - approve
     - assign
@@ -670,11 +703,11 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
-  falcosecurity/evolution:
+  falcosecurity/driverkit:
     - name: needs-rebase
       events:
         - pull_request
-  falcosecurity/driverkit:
+  falcosecurity/evolution:
     - name: needs-rebase
       events:
         - pull_request
@@ -683,6 +716,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falco:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falcosidekick:
     - name: needs-rebase
       events:
         - pull_request
