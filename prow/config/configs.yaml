@@ -64,11 +64,11 @@ branch-protection:
           branches:
             master:
               protect: true
-        evolution:
+        driverkit:
           branches:
             master:
               protect: true
-        driverkit:
+        evolution:
           branches:
             master:
               protect: true
@@ -86,6 +86,10 @@ branch-protection:
             contexts:
               - "ci/circleci: integration"
               - "ci/circleci: centos7"
+          branches:
+            master:
+              protect: true
+        falcosidekick:
           branches:
             master:
               protect: true
@@ -149,10 +153,11 @@ tide:
     falcosecurity/cloud-native-security-hub-frontend: rebase
     falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
-    falcosecurity/evolution: rebase
     falcosecurity/driverkit: rebase
+    falcosecurity/evolution: rebase
     falcosecurity/event-generator: rebase
     falcosecurity/falco: rebase
+    falcosecurity/falcosidekick: rebase
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
@@ -209,18 +214,6 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
-        - needs-rebase
-    - repos:
-        - falcosecurity/driverkit
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
         - needs-rebase
     - repos:
         - falcosecurity/event-generator
@@ -325,6 +318,18 @@ tide:
         - do-not-merge/work-in-progress
         - needs-rebase
     - repos:
+        - falcosecurity/driverkit
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
         - falcosecurity/evolution
       labels:
         - approved
@@ -350,7 +355,20 @@ tide:
         - do-not-merge/release-note-label-needed
         - needs-rebase
     - repos:
-        - falcosecurity/falco-exporter
+        - falcosecurity/falcosidekick
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/falcoctl
       labels:
         - approved
         - lgtm
@@ -376,7 +394,7 @@ tide:
         - do-not-merge/release-note-label-needed
         - needs-rebase
     - repos:
-        - falcosecurity/falcoctl
+        - falcosecurity/falco-exporter
       labels:
         - approved
         - lgtm
