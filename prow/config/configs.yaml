@@ -1,6 +1,6 @@
 branch-protection:
   enforce_admins: true # rules apply to admins too!
-  restrictions:
+  restrictions: # restrict who can push
     teams: ["maintainers", "machine_users"]
   required_pull_request_reviews:
     dismiss_stale_reviews: true # automat dismiss old reviews
@@ -33,6 +33,9 @@ branch-protection:
               protect: true
             gh-pages:
               protect: true
+              required_pull_request_reviews:
+                require_code_owner_reviews: false
+                required_approving_review_count: 0
         client-go:
           branches:
             master:
