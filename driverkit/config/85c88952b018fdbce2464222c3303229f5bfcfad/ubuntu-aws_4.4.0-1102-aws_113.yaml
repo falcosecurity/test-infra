@@ -1,0 +1,5 @@
+kernelversion: 113
+kernelrelease: 4.4.0-1102-aws
+target: ubuntu-aws
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_4.4.0-1102-aws_113.ko

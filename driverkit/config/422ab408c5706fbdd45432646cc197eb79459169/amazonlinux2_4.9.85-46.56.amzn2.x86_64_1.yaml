@@ -1,5 +1,0 @@
-kernelversion: 1
-kernelrelease: 4.9.85-46.56.amzn2.x86_64
-target: amazonlinux2
-output:
-  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_amazonlinux2_4.9.85-46.56.amzn2.x86_64_1.ko
