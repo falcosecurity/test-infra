@@ -1,6 +1,0 @@
-kernelversion: 4
-kernelrelease: 5.3.0-1004-aws
-target: ubuntu-aws
-output:
-  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-aws_5.3.0-1004-aws_4.ko
-  probe: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-aws_5.3.0-1004-aws_4.o

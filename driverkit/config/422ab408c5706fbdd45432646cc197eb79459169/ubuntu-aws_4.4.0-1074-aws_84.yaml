@@ -1,5 +1,0 @@
-kernelversion: 84
-kernelrelease: 4.4.0-1074-aws
-target: ubuntu-aws
-output:
-  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-aws_4.4.0-1074-aws_84.ko

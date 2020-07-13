@@ -1,5 +1,0 @@
-kernelversion: 215
-kernelrelease: 4.4.0-185-generic
-target: ubuntu-generic
-output:
-  module: output/422ab408c5706fbdd45432646cc197eb79459169/falco_ubuntu-generic_4.4.0-185-generic_215.ko

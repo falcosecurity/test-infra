@@ -1,0 +1,5 @@
+kernelversion: 142
+kernelrelease: 3.13.0-95-generic
+target: ubuntu-generic
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_3.13.0-95-generic_142.ko
