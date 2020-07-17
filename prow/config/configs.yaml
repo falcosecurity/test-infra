@@ -33,6 +33,7 @@ branch-protection:
               protect: true
             gh-pages:
               protect: true
+              enforce_admins: false # do not enforce all configured restrictions for admins, since our bot needs to push while the CI workflow is running
               required_pull_request_reviews: # disable PR reviews since our bot needs to push while the CI workflow is running
                 require_code_owner_reviews: false
                 required_approving_review_count: 0
