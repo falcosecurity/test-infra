@@ -68,16 +68,16 @@ This assumes that you are in the `prow` directory and that you can reach your wo
 
 4. Setup the hook
 
-    4.1. Install the `add-hook` tool
+    4.1. Install the `update-hook` tool
 
     ```bash
-	go get -u k8s.io/test-infra/experiment/add-hook
+	go get -u k8s.io/test-infra/experiment/update-hook
     ```
 
     4.2. Attach it to the organisation using `--repo` flag (or to a precise repo using `MY_ORG/MY_REPO` convention)
 
     ```bash
-	add-hook --hmac-path=path/to/hmac/secret --github-token-path=path/to/oauth/secret --hook-url http://an.ip.addr.ess/hook --repo MY_ORG --confirm=true
+	update-hook --hmac-path=path/to/hmac/secret --github-token-path=path/to/oauth/secret --hook-url http://an.ip.addr.ess/hook --repo MY_ORG --confirm=true
     ```
 
 5. Setup or update your plugins and configs with
