@@ -509,6 +509,7 @@ plugins:
     - release-note
     - require-matching-label
     - retitle
+    - saymyname
     - size
     - verify-owners
     - welcome
@@ -716,6 +717,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+    - name: saymyname
+      endpoint: http://saymyname.default.svc.cluster.local:8787
+      events:
+        - issue_comment
   falcosecurity/falcosidekick:
     - name: needs-rebase
       events:
