@@ -509,7 +509,6 @@ plugins:
     - release-note
     - require-matching-label
     - retitle
-    - saymyname
     - size
     - verify-owners
     - welcome
