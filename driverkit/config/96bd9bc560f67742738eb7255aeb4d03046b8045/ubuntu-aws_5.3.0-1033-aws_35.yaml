@@ -1,0 +1,6 @@
+kernelversion: 35
+kernelrelease: 5.3.0-1033-aws
+target: ubuntu-aws
+output:
+  module: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_ubuntu-aws_5.3.0-1033-aws_35.ko
+  probe: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_ubuntu-aws_5.3.0-1033-aws_35.o
