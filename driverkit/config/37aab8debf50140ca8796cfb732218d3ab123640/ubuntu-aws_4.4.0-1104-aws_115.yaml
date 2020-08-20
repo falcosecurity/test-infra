@@ -1,0 +1,5 @@
+kernelversion: 115
+kernelrelease: 4.4.0-1104-aws
+target: ubuntu-aws
+output:
+  module: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-aws_4.4.0-1104-aws_115.ko
