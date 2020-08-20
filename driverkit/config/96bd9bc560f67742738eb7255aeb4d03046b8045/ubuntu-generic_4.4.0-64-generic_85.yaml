@@ -1,5 +1,0 @@
-kernelversion: 85
-kernelrelease: 4.4.0-64-generic
-target: ubuntu-generic
-output:
-  module: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_ubuntu-generic_4.4.0-64-generic_85.ko
