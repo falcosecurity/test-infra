@@ -1,5 +1,0 @@
-kernelversion: 80
-kernelrelease: 4.4.0-1070-aws
-target: ubuntu-aws
-output:
-  module: output/96bd9bc560f67742738eb7255aeb4d03046b8045/falco_ubuntu-aws_4.4.0-1070-aws_80.ko
