@@ -1,6 +1,0 @@
-kernelversion: 41
-kernelrelease: 5.4.0-37-generic
-target: ubuntu-generic
-output:
-  module: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-generic_5.4.0-37-generic_41.ko
-  probe: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-generic_5.4.0-37-generic_41.o

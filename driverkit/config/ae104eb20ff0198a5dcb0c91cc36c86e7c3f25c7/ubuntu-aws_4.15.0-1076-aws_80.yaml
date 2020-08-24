@@ -1,0 +1,6 @@
+kernelversion: 80
+kernelrelease: 4.15.0-1076-aws
+target: ubuntu-aws
+output:
+  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-aws_4.15.0-1076-aws_80.ko
+  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-aws_4.15.0-1076-aws_80.o
