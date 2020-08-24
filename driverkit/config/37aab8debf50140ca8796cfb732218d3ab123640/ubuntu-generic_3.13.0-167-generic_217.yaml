@@ -1,5 +1,0 @@
-kernelversion: 217
-kernelrelease: 3.13.0-167-generic
-target: ubuntu-generic
-output:
-  module: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-generic_3.13.0-167-generic_217.ko

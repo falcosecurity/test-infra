@@ -1,6 +1,0 @@
-kernelversion: 33
-kernelrelease: 4.15.0-1031-aws
-target: ubuntu-aws
-output:
-  module: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-aws_4.15.0-1031-aws_33.ko
-  probe: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-aws_4.15.0-1031-aws_33.o

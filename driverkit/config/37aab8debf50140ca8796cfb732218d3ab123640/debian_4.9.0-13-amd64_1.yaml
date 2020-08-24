@@ -1,5 +1,0 @@
-kernelversion: 1
-kernelrelease: 4.9.0-13-amd64
-target: debian
-output:
-  module: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_debian_4.9.0-13-amd64_1.ko

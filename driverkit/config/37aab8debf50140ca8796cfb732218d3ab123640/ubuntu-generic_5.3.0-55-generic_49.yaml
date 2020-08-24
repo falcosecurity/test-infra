@@ -1,6 +1,0 @@
-kernelversion: 49
-kernelrelease: 5.3.0-55-generic
-target: ubuntu-generic
-output:
-  module: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-generic_5.3.0-55-generic_49.ko
-  probe: output/37aab8debf50140ca8796cfb732218d3ab123640/falco_ubuntu-generic_5.3.0-55-generic_49.o
