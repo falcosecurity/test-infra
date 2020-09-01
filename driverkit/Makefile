@@ -67,3 +67,6 @@ $(foreach VERSION,$(VERSIONS),\
 .PHONY: clean
 clean:
 	@find output -type f -not -name '.gitignore' -delete
+
+stats:
+	@utils/driverstats $(CONFIGS)
