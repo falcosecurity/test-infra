@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+currentdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+source "${currentdir}/parseyaml"
+
+configs=("$@")
+
+total_ebpf_drivers=0
+total_kmod_drivers=0
+
+for file in "${configs[@]}"
+do
+    output_module=
+    output_probe=
+    create_variables "$file"
+    if [ -n "${output_probe}" ]; then
+        ((total_ebpf_drivers=total_ebpf_drivers+1))
+    fi
+    if [ -n "${output_module}" ]; then
+        ((total_kmod_drivers=total_kmod_drivers+1))
+    fi
+done
+
+echo -e "eBPF probes:${total_ebpf_drivers}\nkernel modules:${total_kmod_drivers}" | column -t -s':'
