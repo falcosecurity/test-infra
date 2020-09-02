@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+user=poiana
+
+# Assuming the drivers versions of Falco eBPF probes and Falco kernel modules are always in pair.
+# For this reason, obtain all the version by only querying the Falco kernel modules versions.
+get_bintray_versions() {
+    IFS=$'\n' read -r -d '' -a all < <(curl -s -u "${user}:${pass}" --header "Content-Type: application/json" https://api.bintray.com/packages/falcosecurity/driver/kernel-module | jq -r '.versions | .[]')
+}
+
+filterout_versions() {
+    for i in "${!all[@]}";
+    do
+        printf "%s\t%s\n" "$i" "${all[$i]}"
+        if [[ ! " ${keep[*]}" =~  ${all[$i]} ]]; then
+            printf " \tremoving..."
+            yes N | JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/kernel-module/${all[$i]}" # --quiet (remove yes)
+            yes N | JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/ebpf-probe/${all[$i]}" # --quiet (remove yes)
+            unset -v 'all[$i]'
+        fi
+    done
+}
+
+usage() {
+    echo "usage: $0 -p 123 -v \"abcd efgh\""
+}
+
+while getopts ":p::v:" opt; do
+    case "${opt}" in
+        p )
+          pass=${OPTARG}
+          ;;
+        v )
+          keep+=("${OPTARG}")
+          ;;
+        : )
+          echo "invalid option: ${OPTARG} requires an argument" 1>&2
+          exit 1
+          ;;
+        \?)
+          echo "invalid option: ${OPTARG}" 1>&2
+          exit 1
+          ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${pass}" ] || [ "${#keep[@]}" -eq 0 ]; then
+    usage
+    exit 1
+fi
+
+get_bintray_versions
+echo "# versions: ${#all[@]}"
+filterout_versions
