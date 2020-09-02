@@ -225,6 +225,21 @@ jobs:
               cd driverkit
               make publish
             fi
+  "drivers/cleanup":
+    docker:
+      - image: docker.bintray.io/jfrog/jfrog-cli-go:latest
+    steps:
+      - checkout
+      - run:
+          name: Prepare env
+          command: |
+            apk add --no-cache --update
+            apk add curl jq
+      - run:
+          name: Cleanup
+          command: |
+              cd driverkit
+              make cleanup
 workflows:
   version: 2
   build:
@@ -254,3 +269,11 @@ workflows:
             - "drivers/build/debian"
             - "drivers/build/ubuntu-aws"
             - "drivers/build/ubuntu-generic"
+      - "drivers/cleanup":
+          context: falco
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - "drivers/publish"
