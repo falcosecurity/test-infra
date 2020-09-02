@@ -14,6 +14,9 @@ specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
 
+cleanup:
+	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
+
 # $(1): pseudo-target name
 # $(2): driver version
 # $(3): config file path
