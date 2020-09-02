@@ -14,8 +14,8 @@ filterout_versions() {
         printf "%s\t%s\n" "$i" "${all[$i]}"
         if [[ ! " ${keep[*]}" =~  ${all[$i]} ]]; then
             printf " \tremoving..."
-            JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/kernel-module/${all[$i]}" --quiet
-            JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/ebpf-probe/${all[$i]}" -quiet
+            JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --quiet --user "${user}" --key "${pass}" "falcosecurity/driver/kernel-module/${all[$i]}"
+            JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --quiet --user "${user}" --key "${pass}" "falcosecurity/driver/ebpf-probe/${all[$i]}"
             unset -v 'all[$i]'
         fi
     done
