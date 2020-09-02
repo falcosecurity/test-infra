@@ -14,15 +14,15 @@ filterout_versions() {
         printf "%s\t%s\n" "$i" "${all[$i]}"
         if [[ ! " ${keep[*]}" =~  ${all[$i]} ]]; then
             printf " \tremoving..."
-            yes N | JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/kernel-module/${all[$i]}" # --quiet (remove yes)
-            yes N | JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/ebpf-probe/${all[$i]}" # --quiet (remove yes)
+            JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/kernel-module/${all[$i]}" --quiet
+            JFROG_CLI_LOG_LEVEL=DEBUG jfrog bt vd --user "${user}" --key "${pass}" "falcosecurity/driver/ebpf-probe/${all[$i]}" -quiet
             unset -v 'all[$i]'
         fi
     done
 }
 
 usage() {
-    echo "usage: $0 -p 123 -v \"abcd efgh\""
+    echo "usage: $0 -p 123 -v abcd -v efgh"
 }
 
 while getopts ":p::v:" opt; do
