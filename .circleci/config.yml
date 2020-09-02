@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  "driverkit/build/amazonlinux":
+  "drivers/build/amazonlinux":
     docker:
       - image: docker.io/falcosecurity/driverkit:latest
     steps:
@@ -34,7 +34,7 @@ jobs:
           root: driverkit
           paths:
             - output
-  "driverkit/build/amazonlinux2":
+  "drivers/build/amazonlinux2":
     docker:
       - image: docker.io/falcosecurity/driverkit:latest
     steps:
@@ -68,7 +68,7 @@ jobs:
           root: driverkit
           paths:
             - output
-  "driverkit/build/centos":
+  "drivers/build/centos":
     docker:
       - image: docker.io/falcosecurity/driverkit:latest
     steps:
@@ -102,7 +102,7 @@ jobs:
           root: driverkit
           paths:
             - output
-  "driverkit/build/debian":
+  "drivers/build/debian":
     docker:
       - image: docker.io/falcosecurity/driverkit:latest
     steps:
@@ -136,7 +136,7 @@ jobs:
           root: driverkit
           paths:
             - output
-  "driverkit/build/ubuntu-aws":
+  "drivers/build/ubuntu-aws":
     docker:
       - image: docker.io/falcosecurity/driverkit:latest
     steps:
@@ -170,7 +170,7 @@ jobs:
           root: driverkit
           paths:
             - output
-  "driverkit/build/ubuntu-generic":
+  "drivers/build/ubuntu-generic":
     docker:
       - image: docker.io/falcosecurity/driverkit:latest
     steps:
@@ -204,7 +204,7 @@ jobs:
           root: driverkit
           paths:
             - output
-  "driverkit/publish":
+  "drivers/publish":
     docker:
       - image: docker.bintray.io/jfrog/jfrog-cli-go:latest
     steps:
@@ -229,28 +229,28 @@ workflows:
   version: 2
   build:
     jobs:
-      - "driverkit/build/amazonlinux":
+      - "drivers/build/amazonlinux":
           context: falco
-      - "driverkit/build/amazonlinux2":
+      - "drivers/build/amazonlinux2":
           context: falco
-      - "driverkit/build/centos":
+      - "drivers/build/centos":
           context: falco
-      - "driverkit/build/debian":
+      - "drivers/build/debian":
           context: falco
-      - "driverkit/build/ubuntu-aws":
+      - "drivers/build/ubuntu-aws":
           context: falco
-      - "driverkit/build/ubuntu-generic":
+      - "drivers/build/ubuntu-generic":
           context: falco
-      - "driverkit/publish":
+      - "drivers/publish":
           context: falco
           filters:
             branches:
               only:
                 - master
           requires:
-            - "driverkit/build/amazonlinux"
-            - "driverkit/build/amazonlinux2"
-            - "driverkit/build/centos"
-            - "driverkit/build/debian"
-            - "driverkit/build/ubuntu-aws"
-            - "driverkit/build/ubuntu-generic"
+            - "drivers/build/amazonlinux"
+            - "drivers/build/amazonlinux2"
+            - "drivers/build/centos"
+            - "drivers/build/debian"
+            - "drivers/build/ubuntu-aws"
+            - "drivers/build/ubuntu-generic"
