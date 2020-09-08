@@ -234,7 +234,7 @@ jobs:
           name: Prepare env
           command: |
             apk add --no-cache --update
-            apk add curl jq
+            apk add curl jq make
       - run:
           name: Cleanup
           command: |
@@ -274,6 +274,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
-          requires:
-            - "drivers/publish"
+                - fix/drivers-cleanup
