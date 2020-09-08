@@ -274,4 +274,6 @@ workflows:
           filters:
             branches:
               only:
-                - fix/drivers-cleanup
+                - master
+          requires:
+            - "drivers/publish"
