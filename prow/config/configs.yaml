@@ -87,6 +87,7 @@ branch-protection:
             contexts:
               - "ci/circleci: integration"
               - "ci/circleci: centos7"
+              - "ci/circleci: musl"
           branches:
             master:
               protect: true
