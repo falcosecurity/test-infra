@@ -31,7 +31,7 @@ Install Prow on AWS EKS, the only prerequisite is that we have an AWS account, a
 
 ### Design Detail
 
-Propsed Install components
+Proposed install components
 - Plank
 - Hook
 - GhProxy
