@@ -8,7 +8,7 @@ This document reflects the way we test Falco Security using Prow, and how it sho
 
 ## Motivation
 
-Today Falco PR's use github automation for labels via Prow. The proposal is to fully setup prow testing infrastructure on top of AWS to utilize the functional testing aspect of prow. This will provide users, and maintainers a streamlined way to display test results, and control testing workflows.
+Today Falco pull requests use github automation for labels via Prow. The proposal is to fully setup prow testing infrastructure on top of AWS to utilize the functional testing aspect of prow. This will provide users, and maintainers a streamlined way to display test results, and control testing workflows.
 
 ## Goals
 - To Setup test workflow for [Falco](https://github.com/falcosecurity/falco) and repositories needing testing on EKS
