@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 5.5.0-0.bpo.2-amd64
+target: debian
+output:
+  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_debian_5.5.0-0.bpo.2-amd64_1.ko
+  probe: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_debian_5.5.0-0.bpo.2-amd64_1.o

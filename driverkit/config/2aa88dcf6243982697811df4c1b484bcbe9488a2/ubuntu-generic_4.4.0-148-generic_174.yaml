@@ -1,0 +1,5 @@
+kernelversion: 174
+kernelrelease: 4.4.0-148-generic
+target: ubuntu-generic
+output:
+  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_4.4.0-148-generic_174.ko
