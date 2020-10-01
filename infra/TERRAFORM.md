@@ -1,3 +1,5 @@
+# Falco Test Infra on AWS - Terraform Specs
+
 ## Requirements
 
 | Name | Version |
@@ -19,11 +21,17 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| app\_name | n/a | `any` | n/a | yes |
+| app\_namespace | n/a | `any` | n/a | yes |
+| app\_stage | n/a | `any` | n/a | yes |
 | eks\_default\_worker\_group\_additional\_userdata | Uerdata to append to the default userdata of the default EKS worker group | `number` | `1` | no |
 | eks\_default\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `1` | no |
 | eks\_default\_worker\_group\_instance\_type | The instance type of the default EKS worker group | `string` | `"t2.micro"` | no |
 | eks\_default\_worker\_group\_name | The name of the default EKS worker group | `string` | `"default-worker-group"` | no |
 | region | AWS region | `string` | `"us-east-2"` | no |
+| terraform\_state\_backend\_config\_file\_name | The file name for the terraform backend config file. | `string` | `"terraform_backend.tf"` | no |
+| terraform\_state\_backend\_config\_file\_path | Directory for the terraform backend config file. | `string` | `"."` | no |
+| terraform\_state\_backend\_force\_destroy | Whether to allow the S3 remote state backend to be deleted. Useful when migrating the state and/or destroying all the resources. | `bool` | `false` | no |
 | vpc\_cidr\_block | The CIDR block of the main VPC | `string` | `"10.0.0.0/16"` | no |
 | vpc\_enable\_dns\_hostnames | A boolean flag to enable/disable DNS hostnames in the main VPC | `bool` | `true` | no |
 | vpc\_enable\_nat\_gateway | A boolean flag to provision NAT Gateways for each of your private networks | `bool` | `true` | no |
