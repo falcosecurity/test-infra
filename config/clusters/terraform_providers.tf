@@ -1,6 +1,8 @@
 provider "aws" {
-  version = ">= 2.28.1"
-  region  = "us-east-2"
+  version                 = ">= 2.28.1"
+  region                  = "us-west-2"
+  shared_credentials_file = "~/.aws/credentials"
+  profile                 = "default"
 }
 
 provider "kubernetes" {
