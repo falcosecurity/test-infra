@@ -1,0 +1,6 @@
+kernelversion: 25
+kernelrelease: 5.4.0-1025-gcp
+target: ubuntu-gcp
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.4.0-1025-gcp_25.ko
+  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.4.0-1025-gcp_25.o
