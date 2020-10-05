@@ -140,7 +140,7 @@ branch-protection:
 
 log_level: debug
 
-pod_namespace: test-pods
+pod_namespace: default
 
 prowjob_namespace: default
 
