@@ -4,3 +4,17 @@ prow/oauth
 prow/cluster/*token.yaml
 .DS_Store
 .idea
+
+
+config/prow/hmac-token
+config/prow/oauth-token
+config/prow/github_oauth
+config/prow/cookie.txt
+config/prow/service-account.json
+create-build-cluster.sh
+
+#terraform files
+.terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
