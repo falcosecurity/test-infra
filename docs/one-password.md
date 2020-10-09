@@ -12,10 +12,9 @@ To add a new user to the 1Password account, as an existing admin:
 * Select "new person"
 * Type the email address of the new person and send an invitation
 
-After they've accepte and set up their account:
+After they've accepted and set up their account:
 
 * On the right select "Groups"
 * Select "Owners"
 * Add the new admin to the "Owners" group
-
 
