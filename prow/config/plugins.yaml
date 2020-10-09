@@ -625,7 +625,8 @@ plugins:
     - lifecycle
     - lgtm
     - mergecommitblocker
-    - milestone
+    - release-note
+    - require-matching-label
     - retitle
     - size
     - verify-owners
