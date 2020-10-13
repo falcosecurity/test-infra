@@ -11,8 +11,6 @@ S3_BUCKET="falco-prow-logs"
 ZONE="us-west-2"
 
 function main() {
-  echo "Creating storageBucket" 
-  storageBucket
   echo "Creating Cluster" 
   createCluster
   echo "Launching Configmaps, and prereq software" 
