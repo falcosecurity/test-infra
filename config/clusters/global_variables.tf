@@ -15,7 +15,7 @@ variable "terraform_state_backend_config_file_name" {
 }
 
 variable "region" {
-  default     = "us-west-2"
+  default     = "eu-west-1"
   description = "AWS region"
 }
 

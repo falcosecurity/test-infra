@@ -18,11 +18,29 @@ rules:
     verbs:
       - delete
       - list
+      - watch
+      - get
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    resourceNames:
+      - prow-sinker-leaderlock
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - events
+    verbs:
+      - create
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: default
+  namespace: test-pods
   name: "sinker"
 rules:
   - apiGroups:
@@ -32,6 +50,9 @@ rules:
     verbs:
       - delete
       - list
+      - watch
+      - get
+      - patch
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -49,7 +70,7 @@ subjects:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  namespace: default
+  namespace: test-pods
   name: "sinker"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -80,14 +101,30 @@ spec:
       serviceAccountName: "sinker"
       containers:
       - name: sinker
-        image: gcr.io/k8s-prow/sinker:v20191202-824584dd0
+        image: gcr.io/k8s-prow/sinker:v20201013-c02a7cb212
         args:
-        - --config-path=/etc/config/configs.yaml
+        - --config-path=/etc/config/config.yaml
+        - --job-config-path=/etc/job-config
+        # - --kubeconfig=/etc/kubeconfig/config
+        - --dry-run=false
         volumeMounts:
-        - name: configs
+        - name: config
           mountPath: /etc/config
           readOnly: true
-    volumes:
-      - name: configs
-        configMap:
-          name: configs
+        - name: job-config
+          mountPath: /etc/job-config
+          readOnly: true
+        # - name: kubeconfig
+        #   mountPath: /etc/kubeconfig
+        #   readOnly: true
+      volumes:
+        # - name: kubeconfig
+        #   secret:
+        #     defaultMode: 420
+        #     secretName: kubeconfig
+        - name: config
+          configMap:
+            name: config
+        - name: job-config
+          configMap:
+            name: job-config

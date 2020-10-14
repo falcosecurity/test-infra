@@ -1,12 +1,12 @@
 app_name                                      = "test-infra"
 app_namespace                                 = "falco"
 app_stage                                     = "prow"
-region                                        = "us-west-2"
+region                                        = "eu-west-1"
 vpc_private_subnets_cidr_blocks               = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 vpc_public_subnets_cidr_blocks                = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 vpc_cidr_block                                = "10.0.0.0/16"
 eks_default_worker_group_name                 = "prow-worker-group"
-eks_default_worker_group_instance_type        = "t2.micro"
+eks_default_worker_group_instance_type        = "m5.large"
 eks_default_worker_group_asg_desired_capacity = 3
 terraform_state_backend_force_destroy         = false
 terraform_state_backend_config_file_path      = ""
