@@ -15,6 +15,8 @@ module "eks" {
 
   vpc_id = module.vpc.vpc_id
 
+  workers_additional_policies = [aws_iam_policy.ebs_controller_policy.arn]
+
   node_groups_defaults = {
     ami_type  = "AL2_x86_64"
     disk_size = 50
@@ -46,3 +48,4 @@ data "aws_eks_cluster" "cluster" {
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
+

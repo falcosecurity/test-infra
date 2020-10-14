@@ -18,6 +18,8 @@ rules:
     verbs:
       - create
       - get
+      - list
+      - update
   - apiGroups:
       - ""
     resources:
@@ -66,11 +68,16 @@ spec:
       terminationGracePeriodSeconds: 180
       containers:
       - name: hook
-        image: gcr.io/k8s-prow/hook:v20191202-824584dd0
+        image: gcr.io/k8s-prow/hook:v20201013-c02a7cb212
         imagePullPolicy: Always
         args:
+        - --github-endpoint=http://ghproxy
+        - --github-endpoint=https://api.github.com
+        - --github-token-path=/etc/github/oauth
         - --dry-run=false
-        - --config-path=/etc/config/configs.yaml
+        - --plugin-config=/etc/plugins/plugins.yaml
+        - --config-path=/etc/config/config.yaml
+        - --job-config-path=/etc/job-config
         ports:
           - name: http
             containerPort: 8888
@@ -81,14 +88,15 @@ spec:
         - name: oauth
           mountPath: /etc/github
           readOnly: true
-        - name: configs
+        - name: config
           mountPath: /etc/config
+          readOnly: true
+        - name: job-config
+          mountPath: /etc/job-config
           readOnly: true
         - name: plugins
           mountPath: /etc/plugins
           readOnly: true
-        - name: unsplash
-          mountPath: /etc/unsplash
         livenessProbe:
           httpGet:
             path: /healthz
@@ -109,18 +117,15 @@ spec:
       - name: oauth
         secret:
           secretName: oauth-token
-      - name: configs
+      - name: config
         configMap:
-          name: configs
+          name: config
+      - name: job-config
+        configMap:
+          name: job-config
       - name: plugins
         configMap:
           name: plugins
-      - name: unsplash
-        secret:
-          secretName: unsplash-token
-          items:
-          - key: unsplash_secret
-            path: honk
 ---
 apiVersion: v1
 kind: Service
@@ -132,5 +137,4 @@ spec:
     app: hook
   ports:
   - port: 8888
-    nodePort: 31942
   type: NodePort

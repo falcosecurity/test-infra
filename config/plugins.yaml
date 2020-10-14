@@ -29,11 +29,11 @@ blunderbuss:
   use_status_availability: true
 
 config_updater:
-  config_file: prow/config/configs.yaml
+  config_file: prow/config/config.yaml
   plugins_file: prow/config/plugins.yaml
   maps:
-    prow/config/configs.yaml:
-      name: configs
+    prow/config/config.yaml:
+      name: config
     prow/config/plugins.yaml:
       name: plugins
 

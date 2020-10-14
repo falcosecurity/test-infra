@@ -1,54 +1,33 @@
 SHELL := /bin/bash
 
-# These are the usual EKS variables.
-PROJECT       ?= falco-prow
-BUILD_PROJECT ?= falco-prow-builds
-ZONE          ?= us-west-2
-CLUSTER       ?= falco-prow
 
-update-config:
-	kubectl create configmap config --from-file=config.yaml=config/config.yaml --dry-run -o yaml | kubectl replace configmap config -f -
+.PHONY: oauth-token hmac-token github-oauth-config cookie plugins update-config
 
-update-plugins:
-	kubectl create configmap plugins --from-file=plugins.yaml=config/plugins.yaml --dry-run -o yaml | kubectl replace configmap plugins -f -
+### Prow Compenents
 
 update-jobs:
 	go run prow/update-jobs/main.go --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
 
+oauth-token:
+	kubectl create secret generic oauth-token --from-file=hmac=./config/prow/oauth-token --dry-run -o yaml | kubectl replace secret oauth-token -f -
 
+hmac-token:
+	kubectl create secret generic hmac-token --from-file=hmac=./config/prow/hmac-token --dry-run -o yaml | kubectl replace secret hmac-token -f -
 
-update-cat-api-key: get-cluster-credentials
-	kubectl create configmap cat-api-key --from-file=api-key=plugins/cat/api-key --dry-run -o yaml | kubectl replace configmap cat-api-key -f -
+github-oauth-config:
+	kubectl create secret generic github-oauth-config --from-file=secret=./config/prow/github_oauth" --dry-run -o yaml | kubectl replace secret github-oauth-config -f -
 
-.PHONY: update-config update-plugins update-cat-api-key
+cookie:
+	kubectl create secret generic cookie --from-file=secret=./config/prow/cookie.txt" --dry-run -o yaml | kubectl replace secret cookie -f -
 
-
-
-
-config/prow/oauth-token.yaml: oauth
-	kubectl create secret generic --dry-run -o yaml oauth-token --from-file=$< >> $@
-
-config/prow/hmac-token.yaml: hmac
-	kubectl create secret generic --dry-run -o yaml hmac-token --from-file=$< >> $@
-
-config/prow/unsplash-token.yaml: unsplash_secret
-	kubectl create secret generic --dry-run -o yaml unsplash-token --from-file=$< >> $@
-
-prow: config/prow/oauth-token.yaml config/prow/hmac-token.yaml config/prow/unsplash-token.yaml config/prow/*.yaml
-	kubectl apply -f config/prow/
-
-plugins: config/plugins.yaml
+plugins:
 	kubectl create configmap plugins --from-file=plugins.yaml=config/plugins.yaml --dry-run -o yaml | kubectl replace configmap plugins -f -
 
 update-config:
 	kubectl create configmap config --from-file=config.yaml=config/config.yaml --dry-run -o yaml | kubectl replace configmap config -f -
 
-clean:
-	rm -f config/prow/oauth-token.yaml
-	rm -f config/prow/hmac-token.yaml
-	rm -f config/prow/unsplash-token.yaml
-
-
+prow:
+	kubectl apply -f config/prow/
 
 #### Terraform #####
 
@@ -68,4 +47,4 @@ tf-clean: tf-init
 	terraform destroy -var-file config/clusters/prow.tfvars -auto-approve config/clusters
 
 kubeconfig:
-	aws eks --region us-west-2 update-kubeconfig --name falco-prow-test-infra --profile falco
+	aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra --profile falco

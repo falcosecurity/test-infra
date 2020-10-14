@@ -11,7 +11,10 @@ config/prow/oauth-token
 config/prow/github_oauth
 config/prow/cookie.txt
 config/prow/service-account.json
+config/prow/service-account_local.json
 create-build-cluster.sh
+kubeconfig_falco-prow-test-infra
+
 
 #terraform files
 .terraform

@@ -22,10 +22,10 @@ module "label" {
   name       = var.app_name
   attributes = []
   delimiter  = "-"
-
-  tags = {}
+  tags       = {}
 }
 
 locals {
-  cluster_name = module.label.id
+  cluster_name                  = module.label.id
+  k8s_service_account_namespace = "default"
 }

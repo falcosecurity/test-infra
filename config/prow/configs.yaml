@@ -3,6 +3,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   namespace: default
-  name: configs
+  name: config
 data:
-  configs.yaml: ""
+  config.yaml: ""
