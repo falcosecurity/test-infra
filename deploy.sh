@@ -22,12 +22,12 @@ function main() {
 function createCluster() {
   echo "Creating cluster '${CLUSTER}' (this may take a few minutes)..."
   echo
-	terraform init config/clusters
-	terraform get
-	terraform validate config/clusters
-	terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
-	terraform init -force-copy config/clusters
-  aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra
+  terraform init config/clusters
+  terraform get
+  terraform validate config/clusters
+  terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
+  terraform init -force-copy config/clusters
+  aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
 }
 
 function launchConfig(){
