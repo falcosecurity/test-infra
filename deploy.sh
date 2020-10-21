@@ -38,11 +38,11 @@ function launchConfig(){
   kubectl create configmap config --from-file "./config/config.yaml" || true
   kubectl create configmap job-config --from-file "./config/jobs/config.yaml" || true
   kubectl create configmap branding --from-file "./config/branding" || true
-  kubectl create secret generic s3-credentials --from-file=service-account.json=./config/prow/service-account.json || true
+  kubectl create secret generic s3-credentials --from-literal=service-account.json="$(./1password.sh -d config/prow/service-account.json)" || true
 
   #Github related items
-  kubectl create secret generic hmac-token --from-file=hmac=./config/prow/hmac-token || true
-  kubectl create secret generic oauth-token --from-file=oauth=./config/prow/oauth-token || true
+  kubectl create secret generic hmac-token --from-literal=hmac="$(./1password.sh -d config/prow/hmac-token)" || true
+  kubectl create secret generic oauth-token --from-literal=oauth="$(./1password.sh -d config/prow/oauth-token)" || true
   kubectl create secret generic github-oauth-config --from-file=secret=./config/prow/github_oauth || true
   kubectl create secret generic cookie --from-file=secret=./config/prow/cookie.txt || true
 }
