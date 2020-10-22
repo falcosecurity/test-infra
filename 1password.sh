@@ -68,7 +68,7 @@ function op_signin {
   local email=$3
   local secret_key=$4
   local master_key=$5
-  eval $(echo -n "${master_key}" | $op signin $signin $email $secret_key)
+  eval $(echo -n "${master_key}" | $op signin "${signin}" "${email}" "${secret_key}")
 }
 
 function op_list_item_titles {
