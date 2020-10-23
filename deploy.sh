@@ -28,7 +28,7 @@ function terraform-install() {
     sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n |
     tail -n1)
   curl ${LATEST_URL} > /tmp/terraform.zip
-  cd tmp/
+  cd /tmp
   unzip terraform.zip
   rm -rf terraform.zip
   install terraform /usr/local/bin/
