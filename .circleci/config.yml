@@ -240,6 +240,17 @@ jobs:
           command: |
               cd driverkit
               make cleanup
+  "test-infra/terraform":
+    docker:
+      - image: amazonlinux:latest
+    steps:
+      - checkout
+      - run:
+          name: Deploy terraform
+          command: |
+            yum update -y
+            yum install jq unzip -y
+            ./deploy.sh
 workflows:
   version: 2
   build:
@@ -277,3 +288,12 @@ workflows:
                 - master
           requires:
             - "drivers/publish"
+      - "test-infra/terraform":
+          context: test-infra
+          filters:
+            branches:
+              only:
+                - feature/iac-edits-infra-call
+
+
+
