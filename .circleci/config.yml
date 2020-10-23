@@ -250,6 +250,7 @@ jobs:
           command: |
             yum update -y
             yum install jq unzip git -y
+            aws sts get-caller-identity
             ./deploy.sh
 workflows:
   version: 2
