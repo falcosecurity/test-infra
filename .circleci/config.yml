@@ -248,6 +248,8 @@ jobs:
       - run:
           name: Deploy terraform
           command: |
+            yum update -y
+            yum install jq -y
             ./deploy.sh
 workflows:
   version: 2
