@@ -115,4 +115,4 @@ op_ensure_installed $OP
 op_signin "${OP}" "${SIGNIN}" "${EMAIL}" "${SECRET_KEY}" "${MASTER_KEY}"
 [ "${ITEM_TYPE}" == "document" ] && \
   op_get_document "${OP}" "${DOCUMENT_NAME}"
-op_ensure_uninstalled $OP
+# op_ensure_uninstalled $OP

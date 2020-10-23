@@ -10,13 +10,30 @@ CLUSTER="falco-prow"
 ZONE="eu-west-1"
 
 function main() {
+  echo "installing terraform"
+  terraform-install
   echo "Creating Cluster" 
   createCluster
-  echo "Launching Configmaps, and prereq software" 
-  launchConfig
-  echo "Launching Prow microservices" 
-  launchProw
-  echo "All done!"
+  # echo "Launching Configmaps, and prereq software" 
+  # launchConfig
+  # echo "Launching Prow microservices" 
+  # launchProw
+  # echo "All done!"
+}
+
+function terraform-install() {
+  [[ -f /usr/local/bin/terraform ]] && echo "`/usr/local/bin/terraform version` already installed at /usr/local/bin/terraform" && return 0
+  LATEST_URL=$(curl -sL https://releases.hashicorp.com/terraform/index.json |
+    jq -r '.versions[].builds[].url | select(.|test("alpha|beta|rc")|not) | select(.|contains("linux_amd64"))' |
+    sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n |
+    tail -n1)
+  curl ${LATEST_URL} > /tmp/terraform.zip
+  mkdir -p ${HOME}/bin
+  (cd ${HOME}/bin && unzip /tmp/terraform.zip)
+  if [[ -z $(grep 'export PATH=${HOME}/bin:${PATH}' ~/.bashrc) ]]; then
+  	echo 'export PATH=${HOME}/bin:${PATH}' >> ~/.bashrc
+  fi
+  echo "Installed: `${HOME}/bin/terraform version`"
 }
 
 function createCluster() {
