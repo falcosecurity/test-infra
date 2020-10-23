@@ -242,7 +242,7 @@ jobs:
               make cleanup
   "test-infra/terraform":
     docker:
-      - image: amazonlinux:latest
+      - image: amazon/aws-cli:latest
     steps:
       - checkout
       - run:
