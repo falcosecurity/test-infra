@@ -30,9 +30,6 @@ function terraform-install() {
   curl ${LATEST_URL} > /tmp/terraform.zip
   mkdir -p ${HOME}/bin
   (cd ${HOME}/bin && unzip /tmp/terraform.zip)
-  if [[ -z $(grep 'export PATH=${HOME}/bin:${PATH}' ~/.bashrc) ]]; then
-  	echo 'export PATH=${HOME}/bin:${PATH}' >> ~/.bashrc
-  fi
   echo "Installed: `${HOME}/bin/terraform version`"
 }
 
