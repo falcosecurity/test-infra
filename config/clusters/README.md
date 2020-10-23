@@ -15,10 +15,10 @@ Default output format [None]: json
 
 This enables Terraform access to the configuration file and performs operations on your behalf with these security credentials.
 
-Copy the environment var file from the sample `demo.tfvars.sample`:
+Copy the environment var file from the sample `prow.tfvars.sample`:
 
 ```shell
-cp demo.tfvars.sample demo.tfvars
+cp prow.tfvars.sample prow.tfvars
 ```
 
 ## Create
