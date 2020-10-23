@@ -249,7 +249,7 @@ jobs:
           name: Deploy terraform
           command: |
             yum update -y
-            yum install jq -y
+            yum install jq unzip -y
             ./deploy.sh
 workflows:
   version: 2
