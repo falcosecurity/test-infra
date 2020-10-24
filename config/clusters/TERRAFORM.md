@@ -4,6 +4,7 @@
 
 | Name | Version |
 |------|---------|
+| terraform | >= 0.12.2 |
 | terraform | >= 0.12 |
 | aws | >= 2.28.1 |
 | local | ~> 1.2 |
@@ -26,12 +27,12 @@
 | app\_stage | n/a | `any` | n/a | yes |
 | eks\_default\_worker\_group\_additional\_userdata | Uerdata to append to the default userdata of the default EKS worker group | `number` | `1` | no |
 | eks\_default\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `1` | no |
-| eks\_default\_worker\_group\_instance\_type | The instance type of the default EKS worker group | `string` | `"t2.micro"` | no |
+| eks\_default\_worker\_group\_asg\_max\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `3` | no |
+| eks\_default\_worker\_group\_asg\_min\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `1` | no |
+| eks\_default\_worker\_group\_instance\_type | The instance type of the default EKS worker group | `string` | `"m5.large"` | no |
 | eks\_default\_worker\_group\_name | The name of the default EKS worker group | `string` | `"default-worker-group"` | no |
-| region | AWS region | `string` | `"us-east-2"` | no |
-| terraform\_state\_backend\_config\_file\_name | The file name for the terraform backend config file. | `string` | `"terraform_backend.tf"` | no |
-| terraform\_state\_backend\_config\_file\_path | Directory for the terraform backend config file. | `string` | `"."` | no |
-| terraform\_state\_backend\_force\_destroy | Whether to allow the S3 remote state backend to be deleted. Useful when migrating the state and/or destroying all the resources. | `bool` | `false` | no |
+| eks\_users | Additional IAM users to add to the aws-auth configmap. | <pre>list(object({<br>    userarn  = string<br>    username = string<br>    groups   = list(string)<br>  }))</pre> | <pre>[<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/jonah.jones",<br>    "username": "jonah.jones"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/fontanalorenz@gmail.com",<br>    "username": "fontanalorenz@gmail.com"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/leodidonato@gmail.com",<br>    "username": "leodidonato@gmail.com"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/leonardo.grasso",<br>    "username": "leonardo.grasso"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/massimiliano.giovagnoli",<br>    "username": "massimiliano.giovagnoli"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/spencer.krum",<br>    "username": "spencer.krum"<br>  }<br>]</pre> | no |
+| region | AWS region | `string` | `"eu-west-1"` | no |
 | vpc\_cidr\_block | The CIDR block of the main VPC | `string` | `"10.0.0.0/16"` | no |
 | vpc\_enable\_dns\_hostnames | A boolean flag to enable/disable DNS hostnames in the main VPC | `bool` | `true` | no |
 | vpc\_enable\_nat\_gateway | A boolean flag to provision NAT Gateways for each of your private networks | `bool` | `true` | no |
