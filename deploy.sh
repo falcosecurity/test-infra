@@ -35,6 +35,15 @@ function terraform-install() {
   echo "Installed: `terraform`"
 }
 
+function createClusterStateBackend() {
+  echo "Creating cluster '${CLUSTER}' state backend..."
+  echo
+  terraform apply \
+    -auto-approve \
+    -var-file config/clusters/state-backend/all.tfvars \
+    config/clusters/state-backend/
+}
+
 function createCluster() {
   echo "Creating cluster '${CLUSTER}' (this may take a few minutes)..."
   echo

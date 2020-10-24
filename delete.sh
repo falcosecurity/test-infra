@@ -30,6 +30,15 @@ function terraform-install() {
   echo "Installed: `terraform`"
 }
 
+function deleteClusterStateBackend() {
+  echo "Deleting cluster '${CLUSTER}' state backend..."
+  echo
+  terraform delete \
+    -auto-approve \
+    -var-file config/clusters/state-backend/all.tfvars \
+    config/clusters/state-backend/
+}
+
 function deleteCluster() {
   echo "Deleting cluster '${CLUSTER}' (this may take a few minutes)..."
   echo
