@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "prow_storage" {
-  bucket = "falco-prow-logs"
+  bucket = local.cluster_name
   acl    = "private"
 
   tags = module.label.tags
