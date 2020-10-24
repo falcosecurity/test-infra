@@ -31,8 +31,16 @@ function terraform-install() {
 }
 
 function deleteClusterStateBackend() {
+  local state_backend_workspace="state-backend"
+
   echo "Deleting cluster '${CLUSTER}' state backend..."
   echo
+  terraform workspace \
+    new $state_backend_workspace config/clusters/state-backend \
+    > /dev/null 2>&1 \
+    || terraform workspace \
+    select $state_backend_workspace config/clusters/state-backend
+
   terraform delete \
     -auto-approve \
     -var-file config/clusters/state-backend/all.tfvars \
