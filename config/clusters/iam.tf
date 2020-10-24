@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "ebs_controller_policy_doc" {
 }
 
 resource "aws_iam_policy" "ebs_controller_policy" {
-  name_prefix = "ebs-csi-driver"
+  name_prefix = "${local.cluster_name}-ebs-csi-driver"
   policy      = data.aws_iam_policy_document.ebs_controller_policy_doc.json
 }
 
@@ -34,7 +34,7 @@ module "iam_assumable_role_admin" {
   source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version          = "2.14.0"
   create_role      = true
-  role_name        = "prow_s3_access"
+  role_name        = "${local.cluster_name}-prow_s3_access"
   provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
   role_policy_arns = [aws_iam_policy.s3_access.arn]
   oidc_fully_qualified_subjects = [
@@ -47,7 +47,7 @@ module "iam_assumable_role_admin" {
 }
 
 resource "aws_iam_policy" "s3_access" {
-  name_prefix = "prow-s3"
+  name_prefix = "${local.cluster_name}-prow-s3"
   description = "EKS s3 access policy for cluster ${module.eks.cluster_id}"
   policy      = data.aws_iam_policy_document.s3_access.json
 }
