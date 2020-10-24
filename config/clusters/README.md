@@ -23,7 +23,37 @@ cp prow.tfvars.sample prow.tfvars
 
 ## Create
 
-Make sure `terraform_state_backend_force_destroy` is set to `false`. Compile the other variables as for your needings.
+### The state backend infrastructure
+
+First of all, the remote state backend is required in order to manage the state for this infrastructure (and different instances of this infrastructure through use of workspaces, and also the backend infrastructure itself, which should be managed with a dedicated workspace).
+In this way, we can maintain a single remote state backend for this project.
+
+```shell
+terraform init ./state-backend
+```
+
+Manage the state for the backend infrastructure itself in a dedicated workspace, so:
+
+```shell
+terraform workspace new state-backend ./state-backend
+```
+
+And now create the remote state backend:
+
+```shell
+terraform apply -var-file=./state-backend/all.tfvars ./state-backend
+```
+
+Besides the remote infrastructure, also the local configuration files to use the backend are created (`./terraform_backend.tf` and `./state-backend/terraform_backend.tf` by default).
+So now as the state is still stored locally, you have to move the state to the just created backend.
+
+```
+terraform init -force-copy ./state-backend
+```
+
+Now the state is stored in the S3 bucket, and the DynamoDB table will be used to lock the state to prevent concurrent modification.
+
+### The cluster infrastructure
 
 After you've done this,  and initalize your Terraform workspace, which will download the provider and initialize it with the values provided in the `<environment>.tfvars` file.
 
@@ -35,6 +65,13 @@ Downloading terraform-aws-modules/eks/aws 9.0.0 for eks...
 # Output truncated...
 
 Terraform has been successfully initialized!
+```
+
+Create a dedicated workspace for this cluster environment:
+
+```shell
+terraform workspace new <environment>
+
 ```
 
 Then, provision your EKS cluster and the Terraform state backend itself on S3 with state locking on DynamoDB, by running `terraform apply`. This will 
@@ -54,37 +91,54 @@ Outputs:
 # Output truncated...
 ```
 
-At this point, the Terraform state is still stored locally.
-Module `terraform_state_backend` also creates a new `terraform_backend.tf` file that defines the S3 state backend.
-Henceforth, Terraform will also read this newly-created backend definition file.
-Now, move your local state to the Terraform remote state backend, by running:
-
-```
-terraform init -force-copy
-```
-
-Now the state is stored in the S3 bucket, and the DynamoDB table will be used to lock the state to prevent concurrent modification.
-
 ## Destroy
 
-Now make sure `terraform_state_backend_force_destroy` is set to `true` and `terraform_state_backend_file_path` is set to "" (empty string).
+### The cluster infrastructure
+
+Make sure to select the correct environment workspace:
+
+```shell
+terraform workspace select <environment>
+```
+
+Destroy the cluster infrastructure:
+
+```shell
+terraform destroy
+```
+
+### The state backend infrastructure
+
+Caution: do not do it unless you have a valid reason! 
+
+#### You really want to destroy the state backend with all the states
+
+Make sure to select the correct environment workspace:
+
+```shell
+terraform workspace select state-backend
+```
+
+By default if the s3 bucket backend contains states (thus objects) the destroy of that resource will be prevented.
+In order to force the destroy, make sure `terraform_state_backend_force_destroy` is set to `true` and `terraform_state_backend_file_path` is set to "" (empty string).
+
 Delete the `terraform_backend.tf` file and enabling deletion of the S3 state bucket, by running:
 
-```
-terraform apply -target module.terraform_state_backend
+```shell
+terraform apply -var-file=./state-backend/all.tfvars ./state-backend
 ```
 
 Move the Terraform remote state to local filesystem, by running:
 
-```
-terraform init -force-copy
+```shell
+terraform init -force-copy ./state-backend
 ```
 
 Now the state is once again stored locally and the S3 state bucket can be safely deleted.
-Delete the EKS cluster infrastructure:
+Delete the state backend infrastructure:
 
 ```
-terraform destroy
+terraform destroy -var-file=./state-backend/all.tfvars ./state-backend
 ```
 
 Examine local state file `terraform.tfstate` to verify that it contains no resources.
