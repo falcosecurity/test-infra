@@ -42,6 +42,13 @@ function createClusterStateBackend() {
     -auto-approve \
     -var-file config/clusters/state-backend/all.tfvars \
     config/clusters/state-backend/
+
+  echo
+  echo "Initializing and moving the state to the applied state backend..."
+  echo
+  terraform init \
+    -backend-config=config/clusters/state-backend/terraform_backend.tf \
+    config/clusters/state-backend
 }
 
 function createCluster() {
