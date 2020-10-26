@@ -250,7 +250,7 @@ jobs:
           command: |
             yum update -y
             yum install jq unzip git -y
-            ./delete.sh
+            ./deploy.sh
 workflows:
   version: 2
   build:

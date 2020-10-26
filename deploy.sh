@@ -12,8 +12,10 @@ ZONE="eu-west-1"
 function main() {
   echo "installing terraform"
   terraform-install
-  echo "Creating Cluster" 
-  createCluster
+  echo "Creating State Backend" 
+  createClusterStateBackend
+  # echo "Creating Cluster" 
+  # createCluster
   # echo "Launching Configmaps, and prereq software" 
   # launchConfig
   # echo "Launching Prow microservices" 
@@ -40,8 +42,7 @@ function createClusterStateBackend() {
 
   echo "Creating cluster '${CLUSTER}' state backend..."
   echo
-  terraform workspace \
-    new $state_backend_workspace config/clusters/state-backend \
+  terraform workspace new $state_backend_workspace config/clusters/state-backend \
     > /dev/null 2>&1 \
     || terraform workspace \
     select $state_backend_workspace config/clusters/state-backend
