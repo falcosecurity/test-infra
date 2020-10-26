@@ -209,13 +209,13 @@ jobs:
       - image: amazon/aws-cli:latest
     steps:
       - checkout
-      - attach_workspace:
-          at: driverkit
       - run:
           name: Prepare environment
           command: |
             yum update -y
-            yum install make git which -y
+            yum install tar make git which -y
+      - attach_workspace:
+          at: driverkit
       - run:
           name: Publish drivers on s3
           command: |
