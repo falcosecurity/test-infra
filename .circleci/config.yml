@@ -206,7 +206,7 @@ jobs:
             - output
   "drivers/publish":
     docker:
-      - image: docker.bintray.io/jfrog/jfrog-cli-go:latest
+      - image: amazon/aws-cli:latest
     steps:
       - checkout
       - attach_workspace:
@@ -214,54 +214,48 @@ jobs:
       - run:
           name: Prepare environment
           command: |
-            apk update
-            apk add make git
+            yum update -y
+            yum install make git which -y
       - run:
-          name: Publish drivers on bintray
+          name: Publish drivers on s3
           command: |
             DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
             if [ $CIRCLE_SHA1 = $DRIVERKIT_COMMIT ];
             then
               cd driverkit
-              make publish
+              make publish_s3
             fi
   "drivers/cleanup":
     docker:
-      - image: docker.bintray.io/jfrog/jfrog-cli-go:latest
+      - image: amazon/aws-cli:latest
     steps:
       - checkout
       - run:
           name: Prepare env
           command: |
-            apk add --no-cache --update
-            apk add curl jq make
+            yum update -y
+            yum install make which -y
       - run:
           name: Cleanup
           command: |
               cd driverkit
-              make cleanup
+              make cleanup_s3
 workflows:
   version: 2
   build:
     jobs:
-      - "drivers/build/amazonlinux":
-          context: falco
-      - "drivers/build/amazonlinux2":
-          context: falco
-      - "drivers/build/centos":
-          context: falco
-      - "drivers/build/debian":
-          context: falco
-      - "drivers/build/ubuntu-aws":
-          context: falco
-      - "drivers/build/ubuntu-generic":
-          context: falco
+      - "drivers/build/amazonlinux"
+      - "drivers/build/amazonlinux2"
+      - "drivers/build/centos"
+      - "drivers/build/debian"
+      - "drivers/build/ubuntu-aws"
+      - "drivers/build/ubuntu-generic"
       - "drivers/publish":
-          context: falco
+          context: test-infra
           filters:
             branches:
               only:
-                - master
+                - feature/distribution
           requires:
             - "drivers/build/amazonlinux"
             - "drivers/build/amazonlinux2"
