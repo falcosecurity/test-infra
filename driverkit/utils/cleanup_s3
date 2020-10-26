@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Assuming the drivers versions of Falco eBPF probes and Falco kernel modules are always in pair.
+# For this reason, obtain all the version by only querying the Falco kernel modules versions.
+get_s3_versions() {
+    IFS=$'\n' read -r -d '' -a all < <(aws s3 ls "${S3_DRIVERS_BUCKET}/"  | awk '{print $2}' | head -n -1)
+}
+
+filterout_versions() {
+    for i in "${!all[@]}";
+    do
+        printf "%s\t%s\n" "$i" "${all[$i]}"
+        if [[ ! " ${keep[*]}" =~  ${all[$i]} ]]; then
+            printf " \tremoving..."
+            aws s3 rm --recursive "s3://${S3_DRIVERS_BUCKET}/${all[$i]}"
+            aws s3 rm "s3://${S3_DRIVERS_BUCKET}/${all[$i]}"
+            unset -v 'all[$i]'
+        fi
+    done
+}
+
+usage() {
+    echo "usage: S3_DRIVERS_BUCKET=falco-distribution/driver $0 -v abcd -v efgh"
+}
+
+while getopts ":v:" opt; do
+    case "${opt}" in
+        v )
+          keep+=("${OPTARG}/")
+          ;;
+        : )
+          echo "invalid option: ${OPTARG} requires an argument" 1>&2
+          exit 1
+          ;;
+        \?)
+          echo "invalid option: ${OPTARG}" 1>&2
+          exit 1
+          ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ "${#keep[@]}" -eq 0 ] || [ -z "$S3_DRIVERS_BUCKET" ]; then
+    usage
+    exit 1
+fi
+
+get_s3_versions
+echo "# versions: ${#all[@]}"
+filterout_versions
