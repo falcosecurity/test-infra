@@ -6,6 +6,7 @@ CONFIGS := $(wildcard config/*/*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
 VERSIONS := $(VERSIONS:/=)
 TARGET_DISTRO ?=
+S3_DRIVERS_BUCKET ?= "falco-distribution/driver"
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
@@ -13,9 +14,13 @@ specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
+publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 
 cleanup:
 	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
+
+cleanup_s3:
+	S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} utils/cleanup_s3 $(addprefix -v ,$(VERSIONS))
 
 # $(1): pseudo-target name
 # $(2): driver version
@@ -58,6 +63,10 @@ publish_$(1): prepare_$(1)
 	jfrog bt u "output/$(1)/kernel-module/*" falcosecurity/driver/kernel-module/$(1) $(1)/ --user poiana --key ${BINTRAY_SECRET} --publish --override
 	@echo "publishing eBPF probes (version $(1)) to bintray ..."
 	jfrog bt u "output/$(1)/ebpf-probe/*" falcosecurity/driver/ebpf-probe/$(1) $(1)/ --user poiana --key ${BINTRAY_SECRET} --publish --override
+
+publish_s3_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
+	aws s3 cp "output/$(1)/ebpf-probe/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.o" --acl public-read
+	aws s3 cp "output/$(1)/kernel-module/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.ko" --acl public-read
 
 endef
 $(foreach VERSION,$(VERSIONS),\
