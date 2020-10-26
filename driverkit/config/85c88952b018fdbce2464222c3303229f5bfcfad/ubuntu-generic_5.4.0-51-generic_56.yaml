@@ -1,0 +1,6 @@
+kernelversion: 56
+kernelrelease: 5.4.0-51-generic
+target: ubuntu-generic
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.4.0-51-generic_56.ko
+  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.4.0-51-generic_56.o
