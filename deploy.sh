@@ -42,7 +42,7 @@ function createClusterStateBackend() {
 
   echo "Creating cluster '${CLUSTER}' state backend..."
   terraform init config/clusters/state-backend
-  terraform workspace new $state_backend_workspace config/clusters/state-backend
+  terraform workspace new $state_backend_workspace config/clusters/state-backend || true
   terraform workspace select $state_backend_workspace config/clusters/state-backend
 
   terraform apply \
