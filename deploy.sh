@@ -14,8 +14,8 @@ function main() {
   terraform-install
   echo "Creating State Backend" 
   createClusterStateBackend
-  # echo "Creating Cluster" 
-  # createCluster
+  echo "Creating Cluster" 
+  createCluster
   # echo "Launching Configmaps, and prereq software" 
   # launchConfig
   # echo "Launching Prow microservices" 
@@ -50,12 +50,12 @@ function createClusterStateBackend() {
     -var-file config/clusters/state-backend/all.tfvars \
     config/clusters/state-backend/
 
-  echo
-  echo "Initializing and moving the state to the applied state backend..."
-  echo
-  terraform init \
-    -backend-config=config/clusters/state-backend/terraform_backend.tf \
-    config/clusters/state-backend
+  # echo
+  # echo "Initializing and moving the state to the applied state backend..."
+  # echo
+  # terraform init \
+  #   -backend-config=config/clusters/state-backend/terraform_backend.tf \
+  #   config/clusters/state-backend
 }
 
 function createCluster() {
@@ -65,7 +65,6 @@ function createCluster() {
   terraform get
   terraform validate config/clusters
   terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
-  terraform init -force-copy config/clusters
   aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
 }
 
