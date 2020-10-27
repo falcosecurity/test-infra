@@ -1,18 +1,54 @@
 resource "aws_s3_bucket" "distribution_bucket" {
   bucket = var.bucket_name
   acl    = "public-read"
-
+  policy = <<EOF
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+          "Sid": "HTTPSOnly",
+          "Effect": "Deny",
+          "Principal": "*",
+          "Action": "s3:*",
+          "Resource": "arn:aws:s3:::${var.bucket_name}/*",
+          "Condition": {
+            "Bool": {
+              "aws:SecureTransport": false
+            }
+          }
+        },
+        {
+            "Sid": "AllowPublicRead",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "*"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::${var.bucket_name}/*"
+        }
+    ]
+}
+EOF
   tags = {
     Name = var.bucket_name
+  }
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET"]
+    # allowed_origins = ["https://${var.distribution_name_alias}"]
+    allowed_origins = ["*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
   }
 }
 
 resource "aws_s3_bucket_object" "distribution_index" {
-  bucket = aws_s3_bucket.distribution_bucket.id
-  key = "index.html"
-  acl = "public-read" 
-  source = "files/index.html"
-  etag = filemd5("files/index.html")
+  bucket       = aws_s3_bucket.distribution_bucket.id
+  key          = "index.html"
+  acl          = "public-read"
+  source       = "files/index.html"
+  etag         = filemd5("files/index.html")
   content_type = "text/html; charset=utf-8"
 }
 
@@ -66,7 +102,7 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
