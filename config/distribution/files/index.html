@@ -2,14 +2,26 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Falco distribution</title>
+  <title>Falco Downloads</title>
 </head>
 
 <body>
-  download.falco.org is used for artifacts distribution for the Falcosecurity project.
-  Go to <a href="https://falco.org/docs">falco.org/docs</a> for instructions on how to install Falco.
+  <div id="navigation"></div>
+  <div id="listing"></div>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    var S3BL_IGNORE_PATH = false;
+    var BUCKET_NAME = 'falco-distribution';
+    var BUCKET_WEBSITE_URL = 'https://download.falco.org';
+    var S3B_ROOT_DIR = '/';
+    var S3B_SORT = 'A2Z';
+    var EXCLUDE_FILE = 'index.html';  // change to array to exclude multiple files, regexp also supported e.g. /^(.*\/)?index.html$/ to exclude all index.html
+    var AUTO_TITLE = true;
+    var S3_REGION = 's3-eu-west-1';
+  </script>
+  <script type="text/javascript" src="https://rufuspollock.github.io/s3-bucket-listing/list.js"></script>
+
 </body>
 
 </html>
