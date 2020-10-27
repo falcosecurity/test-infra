@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "distribution_bucket" {
           "Resource": "arn:aws:s3:::${var.bucket_name}/*",
           "Condition": {
             "Bool": {
-              "aws:SecureTransport": false
+              "aws:SecureTransport": "false"
             }
           }
         },

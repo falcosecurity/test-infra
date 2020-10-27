@@ -26,7 +26,7 @@ will need to be able to read the `falco-distribution-state-bucket` S3 and read t
 If you have that, you can just init and apply after you make changes.
 
 ```
-terrafrom init
+terraform init
 terraform apply
 ```
 
@@ -41,8 +41,8 @@ Copy the environment var file from the sample `distribution.tfvars.sample`:
 $ cp distribution.tfvars.sample distribution.tfvars
 ```
 
-Make sure that the terraform state on s3 configuration is hidden from terraform
-since we didn't create the bucket and dynamodb locking table yet.
+Make sure that the terraform state on S3 configuration is hidden from terraform
+since we didn't create the bucket and DynamoDB locking table yet.
 
 ```console
 mv terraform_backend.tf terraform_backend.hold
