@@ -12,9 +12,7 @@ ZONE="eu-west-1"
 function main() {
   echo "installing terraform"
   terraform-install
-  echo "Creating State Backend" 
-  createClusterStateBackend
-  echo "Creating Cluster" 
+  echo "Running Terraform" 
   createCluster
   # echo "Launching Configmaps, and prereq software" 
   # launchConfig
@@ -37,25 +35,14 @@ function terraform-install() {
   echo "Installed: `terraform`"
 }
 
+# Will add this in once we have the need for multiple workspaces (dev/prod or multi account)
+# Uses Default workspace until we select one
 function createClusterStateBackend() {
-  local state_backend_workspace="state-backend"
-
+  local workspace="test-infra"
   echo "Creating cluster '${CLUSTER}' state backend..."
-  terraform init config/clusters/state-backend
-  terraform workspace new $state_backend_workspace config/clusters/state-backend || true
-  terraform workspace select $state_backend_workspace config/clusters/state-backend
-
-  # terraform apply \
-  #   -auto-approve \
-  #   -var-file config/clusters/state-backend/all.tfvars \
-  #   config/clusters/state-backend/
-
-  # echo
-  # echo "Initializing and moving the state to the applied state backend..."
-  # echo
-  # terraform init \
-  #   -backend-config=config/clusters/state-backend/terraform_backend.tf \
-  #   config/clusters/state-backend
+  terraform init config/clusters
+  terraform workspace new $workspace config/clusters || true
+  terraform workspace select $workspace config/clusters
 }
 
 function createCluster() {
@@ -63,7 +50,6 @@ function createCluster() {
   echo
   terraform init config/clusters
   terraform get
-  terraform force-unlock -force 3DF395CA0E2C2147
   terraform validate config/clusters
   terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
   aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
@@ -80,8 +66,8 @@ function launchConfig(){
   kubectl create secret generic s3-credentials --from-literal=service-account.json="$(./1password.sh -d config/prow/service-account.json)" || true
 
   #Github related items
-  kubectl create secret generic hmac-token --from-literal=hmac="$(./1password.sh -d config/prow/hmac-token)" || true
-  kubectl create secret generic oauth-token --from-literal=oauth="$(./1password.sh -d config/prow/oauth-token)" || true
+  kubectl create secret generic hmac-token --from-literal=hmac="$(./tools/1password.sh -d config/prow/hmac-token)" || true
+  kubectl create secret generic oauth-token --from-literal=oauth="$(./tools/1password.sh -d config/prow/oauth-token)" || true
   kubectl create secret generic github-oauth-config --from-file=secret=./config/prow/github_oauth || true
   kubectl create secret generic cookie --from-file=secret=./config/prow/cookie.txt || true
 }

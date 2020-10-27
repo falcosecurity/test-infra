@@ -30,13 +30,14 @@ function terraform-install() {
   echo "Installed: `terraform`"
 }
 
-function deleteClusterStateBackend() {
-  local state_backend_workspace="state-backend"
-
+# Will add this in once we have the need for multiple workspaces (dev/prod or multi account)
+# Uses Default workspace until we select one
+function createClusterStateBackend() {
+  local workspace="test-infra"
   echo "Creating cluster '${CLUSTER}' state backend..."
-  terraform init config/clusters/state-backend
-  terraform workspace new $state_backend_workspace config/clusters/state-backend || true
-  terraform workspace select $state_backend_workspace config/clusters/state-backend
+  terraform init config/clusters
+  terraform workspace new $workspace config/clusters || true
+  terraform workspace select $workspace config/clusters
 }
 
 function deleteCluster() {

@@ -6,8 +6,6 @@ terraform {
     bucket         = "falco-test-infra-state"
     key            = "terraform.tfstate"
     dynamodb_table = "falco-test-infra-state-lock"
-    profile        = ""
-    role_arn       = ""
     encrypt        = "true"
   }
 }

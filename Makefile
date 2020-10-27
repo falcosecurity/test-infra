@@ -47,4 +47,4 @@ tf-clean: tf-init
 	terraform destroy -var-file config/clusters/prow.tfvars -auto-approve config/clusters
 
 kubeconfig:
-	aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra --profile falco
+	aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra --profile default
