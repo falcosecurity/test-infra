@@ -45,10 +45,10 @@ function createClusterStateBackend() {
   terraform workspace new $state_backend_workspace config/clusters/state-backend || true
   terraform workspace select $state_backend_workspace config/clusters/state-backend
 
-  terraform apply \
-    -auto-approve \
-    -var-file config/clusters/state-backend/all.tfvars \
-    config/clusters/state-backend/
+  # terraform apply \
+  #   -auto-approve \
+  #   -var-file config/clusters/state-backend/all.tfvars \
+  #   config/clusters/state-backend/
 
   # echo
   # echo "Initializing and moving the state to the applied state backend..."
@@ -63,6 +63,7 @@ function createCluster() {
   echo
   terraform init config/clusters
   terraform get
+  terraform force-unlock -force 3DF395CA0E2C2147
   terraform validate config/clusters
   terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
   aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
