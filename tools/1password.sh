@@ -10,8 +10,8 @@ SECRET_KEY="${OP_SECRET_KEY}"
 MASTER_KEY="${OP_MASTER_KEY}"
 ITEM_TYPE=""
 
-BINPATH="$(mktemp -d)/bin"
-OP="${BINPATH}/op"
+# BINPATH="$(mktemp -d)/bin"
+# OP="${BINPATH}/op"
 VERBOSE="false"
 
 function show_usage {
@@ -55,36 +55,30 @@ function op_ensure_installed {
     # $gpg --verify \
     #   $tmpdir/op.sig \
     #   $tmpdir/op \
-    #   > /dev/null 2>&1
-    mkdir -p $BINPATH && \
-      mv $tmpdir/op /usr/local/bin
+    mv $tmpdir/op /usr/local/bin
     rm -rf $tmpdir
   fi
 }
 
 function op_signin {
-  local op=$1
-  local signin=$2
-  local email=$3
-  local secret_key=$4
-  local master_key=$5
-  eval $(echo -n "${master_key}" | $op signin "${signin}" "${email}" "${secret_key}")
+  local signin=$1
+  local email=$2
+  local secret_key=$3
+  local master_key=$4
+  eval $(echo -n "${master_key}" | op signin "${signin}" "${email}" "${secret_key}")
 }
 
 function op_list_item_titles {
-  local op=$1
-  $op list items | jq '.[].overview.title'
+  op list items | jq '.[].overview.title'
 }
 
 function op_ensure_uninstalled {
-  local op=$1
-  rm $op
+  rm /usr/local/bin/op
 }
 
 function op_get_document {
-  local op=$1
-  local document_name=$2
-  $op get document $document_name
+  local document_name=$1
+  op get document $document_name
 }
 
 while getopts ":hvd:" opt; do
@@ -111,8 +105,8 @@ done
 [ -z "${DOCUMENT_NAME}" ] && \
   { show_usage; exit 1 ; }
 
-op_ensure_installed $OP
-op_signin "${OP}" "${SIGNIN}" "${EMAIL}" "${SECRET_KEY}" "${MASTER_KEY}"
+op_ensure_installed
+op_signin "${SIGNIN}" "${EMAIL}" "${SECRET_KEY}" "${MASTER_KEY}"
 [ "${ITEM_TYPE}" == "document" ] && \
-  op_get_document "${OP}" "${DOCUMENT_NAME}"
+  op_get_document "${DOCUMENT_NAME}"
 # op_ensure_uninstalled $OP
