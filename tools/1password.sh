@@ -48,16 +48,16 @@ function op_ensure_installed {
       -o $tmpdir/op.zip
     unzip $tmpdir/op.zip -d $tmpdir/ \
       > /dev/null
-    $gpg --receive-keys \
-      --keyserver pool.sks-keyservers.net \
-      3FEF9748469ADBE15DA7CA80AC2D62742012EA22 \
-      > /dev/null 2>&1
-    $gpg --verify \
-      $tmpdir/op.sig \
-      $tmpdir/op \
-      > /dev/null 2>&1
+    # $gpg --recv-keys \
+    #   --keyserver pool.sks-keyservers.net \
+    #   3FEF9748469ADBE15DA7CA80AC2D62742012EA22 \
+    #   > /dev/null 2>&1
+    # $gpg --verify \
+    #   $tmpdir/op.sig \
+    #   $tmpdir/op \
+    #   > /dev/null 2>&1
     mkdir -p $BINPATH && \
-      mv $tmpdir/op $BINPATH/
+      mv $tmpdir/op /usr/local/bin
     rm -rf $tmpdir
   fi
 }
