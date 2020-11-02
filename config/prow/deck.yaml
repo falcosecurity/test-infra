@@ -104,7 +104,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: deck
-        image: gcr.io/k8s-prow/deck:v20201013-c02a7cb212
+        image: gcr.io/k8s-prow/deck:v20201102-45eeca6478
         args:
         - --allow-insecure #allow non http deck
         - --spyglass=true

@@ -14,8 +14,8 @@ function main() {
   terraform-install
   echo "Running Terraform" 
   createCluster
-  # echo "Launching Configmaps, and prereq software" 
-  # launchConfig
+  echo "Launching Configmaps, and prereq software" 
+  launchConfig
   # echo "Launching Prow microservices" 
   # launchProw
   # echo "All done!"
