@@ -302,7 +302,6 @@ plugins:
     - branchcleaner
     - cat
     - dco
-    - docs-no-retest
     - dog
     - golint
     - goose
@@ -325,7 +324,6 @@ plugins:
     - branchcleaner
     - cat
     - dco
-    - docs-no-retest
     - dog
     - goose
     - help
@@ -347,7 +345,6 @@ plugins:
     - branchcleaner
     - cat
     - dco
-    - docs-no-retest
     - dog
     - goose
     - help
@@ -506,7 +503,6 @@ plugins:
     - branchcleaner
     - cat
     - dco
-    - docs-no-retest
     - dog
     - goose
     - help
@@ -552,7 +548,6 @@ plugins:
     - branchcleaner
     - cat
     - dco
-    - docs-no-retest
     - dog
     - golint
     - goose
@@ -574,7 +569,6 @@ plugins:
     - branchcleaner
     - cat
     - dco
-    - docs-no-retest
     - dog
     - golint
     - goose
@@ -678,7 +672,6 @@ plugins:
     - cat
     - config-updater
     - dco
-    - docs-no-retest
     - dog
     - goose
     - help
