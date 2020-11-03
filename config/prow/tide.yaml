@@ -17,7 +17,7 @@ metadata:
   namespace: default
   name: "tide"
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::164382793440:role/prow_s3_access
+    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/prow_s3_access
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
@@ -71,6 +71,9 @@ spec:
       containers:
       - name: tide
         image: gcr.io/k8s-prow/tide:v20201102-45eeca6478
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
         args:
         - --dry-run=false
         - --config-path=/etc/config/config.yaml

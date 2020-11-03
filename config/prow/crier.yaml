@@ -67,7 +67,7 @@ metadata:
   namespace: default
   name: "crier"
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::164382793440:role/prow_s3_access
+    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/prow_s3_access
 ---
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
