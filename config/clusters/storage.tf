@@ -5,6 +5,6 @@ resource "aws_s3_bucket" "prow_storage" {
   tags = module.label.tags
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
