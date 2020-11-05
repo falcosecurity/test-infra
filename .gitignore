@@ -5,7 +5,7 @@ prow/cluster/*token.yaml
 .DS_Store
 .idea
 
-
+.env
 config/prow/hmac-token
 config/prow/oauth-token
 config/prow/github_oauth
