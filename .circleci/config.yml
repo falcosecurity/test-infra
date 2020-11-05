@@ -240,7 +240,18 @@ jobs:
           command: |
               cd driverkit
               make cleanup
+  "test-infra/scan/terraform":
+    docker:
+      - image: accurics/terrascan:latest
+    steps:
+      - checkout
+      - run:
+          name: Scan terraform code
+          command: |
+            terrascan scan -d ./config/clusters -i terraform -t aws
   "test-infra/deploy/terraform":
+    requires:
+      - test-infra/scan/terraform
     docker:
       - image: amazon/aws-cli:latest
     steps:
@@ -303,7 +314,15 @@ workflows:
                 - master
           requires:
             - "drivers/publish"
+      - "test-infra/scan/terraform":
+          context: test-infra
+          filters:
+            branches:
+              only:
+                - feature/iac-edits-infra-call
       - "test-infra/deploy/terraform":
+          requires:
+            - test-infra/scan/terraform
           context: test-infra
           filters:
             branches:
