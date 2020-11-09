@@ -69,9 +69,9 @@ metadata:
   namespace: default
   name: deck
   annotations:
-    # service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-    # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-1:292999226676:certificate/ba966f87-e470-4638-90ba-a2e9a34d5677
-    # service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-1:292999226676:certificate/ba966f87-e470-4638-90ba-a2e9a34d5677
+     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
 spec:
   selector:
     app: deck
