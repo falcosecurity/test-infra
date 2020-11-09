@@ -1,5 +1,3 @@
-# Falco Test Infra on AWS - Terraform Specs
-
 ## Requirements
 
 | Name | Version |
@@ -17,7 +15,6 @@
 | Name | Version |
 |------|---------|
 | aws | >= 2.28.1 |
-| kubernetes | n/a |
 
 ## Inputs
 
@@ -45,6 +42,7 @@
 
 | Name | Description |
 |------|-------------|
+| deck\_aws\_acm\_certificate\_arn | n/a |
 | deck\_aws\_acm\_certificate\_validation\_options | n/a |
 | eks\_cluster\_endpoint | Endpoint for EKS control plane. |
 | eks\_cluster\_name | Kubernetes Cluster Name |
