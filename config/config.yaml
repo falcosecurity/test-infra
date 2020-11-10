@@ -48,7 +48,7 @@ horologium:
   pod_pending_timeout: 60m
   default_decoration_configs:
     '*':
-      timeout: 1h
+      timeout: 20m
       grace_period: 10m
       utility_images:
         clonerefs: "gcr.io/k8s-prow/clonerefs:v20200921-becd8c9356"

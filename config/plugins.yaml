@@ -30,13 +30,14 @@ blunderbuss:
   use_status_availability: true
 
 config_updater:
-  config_file: prow/config/config.yaml
-  plugins_file: prow/config/plugins.yaml
   maps:
-    prow/config/config.yaml:
+    config/config.yaml:
       name: config
-    prow/config/plugins.yaml:
+    config/plugins.yaml:
       name: plugins
+    config/jobs/**/*.yaml:
+      name: job-config
+      gzip: true
 
 goose:
   key_path: /etc/unsplash/honk
