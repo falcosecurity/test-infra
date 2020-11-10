@@ -91,6 +91,8 @@ branch-protection:
           branches:
             master:
               protect: true
+            "release/0.26.2":
+              protect: true
         falcosidekick:
           branches:
             master:
