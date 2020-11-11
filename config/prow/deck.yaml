@@ -1,0 +1,188 @@
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  namespace: default
+  name: "deck"
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/prow_s3_access
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: "deck"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: "deck"
+subjects:
+- kind: ServiceAccount
+  name: "deck"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  namespace: test-pods
+  name: "deck"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: "deck"
+subjects:
+- kind: ServiceAccount
+  name: "deck"
+  namespace: default
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: "deck"
+rules:
+  - apiGroups:
+      - "prow.k8s.io"
+    resources:
+      - prowjobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: test-pods
+  name: "deck"
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods/log
+    verbs:
+      - get
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: deck
+  annotations:
+     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-1:292999226676:certificate/ba966f87-e470-4638-90ba-a2e9a34d5677
+     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  selector:
+    app: deck
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+    - name: metrics
+      port: 9090
+    - name: https
+      port: 443
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deck
+  labels:
+    app: deck
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: deck
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: deck
+    spec:
+      serviceAccountName: "deck"
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: deck
+        image: gcr.io/k8s-prow/deck:v20201102-45eeca6478
+        env:
+        - name: AWS_REGION #required for splyglass bucket looku
+          value: eu-west-1
+        args:
+        - --allow-insecure #allow non http deck
+        - --spyglass=true
+        - --tide-url=http://tide/
+        - --hook-url=http://hook:8888/plugin-help
+        - --config-path=/etc/config/config.yaml
+        - --job-config-path=/etc/job-config
+        - --plugin-config=/etc/plugins/plugins.yaml
+        # - --github-oauth-config-file=/etc/githuboauth/secret
+        # - --kubeconfig=/etc/kubeconfig/config
+        # - --cookie-secret=/etc/cookie/secret
+        # - --rerun-creates-job
+        # - --oauth-url=/github-login
+        # - --github-token-path=/etc/github/oauth
+        - --github-endpoint=http://ghproxy
+        - --github-endpoint=https://api.github.com
+        ports:
+          - name: http
+            containerPort: 8080
+        volumeMounts:
+        - name: config
+          mountPath: /etc/config
+          readOnly: true
+        - name: job-config
+          mountPath: /etc/job-config
+          readOnly: true
+        # - name: oauth
+        #   mountPath: /etc/github
+        #   readOnly: true
+        # - name: oauth-config
+        #   mountPath: /etc/githuboauth
+        #   readOnly: true
+        - name: plugins
+          mountPath: /etc/plugins
+          readOnly: true
+        - name: branding
+          mountPath: /static/extensions
+          readOnly: true
+        # - name: kubeconfig
+        #   mountPath: /etc/kubeconfig
+        #   readOnly: true
+        # - name: cookie-secret
+        #   mountPath: /etc/cookie
+        #   readOnly: true
+      volumes:
+      # - name: kubeconfig
+      #   secret:
+      #     defaultMode: 420
+      #     secretName: kubeconfig
+      # - name: oauth-config
+      #   secret:
+      #       secretName: github-oauth-config
+      # - name: cookie-secret
+      #   secret:
+      #       secretName: cookie
+      - name: config
+        configMap:
+          name: config
+      - name: job-config
+        configMap:
+          name: job-config
+      # - name: oauth
+      #   secret:
+      #       secretName: oauth-token
+      - name: plugins
+        configMap:
+          name: plugins
+      - name: branding
+        configMap:
+          defaultMode: 420
+          name: branding
