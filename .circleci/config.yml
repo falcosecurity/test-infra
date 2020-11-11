@@ -314,7 +314,8 @@ workflows:
           filters:
             branches:
               only:
-                - feature/iac-edits-infra-call
+                - prow
+                - master
       - "test-infra/deploy/terraform":
           requires:
             - test-infra/scan/terraform
@@ -322,7 +323,8 @@ workflows:
           filters:
             branches:
               only:
-                - feature/iac-edits-infra-call
+                - prow
+                - master
       - "test-infra/deploy/prow":
           requires:
             - test-infra/deploy/terraform
@@ -330,4 +332,5 @@ workflows:
           filters:
             branches:
               only:
-                - feature/iac-edits-infra-call
+                - prow
+                - master
