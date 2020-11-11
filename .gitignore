@@ -2,5 +2,24 @@ prow/*secret
 prow/hmac
 prow/oauth
 prow/cluster/*token.yaml
+prow/update-jobs/vendor
 .DS_Store
 .idea
+
+.env
+config/prow/hmac-token
+config/prow/oauth-token
+config/prow/github_oauth
+config/prow/cookie.txt
+config/prow/service-account.json
+config/prow/service-account_local.json
+create-build-cluster.sh
+kubeconfig_falco-prow-test-infra
+tools/create_gencred.sh
+
+
+#terraform files
+.terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
