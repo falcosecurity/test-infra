@@ -9,13 +9,16 @@ EMAIL="${OP_EMAIL_ADDRESS}"
 SECRET_KEY="${OP_SECRET_KEY}"
 MASTER_KEY="${OP_MASTER_KEY}"
 ITEM_TYPE=""
+BINPATH="/usr/local/bin"
+VAULT_NAME=""
+DOCUMENT_NAME=""
 
 # BINPATH="$(mktemp -d)/bin"
 # OP="${BINPATH}/op"
 VERBOSE="false"
 
 function show_usage {
-  echo "Usage: ${SCRIPT_NAME} -d DOCUMENT_NAME"
+  echo "Usage: ${SCRIPT_NAME} -d DOCUMENT_NAME [-v VAULT_NAME]"
   echo
   echo "Required environment variables:"
   echo " OP_SIGNIN_ADDRESS"
@@ -55,7 +58,7 @@ function op_ensure_installed {
     # $gpg --verify \
     #   $tmpdir/op.sig \
     #   $tmpdir/op \
-    mv $tmpdir/op /usr/local/bin
+    mv $tmpdir/op "${BINPATH}/"
     rm -rf $tmpdir
   fi
 }
@@ -73,20 +76,27 @@ function op_list_item_titles {
 }
 
 function op_ensure_uninstalled {
-  rm /usr/local/bin/op
+  rm "${BINPATH}/op"
 }
 
 function op_get_document {
   local document_name=$1
-  op get document $document_name
+  local vault_name=$2
+
+  if [ -z "${VAULT_NAME}" ]; then
+    op get document $document_name
+  else
+    op get document $document_name \
+      --vault $vault_name
+  fi
 }
 
-while getopts ":hvd:" opt; do
+while getopts ":hv:d:" opt; do
   case ${opt} in
     h ) show_usage;
       exit 0
       ;;
-    v ) VERBOSE="true";
+    v ) VAULT_NAME="${OPTARG}";
       ;;
     d ) ITEM_TYPE="document";
       DOCUMENT_NAME="${OPTARG}";
@@ -108,5 +118,5 @@ done
 op_ensure_installed
 op_signin "${SIGNIN}" "${EMAIL}" "${SECRET_KEY}" "${MASTER_KEY}"
 [ "${ITEM_TYPE}" == "document" ] && \
-  op_get_document "${DOCUMENT_NAME}"
+  op_get_document "${DOCUMENT_NAME}" "${VAULT_NAME}"
 # op_ensure_uninstalled $OP
