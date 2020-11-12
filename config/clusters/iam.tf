@@ -69,7 +69,7 @@ data "aws_iam_policy_document" "s3_access" {
 
 ##### AWS LoadBalancer Controller
 
-module "iam_assumable_role_admin" {
+module "load_balancer_controller" {
   source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version          = "2.14.0"
   create_role      = true
