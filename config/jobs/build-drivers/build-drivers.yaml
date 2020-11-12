@@ -19,7 +19,7 @@ presubmits:
 periodics:
   - name: build-drivers-amazonlinux-periodic
     decorate: true
-    interval: 24h
+    interval: 48h
     extra_refs:
     - org: falcosecurity
       repo: test-infra
