@@ -274,8 +274,8 @@ jobs:
           name: Deploy prow
           command: |
             yum update -y
-            yum install jq unzip git wget which -y
-            wget https://storage.googleapis.com/kubernetes-release/release/v1.17.3/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl
+            yum install jq unzip git wget curl which -y
+            wget "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl
             chmod +x /usr/local/bin/kubectl
             ./tools/deploy_prow.sh
 workflows:
