@@ -54,6 +54,6 @@ echo "******************************************************"
 echo "Ran DriverKit tests, checking logs"
 echo "******************************************************"
 
-cat driverkit/output/failing.log
+cat output/failing.log
 
 exit 0
