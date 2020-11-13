@@ -252,7 +252,7 @@ jobs:
             curl --location https://github.com/accurics/terrascan/releases/download/v1.1.0/terrascan_1.1.0_Linux_x86_64.tar.gz --output terrascan.tar.gz
             tar -xvf terrascan.tar.gz
             install terrascan /usr/local/bin
-            for file in $(ls ./*.tf); do \
+            for file in $(ls ./config/clusters/*.tf); do \
               terrascan scan -t aws -f $file; \
             done
   "test-infra/deploy/terraform":
