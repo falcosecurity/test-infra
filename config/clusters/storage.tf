@@ -7,4 +7,18 @@ resource "aws_s3_bucket" "prow_storage" {
   lifecycle {
     prevent_destroy = false
   }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.prow_storage.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+}
+
+resource "aws_kms_key" "prow_storage" {
+  description             = "Prow storage master encryption key"
+  deletion_window_in_days = 10
 }
