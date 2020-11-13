@@ -21,4 +21,5 @@ resource "aws_s3_bucket" "prow_storage" {
 resource "aws_kms_key" "prow_storage" {
   description             = "Prow storage master encryption key"
   deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
