@@ -32,3 +32,29 @@ resource "aws_kms_key" "prow_storage" {
   deletion_window_in_days = 10
   enable_key_rotation     = true
 }
+
+resource "aws_s3_bucket_policy" "prow_storage" {
+  bucket = aws_s3_bucket.prow_storage.id
+  policy = data.aws_s3_bucket_policy.prow_storage.json
+}
+
+data "aws_iam_policy_document" "prow_storage" {
+  statement {
+    sid    = "AllowProwAllToS3Storage"
+    effect = "Allow"
+
+    actions = [
+      "s3:*",
+    ]
+
+    resources = [
+      aws_s3_bucket.prow_storage.arn,
+      "${aws_s3_bucket.prow_storage.arn}/*",
+    ]
+
+    principals = [
+      module.iam_assumable_role_admin.this_iam_role_arn # Prow IAM Role
+    ]
+  }
+}
+
