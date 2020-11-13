@@ -60,9 +60,24 @@ data "aws_iam_policy_document" "s3_access" {
     actions = [
       "s3:*",
     ]
+
     resources = [
       aws_s3_bucket.prow_storage.arn,
       "arn:aws:s3:::*/*",
+    ]
+  }
+
+  statement {
+    sid = "AllowToEncryptDecryptS3Bucket"
+
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:GenerateDataKey",
+    ]
+
+    resources = [
+      aws_kms_key.prow_storage.arn,
     ]
   }
 }
