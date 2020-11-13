@@ -1,6 +1,11 @@
 resource "aws_s3_bucket" "prow_storage" {
   bucket = "falco-prow-logs"
-  acl    = "private"
+
+  grant {
+    id          = data.aws_canonical_user_id.current_user.id
+    type        = "CanonicalUser"
+    permissions = ["READ", "WRITE"]
+  }
 
   tags = module.label.tags
 
