@@ -3,7 +3,7 @@ SHELL := /bin/bash
 
 .PHONY: oauth-token hmac-token github-oauth-config cookie plugins update-config
 
-### Prow Compenents
+### Prow Components
 
 update-jobs:
 	go run prow/update-jobs/main.go --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
