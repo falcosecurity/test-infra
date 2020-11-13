@@ -5,9 +5,6 @@ SHELL := /bin/bash
 
 ### Prow Compenents
 
-1password-local:
-	export $$(xargs <.env) && ./tools/deploy_prow.sh
-
 update-jobs:
 	go run prow/update-jobs/main.go --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
 
