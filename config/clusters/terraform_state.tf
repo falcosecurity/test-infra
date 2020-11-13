@@ -6,6 +6,16 @@ resource "aws_s3_bucket" "falco-test-infra-state" {
   lifecycle {
     prevent_destroy = false
   }
+
+  logging {
+    target_bucket = aws_s3_bucket.falco-test-infra-state-logs.id
+    target_prefix = "log/"
+  }
+}
+
+resource "aws_s3_bucket" "falco-test-infra-state-logs" {
+  bucket = "falco-test-infra-state-logs"
+  acl    = "log-delivery-write"
 }
 
 resource "aws_dynamodb_table" "falco-test-infra-state-lock" {
