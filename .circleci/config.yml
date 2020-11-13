@@ -249,7 +249,7 @@ jobs:
           name: Scan terraform code
           command: |
             pip install terrascan==0.2.3
-            terrascan scan -l ./config/clusters
+            terrascan -l ./config/clusters
   "test-infra/deploy/terraform":
     requires:
       - test-infra/scan/terraform
