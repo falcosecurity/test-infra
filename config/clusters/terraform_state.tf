@@ -11,6 +11,21 @@ resource "aws_s3_bucket" "falco-test-infra-state" {
     target_bucket = aws_s3_bucket.falco-test-infra-state-logs.id
     target_prefix = "log/"
   }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        kms_master_key_id = aws_kms_key.falco-test-infra-state.arn
+        sse_algorithm     = "aws:kms"
+      }
+    }
+  }
+}
+
+resource "aws_kms_key" "falco-test-infra-state" {
+  description             = "Falco Test Infra state master encryption key"
+  deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
 
 resource "aws_s3_bucket" "falco-test-infra-state-logs" {
@@ -33,3 +48,4 @@ resource "aws_dynamodb_table" "falco-test-infra-state-lock" {
     enabled = true
   }
 }
+
