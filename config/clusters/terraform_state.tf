@@ -48,7 +48,7 @@ resource "aws_dynamodb_table" "falco-test-infra-state-lock" {
 
 resource "aws_s3_bucket_policy" "falco-test-infra-state" {
   bucket = aws_s3_bucket.falco-test-infra-state.id
-  policy = data.aws_s3_bucket_policy.falco-test-infra-state.json
+  policy = data.aws_iam_policy_document.falco-test-infra-state.json
 }
 
 data "aws_iam_policy_document" "falco-test-infra-state" {
