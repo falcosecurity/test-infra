@@ -48,9 +48,10 @@ data "aws_iam_policy_document" "prow_storage" {
       "${aws_s3_bucket.prow_storage.arn}/*",
     ]
 
-    principals = [
-      module.iam_assumable_role_admin.this_iam_role_arn # Prow IAM Role
-    ]
+    principals {
+      type        = "AWS"
+      identifiers = [module.iam_assumable_role_admin.this_iam_role_arn] # Prow IAM Role
+    }
   }
 }
 
