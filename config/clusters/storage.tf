@@ -16,6 +16,10 @@ resource "aws_s3_bucket" "prow_storage" {
       }
     }
   }
+
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_kms_key" "prow_storage" {
