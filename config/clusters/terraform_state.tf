@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "falco-test-infra-state" {
   bucket = "falco-test-infra-state"
-  versioning {
-    enabled = true
-  }
+
+  acl = "private"
+
   lifecycle {
     prevent_destroy = false
   }
@@ -20,6 +20,12 @@ resource "aws_s3_bucket" "falco-test-infra-state" {
       }
     }
   }
+
+  versioning {
+    enabled = true
+  }
+
+  tags = module.label.tags
 }
 
 resource "aws_kms_key" "falco-test-infra-state" {
@@ -30,7 +36,12 @@ resource "aws_kms_key" "falco-test-infra-state" {
 
 resource "aws_s3_bucket" "falco-test-infra-state-logs" {
   bucket = "falco-test-infra-state-logs"
-  acl    = "log-delivery-write"
+
+  acl = "log-delivery-write"
+
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_dynamodb_table" "falco-test-infra-state-lock" {
