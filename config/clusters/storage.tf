@@ -3,8 +3,6 @@ resource "aws_s3_bucket" "prow_storage" {
 
   acl = "private"
 
-  tags = module.label.tags
-
   lifecycle {
     prevent_destroy = false
   }
@@ -21,6 +19,8 @@ resource "aws_s3_bucket" "prow_storage" {
   versioning {
     enabled = true
   }
+
+  tags = module.label.tags
 }
 
 resource "aws_kms_key" "prow_storage" {
