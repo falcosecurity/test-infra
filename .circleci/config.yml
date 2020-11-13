@@ -242,14 +242,14 @@ jobs:
               make cleanup_s3
   "test-infra/scan/terraform":
     docker:
-      - image: accurics/terrascan:latest
+      - image: python:3.7
     steps:
       - checkout
       - run:
           name: Scan terraform code
           command: |
-            #terrascan scan -d ./config/clusters -i terraform -t aws
-            exit 0
+            pip install terrascan==0.2.3
+            terrascan scan -l ./config/clusters
   "test-infra/deploy/terraform":
     requires:
       - test-infra/scan/terraform
