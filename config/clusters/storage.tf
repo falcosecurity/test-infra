@@ -31,7 +31,7 @@ resource "aws_kms_key" "prow_storage" {
 
 resource "aws_s3_bucket_policy" "prow_storage" {
   bucket = aws_s3_bucket.prow_storage.id
-  policy = data.aws_s3_bucket_policy.prow_storage.json
+  policy = data.aws_iam_policy_document.prow_storage.json
 }
 
 data "aws_iam_policy_document" "prow_storage" {
