@@ -1,3 +1,5 @@
+data "aws_canonical_user_id" "current_user" {}
+
 data "aws_iam_policy_document" "ebs_controller_policy_doc" {
   statement {
     effect    = "Allow"
