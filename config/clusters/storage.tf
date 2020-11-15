@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "prow_storage" {
 
     principals {
       type        = "AWS"
-      identifiers = ["${local.cluster_name}-prow_s3_access}"] # Prow IAM Role
+      identifiers = [module.iam_assumable_role_admin.this_iam_role_arn] # Prow IAM Role
     }
   }
 }
