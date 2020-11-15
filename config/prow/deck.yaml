@@ -5,7 +5,7 @@ metadata:
   namespace: default
   name: "deck"
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/prow_s3_access
+    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/falco-prow-test-infra-prow_s3_access
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
