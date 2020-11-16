@@ -29,6 +29,11 @@ blunderbuss:
   max_request_count: 2
   use_status_availability: true
 
+triggers:
+  - repos:
+    - falcosecurity/test-infra
+  - join_org_url: https://github.com/falcosecurity/community
+
 config_updater:
   maps:
     config/config.yaml:
