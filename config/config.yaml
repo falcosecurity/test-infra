@@ -32,8 +32,8 @@ plank:
   pod_pending_timeout: 60m
   default_decoration_configs:
     '*':
-      timeout: 1h
-      grace_period: 10m
+      timeout: 2h
+      grace_period: 30m
       utility_images:
         clonerefs: "gcr.io/k8s-prow/clonerefs:v20200921-becd8c9356"
         initupload: "gcr.io/k8s-prow/initupload:v20200921-becd8c9356"
@@ -48,8 +48,8 @@ horologium:
   pod_pending_timeout: 60m
   default_decoration_configs:
     '*':
-      timeout: 20m
-      grace_period: 10m
+      timeout: 2h
+      grace_period: 30m
       utility_images:
         clonerefs: "gcr.io/k8s-prow/clonerefs:v20200921-becd8c9356"
         initupload: "gcr.io/k8s-prow/initupload:v20200921-becd8c9356"

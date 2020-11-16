@@ -4,7 +4,6 @@ presubmits:
     decorate: true
     skip_report: false
     agent: kubernetes
-    run_if_changed: "^(config/jobs/build-drivers|images/build-drivers/)"
     branches:
       - ^master$
     spec:
@@ -15,7 +14,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: localhost:5000/build-drivers
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -23,7 +22,6 @@ presubmits:
     decorate: true
     skip_report: false
     agent: kubernetes
-    run_if_changed: "^(config/jobs/build-drivers|images/build-drivers/)"
     branches:
       - ^master$
     spec:
@@ -34,7 +32,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: localhost:5000/build-drivers
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -55,7 +53,7 @@ periodics:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: localhost:5000/build-drivers
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -75,7 +73,7 @@ periodics:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: localhost:5000/build-drivers
         imagePullPolicy: Always
         securityContext:
           privileged: true
