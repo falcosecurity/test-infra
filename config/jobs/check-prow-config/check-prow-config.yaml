@@ -6,7 +6,6 @@ presubmits:
       branches:
         - ^master$
       decorate: true
-      always_run: true
       skip_report: false
       spec:
         containers:
