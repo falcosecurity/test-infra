@@ -1,0 +1,26 @@
+presubmits:
+  falcosecurity/test-infra:
+    - name: check-prow-config
+      run_if_changed: "^config/"
+      path_alias: github.com/falcosecurity/test-infra
+      branches:
+        - ^master$
+      decorate: true
+      always_run: true
+      skip_report: false
+      spec:
+        containers:
+          - image: gcr.io/k8s-prow/checkconfig:v20190607-6c71cb47c
+            imagePullPolicy: Always
+            command:
+              - /checkconfig
+            args:
+              - --config-path=/etc/config/configs.yaml
+            volumeMounts:
+              - name: config
+                mountPath: /etc/config
+                readOnly: true
+        volumes:
+          - name: config
+            configMap:
+              name: config
