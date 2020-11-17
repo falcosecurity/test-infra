@@ -36,7 +36,7 @@ periodics:
             - name: oauth
               mountPath: /etc/github
               readOnly: true
-          volumes:
-            - name: oauth
-              secret:
-              secretName: oauth-token
+      volumes:
+        - name: oauth
+          secret:
+          secretName: oauth-token
