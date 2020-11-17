@@ -1,7 +1,7 @@
 presubmits:
   falcosecurity/test-infra:
     - name: check-prow-config
-      run_if_changed: "^config/"
+      run_if_changed: "^config/config.yaml"
       path_alias: github.com/falcosecurity/test-infra
       branches:
         - ^master$
@@ -15,7 +15,7 @@ presubmits:
             command:
               - /checkconfig
             args:
-              - --config-path=/etc/config/configs.yaml
+              - --config-path=/etc/config/config.yaml
             volumeMounts:
               - name: config
                 mountPath: /etc/config

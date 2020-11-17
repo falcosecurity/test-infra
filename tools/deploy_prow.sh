@@ -28,6 +28,7 @@ function launchConfig(){
 
   kubectl create configmap plugins --from-file=plugins.yaml=./config/plugins.yaml || true
   kubectl create configmap config --from-file "./config/config.yaml" || true
+  kubectl create configmap config --from-file "./config/config.yaml" -n test-pods || true
   kubectl create configmap job-config --from-file "./config/jobs/config.yaml" || true
   kubectl create configmap branding --from-file "./config/branding" || true
   kubectl create secret generic s3-credentials --from-literal=service-account.json="$(./tools/1password.sh -d config/prow/service-account.json)" || true
@@ -35,6 +36,7 @@ function launchConfig(){
   #Github related items
   kubectl create secret generic hmac-token --from-literal=hmac="$(./tools/1password.sh -d config/prow/hmac-token)" || true
   kubectl create secret generic oauth-token --from-literal=oauth="$(./tools/1password.sh -d config/prow/oauth-token)" || true
+  kubectl create secret generic oauth-token --from-literal=oauth="$(./tools/1password.sh -d config/prow/oauth-token)" -n test-pods || true
   
   # Related to OAuth setup... need to setup base url on Github for callback before we can create these
   
