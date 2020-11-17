@@ -1,0 +1,43 @@
+periodics:
+  - name: periodic-stale
+    interval: 1h
+    decorate: true
+    annotations:
+      description: Adds lifecycle/stale to issues after 90d of inactivity
+    agent: kubernetes
+    spec:
+      containers:
+        - image: gcr.io/k8s-prow/commenter:v20201116-dbd60ab192
+          command:
+            - /app/robots/commenter/app.binary
+          args:
+            - |-
+              --query=org:falcosecurity
+              -label:lifecycle/frozen
+              -label:lifecycle/stale
+              -label:lifecycle/rotten
+            - --updated=2160h
+            - --token=/etc/github/oauth
+            - |-
+              --comment=Issues go stale after 90d of inactivity.
+
+              Mark the issue as fresh with `/remove-lifecycle stale`.
+
+              Stale issues rot after an additional 30d of inactivity and eventually close.
+
+              If this issue is safe to close now please do so with `/close`.
+
+              Provide feedback via https://github.com/falcosecurity/community.
+
+              /lifecycle stale
+            - --template
+            - --confirm
+            - --ceiling=10
+          volumeMounts:
+            - name: oauth
+              mountPath: /etc/github
+              readOnly: true
+      volumes:
+        - name: oauth
+          secret:
+            secretName: oauth-token
