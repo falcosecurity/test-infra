@@ -1,6 +1,6 @@
 periodics:
   - name: periodic-stale
-    interval: 1h
+    interval: 6h
     decorate: true
     annotations:
       description: Adds lifecycle/stale to issues after 90d of inactivity
