@@ -36,6 +36,78 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+  - name: build-drivers-centos-presubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - centos
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+  - name: build-drivers-debian-presubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - debian
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+  - name: build-drivers-ubuntu-aws-presubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - ubuntu-aws
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+  - name: build-drivers-ubuntu-generic-presubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - ubuntu-generic
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
 periodics:
   - name: build-drivers-amazonlinux-periodic
     decorate: true
@@ -70,6 +142,86 @@ periodics:
       - command:
         - /workspace/build-drivers.sh
         - amazonlinux2
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+  - name: build-drivers-centos-periodic
+    decorate: true
+    interval: 48h
+    extra_refs:
+    - org: falcosecurity
+      repo: test-infra
+      base_ref: master
+    agent: kubernetes
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - centos
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+  - name: build-drivers-debian-periodic
+    decorate: true
+    interval: 48h
+    extra_refs:
+    - org: falcosecurity
+      repo: test-infra
+      base_ref: master
+    agent: kubernetes
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - debian
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+  - name: build-drivers-ubuntu-aws-periodic
+    decorate: true
+    interval: 48h
+    extra_refs:
+    - org: falcosecurity
+      repo: test-infra
+      base_ref: master
+    agent: kubernetes
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - ubuntu-aws
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+  - name: build-drivers-ubuntu-generic-periodic
+    decorate: true
+    interval: 48h
+    extra_refs:
+    - org: falcosecurity
+      repo: test-infra
+      base_ref: master
+    agent: kubernetes
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - ubuntu-generic
         env:
         - name: AWS_REGION
           value: eu-west-1
