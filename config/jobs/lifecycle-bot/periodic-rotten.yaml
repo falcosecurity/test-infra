@@ -33,10 +33,10 @@ periodics:
             - --template
             - --confirm
           volumeMounts:
-            - name: oauth
-              mountPath: /etc/github
-              readOnly: true
+          - name: oauth
+            mountPath: /etc/github
+            readOnly: true
       volumes:
-        - name: oauth
-          secret:
+      - name: oauth
+        secret:
           secretName: oauth-token

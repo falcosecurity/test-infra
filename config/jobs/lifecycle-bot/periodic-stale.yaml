@@ -34,10 +34,10 @@ periodics:
             - --confirm
             - --ceiling=10
           volumeMounts:
-            - name: oauth
-              mountPath: /etc/github
-              readOnly: true
+          - name: oauth
+            mountPath: /etc/github
+            readOnly: true
       volumes:
-        - name: oauth
-          secret:
-            secretName: oauth-token
+      - name: oauth
+        secret:
+          secretName: oauth-token
