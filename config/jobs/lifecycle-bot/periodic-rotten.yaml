@@ -1,6 +1,6 @@
 periodics:
   - name: periodic-rotten
-    interval: 1h
+    interval: 6h
     decorate: false
     annotations:
       description: ...
