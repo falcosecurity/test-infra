@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/(?!README.md)'
+    run_if_changed: '^driverkit\/'
     spec:
       containers:
       - command:
@@ -25,7 +25,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/(?!README.md)'
+    run_if_changed: '^driverkit\/'
     spec:
       containers:
       - command:
@@ -44,7 +44,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/(?!README.md)'
+    run_if_changed: '^driverkit\/'
     spec:
       containers:
       - command:
@@ -63,7 +63,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/(?!README.md)'
+    run_if_changed: '^driverkit\/'
     spec:
       containers:
       - command:
@@ -82,7 +82,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/(?!README.md)'
+    run_if_changed: '^driverkit\/'
     spec:
       containers:
       - command:
@@ -101,7 +101,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/(?!README.md)'
+    run_if_changed: '^driverkit\/'
     spec:
       containers:
       - command:
