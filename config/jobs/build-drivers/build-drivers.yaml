@@ -2,7 +2,8 @@ presubmits:
   falcosecurity/test-infra:
   - name: build-drivers-amazonlinux-presubmit
     decorate: true
-    skip_report: false
+    always_run: false
+    skip_report: true
     agent: kubernetes
     branches:
       - ^master$
@@ -21,7 +22,8 @@ presubmits:
           privileged: true
   - name: build-drivers-amazonlinux2-presubmit
     decorate: true
-    skip_report: false
+    always_run: false
+    skip_report: true
     agent: kubernetes
     branches:
       - ^master$
@@ -40,7 +42,8 @@ presubmits:
           privileged: true
   - name: build-drivers-centos-presubmit
     decorate: true
-    skip_report: false
+    always_run: false
+    skip_report: true
     agent: kubernetes
     branches:
       - ^master$
@@ -59,7 +62,8 @@ presubmits:
           privileged: true
   - name: build-drivers-debian-presubmit
     decorate: true
-    skip_report: false
+    always_run: false
+    skip_report: true
     agent: kubernetes
     branches:
       - ^master$
@@ -78,7 +82,8 @@ presubmits:
           privileged: true
   - name: build-drivers-ubuntu-aws-presubmit
     decorate: true
-    skip_report: false
+    always_run: false
+    skip_report: true
     agent: kubernetes
     branches:
       - ^master$
@@ -97,7 +102,8 @@ presubmits:
           privileged: true
   - name: build-drivers-ubuntu-generic-presubmit
     decorate: true
-    skip_report: false
+    always_run: false
+    skip_report: true
     agent: kubernetes
     branches:
       - ^master$
