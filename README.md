@@ -12,79 +12,63 @@ You can find more about it [here](/driverkit).
 
 [Prow](https://github.com/kubernetes/test-infra/tree/master/prow) is a CI/CD system running on Kubernetes.
 
-This directory contains the resources composing the Falco's workflow & testing infrastructure.
+This directory contains the resources composing the Falco's workflow & testing infrastructure. 
 
 Are you looking for Deck to check the merge queue and prow jobs?
 
-- http://147.75.81.50:30754/
+- https://prow.falco.org
 
-### Components
+### Adding a Job on Prow
 
-Listing the deployments we are currently using.
+Falco is the first Public Prow instance running 100% on AWS infrastructure. This means there are slight differences when it comes to adding jobs to Falco's Prow.
 
-#### Deck
 
-> UI for prow jobs.
+### Job Types
 
-#### Sinker
+There are three types of prow jobs:
 
-> Clean up stale prow jobs.
+- **Presubmits** run against code in PRs
 
-#### Hook
+- **Postsubmits** run after merging code
 
-> Handle GitHub events dispatching them to plugins.
+- **Periodics** run on a periodic basis
 
-#### Horologium
 
-> Start periodic jobs.
 
-#### Plank
+### Create a Presubmits job that run's tests on PR's.
 
-> Start prow jobs.
+1. We add a file at `config/jobs/build-drivers/build-drivers.yaml`
 
-### Setup
+2. 
+```yaml
+ presubmits:
+  falcosecurity/test-infra: #Name of the org/repo
+  - name: build-drivers-amazonlinux-presubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - amazonlinux
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+```
 
-This assumes that you are in the `prow` directory and that you can reach your working Kubernetes cluster.
+A few things to call out.
 
-1. Create a bot account (we have our own [poiana](https://github.com/poiana)).
+- branches: `^master$`  is telling prow to run this on any branch but Master
+- command: `/workspace/build-drivers.sh` this is telling the docker container to run as the test script. See the [script](images/build-drivers/build-drivers.sh)
+- privileged: `true` This is required when using Docker in Docker, or Docker builds.
+- decorate: `true` is adding pod utilities to the prow jobs as an init container. This pulls in source code for the job, to leverage scripts and files in the pull request. 
 
-    1.1. Grant it **owner** level access to the GitHub organisations on which prow will operate on.
 
-    1.2. Generate a [personal access token](https://github.com/settings/tokens) for the bot with full `repo` scope and `admin:org`, `admin:repo_hook`, and `admin:org_hook` too (in case you want prow to operate at organisation level).
-
-    1.3 Save such OAuth token to `prow/oauth_secret` file.
-
-2. Create a token for GitHub webhooks.
-
-    ```bash
-    openssl rand -hex 20 > prow/hmac_secret
-    ```
-
-3. Deploy prow
-
-    ```bash
-    make prow
-    ```
-
-4. Setup the hook
-
-    4.1. Install the `update-hook` tool
-
-    ```bash
-	go get -u k8s.io/test-infra/experiment/update-hook
-    ```
-
-    4.2. Attach it to the organisation using `--repo` flag (or to a precise repo using `MY_ORG/MY_REPO` convention)
-
-    ```bash
-	update-hook --hmac-path=path/to/hmac/secret --github-token-path=path/to/oauth/secret --hook-url http://an.ip.addr.ess/hook --repo MY_ORG --confirm=true
-    ```
-
-5. Setup or update your plugins and configs with
-
-   ```bash
-   make plugins
-   make configs
-   ```
-
----
+3. Once we add this job, we're going to createe our PR, and test this via Github / commands.

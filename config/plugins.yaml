@@ -238,10 +238,10 @@ size:
   xxl: 520
 
 triggers:
-  - repos:
-      - falcosecurity
-    join_org_url: "https://github.com/falcosecurity/falco/blob/master/GOVERNANCE.md#process-for-becoming-a-maintainer"
-    only_org_members: true
+- repos:
+  - falcosecurity
+  join_org_url: "https://github.com/falcosecurity/falco/blob/master/GOVERNANCE.md#process-for-becoming-a-maintainer"
+  only_org_members: true
 
 plugins:
   falcosecurity/.github:
