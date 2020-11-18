@@ -32,6 +32,7 @@ module "eks" {
       max_capacity     = var.eks_default_worker_group_asg_max_capacity
       min_capacity     = var.eks_default_worker_group_asg_min_capacity
       instance_type    = var.eks_default_worker_group_instance_type
+      kubelet_extra_args   = "--kube-reserved=emephemeral-storage=30Gi" 
       k8s_labels = {
         Environment = "training"
         GithubRepo  = "terraform-aws-eks"
