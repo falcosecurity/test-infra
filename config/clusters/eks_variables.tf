@@ -9,12 +9,12 @@ variable "eks_default_worker_group_instance_type" {
 }
 
 variable "eks_default_worker_group_asg_min_capacity" {
-  default     = 1
+  default     = 3
   description = "The Autoscaling Group size of the default EKS worker group"
 }
 
 variable "eks_default_worker_group_asg_desired_capacity" {
-  default     = 3
+  default     = 4
   description = "The Autoscaling Group size of the default EKS worker group"
 }
 
