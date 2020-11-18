@@ -1,8 +1,7 @@
 presubmits:
   falcosecurity/test-infra:
     - name: check-prow-config
-      run_if_changed: "^config/config.yaml"
-      path_alias: github.com/falcosecurity/test-infra
+      run_if_changed: '^(config/(config|plugins).yaml$|config/jobs/.*.yaml$)'
       branches:
         - ^master$
       decorate: true
@@ -10,16 +9,26 @@ presubmits:
       spec:
         containers:
           - image: gcr.io/k8s-prow/checkconfig:v20201116-91b8575a1f
-            imagePullPolicy: Always
             command:
               - /checkconfig
             args:
-              - --config-path=/etc/config/config.yaml
-            volumeMounts:
-              - name: config
-                mountPath: /etc/config
-                readOnly: true
-        volumes:
-          - name: config
-            configMap:
-              name: config
+            - --config-path=config/config.yaml
+            - --job-config-path=config/jobs
+            - --plugin-config=config/plugins.yaml
+periodics:
+- name: check-prow-config-periodic
+  interval: 1h
+  decorate: true
+  extra_refs:
+  - org: falcosecurity
+    repo: test-infra
+    base_ref: master
+  spec:
+    containers:
+    - image: gcr.io/k8s-prow/checkconfig:v20201116-dbd60ab192
+      command:
+      - /checkconfig
+      args:
+      - --config-path=config/config.yaml
+      - --job-config-path=config/jobs
+      - --plugin-config=config/plugins.yaml
