@@ -15,7 +15,10 @@ module "eks" {
 
   vpc_id = module.vpc.vpc_id
 
-  workers_additional_policies = [aws_iam_policy.ebs_controller_policy.arn]
+  workers_additional_policies = [
+    aws_iam_policy.ebs_controller_policy.arn,
+    aws_iam_policy.cluster_autoscaler_policy.arn
+  ]
 
   node_groups_defaults = {
     ami_type  = "AL2_x86_64"

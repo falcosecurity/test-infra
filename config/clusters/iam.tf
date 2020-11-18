@@ -26,11 +26,30 @@ data "aws_iam_policy_document" "ebs_controller_policy_doc" {
   }
 }
 
-resource "aws_iam_policy" "ebs_controller_policy" {
-  name_prefix = "${local.cluster_name}-ebs-csi-driver"
+resource "aws_iam_policy" "cluster_autoscaler_policy" {
+  name_prefix = "${local.cluster_name}-cluster-autoscaler"
   policy      = data.aws_iam_policy_document.ebs_controller_policy_doc.json
 }
+data "aws_iam_policy_document" "cluster_autoscaler_policy_doc" {
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions = [
+      "autoscaling:DescribeAutoScalingGroups",
+      "autoscaling:DescribeAutoScalingInstances",
+      "autoscaling:DescribeLaunchConfigurations",
+      "autoscaling:DescribeTags",
+      "autoscaling:SetDesiredCapacity",
+      "autoscaling:TerminateInstanceInAutoScalingGroup",
+      "ec2:DescribeLaunchTemplateVersions"
+    ]
+  }
+}
 
+resource "aws_iam_policy" "cluster_autoscaler_policy" {
+  name_prefix = "${local.cluster_name}-cluster-autoscaler"
+  policy      = data.aws_iam_policy_document.cluster_autoscaler_policy_doc.json
+}
 
 ##### S3 for Prow uploads
 
