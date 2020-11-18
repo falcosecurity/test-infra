@@ -1,3 +1,39 @@
+---
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  namespace: default
+  name: "branchprotector"
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/falco-prow-test-infra-prow_s3_access
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: "branchprotector"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: "branchprotector"
+subjects:
+- kind: ServiceAccount
+  name: "branchprotector"
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  namespace: test-pods
+  name: "branchprotector"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: "branchprotector"
+subjects:
+- kind: ServiceAccount
+  name: "branchprotector"
+  namespace: default
+---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -15,7 +51,8 @@ spec:
         spec:
           containers:
           - name: branchprotector
-            image: gcr.io/k8s-prow/branchprotector:v20191202-824584dd0
+            image: gcr.io/k8s-prow/branchprotector:v20201116-dbd60ab192
+            imagePullPolicy: Always
             args:
             - --config-path=/etc/config/config.yaml
             - --job-config-path=/etc/job-config
