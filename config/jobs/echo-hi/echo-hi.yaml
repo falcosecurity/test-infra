@@ -10,8 +10,8 @@ presubmits:
     spec:
       containers:
       - command:
-        - exit
-        - "1"
+        - echo
+        - "Prow Rocks"
         env:
         - name: AWS_REGION
           value: eu-west-1
