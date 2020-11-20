@@ -4,6 +4,7 @@ presubmits:
     decorate: true
     skip_report: false
     agent: kubernetes
+    run_if_changed: '^config/jobs/echo-hi/'
     branches:
       - ^master$
     spec:
