@@ -17,21 +17,3 @@ presubmits:
           value: eu-west-1
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:latest
         imagePullPolicy: Always
-periodics:
-  - name: update-jobs-periodic
-    decorate: true
-    interval: 24h
-    extra_refs:
-    - org: falcosecurity
-      repo: test-infra
-      base_ref: feature/iac-edits-infra-call
-    agent: kubernetes
-    spec:
-      containers:
-      - command:
-        - /workspace/update-jobs.sh
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:latest
-        imagePullPolicy: Always
