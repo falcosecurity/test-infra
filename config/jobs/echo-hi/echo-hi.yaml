@@ -1,0 +1,20 @@
+presubmits:
+  falcosecurity/test-infra:
+  - name: echo-hi
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+        - echo
+        - "hi"
+        - exit
+        - "1"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: debian:buster
+        imagePullPolicy: Always
