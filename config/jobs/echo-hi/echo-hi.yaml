@@ -10,8 +10,6 @@ presubmits:
     spec:
       containers:
       - command:
-        - echo
-        - "hi"
         - exit
         - "1"
         env:
