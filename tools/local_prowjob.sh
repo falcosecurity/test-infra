@@ -20,17 +20,18 @@ set -o pipefail
 
 # We use a .local file because the update-jobs configmap will merge all yaml together into one configmap
 export CONFIG_PATH="$(pwd)/config/config.yaml"
-export JOB_CONFIG_PATH="$(pwd)/config/jobs/build-drivers/build-drivers.local"
-export IMAGE_PATH="$(pwd)/images/build-drivers"
+export JOB_CONFIG_PATH="$(pwd)/config/jobs/driverkit/driverkit-test.local"
+export IMAGE_PATH="$(pwd)/images/golang"
+DEBUG="false"
 
 function main() {
   # Point kubectl at the mkpod cluster.
   export KUBECONFIG="${HOME}/.kube/kind-config-mkpod"
+
   parseArgs "$@"
   local_registrey
   ensureInstall
-  current_dir=$(pwd)
-  cd ${image_path} && make local-registry && cd $current_dir
+  make -C ${image_path} local-registry
 
   # Generate PJ and Pod.
   docker run -i --rm -v "${PWD}:${PWD}" -v "${config}:${config}" ${job_config_mnt} -w "${PWD}" gcr.io/k8s-prow/mkpj "--config-path=${config}" "--job=${job}" ${job_config_flag} > "${PWD}/pj.yaml"
@@ -55,8 +56,10 @@ EOF
   docker network connect "${kind_network}" "${reg_name}" || true
 
   # Deploy pod and watch.
+  echo
   echo "Applying pod to the mkpod cluster. Configure kubectl for the mkpod cluster with:"
   echo ">  export KUBECONFIG='${KUBECONFIG}'"
+  echo
   pod=$(kubectl apply -f "${PWD}/pod.yaml" | cut -d ' ' -f 1)
   kubectl get "${pod}" -w
 }
@@ -73,24 +76,31 @@ function parseArgs() {
   node_dir="${NODE_DIR:-/mnt/disks/kind-node}"  # Any pod hostPath mounts should be under this dir to reach the true host via the kind node.
 
   local new_only="  (Only used when creating a new kind cluster.)"
-  echo "job=${job}"
-  echo "CONFIG_PATH=${config}"
-  echo "JOB_CONFIG_PATH=${job_config_path}"
-  echo "IMAGE_PATH=${image_path}"
-  echo "OUT_DIR=${out_dir} ${new_only}"
-  echo "KIND_CONFIG=${kind_config} ${new_only}"
-  echo "NODE_DIR=${node_dir} ${new_only}"
+
+  if [ "${DEBUG}" = "true" ]; then
+    echo "job=${job}"
+    echo "CONFIG_PATH=${config}"
+    echo "JOB_CONFIG_PATH=${job_config_path}"
+    echo "IMAGE_PATH=${image_path}"
+    echo "OUT_DIR=${out_dir} ${new_only}"
+    echo "KIND_CONFIG=${kind_config} ${new_only}"
+    echo "NODE_DIR=${node_dir} ${new_only}"
+    ask_confirm
+  fi
 
   if [[ -z "${job}" ]]; then
     echo "Must specify a job name as the first argument."
     exit 2
   fi
+
   if [[ -z "${config}" ]]; then
     echo "Must specify config.yaml location via CONFIG_PATH env var."
     exit 2
   fi
+
   job_config_flag=""
   job_config_mnt=""
+
   if [[ -n "${job_config_path}" ]]; then
     job_config_flag="--job-config-path=${job_config_path}"
     job_config_mnt="-v ${job_config_path}:${job_config_path}"
@@ -99,18 +109,22 @@ function parseArgs() {
 
 # Ensures installation of prow tools, kind, and a kind cluster named "mkpod".
 function ensureInstall() {
+
   # Install kind and set up cluster if not already done.
   if ! command -v kind >/dev/null 2>&1; then
     echo "Installing kind..."
     GO111MODULE="on" go get sigs.k8s.io/kind@v0.7.0
   fi
+
   local found="false"
+
   for clust in $(kind get clusters); do
     if [[ "${clust}" == "mkpod" ]]; then
       found="true"
       break
     fi
   done
+
   if [[ "${found}" == "false" ]]; then
     # Need to create the "mkpod" kind cluster.
     if [[ -n "${kind_config}" ]]; then
@@ -133,13 +147,21 @@ containerdConfigPatches:
 nodes:
   - extraMounts:
       - containerPath: ${out_dir}
-        hostPath: /Users/jonahjo/go/src/code.amazon.com/falco/falcosecurity/test-infra
+        hostPath: ${HOME}/go/src/code.amazon.com/falco/falcosecurity/test-infra
       # host <-> node mount for hostPath volumes in Pods. (All hostPaths should be under ${node_dir} to reach the host.)
       - containerPath: ${node_dir}
-        hostPath: /Users/jonahjo/go/src/code.amazon.com/falco/falcosecurity/test-infra
+        hostPath: ${HOME}/go/src/code.amazon.com/falco/falcosecurity/test-infra
 EOF
       kind create cluster --name=mkpod "--config=${temp_config}" --wait=5m
       rm "${temp_config}"
+    fi
+  else
+    if docker ps -a | grep 'mkpod-control-plane' > /dev/null 1>&2; then
+      is_kind_controlplane_running="$(docker inspect -f '{{.State.Running}}' "mkpod-control-plane" 2>/dev/null || true)"
+      if [ "${is_kind_controlplane_running}" != "true" ]; then
+        docker start mkpod-control-plane
+        echo "Done."
+      fi
     fi
   fi
 }
@@ -151,10 +173,21 @@ function local_registrey() {
   kind_network='bridge'
   reg_host="${reg_name}"
   running="$(docker inspect -f '{{.State.Running}}' "${reg_name}" 2>/dev/null || true)"
+
   if [ "${running}" != 'true' ]; then
     docker run \
       -d --restart=always -p "${reg_port}:5000" --name "${reg_name}" \
       registry:2
+  fi
+}
+
+function ask_confirm() {
+  read -p "Confirm? [y/n] " -n 1 -r
+
+  if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo
+    echo "Canceled."
+    exit 0
   fi
 }
 
