@@ -1,0 +1,21 @@
+presubmits:
+  falcosecurity/driverkit:
+  - name: driverkit-test
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    run_if_changed: '^.*.go$'
+    spec:
+      containers:
+      - command:
+        - make
+        - -C
+        - /home/prow/go/src/github.com/falcosecurity/driverkit
+        - test
+        image: localhost:5000/golang:latest
+        imagePullPolicy: Always
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
