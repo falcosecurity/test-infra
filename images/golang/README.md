@@ -8,6 +8,7 @@ The image consists of:
 
 - golang 1.13
 - dep 0.5.4
+- awscli
 
 
 ## Installation
