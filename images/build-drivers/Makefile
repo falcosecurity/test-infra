@@ -13,5 +13,10 @@ push-image:
 	docker tag $(IMG_NAME) $(IMAGE):$(TAG)
 	docker push $(IMAGE):$(TAG)
 local-registry:
+	aws ecr get-login-password \
+		| docker login \
+		--username AWS \
+		--password-stdin $(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)
+	docker pull $(IMAGE):$(TAG)
 	docker tag $(IMAGE):$(TAG) localhost:5000/build-drivers
-	docker push localhost:5000/build-drivers 
+	docker push localhost:5000/build-drivers
