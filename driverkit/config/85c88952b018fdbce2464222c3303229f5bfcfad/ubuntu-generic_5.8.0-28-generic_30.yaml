@@ -1,0 +1,6 @@
+kernelversion: 30
+kernelrelease: 5.8.0-28-generic
+target: ubuntu-generic
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.8.0-28-generic_30.ko
+  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.8.0-28-generic_30.o
