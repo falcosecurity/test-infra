@@ -17,7 +17,7 @@ periodics:
       - /etc/github-token/oauth
       # Make the bot name and email match the user data of the provided token's user.
       - "Falco Automation"
-      - jonah.jones094@gmail.com # change after tests work
+      - leo+bot@sysdig.com
       volumeMounts:
       - name: service
         mountPath: /etc/service-account
