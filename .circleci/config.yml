@@ -329,7 +329,7 @@ workflows:
             branches:
               ignore:
                 - master
-                # - /pull\/[0-9]+/ #ignore forked PR's
+                - /pull\/[0-9]+/ #ignore forked PR's
       - "test-infra/deploy/prow":
           requires:
             - test-infra/deploy/terraform
@@ -338,4 +338,3 @@ workflows:
             branches:
               ignore:
                 - master
-                # - /pull\/[0-9]+/ #ignore forked PR's
