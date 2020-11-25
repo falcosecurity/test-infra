@@ -1,0 +1,6 @@
+kernelversion: 9
+kernelrelease: 5.3.0-1008-aws
+target: ubuntu-aws
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-aws_5.3.0-1008-aws_9.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-aws_5.3.0-1008-aws_9.o

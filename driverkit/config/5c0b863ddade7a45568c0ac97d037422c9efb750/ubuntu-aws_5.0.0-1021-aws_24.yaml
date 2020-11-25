@@ -1,0 +1,6 @@
+kernelversion: 24
+kernelrelease: 5.0.0-1021-aws
+target: ubuntu-aws
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-aws_5.0.0-1021-aws_24.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-aws_5.0.0-1021-aws_24.o
