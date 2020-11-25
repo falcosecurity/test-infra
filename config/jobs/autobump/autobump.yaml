@@ -1,7 +1,7 @@
 periodics:
-- cron: "05 15 * * 1"  # Run at 15:05 PST (15:05 UTC) Mon
-- interval: 10m
-  name: ci-prow-autobump
+- name: ci-prow-autobump
+  # interval: 10m
+  cron: "05 15 * * 1"  # Run at 15:05 PST (15:05 UTC) Mon
   decorate: true
   extra_refs:
   # Check out the repo containing the config and deployment files for your Prow instance.
