@@ -1,6 +1,6 @@
 periodics:
 - name: ci-prow-autobump
-  # interval: 10m
+  # interval: 15m
   cron: "05 15 * * 1"  # Run at 15:05 PST (15:05 UTC) Mon
   decorate: true
   extra_refs:
@@ -10,7 +10,8 @@ periodics:
     base_ref: master
   spec:
     containers:
-    - image: gcr.io/k8s-prow/autobump # TODO: add a tag once we've push this the first time.
+    - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/autobump # see images/autobump
+      imagePullPolicy: Always
       command:
       - /autobump.sh
       args:
@@ -24,6 +25,9 @@ periodics:
         readOnly: true
       - name: github
         mountPath: /etc/github-token
+        readOnly: true
+      - name: gpg-signing-key
+        mountPath: /root/gpg-signing-key/
         readOnly: true
       env:
     # autobump.sh args
@@ -57,3 +61,7 @@ periodics:
       secret:
         # Secret containing a GitHub user access token with `repo` scope for creating PRs.
         secretName: oauth-token
+    - name: gpg-signing-key
+      secret:
+        secretName: poiana-gpg-signing-key
+        defaultMode: 0400
