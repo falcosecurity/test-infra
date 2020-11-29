@@ -16,7 +16,7 @@ config/prow/service-account_local.json
 create-build-cluster.sh
 kubeconfig_falco-prow-test-infra
 tools/create_gencred.sh
-
+config/prow/poiana_gpg_secret.yaml
 
 #terraform files
 .terraform
