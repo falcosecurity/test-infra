@@ -292,7 +292,7 @@ workflows:
       - "drivers/build/centos"
       - "drivers/build/debian"
       - "drivers/build/ubuntu-aws"
-      - "drivers/build/ubuntu-generic"
+      # - "drivers/build/ubuntu-generic"
       - "drivers/publish":
           context: test-infra
           filters:
@@ -305,7 +305,7 @@ workflows:
             - "drivers/build/centos"
             - "drivers/build/debian"
             - "drivers/build/ubuntu-aws"
-            - "drivers/build/ubuntu-generic"
+            # - "drivers/build/ubuntu-generic"
       - "drivers/cleanup":
           context: falco
           filters:

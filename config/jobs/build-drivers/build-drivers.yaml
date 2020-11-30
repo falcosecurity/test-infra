@@ -2,8 +2,7 @@ presubmits:
   falcosecurity/test-infra:
   - name: build-drivers-amazonlinux-presubmit
     decorate: true
-    always_run: false
-    skip_report: true
+    skip_report: false
     agent: kubernetes
     branches:
       - ^master$
@@ -26,8 +25,7 @@ presubmits:
             memory: 7Gi
   - name: build-drivers-amazonlinux2-presubmit
     decorate: true
-    always_run: false
-    skip_report: true
+    skip_report: false
     agent: kubernetes
     branches:
       - ^master$
@@ -50,8 +48,7 @@ presubmits:
             memory: 7Gi
   - name: build-drivers-centos-presubmit
     decorate: true
-    always_run: false
-    skip_report: true
+    skip_report: false
     agent: kubernetes
     branches:
       - ^master$
@@ -74,8 +71,7 @@ presubmits:
             memory: 7Gi
   - name: build-drivers-debian-presubmit
     decorate: true
-    always_run: false
-    skip_report: true
+    skip_report: false
     agent: kubernetes
     branches:
       - ^master$
@@ -98,8 +94,7 @@ presubmits:
             memory: 7Gi
   - name: build-drivers-ubuntu-aws-presubmit
     decorate: true
-    always_run: false
-    skip_report: true
+    skip_report: false
     agent: kubernetes
     branches:
       - ^master$
@@ -122,8 +117,7 @@ presubmits:
             memory: 7Gi
   - name: build-drivers-ubuntu-generic-presubmit
     decorate: true
-    always_run: false
-    skip_report: true
+    skip_report: false
     agent: kubernetes
     branches:
       - ^master$
@@ -147,7 +141,7 @@ presubmits:
 periodics:
   - name: build-drivers-amazonlinux-periodic
     decorate: true
-    cron: "0 03 * * 1"  
+    cron: "0 03 * * 1"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
@@ -167,7 +161,7 @@ periodics:
           privileged: true
   - name: build-drivers-amazonlinux2-periodic
     decorate: true
-    cron: "0 03 * * 2"  
+    cron: "0 03 * * 2"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
@@ -187,7 +181,7 @@ periodics:
           privileged: true
   - name: build-drivers-centos-periodic
     decorate: true
-    cron: "0 03 * * 3"  
+    cron: "0 03 * * 3"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
@@ -207,7 +201,7 @@ periodics:
           privileged: true
   - name: build-drivers-debian-periodic
     decorate: true
-    cron: "0 03 * * 4"  
+    cron: "0 03 * * 4"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
@@ -227,7 +221,7 @@ periodics:
           privileged: true
   - name: build-drivers-ubuntu-aws-periodic
     decorate: true
-    cron: "0 03 * * 5"  
+    cron: "0 03 * * 5"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
@@ -247,7 +241,7 @@ periodics:
           privileged: true
   - name: build-drivers-ubuntu-generic-periodic
     decorate: true
-    cron: "0 03 * * 6"  
+    cron: "0 03 * * 6"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
