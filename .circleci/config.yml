@@ -287,33 +287,33 @@ workflows:
   version: 2
   build:
     jobs:
-      - "drivers/build/amazonlinux"
-      - "drivers/build/amazonlinux2"
-      - "drivers/build/centos"
-      - "drivers/build/debian"
-      - "drivers/build/ubuntu-aws"
+      # - "drivers/build/amazonlinux"
+      # - "drivers/build/amazonlinux2"
+      # - "drivers/build/centos"
+      # - "drivers/build/debian"
+      # - "drivers/build/ubuntu-aws"
       # - "drivers/build/ubuntu-generic"
-      - "drivers/publish":
-          context: test-infra
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - "drivers/build/amazonlinux"
-            - "drivers/build/amazonlinux2"
-            - "drivers/build/centos"
-            - "drivers/build/debian"
-            - "drivers/build/ubuntu-aws"
-            # - "drivers/build/ubuntu-generic"
-      - "drivers/cleanup":
-          context: falco
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - "drivers/publish"
+      # - "drivers/publish":
+      #     context: test-infra
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      #     requires:
+      #       - "drivers/build/amazonlinux"
+      #       - "drivers/build/amazonlinux2"
+      #       - "drivers/build/centos"
+      #       - "drivers/build/debian"
+      #       - "drivers/build/ubuntu-aws"
+      #       - "drivers/build/ubuntu-generic"
+      # - "drivers/cleanup":
+      #     context: falco
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      #     requires:
+      #       - "drivers/publish"
       - "test-infra/scan/terraform":
           context: test-infra
           filters:
