@@ -20,6 +20,13 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+<<<<<<< Updated upstream
+=======
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 7Gi
+>>>>>>> Stashed changes
   - name: build-drivers-amazonlinux2-presubmit
     decorate: true
     always_run: false
@@ -40,6 +47,13 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+<<<<<<< Updated upstream
+=======
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 7Gi
+>>>>>>> Stashed changes
   - name: build-drivers-centos-presubmit
     decorate: true
     always_run: false
@@ -60,6 +74,13 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+<<<<<<< Updated upstream
+=======
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 7Gi
+>>>>>>> Stashed changes
   - name: build-drivers-debian-presubmit
     decorate: true
     always_run: false
@@ -80,6 +101,10 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 7Gi
   - name: build-drivers-ubuntu-aws-presubmit
     decorate: true
     always_run: false
@@ -100,6 +125,10 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 7Gi
   - name: build-drivers-ubuntu-generic-presubmit
     decorate: true
     always_run: false
@@ -120,6 +149,13 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
+<<<<<<< Updated upstream
+=======
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 7Gi
+>>>>>>> Stashed changes
 periodics:
   - name: build-drivers-amazonlinux-periodic
     decorate: true
