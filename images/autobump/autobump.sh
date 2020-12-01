@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright 2019 The Kubernetes Authors.
 #
@@ -42,7 +42,7 @@ main() {
 	shift
 	check-args
 	ensure-git-config "$@"
-
+	ensure-gpg-keys "$@"
 	echo "Bumping ${PROW_INSTANCE_NAME} to upstream (prow.k8s.io) version..." >&2
 	/bump.sh --upstream
 
@@ -87,6 +87,17 @@ ensure-git-config() {
 	return 1
 }
 
+ensure-gpg-keys() {
+	if [[ $# -eq 4 ]]; then
+		echo "gpg keys=$4" >&4
+    gpg --import $4
+    git config --global commit.gpgsign true
+    git config --global user.signingkey $5 #ascii armored public key for gpg keypair
+	fi
+	echo "ERROR: git gpg key location, public key ID unset. No defaults provided" >&2
+	return 1
+}
+
 check-args() {
 	if [[ -z "${PROW_CONTROLLER_MANAGER_FILE}" ]]; then
 		echo "ERROR: $PROW_CONTROLLER_MANAGER_FILE must be specified." >&2
@@ -110,9 +121,6 @@ check-args() {
 }
 
 create-gh-pr() {
-    gpg --import /root/gpg-signing-key/poiana.asc
-    git config --global commit.gpgsign true
-    git config --global user.signingkey 5B969CD19422B477E5609F8C900C09B3E21C193F #ascii armored public key for gpg keypair
 	git commit -s -m "${title}"
 
 	token="${creds}"

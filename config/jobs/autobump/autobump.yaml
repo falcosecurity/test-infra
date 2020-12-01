@@ -19,6 +19,8 @@ periodics:
       # Make the bot name and email match the user data of the provided token's user.
       - "Falco Automation"
       - leo+bot@sysdig.com
+      - /root/gpg-signing-key/poiana.asc
+      - "5B969CD19422B477E5609F8C900C09B3E21C193F"
       volumeMounts:
       - name: service
         mountPath: /etc/service-account
