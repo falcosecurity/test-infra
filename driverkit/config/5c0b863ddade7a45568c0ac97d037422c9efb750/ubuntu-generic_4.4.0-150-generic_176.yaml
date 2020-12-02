@@ -1,0 +1,5 @@
+kernelversion: 176
+kernelrelease: 4.4.0-150-generic
+target: ubuntu-generic
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_4.4.0-150-generic_176.ko

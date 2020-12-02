@@ -1,0 +1,6 @@
+kernelversion: 27
+kernelrelease: 5.8.0-26-generic
+target: ubuntu-generic
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_5.8.0-26-generic_27.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_5.8.0-26-generic_27.o

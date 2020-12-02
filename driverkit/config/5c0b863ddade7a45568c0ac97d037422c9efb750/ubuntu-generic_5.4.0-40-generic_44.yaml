@@ -1,0 +1,6 @@
+kernelversion: 44
+kernelrelease: 5.4.0-40-generic
+target: ubuntu-generic
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_5.4.0-40-generic_44.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_5.4.0-40-generic_44.o
