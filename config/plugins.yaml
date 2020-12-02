@@ -244,6 +244,26 @@ triggers:
   only_org_members: true
 
 plugins:
+  falcosecurity/test-infra:
+    - approve # Allow OWNERS to /approve
+    - assign # Allow /assign and /cc
+    - blunderbuss # Auto-assign people
+    - branchcleaner
+    - cat # /meow replies with cat pictures
+    - config-updater # auto-update config.yaml and plugins.yaml on changes
+    - dco # checks for DCO sign off on commits
+    - dog # /bark replies with dog pictures
+    - goose
+    - help # Support /help and /good-first-issue
+    - hold  # Support /hold to delay merge
+    - lifecycle # Allow /lifecycle stale
+    - lgtm # Allow /lgtm
+    - retitle 
+    - size # Auto-label size of PR
+    - trigger  # Allow people to configure CI jobs to /test
+    - verify-owners # Validates OWNERS file changes in PRs.
+    - welcome # welcomes new PR users
+    - wip # Auto-hold PRs with WIP in title
   falcosecurity/.github:
     - approve
     - assign
@@ -667,25 +687,6 @@ plugins:
     - label
     - lifecycle
     - lgtm
-    - size
-    - verify-owners
-    - welcome
-    - wip
-  falcosecurity/test-infra:
-    - approve
-    - assign
-    - blunderbuss
-    - branchcleaner
-    - cat
-    - config-updater
-    - dco
-    - dog
-    - goose
-    - help
-    - hold
-    - lifecycle
-    - lgtm
-    - retitle
     - size
     - verify-owners
     - welcome
