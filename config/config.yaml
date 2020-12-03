@@ -195,8 +195,6 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - "ci/circleci: deploy/terraform"
-              - "ci/circleci: deploy/prow"
               - "check-prow-config"
 
 log_level: debug

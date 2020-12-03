@@ -1,11 +1,11 @@
 presubmits:
   falcosecurity/test-infra:
     - name: check-prow-config
-      run_if_changed: '^(config/(config|plugins).yaml$|config/jobs/.*.yaml$)'
       branches:
         - ^master$
       decorate: true
       skip_report: false
+      always_run: true
       spec:
         containers:
           - image: gcr.io/k8s-prow/checkconfig:v20201124-061f85d859
