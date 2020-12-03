@@ -80,6 +80,11 @@ branch-protection:
             master:
               protect: true
         charts:
+          required_status_checks:
+            contexts:
+              - "ci/circleci: lint-charts"
+              - "ci/circleci: lint-scripts"
+              - "ci/circleci: install-charts"
           branches:
             master:
               protect: true
