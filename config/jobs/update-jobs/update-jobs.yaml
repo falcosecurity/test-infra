@@ -1,11 +1,9 @@
-presubmits:
+postsubmits:
   falcosecurity/test-infra:
   - name: update-jobs-pr
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
-    skip_report: false
     agent: kubernetes
-    run_if_changed: '^config/jobs/'
     branches:
       - ^master$
     spec:
