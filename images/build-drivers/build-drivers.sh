@@ -51,9 +51,7 @@ cd driverkit/
 make -e TARGET_DISTRO=$@ specific_target
 
 echo "******************************************************"
-echo "Ran DriverKit tests, checking logs"
+echo "Ran DriverKit tests"
 echo "******************************************************"
-
-cat output/failing.log
 
 exit 0

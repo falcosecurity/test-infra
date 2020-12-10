@@ -31,7 +31,7 @@ plank:
   pod_pending_timeout: 60m
   default_decoration_configs:
     '*':
-      timeout: 12h # Up to 12 hours for driverkit builder jobs
+      timeout: 24h # Up to 12 hours for driverkit builder jobs
       grace_period: 10m
       utility_images:
         clonerefs: "gcr.io/k8s-prow/clonerefs:v20201124-061f85d859"
