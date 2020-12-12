@@ -1,6 +1,0 @@
-kernelversion: 24
-kernelrelease: 5.3.0-22-generic
-target: ubuntu-generic
-output:
-  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_5.3.0-22-generic_24.ko
-  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_5.3.0-22-generic_24.o
