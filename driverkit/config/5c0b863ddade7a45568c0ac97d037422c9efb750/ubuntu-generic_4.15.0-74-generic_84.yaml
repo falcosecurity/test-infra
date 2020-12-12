@@ -1,0 +1,6 @@
+kernelversion: 84
+kernelrelease: 4.15.0-74-generic
+target: ubuntu-generic
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_4.15.0-74-generic_84.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_4.15.0-74-generic_84.o
