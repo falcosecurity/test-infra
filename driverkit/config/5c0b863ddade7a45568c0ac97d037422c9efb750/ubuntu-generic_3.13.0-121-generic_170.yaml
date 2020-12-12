@@ -1,0 +1,5 @@
+kernelversion: 170
+kernelrelease: 3.13.0-121-generic
+target: ubuntu-generic
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_3.13.0-121-generic_170.ko

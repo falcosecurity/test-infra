@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 4.19.0-6-cloud-amd64
+target: debian
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_debian_4.19.0-6-cloud-amd64_1.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_debian_4.19.0-6-cloud-amd64_1.o
