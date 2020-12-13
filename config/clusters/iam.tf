@@ -99,9 +99,46 @@ data "aws_iam_policy_document" "s3_access" {
       "kms:Decrypt",
       "kms:GenerateDataKey",
     ]
-
     resources = [
       aws_kms_key.prow_storage.arn,
+    ]
+  }
+}
+
+##### S3 for Prow uploads
+
+module "driver_kit_s3_role" {
+  source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version          = "2.14.0"
+  create_role      = true
+  role_name        = "${local.cluster_name}-drivers_s3_access"
+  provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
+  role_policy_arns = [aws_iam_policy.driverkit_s3_access.arn]
+  oidc_fully_qualified_subjects = [
+    "system:serviceaccount:${local.k8s_service_account_namespace}:driver-kit",
+  ]
+}
+
+resource "aws_iam_policy" "driverkit_s3_access" {
+  name_prefix = "${local.cluster_name}-driverkit-s3"
+  description = "EKS s3 access policy for cluster ${module.eks.cluster_id}"
+  policy      = data.aws_iam_policy_document.driverkit_s3_access.json
+}
+
+data "aws_iam_policy_document" "driverkit_s3_access" {
+  statement {
+    sid    = "driverkits3access"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:DeleteObject"
+    ],
+    resources = [
+      "arn:aws:s3:::falco-distribution",
+      "arn:aws:s3:::falco-distribution*/*",
     ]
   }
 }

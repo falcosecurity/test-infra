@@ -50,6 +50,8 @@ start_docker
 cd driverkit/
 make -e TARGET_DISTRO=$@ specific_target
 
+make publish_s3
+
 echo "******************************************************"
 echo "Ran DriverKit tests"
 echo "******************************************************"

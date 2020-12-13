@@ -8,6 +8,7 @@ presubmits:
       - ^master$
     run_if_changed: '^driverkit\/'
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -77,6 +78,7 @@ presubmits:
       - ^master$
     run_if_changed: '^driverkit\/'
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -195,19 +197,21 @@ periodics:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
   - name: build-drivers-debian-periodic
     decorate: true
-    cron: "0 03 * * 4"
+    interval: 1h
+    # cron: "0 03 * * 4"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
       base_ref: master
     agent: kubernetes
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -215,7 +219,7 @@ periodics:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
