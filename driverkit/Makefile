@@ -5,12 +5,16 @@ DRIVERKIT ?= $(shell which driverkit)
 CONFIGS := $(wildcard config/*/*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
 VERSIONS := $(VERSIONS:/=)
-TARGET_DISTRO ?=
+TARGET_DISTRO ?= *
+TARGET_KERNEL ?= *
 S3_DRIVERS_BUCKET ?= "falco-distribution/driver"
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_DISTRO}_*)))
+specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+
+count_specific_target:
+	@echo $(words $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_DISTRO}_${TARGET_KERNEL}-*))))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
