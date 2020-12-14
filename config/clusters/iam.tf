@@ -115,7 +115,7 @@ module "driver_kit_s3_role" {
   provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
   role_policy_arns = [aws_iam_policy.driverkit_s3_access.arn]
   oidc_fully_qualified_subjects = [
-    "system:serviceaccount:${local.k8s_service_account_namespace}:driver-kit",
+    "system:serviceaccount:${local.k8s_test_service_account_namespace}:driver-kit",
   ]
 }
 

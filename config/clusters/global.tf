@@ -9,6 +9,7 @@ module "label" {
 }
 
 locals {
-  cluster_name                  = module.label.id
-  k8s_service_account_namespace = "default"
+  cluster_name                       = module.label.id
+  k8s_service_account_namespace      = "default"
+  k8s_test_service_account_namespace = "test-pods"
 }
