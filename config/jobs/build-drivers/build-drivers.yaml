@@ -16,7 +16,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -39,7 +39,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -62,7 +62,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -86,7 +86,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -109,7 +109,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -132,7 +132,7 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -197,14 +197,13 @@ periodics:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
   - name: build-drivers-debian-periodic
     decorate: true
-    interval: 1h
-    # cron: "0 03 * * 4"
+    cron: "0 03 * * 4"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
@@ -219,7 +218,7 @@ periodics:
         env:
         - name: AWS_REGION
           value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:s3-publish
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
