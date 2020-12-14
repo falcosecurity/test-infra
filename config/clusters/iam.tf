@@ -130,11 +130,7 @@ data "aws_iam_policy_document" "driverkit_s3_access" {
     sid    = "driverkits3access"
     effect = "Allow"
     actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:GetObject",
-      "s3:GetObjectAcl",
-      "s3:DeleteObject"
+      "s3:*"
     ]
     resources = [
       "arn:aws:s3:::falco-distribution/driver/*",
