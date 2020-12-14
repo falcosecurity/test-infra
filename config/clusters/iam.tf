@@ -137,8 +137,8 @@ data "aws_iam_policy_document" "driverkit_s3_access" {
       "s3:DeleteObject"
     ]
     resources = [
-      "arn:aws:s3:::falco-distribution",
-      "arn:aws:s3:::falco-distribution*/*",
+      "arn:aws:s3:::falco-distribution/driver/*",
+      "arn:aws:s3:::falco-distribution/driver",
     ]
   }
 }
