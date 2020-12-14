@@ -10,10 +10,29 @@ Just make is enough! :heart:
 make
 ```
 
-In case you want to build the drivers for just a distro, use the following make target as below.
+### Available Make targets
+
+- `specific_target`: build the filtered driver versions.
+- `count_specific_target`: count the filtered driver versions.
+
+#### Specific target
+
+In case you want to build the drivers for just a distro or a specific kernel or both, use the `specific_target` make target:
 
 ```console
 make -e TARGET_DISTRO=amazonlinux2 specific_target
+```
+
+##### Available filters
+
+These are the available filters as environment variables:
+- `TARGET_DISTRO`: a spefific Linux distribution.
+- `TARGET_KERNEL`: a specific Linux version, in <kernel_version>.<major_version>.<minor_version> format.
+
+Note: both are optional and cumulative. For instance you can filter a specific distro with a specific kernel version:
+
+```console
+make -e TARGET_DISTRO=debian -e TARGET_KERNEL=5.9.0 specific_target
 ```
 
 ## FAQ
