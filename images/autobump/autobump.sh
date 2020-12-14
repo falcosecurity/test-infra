@@ -88,14 +88,10 @@ ensure-git-config() {
 }
 
 ensure-gpg-keys() {
-	if [[ $# -eq 4 ]]; then
-		echo "gpg keys=$4" >&4
-    gpg --import $4
+	echo "gpg keys=$3"
+	gpg --import $3
     git config --global commit.gpgsign true
-    git config --global user.signingkey $5 #ascii armored public key for gpg keypair
-	fi
-	echo "ERROR: git gpg key location, public key ID unset. No defaults provided" >&2
-	return 1
+    git config --global user.signingkey $4 #ascii armored public key for gpg keypair
 }
 
 check-args() {
