@@ -25,7 +25,7 @@ Q: How do you publish new drivers?
 A: If you have proper S3 permissions from terraform or prow, run
 
 ```console
-make make publish_s3
+make publish_s3
 ```
 
 to publish the results after the build finishes.
