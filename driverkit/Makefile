@@ -65,8 +65,8 @@ publish_$(1): prepare_$(1)
 	jfrog bt u "output/$(1)/ebpf-probe/*" falcosecurity/driver/ebpf-probe/$(1) $(1)/ --user poiana --key ${BINTRAY_SECRET} --publish --override
 
 publish_s3_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
-	aws s3 cp "output/$(1)/ebpf-probe/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.o" --acl public-read
-	aws s3 cp "output/$(1)/kernel-module/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.ko" --acl public-read
+	if [ -d "output/$(1)/ebpf-probe" ]; then aws s3 cp "output/$(1)/ebpf-probe/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.o" --acl public-read; fi
+	if [ -d "output/$(1)/kernel-module" ]; then aws s3 cp "output/$(1)/kernel-module/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.ko" --acl public-read; fi
 
 endef
 $(foreach VERSION,$(VERSIONS),\
