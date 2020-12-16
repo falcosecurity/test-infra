@@ -1,0 +1,107 @@
+
+presubmits:
+  falcosecurity/test-infra:
+  - name: build-images-autobump
+    decorate: true
+    path_alias: github.com/falcosecurity/test-infra
+    skip_report: false
+    agent: kubernetes
+    run_if_changed: '^images/autobump/'
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
+        args:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/autobump"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: 3Gi
+            cpu: 1.5
+            ephemeral-storage: "2Gi"
+        securityContext:
+          privileged: true
+  - name: build-images-build-drivers
+    decorate: true
+    path_alias: github.com/falcosecurity/test-infra
+    skip_report: false
+    agent: kubernetes
+    run_if_changed: '^images/build-drivers/'
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
+        args:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build-drivers"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: 3Gi
+            cpu: 1.5
+            ephemeral-storage: "2Gi"
+        securityContext:
+          privileged: true
+  - name: build-images-golang
+    decorate: true
+    path_alias: github.com/falcosecurity/test-infra
+    skip_report: false
+    agent: kubernetes
+    run_if_changed: '^images/golang/'
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
+        args:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/golang"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: 3Gi
+            cpu: 1.5
+            ephemeral-storage: "2Gi"
+        securityContext:
+          privileged: true
+  - name: build-images-update-jobs
+    decorate: true
+    path_alias: github.com/falcosecurity/test-infra
+    skip_report: false
+    agent: kubernetes
+    run_if_changed: '^images/update-jobs/'
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
+        args:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/update-jobs"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: 3Gi
+            cpu: 1.5
+            ephemeral-storage: "2Gi"
+        securityContext:
+          privileged: true
