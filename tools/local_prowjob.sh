@@ -18,11 +18,16 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+DEBUG="${DEBUG:-"false"}"
+
 # We use a .local file because the update-jobs configmap will merge all yaml together into one configmap
-export CONFIG_PATH="$(pwd)/config/config.yaml"
-export JOB_CONFIG_PATH="$(pwd)/config/jobs/driverkit/driverkit-test.local"
-export IMAGE_PATH="$(pwd)/images/golang"
-DEBUG="false"
+CONFIG_PATH="${CONFIG_PATH:-"$(pwd)/config/config.yaml"}"
+JOB_CONFIG_PATH="${JOB_CONFIG_PATH:-"$(pwd)/config/jobs/driverkit/driverkit-test.local"}"
+IMAGE_PATH="${IMAGE_PATH:-"$(pwd)/images/golang"}"
+
+export CONFIG_PATH
+export JOB_CONFIG_PATH
+export IMAGE_PATH
 
 function main() {
   # Point kubectl at the mkpod cluster.
@@ -31,7 +36,7 @@ function main() {
   parseArgs "$@"
   local_registrey
   ensureInstall
-  make -C ${image_path} local-registry
+  make -C "${image_path}" local-registry
 
   # Generate PJ and Pod.
   docker run -i --rm -v "${PWD}:${PWD}" -v "${config}:${config}" ${job_config_mnt} -w "${PWD}" gcr.io/k8s-prow/mkpj "--config-path=${config}" "--job=${job}" ${job_config_flag} > "${PWD}/pj.yaml"
@@ -73,9 +78,9 @@ function parseArgs() {
   image_path="${IMAGE_PATH:-}"
   out_dir="${OUT_DIR:-/mnt/disks/prowjob-out}"
   kind_config="${KIND_CONFIG:-}"
-  node_dir="${NODE_DIR:-/mnt/disks/kind-node}"  # Any pod hostPath mounts should be under this dir to reach the true host via the kind node.
+  node_dir="${NODE_DIR:-/mnt/disks/kind-node}" # Any pod hostPath mounts should be under this dir to reach the true host via the kind node.
 
-  local new_only="  (Only used when creating a new kind cluster.)"
+  local new_only=" (Only used when creating a new kind cluster.)"
 
   if [ "${DEBUG}" = "true" ]; then
     echo "job=${job}"
@@ -191,4 +196,4 @@ function ask_confirm() {
   fi
 }
 
-main "$@" 
+main "$@"
