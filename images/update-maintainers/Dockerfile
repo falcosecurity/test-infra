@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
     gnupg2 \
+    curl \
     && apt-get clean
 
 COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
