@@ -33,7 +33,7 @@ get_maintainers() {
         --sort --dedupe \
         --log-level debug \
         --persons-db /persons.json \
-        --banner --output /maintainers.yaml
+        --banner --output maintainers.yaml
 }
 
 # Sets git user configs, otherwise errors out.
@@ -41,8 +41,8 @@ get_maintainers() {
 # $2: git user email
 ensure_git_config() {
     echo "> configuring git user (name=$1, email=$2)..." >&2
-    git config user.name "$1"
-    git config user.email "$2"
+    git config --global user.name "$1"
+    git config --global user.email "$2"
 
     git config user.name &>/dev/null && git config user.email &>/dev/null && return 0
     echo "ERROR: git config user.name, user.email unset. No defaults provided" >&2
@@ -104,21 +104,17 @@ get_user_from_token() {
 # $1: the program to check
 function check_program {
     if hash "$1" 2>/dev/null; then
-        type -P "$1"
+        type -P "$1" >&/dev/null
     else
-        echo "aborting because $1 is required..." >&2
+        echo "> aborting because $1 is required..." >&2
        return 1
     fi
 }
 
-# Meant to be run in a GitHub repository
+# Meant to be run in the GitHub repository where the maintainers.yaml is.
 # $1: path of the file containing the token
 main() {
     # Checks
-    if [[ $# -lt 1 ]]; then
-        echo "Usage: $(basename "$0") <path to github token>" >&2
-        return 1
-    fi
     check_program "gpg"
     check_program "git"
     check_program "curl"
@@ -132,5 +128,10 @@ main() {
     # Create PR (in case there are changes)
     create_pr "${user}"
 }
+
+if [[ $# -lt 1 ]]; then
+    echo "Usage: $(basename "$0") <path to github token>" >&2
+    exit 1
+fi
 
 main "@"
