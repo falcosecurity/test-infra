@@ -18,8 +18,13 @@ kubeconfig_falco-prow-test-infra
 tools/create_gencred.sh
 config/prow/poiana_gpg_secret.yaml
 
-#terraform files
+# terraform files
 .terraform
 **/.terraform/*
 *.tfstate
 *.tfstate.*
+
+# local prowjob tests
+pj.yaml
+temp-mkpod-kind-config.yaml
+pod.yaml
