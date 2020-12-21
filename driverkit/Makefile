@@ -5,16 +5,14 @@ DRIVERKIT ?= $(shell which driverkit)
 CONFIGS := $(wildcard config/*/*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
 VERSIONS := $(VERSIONS:/=)
+TARGET_VERSION ?= *
 TARGET_DISTRO ?= *
 TARGET_KERNEL ?= *
 S3_DRIVERS_BUCKET ?= "falco-distribution/driver"
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
-
-count_specific_target:
-	@echo $(words $(patsubst config_%,%,$(subst /,_,$(wildcard config/*/${TARGET_DISTRO}_${TARGET_KERNEL}-*))))
+specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
@@ -85,7 +83,7 @@ $(foreach VERSION,$(VERSIONS),\
 
 .PHONY: clean
 clean:
-	@find output -type f -not -name '.gitignore' -delete
+	find output/ -not -name '.gitignore' -not -name 'output' -delete
 
 stats:
 	@utils/driverstats $(CONFIGS)
