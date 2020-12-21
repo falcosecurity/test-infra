@@ -1,26 +1,83 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1090
 
+shopt -s nullglob
+
 currentdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 source "${currentdir}/parseyaml"
 
-configs=("$@")
+TARGET_VERSION=${TARGET_VERSION:-"*"}
+TARGET_DISTRO=${TARGET_DISTRO:-"*"}
+TARGET_KERNEL=${TARGET_KERNEL:-"*"}
+
+configs=(config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*.yaml)
 
 total_ebpf_drivers=0
 total_kmod_drivers=0
 
+# simulating hash tables with files
+# since cannot assume bash 4
+hinit() {
+    rm -rf "/tmp/hashmap.$1"
+    mkdir -p "/tmp/hashmap.$1"
+}
+
+hput() {
+    echo "$3" > "/tmp/hashmap.$1/$2"
+}
+
+hget() {
+    cat "/tmp/hashmap.$1/$2" 2>/dev/null
+}
+
+hkeys() {
+    ls -1 "/tmp/hashmap.$1"
+}
+
+hdestroy() {
+    rm -rf "/tmp/hashmap.$1"
+}
+
+hinit ebpf_drivers_by_version
+hinit kmod_drivers_by_version
+
+cleanup() {
+    hdestroy ebpf_drivers_by_version
+    hdestroy kmod_drivers_by_version
+}
+
 for file in "${configs[@]}"
 do
+    driver_version=${file%/*}
+    driver_version=${driver_version##config/}
     output_module=
     output_probe=
     create_variables "$file"
     if [ -n "${output_probe}" ]; then
         ((total_ebpf_drivers=total_ebpf_drivers+1))
+        current_num_ebpf_drivers=$(hget ebpf_drivers_by_version "${driver_version}") || current_num_ebpf_drivers=0
+        ((current_num_ebpf_drivers=current_num_ebpf_drivers+1))
+        hput ebpf_drivers_by_version "${driver_version}" "${current_num_ebpf_drivers}"
     fi
     if [ -n "${output_module}" ]; then
         ((total_kmod_drivers=total_kmod_drivers+1))
+        current_num_kmod_drivers=$(hget kmod_drivers_by_version "${driver_version}") || current_num_kmod_drivers=0
+        ((current_num_kmod_drivers=current_num_kmod_drivers+1))
+        hput kmod_drivers_by_version "${driver_version}" "${current_num_kmod_drivers}"
     fi
 done
 
-echo -e "eBPF probes:${total_ebpf_drivers}\nkernel modules:${total_kmod_drivers}" | column -t -s':'
+for driver_version in $(hkeys kmod_drivers_by_version)
+do
+    n_ebpf=$(hget ebpf_drivers_by_version "${driver_version}")
+    n_kmod=$(hget kmod_drivers_by_version "${driver_version}")
+    echo "+++ ${driver_version} +++"
+    printf "%-20s%5s\n%-20s%5s\n" "eBPF probes" "${n_ebpf}" "kernel modules" "${n_kmod}"
+done
+
+# todo > trap this correctly
+cleanup
+
+echo "+++ TOTALS +++"
+printf "%-20s%5s\n%-20s%5s\n" "eBPF probes" "${total_ebpf_drivers}" "kernel modules" "${total_kmod_drivers}"
