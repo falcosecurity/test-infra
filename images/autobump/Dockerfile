@@ -1,13 +1,7 @@
-FROM golang:1.13 AS build
+FROM golang:1.14 AS pullrequestcreator
 
-COPY pr-creator/ /pr-creator
-
-RUN cd /pr-creator/ && \
-    env CGO_ENABLED=0 \
-        GO111MODULE=on \
-        GOPROXY=https://proxy.golang.org \
-        GOSUMDB=sum.golang.org \
-        go build -v -o pr-creator ./main.go
+RUN git clone https://github.com/kubernetes/test-infra
+RUN cd test-infra/robots/pr-creator && env GO111MODULE=on go build -v -o pr-creator ./main.go
 
 FROM gcr.io/k8s-testimages/gcloud-in-go:v20200205-602500d
 
@@ -17,9 +11,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
     gnupg2 \
-    rng-tools 
+    rng-tools
 
-COPY --from=build /pr-creator/pr-creator /pr-creator
+COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /pr-creator
 
 COPY bump.sh /bump.sh
 
