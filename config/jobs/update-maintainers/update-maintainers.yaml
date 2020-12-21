@@ -12,12 +12,12 @@ periodics:
     spec:
       containers:
       # See images/update-maintainers
-      - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-maintainers # Local testing: substite with => image: localhost:5000/update-maintainers
+      - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-maintainers # Local testing: substitute with => image: localhost:5000/update-maintainers
         imagePullPolicy: Always
         command:
         - entrypoint.sh # Local testing: sleep
         args:
-        -  /etc/github-token/oauth # Local testing: substite with => - "900"
+        -  /etc/github-token/oauth # Local testing: substitute with => - "900"
         # Local testing: comment
         volumeMounts:
         - name: github
