@@ -79,8 +79,8 @@ user-from-token() {
 ensure-git-config() {
 	if [[ $# -eq 2 ]]; then
 		echo "git config user.name=$1 user.email=$2..." >&2
-		git config user.name "$1"
-		git config user.email "$2"
+		git config --global user.name "$1"
+		git config --global user.email "$2"
 	fi
 	git config user.name &>/dev/null && git config user.email &>/dev/null && return 0
 	echo "ERROR: git config user.name, user.email unset. No defaults provided" >&2
@@ -121,7 +121,7 @@ create-gh-pr() {
 
 	token="${creds}"
 	user-from-token
-	
+
 	echo -e "Pushing commit to github.com/${user}/${FORK_GH_REPO}:autobump-${PROW_INSTANCE_NAME}..." >&2
 	git push -f "https://${user}:$(cat "${token}")@github.com/${user}/${FORK_GH_REPO}" "HEAD:autobump-${PROW_INSTANCE_NAME}" 2>/dev/null
 
