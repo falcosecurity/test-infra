@@ -21,7 +21,7 @@ make
 - `publish_s3_<driver_version>`: publish all the built Falco drivers to S3 filtering by the Falco driver version (those existing in the `output/<driver_version>` directory)
 - `cleanup`: delete from bintray the driver version no more supported (those present on bintray but not in the `config/` directory)
 - `cleanup_s3`: delete from S3 the driver version no more supported (those present on S3 but not in the `config/` directory)
-- `stats`:
+- `stats`: print counts about currently available Falco drivers
 
 #### Specific target
 
@@ -53,13 +53,21 @@ make -e TARGET_DISTRO="debian" -e TARGET_KERNEL="5.9.0" specific_target
 Or, you can ask it to make all the Falco drivers for debian 5.x kernels.
 
 ```console
-make -e TARGET_DISTRO="debian" -e TARGET_KERNEL="5.x" specific_target
+make -e TARGET_DISTRO="debian" -e TARGET_KERNEL="5.*" specific_target
 ```
 
 In case you're only interested in a precise Falco driver version, you can filter by it too:
 
 ```console
 make -e TARGET_VERSION="2aa88" -e TARGET_DISTRO="debian" -e TARGET_KERNEL="4.9.*" specific_target
+```
+
+Finally, notice you can use these filters also with the `stats` make target.
+
+Eg.,
+
+```console
+make -e TARGET_DISTRO=debian stats
 ```
 
 ## FAQ

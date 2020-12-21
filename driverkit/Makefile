@@ -86,4 +86,4 @@ clean:
 	find output/ -not -name '.gitignore' -not -name 'output' -delete
 
 stats:
-	@utils/driverstats $(CONFIGS)
+	@utils/driverstats
