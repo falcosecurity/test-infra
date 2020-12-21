@@ -39,7 +39,7 @@ function aws_auth() {
         | docker login \
             --password-stdin \
             --username AWS \
-            292999226676.dkr.ecr.us-west-2.amazonaws.com
+            292999226676.dkr.ecr.eu-west-1.amazonaws.com
     local WAIT_N=0
     local MAX_WAIT=5
     while true; do
