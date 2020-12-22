@@ -16,6 +16,7 @@ set -o nounset
 set -o pipefail
 
 # Args from environment (with defaults)
+GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-".github"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
@@ -23,12 +24,20 @@ BOT_MAIL="${BOT_MAIL:-"leo+bot@sysdig.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
 BOT_GPG_PUBLIC_KEY="${BOT_GPG_PUBLIC_KEY:-"5B969CD19422B477E5609F8C900C09B3E21C193F"}"
 
+export GIT_COMMITTER_NAME=${BOT_NAME}
+export GIT_COMMITTER_EMAIL=${BOT_MAIL}
+export GIT_AUTHOR_NAME=${BOT_NAME}
+export GIT_AUTHOR_EMAIL=${BOT_MAIL}
+
 # Creates a maintainers.yaml file.
 # $1: path of the file containing the token
 get_maintainers() {
+    echo "> using maintainers-generator version: $(maintainers-generator --version)" >&2
+    echo "> using GitHub token at $1..." >&2
     echo "> retrieving maintainers for GitHub organization ${GH_ORG}..." >&2
     maintainers-generator \
         --org "${GH_ORG}" \
+        --github-endpoint "${GH_PROXY}" \
         --github-token-path "$1" \
         --sort --dedupe \
         --log-level debug \
@@ -77,17 +86,18 @@ create_pr() {
     git add .
     git commit -s -m "${title}"
 
-    echo "> pushing commit..." >&2
     user=$(get_user_from_token "$1")
     branch="maintainers-${GH_ORG}"
+    echo "> pushing commit as ${user} on branch ${branch}..." >&2
     git push -f \
         "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_REPO}" \
         "HEAD:${branch}" 2>/dev/null
 
-    # TODO > COMPLETE
     echo "> creating pull-request to merge ${user}:${branch} into master..." >&2
-    body="Updating maintainers list."
+    body="Updating maintainers list. Made using the [update-maintainers](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/update-maintainers/update-maintainers.yaml) periodic ProwJob. Do not edit this PR. In case you wanna change your name or your company change [this file](https://github.com/falcosecurity/test-infra/blob/master/images/update-maintainers/persons.json). /kind documentation"
+
     pr-creator \
+        --github-endpoint="${GH_PROXY}" \
         --github-token-path="$1" \
         --org="${GH_ORG}" --repo="${GH_REPO}" --branch=master \
         --title="${title}" --match-title="${title}" \
@@ -126,7 +136,7 @@ main() {
     # Fetch maintainers
     get_maintainers "$1"
     # Create PR (in case there are changes)
-    create_pr "${user}"
+    create_pr "$1"
 }
 
 if [[ $# -lt 1 ]]; then
@@ -134,4 +144,4 @@ if [[ $# -lt 1 ]]; then
     exit 1
 fi
 
-main "@"
+main "$@"
