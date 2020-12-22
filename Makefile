@@ -6,7 +6,8 @@ SHELL := /bin/bash
 ### Prow Components
 
 update-jobs:
-	go run prow/update-jobs/main.go --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
+	@$(MAKE) -C prow/update-jobs build
+	prow/update-jobs/bin/update-jobs --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
 
 oauth-token: 1password-local
 	kubectl create secret generic oauth-token --from-literal=oauth="$$(./tools/1password.sh -d config/prow/oauth-token)" --dry-run -o yaml | kubectl replace secret oauth-token -f -
