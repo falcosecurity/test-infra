@@ -1,0 +1,6 @@
+kernelversion: 2
+kernelrelease: 5.8.0-1017-aws
+target: ubuntu-aws
+output:
+  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-aws_5.8.0-1017-aws_2.ko
+  probe: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-aws_5.8.0-1017-aws_2.o

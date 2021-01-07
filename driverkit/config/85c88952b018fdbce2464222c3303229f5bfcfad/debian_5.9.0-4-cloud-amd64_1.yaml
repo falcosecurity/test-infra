@@ -1,6 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.9.0-4-cloud-amd64
-target: debian
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_debian_5.9.0-4-cloud-amd64_1.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_debian_5.9.0-4-cloud-amd64_1.o
