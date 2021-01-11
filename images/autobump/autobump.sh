@@ -18,18 +18,26 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-PROW_CONTROLLER_MANAGER_FILE="${PROW_CONTROLLER_MANAGER_FILE:-}"
-# Args for use with GH
-GH_ORG="${GH_ORG:-}"
-GH_REPO="${GH_REPO:-}"
-FORK_GH_REPO="${FORK_GH_REPO:-${GH_REPO}}"
-# Args for use with Gerrit
-GERRIT_HOST_REPO="${GERRIT_HOST_REPO:-}"
-
 # Set this to something more specific if the repo hosts multiple Prow instances.
 # Must be a valid to use as part of a git branch name. (e.g. no spaces)
+PROW_CONTROLLER_MANAGER_FILE="${PROW_CONTROLLER_MANAGER_FILE:-}"
 PROW_INSTANCE_NAME="${PROW_INSTANCE_NAME:-prow}"
 
+
+# Args from environment (with defaults)
+GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
+GH_ORG="${GH_ORG:-"falcosecurity"}"
+GH_REPO="${GH_REPO:-"test-infra"}"
+BOT_NAME="${BOT_NAME:-"poiana"}"
+BOT_MAIL="${BOT_MAIL:-"leo+bot@sysdig.com"}"
+BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
+BOT_GPG_PUBLIC_KEY="${BOT_GPG_PUBLIC_KEY:-"5B969CD19422B477E5609F8C900C09B3E21C193F"}"
+FORK_GH_REPO="${FORK_GH_REPO:-${GH_REPO}}"
+
+export GIT_COMMITTER_NAME=${BOT_NAME}
+export GIT_COMMITTER_EMAIL=${BOT_MAIL}
+export GIT_AUTHOR_NAME=${BOT_NAME}
+export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 
 # TODO(fejta): rewrite this in a better language REAL SOON  <-lol
@@ -127,6 +135,7 @@ create-gh-pr() {
 
 	echo "Creating PR to merge ${user}:autobump-${PROW_INSTANCE_NAME} into master..." >&2
 	/pr-creator \
+        --github-endpoint="${GH_PROXY}" \
 		--github-token-path="${token}" \
 		--org="${GH_ORG}" --repo="${GH_REPO}" --branch=master \
 		--title="${title}" --match-title="Bump ${PROW_INSTANCE_NAME} from" \

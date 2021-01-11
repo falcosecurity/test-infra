@@ -33,6 +33,8 @@ periodics:
         readOnly: true
       env:
     # autobump.sh args
+      - name: GH_PROXY
+        value: https://api.github.com
       # GitHub org containing the repo where the Prow config and component files live.
       - name: GH_ORG
         value: falcosecurity
