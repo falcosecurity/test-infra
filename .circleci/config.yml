@@ -2,7 +2,7 @@ version: 2
 jobs:
   "test-infra/scan/terraform":
     docker:
-      - image: alpine:3.12.1
+      - image: alpine/git:v2.26.2
     steps:
       - checkout
       - run:
