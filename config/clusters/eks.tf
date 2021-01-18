@@ -34,6 +34,7 @@ module "eks" {
       ami_type           = "AL2_x86_64"
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
       k8s_labels = {
+        Archtype    = "x86"
         Environment = "training"
         GithubRepo  = "terraform-aws-eks"
         GithubOrg   = "terraform-aws-modules"
