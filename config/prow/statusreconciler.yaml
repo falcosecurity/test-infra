@@ -65,7 +65,6 @@ spec:
           secretName: s3-credentials
       nodeSelector:
         Archtype: "x86"
-
 ---
 apiVersion: v1
 kind: ServiceAccount
