@@ -114,3 +114,5 @@ spec:
       - name: s3-credentials
         secret:
           secretName: s3-credentials
+      nodeSelector:
+        Archtype: "x86"

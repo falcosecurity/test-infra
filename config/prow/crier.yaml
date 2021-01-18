@@ -60,6 +60,9 @@ spec:
       - name: oauth
         secret:
           secretName: oauth-token
+      nodeSelector:
+        Archtype: "x86"
+
 ---
 apiVersion: v1
 kind: ServiceAccount

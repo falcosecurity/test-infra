@@ -1,6 +1,6 @@
 periodics:
 - name: arm-test
-  interval: 1d
+  interval: 24h
   spec:
     containers:
     - image: arm32v7/bash
