@@ -32,3 +32,5 @@ periodics:
       - --config-path=config/config.yaml
       - --job-config-path=config/jobs
       - --plugin-config=config/plugins.yaml
+    nodeSelector:
+      Archtype: "x86"
