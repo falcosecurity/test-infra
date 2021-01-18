@@ -28,11 +28,11 @@ module "eks" {
   #Managed Node Group
   node_groups = {
     falco-ng = {
-      desired_capacity = var.eks_default_worker_group_asg_desired_capacity
-      max_capacity     = var.eks_default_worker_group_asg_max_capacity
-      min_capacity     = var.eks_default_worker_group_asg_min_capacity
-      instance_type    = var.eks_default_worker_group_instance_type
-      kubelet_extra_args   = "--kube-reserved=emephemeral-storage=30Gi" 
+      desired_capacity   = var.eks_default_worker_group_asg_desired_capacity
+      max_capacity       = var.eks_default_worker_group_asg_max_capacity
+      min_capacity       = var.eks_default_worker_group_asg_min_capacity
+      instance_type      = var.eks_default_worker_group_instance_type
+      kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
       k8s_labels = {
         Environment = "training"
         GithubRepo  = "terraform-aws-eks"
@@ -40,6 +40,22 @@ module "eks" {
       }
       additional_tags = {
         ExtraTag = "falco"
+      }
+    }
+    arm-ng = {
+      desired_capacity   = 1
+      max_capacity       = 2
+      min_capacity       = 1
+      instance_type      = "m6g.large"
+      kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
+      k8s_labels = {
+        Archtype    = "arm"
+        Environment = "training"
+        GithubRepo  = "terraform-aws-eks"
+        GithubOrg   = "terraform-aws-modules"
+      }
+      additional_tags = {
+        ExtraTag = "arm"
       }
     }
   }
