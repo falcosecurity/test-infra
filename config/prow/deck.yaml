@@ -187,3 +187,5 @@ spec:
         configMap:
           defaultMode: 420
           name: branding
+      nodeSelector:
+        Archtype: "x86"

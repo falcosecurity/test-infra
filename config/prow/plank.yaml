@@ -103,3 +103,5 @@ spec:
       - name: config
         configMap:
           name: config
+      nodeSelector:
+        Archtype: "x86"

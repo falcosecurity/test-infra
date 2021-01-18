@@ -76,3 +76,5 @@ spec:
       - name: cache
         persistentVolumeClaim:
           claimName: ghproxy
+      nodeSelector:
+        Archtype: "x86"

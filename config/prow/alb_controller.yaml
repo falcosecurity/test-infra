@@ -517,6 +517,9 @@ spec:
           secret:
             defaultMode: 420
             secretName: aws-load-balancer-webhook-tls
+      nodeSelector:
+        Archtype: "x86"
+
 ---
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
