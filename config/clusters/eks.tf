@@ -21,7 +21,6 @@ module "eks" {
   ]
 
   node_groups_defaults = {
-    ami_type  = "AL2_x86_64"
     disk_size = 50
   }
 
@@ -32,6 +31,7 @@ module "eks" {
       max_capacity       = var.eks_default_worker_group_asg_max_capacity
       min_capacity       = var.eks_default_worker_group_asg_min_capacity
       instance_type      = var.eks_default_worker_group_instance_type
+      ami_type           = "AL2_x86_64"
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
       k8s_labels = {
         Environment = "training"
@@ -47,6 +47,7 @@ module "eks" {
       max_capacity       = 2
       min_capacity       = 1
       instance_type      = "m6g.large"
+      ami_type           = "AL2_ARM_64"
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
       k8s_labels = {
         Archtype    = "arm"
