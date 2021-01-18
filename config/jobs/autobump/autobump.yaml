@@ -69,3 +69,5 @@ periodics:
       secret:
         secretName: poiana-gpg-signing-key
         defaultMode: 0400
+    nodeSelector:
+      Archtype: "x86"

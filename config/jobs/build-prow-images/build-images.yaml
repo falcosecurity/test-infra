@@ -27,6 +27,8 @@ presubmits:
             ephemeral-storage: "2Gi"
         securityContext:
           privileged: true
+      nodeSelector:
+        Archtype: "x86"
   - name: build-images-build-drivers
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
@@ -53,6 +55,8 @@ presubmits:
             ephemeral-storage: "2Gi"
         securityContext:
           privileged: true
+      nodeSelector:
+        Archtype: "x86"
   - name: build-images-golang
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
@@ -79,6 +83,8 @@ presubmits:
             ephemeral-storage: "2Gi"
         securityContext:
           privileged: true
+      nodeSelector:
+        Archtype: "x86"
   - name: build-images-update-jobs
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
@@ -105,6 +111,8 @@ presubmits:
             ephemeral-storage: "2Gi"
         securityContext:
           privileged: true
+      nodeSelector:
+        Archtype: "x86"
   - name: build-images-update-maintainers
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
@@ -131,3 +139,5 @@ presubmits:
             ephemeral-storage: "2Gi"
         securityContext:
           privileged: true
+      nodeSelector:
+        Archtype: "x86"

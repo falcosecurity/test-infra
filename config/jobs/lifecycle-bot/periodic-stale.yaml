@@ -41,3 +41,5 @@ periodics:
       - name: oauth
         secret:
           secretName: oauth-token
+      nodeSelector:
+        Archtype: "x86"

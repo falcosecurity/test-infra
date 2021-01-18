@@ -1,0 +1,12 @@
+periodics:
+- name: arm-test
+  interval: 1d
+  spec:
+    containers:
+    - image: arm32v7/bash
+      command:
+      - echo
+      args:
+      - "hello"
+    nodeSelector:
+      Archtype: "arm"
