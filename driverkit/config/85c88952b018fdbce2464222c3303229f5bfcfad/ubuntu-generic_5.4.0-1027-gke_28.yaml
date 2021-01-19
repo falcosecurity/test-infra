@@ -1,0 +1,6 @@
+kernelversion: 28
+kernelrelease: 5.4.0-1027-gke
+target: ubuntu-generic
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.4.0-1027-gke_28.ko
+  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.4.0-1027-gke_28.o
