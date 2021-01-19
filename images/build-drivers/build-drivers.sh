@@ -26,9 +26,6 @@ function start_docker() {
     echo "Done setting up docker in docker."
 }
 
-DISABLE_MD_LINTING=1
-DISABLE_MD_LINK_CHECK=1
-
 export PULL_PULL_SHA=$PULL_PULL_SHA
 
 echo "******************************************************"
@@ -48,7 +45,7 @@ echo "******************************************************"
 start_docker
 
 cd driverkit/
-make -e TARGET_DISTRO=$@ specific_target
+make -e TARGET_DISTRO="$1" specific_target
 
 make publish_s3
 

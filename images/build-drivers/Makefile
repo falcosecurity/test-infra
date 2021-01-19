@@ -9,9 +9,11 @@ build-push: build-image push-image
 
 build-image:
 	docker build -t $(IMG_NAME) .
+
 push-image:
 	docker tag $(IMG_NAME) $(IMAGE):$(TAG)
 	docker push $(IMAGE):$(TAG)
+
 local-registry:
 	aws ecr get-login-password \
 		| docker login \

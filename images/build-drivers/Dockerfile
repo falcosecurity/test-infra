@@ -1,7 +1,7 @@
 FROM 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
 
-RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.2.0/driverkit_0.2.0_linux_amd64.tar.gz \
-    && tar -xvf driverkit_0.2.0_linux_amd64.tar.gz \
+RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.3.0/driverkit_0.3.0_linux_amd64.tar.gz \
+    && tar -xvf driverkit_0.3.0_linux_amd64.tar.gz \
     && chmod +x driverkit \
     && mv driverkit /bin/driverkit
 
