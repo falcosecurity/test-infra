@@ -12,6 +12,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
@@ -31,7 +32,7 @@ func gatherOptions() options {
 	flag.StringVar(&o.configPath, "config-path", "", "Path to config file.")
 	flag.StringVar(&o.jobConfigPath, "jobs-config-path", "", "Path to prow job configs.")
 	flag.StringVar(&o.pluginConfig, "plugins-config-path", "", "Path to plugins config file.")
-	flag.StringVar(&o.kubeconfig, "kubeconfig", "", "Path to kubeconfig file.")
+	flag.StringVar(&o.kubeconfig, "kubeconfig", "", "Path to kubeconfig file. By default authentication with Service Account token is used.")
 	flag.Parse()
 	return o
 }
@@ -39,8 +40,17 @@ func gatherOptions() options {
 func main() {
 	o := gatherOptions()
 
-	config, err := clientcmd.BuildConfigFromFlags("", o.kubeconfig)
-	exitOnError(err, "while loading kubeconfig")
+	var config *rest.Config
+
+	if (o.kubeconfig != "") {
+		var err error
+		config, err = clientcmd.BuildConfigFromFlags("", o.kubeconfig)
+		exitOnError(err, "while loading kubeconfig")
+	} else {
+		var err error
+		config, err = rest.InClusterConfig()
+		exitOnError(err, "while loading service account token")
+	}
 
 	client, err := kubernetes.NewForConfig(config)
 	exitOnError(err, "while creating kube client")
