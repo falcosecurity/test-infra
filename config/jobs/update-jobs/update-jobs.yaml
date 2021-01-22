@@ -12,6 +12,6 @@ postsubmits:
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:latest
         imagePullPolicy: Always
         command:
-          - /go/bin/update-josb
+          - /go/bin/update-jobs
           - --jobs-config-path
           - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
