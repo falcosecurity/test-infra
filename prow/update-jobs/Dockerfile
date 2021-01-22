@@ -27,6 +27,7 @@ FROM golang:$GOVERSION as final
 
 ARG GOPATH
 ARG APP_NAME
+ENV GOPATH=$GOPATH
 
 COPY ./scripts/entrypoint.sh /
 COPY --from=builder ${GOPATH}/bin/${APP_NAME} ${GOPATH}/bin/${APP_NAME}
