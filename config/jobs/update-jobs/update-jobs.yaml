@@ -1,7 +1,8 @@
 postsubmits:
   falcosecurity/test-infra:
   - name: update-jobs-pr
-    decorate: false
+    decorate: true
+    path_alias: github.com/falcosecurity/test-infra
     agent: kubernetes
     branches:
       - ^master$
@@ -10,3 +11,7 @@ postsubmits:
       containers:
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:latest
         imagePullPolicy: Always
+        command:
+          - /go/bin/update-josb
+          - --jobs-config-path
+          - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
