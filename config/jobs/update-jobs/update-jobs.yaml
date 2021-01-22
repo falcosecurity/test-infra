@@ -1,17 +1,12 @@
 postsubmits:
   falcosecurity/test-infra:
   - name: update-jobs-pr
-    decorate: true
-    path_alias: github.com/falcosecurity/test-infra
+    decorate: false
     agent: kubernetes
     branches:
       - ^master$
     spec:
+      serviceAccountName: update-jobs
       containers:
-      - command:
-        - /workspace/update-jobs.sh
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:stable
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:latest
         imagePullPolicy: Always
