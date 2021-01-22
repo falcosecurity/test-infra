@@ -33,7 +33,8 @@ build: $(OUTPUT_PATH)/$(PROJECTNAME)
 	touch $(STDERR)
 	rm $(STDERR)
 	mkdir -p $(OUTPUT_PATH)
-	go build -o "$(OUTPUT_PATH)/$(PROJECTNAME)" $(GOFILES)
+	go build -o "$(OUTPUT_PATH)/$(PROJECTNAME)" $(GOFILES) 2> $(STDERR)
+	cat $(STDERR) | sed -e '1s/.*/\nError:\n/'  | sed 's/make\[.*/ /' | sed "/^/s/^/     /" 1>&2
 	@echo "Compiled in: $(OUTPUT_PATH)/$(PROJECTNAME)"
 
 .PHONY: test
