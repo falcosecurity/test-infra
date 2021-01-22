@@ -29,7 +29,7 @@ ARG GOPATH
 ARG APP_NAME
 ENV GOPATH=$GOPATH
 
-COPY ./scripts/entrypoint.sh /
+COPY ./entrypoint.sh /
 COPY --from=builder ${GOPATH}/bin/${APP_NAME} ${GOPATH}/bin/${APP_NAME}
 
 ENTRYPOINT ["/entrypoint.sh"]
