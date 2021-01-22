@@ -1,14 +1,5 @@
 SHELL := /bin/bash
 
-# OCI image artifact variables
-OCI_AWS_ECR_REGION ?= eu-west-1
-OCI_AWS_ECR_ACCOUNT ?= 292999226676
-OCI_AWS_ECR_NAME := dkr.ecr.$(OCI_AWS_ECR_REGION).amazonaws.com
-OCI_AWS_ECR_REGISTRY := $(OCI_AWS_ECR_ACCOUNT).$(OCI_AWS_ECR_NAME)
-OCI_IMG_REPOSITORY := test-infra/update-jobs
-OCI_IMG_NAME := $(OCI_AWS_ECR_REGISTRY)/$(OCI_IMG_REPOSITORY)
-OCI_IMG_TAG ?= latest
-
 VERBOSE ?= 0
 ifeq ($(VERBOSE), 0)
 # Make is verbose in Linux: let's make it silent.
@@ -17,8 +8,7 @@ endif
 
 PROJECTNAME := update-jobs
 OUTPUT_BASE ?= $(shell pwd)
-OUTPUT_DIR := bin
-OUTPUT_PATH := $(OUTPUT_BASE)/$(OUTPUT_DIR)
+OUTPUT_PATH := $(OUTPUT_BASE)/bin
 
 # Go variables
 GOFILES := $(wildcard *.go)
@@ -47,18 +37,6 @@ clean:
 	@echo "  >  Cleaning build cache"
 	rm $(OUTPUT_PATH)/$(PROJECTNAME) 2> /dev/null
 	go clean
-
-.PHONY: oci/build-push
-oci/build-push: oci/build oci/push
-
-.PHONY: oci/build
-oci/build:
-	docker build -t $(OCI_IMG_REPOSITORY) .
-
-.PHONY: oci/push
-oci/push:
-	docker tag $(OCI_IMG_REPOSITORY) $(OCI_IMG_NAME):$(OCI_IMG_TAG)
-	docker push $(OCI_IMG_NAME):$(OCI_IMG_TAG)
 
 .PHONY: list
 list:
