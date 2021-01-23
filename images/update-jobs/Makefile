@@ -13,6 +13,9 @@ IMG_TAG ?= latest
 IMG_REPOSITORY := $(IMG_SLUG)/$(IMG_NAME)
 IMG_FULLNAME := $(AWS_ECR_REGISTRY)/$(IMG_REPOSITORY)
 
+BUILD_CONTEXT ?= ../../prow/update-jobs
+DOCKERFILE ?= ./Dockerfile
+
 IMAGE := "$(IMG_FULLNAME):$(IMG_TAG)
 
 .DEFAULT_GOAL := build-image
@@ -22,7 +25,7 @@ build-push: build-image push-image
 
 .PHONY: build-image
 build-image:
-	docker build -t $(IMG_REPOSITORY) .
+	docker build -f $(DOCKERFILE) -t $(IMG_REPOSITORY) $(BUILD_CONTEXT)
 
 .PHONY: push-image
 push-image:
