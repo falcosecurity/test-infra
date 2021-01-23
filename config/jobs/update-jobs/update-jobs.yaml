@@ -9,8 +9,8 @@ postsubmits:
     spec:
       serviceAccountName: update-jobs
       containers:
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:latest
+      - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-jobs:latest
         imagePullPolicy: Always
         command:
-          - --jobs-config-path
-          - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
+        - --jobs-config-path
+        - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
