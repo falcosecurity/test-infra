@@ -2,6 +2,7 @@ SHELL := /bin/bash
 
 BUILD_CONTEXT ?= ../../prow/update-jobs
 DOCKERFILE ?= ./Dockerfile
+CACHE_FLAG ?=
 
 IMG_SLUG := test-infra
 IMG_NAME := update-jobs
@@ -21,7 +22,7 @@ build-push: build-image push-image
 
 .PHONY: build-image
 build-image:
-	docker build -f $(DOCKERFILE) -t $(REPOSITORY) $(BUILD_CONTEXT)
+	docker build $(CACHE_FLAG) -f $(DOCKERFILE) -t $(REPOSITORY) $(BUILD_CONTEXT)
 
 .PHONY: tag-image
 tag-image:
@@ -37,3 +38,13 @@ list:
 		| awk -v RS= -F: '/^# File/,/^# Finished Make data base/ \
 		{if ($$1 !~ "^[#.]") {print $$1}}' | sort | \
 		egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
+
+.PHONY: local-tag
+local-tag: IMAGE := localhost:5000/$(REPOSITORY):$(IMG_TAG)
+local-tag:
+	docker tag $(REPOSITORY) $(IMAGE)
+
+.PHONY: local-registry
+local-registry: IMAGE := localhost:5000/$(REPOSITORY):$(IMG_TAG)
+local-registry: build-image local-tag
+	docker push $(IMAGE)
