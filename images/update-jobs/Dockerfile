@@ -32,4 +32,4 @@ ENV APP_NAME=$APP_NAME
 
 COPY --from=builder ${GOPATH}/bin/${APP_NAME} ${GOPATH}/bin/${APP_NAME}
 
-ENTRYPOINT "${GOPATH}/bin/${APP_NAME}"
+ENTRYPOINT ["/go/bin/update-jobs"]
