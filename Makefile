@@ -28,7 +28,7 @@ update-config:
 	kubectl create configmap config --from-file=config.yaml=config/config.yaml --dry-run -o yaml | kubectl replace configmap config -f -
 
 prow-s3-credentials: 1password-local
-  	kubectl create secret generic s3-credentials --from-literal=service-account.json="$$(./tools/1password.sh -d config/prow/service-account.json)" --dry-run -o yaml | kubectl replace secret s3-credentials -f -
+	kubectl create secret generic s3-credentials --from-literal=service-account.json="$$(./tools/1password.sh -d config/prow/service-account.json)" --dry-run -o yaml | kubectl replace secret s3-credentials -f -
 
 prow:
 	kubectl apply -f config/prow/
