@@ -1,0 +1,16 @@
+postsubmits:
+  falcosecurity/test-infra:
+  - name: update-jobs-pr
+    decorate: true
+    path_alias: github.com/falcosecurity/test-infra
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      serviceAccountName: update-jobs
+      containers:
+      - image: localhost:5000/test-infra/update-jobs:latest
+        imagePullPolicy: Always
+        command:
+        - --jobs-config-path
+        - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
