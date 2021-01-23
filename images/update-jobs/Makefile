@@ -1,22 +1,18 @@
 SHELL := /bin/bash
 
-.DEFAULT_GOAL := build-image
-
-AWS_ECR_REGION ?= eu-west-1
-AWS_ECR_ACCOUNT ?= 292999226676
-AWS_ECR_NAME := dkr.ecr.$(AWS_ECR_REGION).amazonaws.com
-AWS_ECR_REGISTRY := $(AWS_ECR_ACCOUNT).$(AWS_ECR_NAME)
+BUILD_CONTEXT ?= ../../prow/update-jobs
+DOCKERFILE ?= ./Dockerfile
 
 IMG_SLUG := test-infra
 IMG_NAME := update-jobs
 IMG_TAG ?= latest
-IMG_REPOSITORY := $(IMG_SLUG)/$(IMG_NAME)
-IMG_FULLNAME := $(AWS_ECR_REGISTRY)/$(IMG_REPOSITORY)
 
-BUILD_CONTEXT ?= ../../prow/update-jobs
-DOCKERFILE ?= ./Dockerfile
+REGION ?= eu-west-1
+ACCOUNT := 292999226676
+REGISTRY := $(ACCOUNT).dkr.ecr.$(REGION).amazonaws.com
+REPOSITORY := $(IMG_SLUG)/$(IMG_NAME)
 
-IMAGE := "$(IMG_FULLNAME):$(IMG_TAG)
+IMAGE := $(REGISTRY)/$(REPOSITORY):$(IMG_TAG)
 
 .DEFAULT_GOAL := build-image
 
@@ -25,11 +21,14 @@ build-push: build-image push-image
 
 .PHONY: build-image
 build-image:
-	docker build -f $(DOCKERFILE) -t $(IMG_REPOSITORY) $(BUILD_CONTEXT)
+	docker build -f $(DOCKERFILE) -t $(REPOSITORY) $(BUILD_CONTEXT)
+
+.PHONY: tag-image
+tag-image:
+	docker tag $(REPOSITORY) $(IMAGE)
 
 .PHONY: push-image
-push-image:
-	docker tag $(IMG_REPOSITORY) $(IMAGE)
+push-image: tag-image
 	docker push $(IMAGE)
 
 .PHONY: list
