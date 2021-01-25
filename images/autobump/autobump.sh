@@ -73,8 +73,6 @@ main() {
 
 	if [[ -n "${GH_ORG}" ]]; then
 		create-gh-pr
-	else
-		create-gerrit-pr
 	fi
 
 	echo "autobump.sh completed successfully!" >&2
@@ -107,20 +105,9 @@ check-args() {
 		echo "ERROR: $PROW_CONTROLLER_MANAGER_FILE must be specified." >&2
 		return 1
 	fi
-	if [[ -z "${GERRIT_HOST_REPO}" ]]; then
-		if [[ -z "${GH_ORG}" || -z "${GH_REPO}" ]]; then
-			echo "ERROR: GH_ORG and GH_REPO must be specified to create a GitHub PR." >&2
-			return 1
-		fi
-	else
-		if [[ -n "${GH_ORG}" || -n "${GH_REPO}" ]]; then
-			echo "ERROR: GH_ORG and GH_REPO cannot be used with GERRIT_HOST_REPO." >&2
-			return 1
-		fi
-		if [[ -z "${GERRIT_HOST_REPO}" ]]; then
-			echo "ERROR: GERRIT_HOST_REPO must be specified to create a Gerrit PR." >&2
-			return 1
-		fi
+	if [[ -z "${GH_ORG}" || -z "${GH_REPO}" ]]; then
+		echo "ERROR: GH_ORG and GH_REPO must be specified to create a GitHub PR." >&2
+		return 1
 	fi
 }
 
@@ -142,56 +129,6 @@ create-gh-pr() {
 		--body="${body}" \
 		--source="${user}:autobump-${PROW_INSTANCE_NAME}" \
 		--confirm
-}
-
-create-gerrit-pr() {
-	git config http.cookiefile "${creds}"
-	git remote add upstream "${GERRIT_HOST_REPO}"
-
-	local change_id="$(get-change-id)"
-	echo "Commit will have Change-Id: ${change_id}"
-
-	# Check for an existing open PR and see if it needs to be updated.
-	echo "Checking for an existing open Gerrit PR to update..."
-	git fetch upstream "+refs/changes/*:refs/remotes/upstream/changes/*" 2> /dev/null
-	local pr_commit="$(git log --all --grep="Change-Id: ${change_id}" -1 --format="%H")"
-	if [[ -n "${pr_commit}" ]]; then
-		local pr_version="$(git show "${pr_commit}:${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)"
-		if [[ "${pr_version}" == "${version}" ]]; then
-			echo "Bump PR is already up to date (version ${version}). Aborting no-op update." >&2
-			return 0
-		fi
-		echo "Bump PR is not up to date, it currently updates to ${pr_version}. Updating PR to ${version}."
-	else
-		echo "Did not find an existing PR to update. A new Gerrit PR will be created."
-	fi
-
-	git commit -s -m "${title}
-
-${body}
-
-Change-Id: ${change_id}"
-
-	git push upstream HEAD:refs/for/master
-}
-
-# get-change-id generates a change ID for the gerrit PR that is deterministic
-# rather than being random as is normally preferable.
-# In particular this chooses a change ID that is unique to the host/repo,
-# prow instance name, and the version we are bumping *from*. This ensures we
-# update the existing open CL rather than opening a new one.
-# HOWEVER, this doesn't work if there is a revert to a previous version since
-# we will generated the change-id of an already merged PR. We avoid this by
-# iteratively hashing the chosen ID until we find an unused ID.
-get-change-id() {
-	local id="I$(echo "${GERRIT_HOST_REPO}; ${PROW_INSTANCE_NAME}; ${old_version}" | git hash-object --stdin)"
-
-	# While a commit on the base branch exists with this change ID...
-	while [[ -n "$(git log --grep="Change-Id: ${id}" -F)" ]]; do
-		# Choose another ID by hashing the current ID.
-		id="I$(echo "${id}" | git hash-object --stdin)"
-	done
-	echo "${id}"
 }
 
 # Convert image: gcr.io/k8s-prow/plank:v20181122-abcd to v20181122-abcd
