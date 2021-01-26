@@ -154,6 +154,7 @@ periodics:
       base_ref: master
     agent: kubernetes
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -174,6 +175,7 @@ periodics:
       base_ref: master
     agent: kubernetes
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -194,6 +196,7 @@ periodics:
       base_ref: master
     agent: kubernetes
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -214,6 +217,7 @@ periodics:
       base_ref: master
     agent: kubernetes
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -234,6 +238,7 @@ periodics:
       base_ref: master
     agent: kubernetes
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
@@ -254,6 +259,7 @@ periodics:
       base_ref: master
     agent: kubernetes
     spec:
+      serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
