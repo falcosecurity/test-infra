@@ -52,3 +52,12 @@ tf-clean: tf-init
 
 kubeconfig:
 	aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra --profile default
+
+### Hook ####
+hook-image:
+	git clone https://github.com/kubernetes/test-infra
+	cp test-infra/prow/hook/*.go ./prow/hook/
+	mkdir ./prow/hook/plugin-imports
+	cp ./prow/plugin-imports/plugin-imports.go ./prow/hook/plugin-imports/
+
+	rm -rf test-infra/

@@ -28,3 +28,5 @@ config/prow/poiana_gpg_secret.yaml
 pj.yaml
 temp-mkpod-kind-config.yaml
 pod.yaml
+
+test-infra/
