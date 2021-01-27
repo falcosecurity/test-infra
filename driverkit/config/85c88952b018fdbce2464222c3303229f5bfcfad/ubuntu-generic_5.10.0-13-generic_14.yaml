@@ -1,0 +1,6 @@
+kernelversion: 14
+kernelrelease: 5.10.0-13-generic
+target: ubuntu-generic
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.10.0-13-generic_14.ko
+  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.10.0-13-generic_14.o
