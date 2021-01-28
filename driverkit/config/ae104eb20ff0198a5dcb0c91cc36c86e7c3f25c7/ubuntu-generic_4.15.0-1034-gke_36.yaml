@@ -2,5 +2,4 @@ kernelversion: 36
 kernelrelease: 4.15.0-1034-gke
 target: ubuntu-generic
 output:
-  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-1034-gke_36.ko
   probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-1034-gke_36.o

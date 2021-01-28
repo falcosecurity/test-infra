@@ -2,5 +2,4 @@ kernelversion: 35
 kernelrelease: 4.15.0-1033-gke
 target: ubuntu-generic
 output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_4.15.0-1033-gke_35.ko
   probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_4.15.0-1033-gke_35.o
