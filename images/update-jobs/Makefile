@@ -48,3 +48,11 @@ local-tag:
 local-registry: IMAGE := localhost:5000/$(REPOSITORY):$(IMG_TAG)
 local-registry: build-image local-tag
 	docker push $(IMAGE)
+
+.PHONY: test
+test:
+	@DEBUG=true \
+		CONFIG_PATH="$(PWD)/../../config/config.yaml" \
+		JOB_CONFIG_PATH="$(PWD)/../../config/jobs/update-jobs/update-jobs.local" \
+		IMAGE_PATH="$(PWD)/../../images/update-jobs" \
+		./test.sh update-jobs-pr
