@@ -235,6 +235,15 @@ kind: Namespace
 metadata:
   name: test-pods
 EOF
+  cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: job-config
+  namespace: default
+data:
+  config.yaml: 'This is a mock Prow configuration'
+EOF
   cat ${PWD}/config/prow/update-jobs.yaml | kubectl apply -f -
 
   # Connect kind to local registry if not connected
