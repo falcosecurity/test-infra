@@ -12,5 +12,6 @@ postsubmits:
       - image: localhost:5000/test-infra/update-jobs:latest
         imagePullPolicy: Always
         command:
+        - /go/bin/update-jobs
         - --jobs-config-path
         - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
