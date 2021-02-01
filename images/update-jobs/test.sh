@@ -17,7 +17,6 @@
 set -o errexit
 set -o nounset
 set -o pipefail
-set -x
 
 DEBUG="${DEBUG:-"false"}"
 
@@ -244,7 +243,7 @@ metadata:
 data:
   config.yaml: 'This is a mock Prow configuration'
 EOF
-  cat ${PWD}/config/prow/update-jobs.yaml | kubectl apply -f -
+  cat ${PWD}/../../config/prow/update-jobs.yaml | kubectl apply -f -
 
   # Connect kind to local registry if not connected
   connect_kind_network_to_local_registry_network
