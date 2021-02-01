@@ -1,0 +1,5 @@
+kernelversion: 53
+kernelrelease: 4.15.0-1050-gke
+target: ubuntu-generic
+output:
+  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-1050-gke_53.o
