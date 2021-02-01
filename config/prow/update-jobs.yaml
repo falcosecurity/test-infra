@@ -1,35 +1,4 @@
 ---
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: "update-jobs"
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - configmaps
-    verbs:
-      - get
-      - list
-      - watch
-      - update
-      - create
-      - delete
-      - patch
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: "update-jobs"
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: "update-jobs"
-subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: Group
-  name: system:nodes
----
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -53,7 +22,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: update-jobs
-  namespace: test-pods
+  namespace: default
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -62,10 +31,10 @@ subjects:
 - apiGroup: ''
   kind: ServiceAccount
   name: update-jobs
-  namespace: test-pods
+  namespace: default
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: update-jobs
-  namespace: test-pods
+  namespace: default
