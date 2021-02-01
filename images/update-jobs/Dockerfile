@@ -17,7 +17,10 @@ RUN apk --no-cache add \
 
 WORKDIR ${GOPATH}/src/${APP_NAME}
 
-COPY . .
+COPY go.mod .
+COPY go.sum .
+COPY main.go .
+COPY Makefile .
 
 RUN OUTPUT_BASE=${GOPATH} make build
 
@@ -32,4 +35,4 @@ ENV APP_NAME=$APP_NAME
 
 COPY --from=builder ${GOPATH}/bin/${APP_NAME} ${GOPATH}/bin/${APP_NAME}
 
-ENTRYPOINT ["/go/bin/update-jobs"]
+CMD "${GOPATH}/bin/${APP_NAME}"
