@@ -1,5 +1,0 @@
-kernelversion: 34
-kernelrelease: 5.4.0-1032-gke
-target: ubuntu-generic
-output:
-  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_5.4.0-1032-gke_34.o

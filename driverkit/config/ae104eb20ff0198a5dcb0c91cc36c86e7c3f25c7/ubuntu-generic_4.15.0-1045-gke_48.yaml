@@ -1,5 +1,0 @@
-kernelversion: 48
-kernelrelease: 4.15.0-1045-gke
-target: ubuntu-generic
-output:
-  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-1045-gke_48.o

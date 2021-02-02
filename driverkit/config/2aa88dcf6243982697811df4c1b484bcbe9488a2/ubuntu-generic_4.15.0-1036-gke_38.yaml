@@ -1,5 +1,0 @@
-kernelversion: 38
-kernelrelease: 4.15.0-1036-gke
-target: ubuntu-generic
-output:
-  probe: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_4.15.0-1036-gke_38.o
