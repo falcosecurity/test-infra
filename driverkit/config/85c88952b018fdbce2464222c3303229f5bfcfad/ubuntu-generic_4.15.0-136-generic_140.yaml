@@ -1,0 +1,6 @@
+kernelversion: 140
+kernelrelease: 4.15.0-136-generic
+target: ubuntu-generic
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_4.15.0-136-generic_140.ko
+  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_4.15.0-136-generic_140.o
