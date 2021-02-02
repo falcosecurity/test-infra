@@ -28,13 +28,12 @@ roleRef:
   kind: Role
   name: update-jobs
 subjects:
-- apiGroup: ''
-  kind: ServiceAccount
+- kind: ServiceAccount
   name: update-jobs
-  namespace: default
+  namespace: test-pods
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: update-jobs
-  namespace: default
+  namespace: test-pods
