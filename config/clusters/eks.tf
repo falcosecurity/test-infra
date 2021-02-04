@@ -47,7 +47,7 @@ module "eks" {
       desired_capacity   = 1
       max_capacity       = 2
       min_capacity       = 1
-      instance_type      = "m6g.large"
+      instance_type      = "m6g.mediumt"
       ami_type           = "AL2_ARM_64"
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
       k8s_labels = {
