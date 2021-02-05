@@ -1,3 +1,20 @@
+presubmits:
+  falcosecurity/test-infra:
+    - name: arm-test
+      branches:
+        - ^feat/arm-testing$
+      decorate: true
+      skip_report: false
+      always_run: true
+      spec:
+        containers:
+        - image: arm32v7/bash
+          command:
+          - echo
+          args:
+          - "hello"
+        nodeSelector:
+          Archtype: "arm"
 periodics:
 - name: arm-test
   interval: 24h
