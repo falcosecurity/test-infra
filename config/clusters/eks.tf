@@ -49,7 +49,7 @@ module "eks" {
       min_capacity       = 1
       instance_types     = ["m6g.medium"]
       ami_type           = "AL2_ARM_64"
-      kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
+      kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi --register-with-taints=${local.arm_nodegroup_taints}"
       k8s_labels = {
         Archtype    = "arm"
         Environment = "training"
@@ -61,6 +61,10 @@ module "eks" {
       }
     }
   }
+}
+
+locals {
+  arm_nodegroup_taints = "Archtype=arm:NoSchedule"
 }
 
 data "aws_eks_cluster" "cluster" {
