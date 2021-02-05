@@ -15,6 +15,11 @@ presubmits:
           - "hello"
         nodeSelector:
           Archtype: "arm"
+        tolerations:
+        - key: "Archtype"
+          operator: "Equal"
+          value: "arm"
+          effect: "NoSchedule"
 periodics:
 - name: arm-test
   interval: 24h
@@ -27,3 +32,8 @@ periodics:
       - "hello"
     nodeSelector:
       Archtype: "arm"
+    tolerations:
+    - key: "Archtype"
+      operator: "Equal"
+      value: "arm"
+      effect: "NoSchedule"
