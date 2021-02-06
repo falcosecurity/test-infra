@@ -24,7 +24,7 @@ function updateKubeConfig() {
 
 function launchConfig(){
   #ALB Ingress and ebs CSI driver
-  kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+  kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/arm64/?ref=v0.9.0"
 
   kubectl create configmap plugins --from-file=plugins.yaml=./config/plugins.yaml || true
   kubectl create configmap config --from-file "./config/config.yaml" || true
