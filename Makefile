@@ -6,7 +6,7 @@ SHELL := /bin/bash
 ### Prow Components
 
 update-jobs:
-	@$(MAKE) -C prow/update-jobs build
+	# @$(MAKE) -C prow/update-jobs build
 	prow/update-jobs/bin/update-jobs --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
 
 oauth-token: 1password-local

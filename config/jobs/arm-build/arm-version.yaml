@@ -2,7 +2,7 @@ presubmits:
   falcosecurity/test-infra:
     - name: arm-test
       branches:
-        - ^feat/arm-testing$
+        - ^feat/arm-testing
       decorate: true
       skip_report: false
       always_run: true
@@ -22,14 +22,23 @@ presubmits:
           effect: "NoSchedule"
 periodics:
 - name: arm-test
-  interval: 24h
+  interval: 30m
+  extra_refs:
+  # Check out the repo containing the maintainers file
+  # This will be the working directory
+  - org: falcosecurity
+    repo: falco
+    base_ref: master
+    workdir: true
   spec:
     containers:
-    - image: arm32v7/bash
+    - image: multiarch/alpine:aarch64-v3.12
       command:
-      - echo
+      - sleep
+      # - "/build.sh"
       args:
-      - "hello"
+      - "1800"
+      # - "falco"
     nodeSelector:
       Archtype: "arm"
     tolerations:
