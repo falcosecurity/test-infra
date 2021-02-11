@@ -158,6 +158,11 @@ branch-protection:
           branches:
             master:
               protect: true
+        falcosidekick-ui:
+          # todo(leogr): add required_status_checks once CI setup has been done
+          branches:
+            master:
+              protect: true
         falco-exporter:
           branches:
             master:
@@ -224,6 +229,7 @@ tide:
     falcosecurity/event-generator: rebase
     falcosecurity/falco: rebase
     falcosecurity/falcosidekick: rebase
+    falcosecurity/falcosidekick-ui: rebase
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
@@ -422,6 +428,18 @@ tide:
         - needs-rebase
     - repos:
         - falcosecurity/falcosidekick
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+    - repos:
+        - falcosecurity/falcosidekick-ui
       labels:
         - approved
         - lgtm
