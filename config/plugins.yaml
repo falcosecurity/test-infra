@@ -16,6 +16,7 @@ approve:
       - falcosecurity/falco
       - falcosecurity/falcoctl
       - falcosecurity/falcosidekick
+      - falcosecurity/falcosidekick-ui
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/kilt
@@ -67,6 +68,7 @@ lgtm:
       - falcosecurity/falco
       - falcosecurity/falcoctl
       - falcosecurity/falcosidekick
+      - falcosecurity/falcosidekick-ui
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/kilt
@@ -189,6 +191,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falcosidekick
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falcosidekick-ui
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -548,6 +558,28 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/falcosidekick-ui:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - golint
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - mergecommitblocker
+    - require-matching-label
+    - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/falco-exporter:
     - approve
     - assign
@@ -753,6 +785,10 @@ external_plugins:
       events:
         - issue_comment
   falcosecurity/falcosidekick:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falcosidekick-ui:
     - name: needs-rebase
       events:
         - pull_request
