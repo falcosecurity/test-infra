@@ -159,7 +159,11 @@ branch-protection:
             master:
               protect: true
         falcosidekick-ui:
-          # todo(leogr): add required_status_checks once CI setup has been done
+          required_status_checks:
+            contexts:
+              - "ci/circleci: lint"
+              - "ci/circleci: test"
+              - "ci/circleci: build-image"
           branches:
             master:
               protect: true
