@@ -214,6 +214,7 @@ pod_namespace: test-pods
 prowjob_namespace: default
 
 tide:
+  target_url: https://prow.falco.org/tide
   context_options:
     skip-unknown-contexts: true
     from-branch-protection: true
