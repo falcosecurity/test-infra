@@ -49,25 +49,17 @@ workflows:
     jobs:
       - "test-infra/scan/terraform":
           context: test-infra
-          filters:
-            branches:
-              ignore:
-                - master
-                - /pull\/[0-9]+/ #ignore forked PR's
       - "test-infra/deploy/terraform":
           requires:
             - test-infra/scan/terraform
           context: test-infra
           filters:
             branches:
-              ignore:
-                - master
-                - /pull\/[0-9]+/ #ignore forked PR's
+              only: master
       - "test-infra/deploy/prow":
           requires:
             - test-infra/deploy/terraform
           context: test-infra
           filters:
             branches:
-              ignore:
-                - master
+              only: master
