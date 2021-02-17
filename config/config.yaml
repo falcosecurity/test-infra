@@ -31,7 +31,7 @@ plank:
   pod_pending_timeout: 60m
   default_decoration_configs:
     '*':
-      timeout: 24h # Up to 12 hours for driverkit builder jobs
+      timeout: 24h # Up to 24 hours for driverkit builder jobs
       grace_period: 10m
       utility_images:
         clonerefs: "gcr.io/k8s-prow/clonerefs:v20210211-72696ce111"
@@ -191,6 +191,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        libs:
+          branches:
+            master:
+              protect: true
         pdig:
           branches:
             master:
@@ -239,6 +243,7 @@ tide:
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
     falcosecurity/kilt: rebase
+    falcosecurity/libs: rebase
     falcosecurity/pdig: rebase
     falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
@@ -507,6 +512,19 @@ tide:
         - needs-rebase
     - repos:
         - falcosecurity/kilt
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+    - repos:
+        - falcosecurity/libs
       labels:
         - approved
         - lgtm
