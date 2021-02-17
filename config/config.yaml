@@ -192,6 +192,8 @@ branch-protection:
             master:
               protect: true
         libs:
+          required_pull_request_reviews:
+            required_approving_review_count: 2
           branches:
             master:
               protect: true
