@@ -5,8 +5,6 @@ presubmits:
     skip_report: false
     agent: kubernetes
     always_run: true  # Run for every PR, but master
-    skip_branches:
-      - ^master$
     spec:
       containers:
       - command:
