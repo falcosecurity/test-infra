@@ -1,5 +1,29 @@
 presubmits:
   falcosecurity/libs:
+  - name: build-libs
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    always_run: true  # Run for every PR, but master
+    spec:
+      containers:
+      - command:
+        - /build.sh
+        args:
+        - -DBUILD_BPF=On
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-libs:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            memory: 3Gi
+            cpu: 1.5
+      nodeSelector:
+        Archtype: "x86"
   - name: build-libs-bundled-deps
     decorate: true
     skip_report: false
