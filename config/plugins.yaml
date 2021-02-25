@@ -693,6 +693,7 @@ plugins:
     - require-matching-label
     - retitle
     - size
+    - trigger
     - verify-owners
     - welcome
     - wip
