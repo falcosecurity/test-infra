@@ -47,8 +47,8 @@ function importEcrRepositoriesToTerraformState() {
   for ecr_repository in $ecr_repositories; do
     echo
     echo "> AWS ECR Repository name: ${ecr_repository}"
-    TF_RESOURCE="${ecr_repository/test-infra\//}"
-    TF_RESOURCE="${tf_resource/-/_}"
+    tf_resource="${ecr_repository/test-infra\//}"
+    tf_resource="${tf_resource/-/_}"
     echo "  TF Resource Name: ${tf_resource}"
 
     terraform import aws_ecr_repository.${tf_resource} ${ecr_repository}
