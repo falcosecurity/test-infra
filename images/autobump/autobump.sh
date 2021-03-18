@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-# Copyright 2019 The Kubernetes Authors.
+#!/usr/bin/env bash
 #
+# Copyright (C) 2021 The Falco Authors.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-#
+
 #     http://www.apache.org/licenses/LICENSE-2.0
-#
+
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +30,7 @@ GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-"test-infra"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
-BOT_MAIL="${BOT_MAIL:-"leo+bot@sysdig.com"}"
+BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
 BOT_GPG_PUBLIC_KEY="${BOT_GPG_PUBLIC_KEY:-"5B969CD19422B477E5609F8C900C09B3E21C193F"}"
 FORK_GH_REPO="${FORK_GH_REPO:-${GH_REPO}}"
