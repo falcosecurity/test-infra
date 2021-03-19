@@ -41,29 +41,12 @@ function createClusterStateBackend() {
   terraform workspace select $workspace config/clusters
 }
 
-function importEcrRepositoriesToTerraformState() {
-  local ecr_repositories="test-infra/update-jobs test-infra/golang test-infra/build-drivers test-infra/docker-dind test-infra/autobump test-infra/arm-build test-infra/build-libs"
-
-  for ecr_repository in $ecr_repositories; do
-    echo
-    echo "> AWS ECR Repository name: ${ecr_repository}"
-    tf_resource="${ecr_repository/test-infra\//}"
-    tf_resource="${tf_resource/-/_}"
-    echo "  TF Resource Name: ${tf_resource}"
-
-    terraform import aws_ecr_repository.${tf_resource} ${ecr_repository}
-  done
-}
-
 function createCluster() {
   echo "Creating cluster '${CLUSTER}' (this may take a few minutes)..."
   echo
   terraform init config/clusters
   terraform get
   terraform validate config/clusters
-
-  # TODO: remove this line after ECR Repository resources are correctly imported to Terraform state.
-  importEcrRepositoriesToTerraformState
 
   terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
   aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
