@@ -34,10 +34,10 @@ plank:
       timeout: 24h # Up to 24 hours for driverkit builder jobs
       grace_period: 10m
       utility_images:
-        clonerefs: "gcr.io/k8s-prow/clonerefs:v20210312-67f589ad7c"
-        initupload: "gcr.io/k8s-prow/initupload:v20210312-67f589ad7c"
-        entrypoint: "gcr.io/k8s-prow/entrypoint:v20210312-67f589ad7c"
-        sidecar: "gcr.io/k8s-prow/sidecar:v20210312-67f589ad7c"
+        clonerefs: "gcr.io/k8s-prow/clonerefs:v20210319-2181a9e7d7"
+        initupload: "gcr.io/k8s-prow/initupload:v20210319-2181a9e7d7"
+        entrypoint: "gcr.io/k8s-prow/entrypoint:v20210319-2181a9e7d7"
+        sidecar: "gcr.io/k8s-prow/sidecar:v20210319-2181a9e7d7"
       gcs_configuration:
         bucket: s3://falco-prow-logs
         path_strategy: explicit
