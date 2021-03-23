@@ -25,3 +25,7 @@ resource "aws_ecr_repository" "arm_build" {
 resource "aws_ecr_repository" "build_libs" {
   name = "test-infra/build-libs"
 }
+
+resource "aws_ecr_repository" "update_deployment_files" {
+  name = "test-infra/update-deployment-files"
+}
