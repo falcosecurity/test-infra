@@ -77,6 +77,11 @@ variable "eks_users" {
       userarn  = "arn:aws:iam::292999226676:user/circleci"
       username = "circleci"
       groups   = ["system:masters"]
+    },
+    {
+      userarn  = "arn:aws:iam::292999226676:user/michele@zuccala.com"
+      username = "michele@zuccala.com"
+      groups   = ["system:masters"]
     }
   ]
 }
