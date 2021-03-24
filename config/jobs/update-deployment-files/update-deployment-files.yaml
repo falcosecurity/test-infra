@@ -1,6 +1,6 @@
 periodics:
   - name: update-deployment-files
-    cron: "0 10 * * *" # Run everyday at 10:00
+    cron: "0 7 * * *" # Run everyday at 7:00
     decorate: true
     extra_refs:
     # Check out the falcosecurity/evolution repo
