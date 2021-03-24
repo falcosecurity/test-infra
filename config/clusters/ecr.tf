@@ -27,5 +27,5 @@ resource "aws_ecr_repository" "build_libs" {
 }
 
 resource "aws_ecr_repository" "update_deployment_files" {
-  name = "test-infra/update-deployment-files"
+  name = "test-infra/update-falco-k8s-manifests"
 }
