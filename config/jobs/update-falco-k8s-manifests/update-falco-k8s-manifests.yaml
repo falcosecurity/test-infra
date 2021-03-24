@@ -1,5 +1,5 @@
 periodics:
-  - name: update-deployment-files
+  - name: update-falco-k8s-manifests
     cron: "0 7 * * *" # Run everyday at 7:00
     decorate: true
     extra_refs:
@@ -11,8 +11,8 @@ periodics:
       workdir: true
     spec:
       containers:
-      # See images/update-deployment-files
-      - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-deployment-files
+      # See images/update-falco-k8s-manifests
+      - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-falco-k8s-manifests
         imagePullPolicy: Always
         command:
         - /entrypoint.sh
