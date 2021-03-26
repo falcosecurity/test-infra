@@ -2,13 +2,15 @@ SHELL := /bin/bash
 
 include $(PWD)/tools/terraform.Makefile
 
+KUBE_CONFIG_FILE ?= $$HOME/.kube/config
+
 .PHONY: oauth-token hmac-token github-oauth-config cookie plugins update-config
 
 ### Prow Components
 
 update-jobs:
 	@$(MAKE) -C prow/update-jobs build
-	prow/update-jobs/bin/update-jobs --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
+	prow/update-jobs/bin/update-jobs --kubeconfig $(KUBE_CONFIG_FILE) --jobs-config-path config/jobs/
 
 oauth-token: 1password-local
 	kubectl create secret generic oauth-token --from-literal=oauth="$$(./tools/1password.sh -d config/prow/oauth-token)" --dry-run -o yaml | kubectl replace secret oauth-token -f -

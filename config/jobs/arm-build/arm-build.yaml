@@ -1,52 +1,34 @@
-periodics:
-- name: arm-build-falco
-  cron: "0 15 * * 1"
-  spec:
-    containers:
-    - image: multiarch/alpine:aarch64-v3.12
-      command:     
-      - bin/sh
-      - -c
-      - >
-        apk update
-        &&
-        apk add g++ gcc cmake cmake make ncurses-dev git bash perl linux-headers autoconf automake m4 libtool elfutils-dev libelf-static patch binutils
-        &&
-        git clone https://github.com/falcosecurity/falco.git
-        &&
-        cmake -DUSE_BUNDLED_DEPS=On -DMUSL_OPTIMIZED_BUILD=On -DBUILD_DRIVER=Off /falco
-        &&
-        make -j4 falco
-    nodeSelector:
-      Archtype: "arm"
-    tolerations:
-    - key: "Archtype"
-      operator: "Equal"
-      value: "arm"
-      effect: "NoSchedule"
-- name: arm-build-falco-grpc
-  cron: "0 15 * * 2"
-  # interval: 1h
-  spec:
-    containers:
-    - image: multiarch/alpine:aarch64-v3.12
-      command:     
-      - bin/sh
-      - -c
-      - >
-        apk update
-        &&
-        apk add g++ gcc cmake cmake make ncurses-dev git bash perl linux-headers autoconf automake m4 libtool elfutils-dev libelf-static patch binutils
-        &&
-        git clone https://github.com/falcosecurity/falco.git
-        &&
-        cmake -DUSE_BUNDLED_DEPS=On -DMUSL_OPTIMIZED_BUILD=On -DBUILD_DRIVER=Off /falco
-        &&
-        make -j4 grpc
-    nodeSelector:
-      Archtype: "arm"
-    tolerations:
-    - key: "Archtype"
-      operator: "Equal"
-      value: "arm"
-      effect: "NoSchedule"
+presubmits:
+  falcosecurity/falco:
+  - name: arm-build-falco
+    decorate: true
+    decoration_config:
+      utility_images:
+        clonerefs: blablabla:v1
+    skip_report: true
+    optional: true
+    agent: kubernetes
+    always_run: true
+    branches:
+      # - ^new/ci-build-aarch64$
+      - ^master$
+    spec:
+      containers:
+      - image: multiarch/alpine:aarch64-v3.12
+        command:
+        - /bin/sh
+        - -c
+        - >
+          apk update
+          && apk add g++ gcc cmake make git ncurses-dev bash perl linux-headers autoconf automake m4 libtool elfutils-dev libelf-static patch binutils
+          && git clone https://github.com/falcosecurity/falco
+          && echo $PULL_REFS
+          && cmake -DUSE_BUNDLED_DEPS=On -DMUSL_OPTIMIZED_BUILD=On -DBUILD_DRIVER=Off /falco
+          && make -j4 falco
+      nodeSelector:
+        Archtype: "arm"
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"

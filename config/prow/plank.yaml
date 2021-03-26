@@ -71,7 +71,7 @@ metadata:
   labels:
     app: plank
 spec:
-  replicas: 0 # Do not scale up.
+  replicas: 0 # Do not scale up - disabled as per https://github.com/kubernetes/test-infra/issues/17024
   selector:
     matchLabels:
       app: plank
