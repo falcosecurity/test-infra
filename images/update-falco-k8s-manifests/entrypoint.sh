@@ -23,6 +23,7 @@ BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
 BOT_GPG_PUBLIC_KEY="${BOT_GPG_PUBLIC_KEY:-"5B969CD19422B477E5609F8C900C09B3E21C193F"}"
+HELM_CHART_NAME="${HELM_CHART_NAME:-"falco"}"
 
 export GIT_COMMITTER_NAME=${BOT_NAME}
 export GIT_COMMITTER_EMAIL=${BOT_MAIL}
@@ -31,14 +32,17 @@ export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 # Generate template files with helm, otherwise errors out.
 # $1: output directory
+# $2: chart name
 generate_deployment_files() {
+    local chart_name="${2}"
+
     echo "> configuring helm"
     helm repo add falcosecurity https://falcosecurity.github.io/charts
     helm repo update
 
     echo "> generating template files"
     # inspired by https://github.com/helm/helm/issues/4680#issuecomment-613201032
-    helm template falco falcosecurity/falco --dry-run | awk -vout=$1 -F": " '
+    helm template "${chart_name}" "falcosecurity/${chart_name}" --dry-run | awk -vout=$1 -F": " '
         $0~/^# Source: / {
             file=out"/"$2;
             if (!(file in filemap)) {
@@ -148,7 +152,7 @@ main() {
     ensure_gpg_key "${BOT_GPG_KEY_PATH}" "${BOT_GPG_PUBLIC_KEY}"
 
     # Generate deployment files
-    generate_deployment_files "deploy/kubernetes"
+    generate_deployment_files "deploy/kubernetes" "${HELM_CHART_NAME}"
 
     # Create PR (in case there are changes)
     create_pr "$1"
