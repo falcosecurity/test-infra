@@ -26,6 +26,7 @@ approve:
       - falcosecurity/test-infra
     lgtm_acts_as_approve: true
     require_self_approval: true
+    commandHelpLink: https://prow.falco.org/command-help
 
 blunderbuss:
   max_request_count: 2
