@@ -1,0 +1,35 @@
+# PROW_INSTANCE_SPECIFIC
+# Domains are different among prow instances
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+  namespace: prow-monitoring
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+  selector:
+    app: grafana
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: prow-monitoring
+  name: ing
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+spec:
+  rules:
+    - http:
+        paths:
+        - backend:
+            serviceName: grafana
+            servicePort: 80
