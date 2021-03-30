@@ -5,9 +5,9 @@
       {
         name: 'prow-monitoring-absent',
         rules: [{
-          alert: 'ServiceLostHA',
+          alert: 'ServiceLost',
           expr: |||
-            sum(up{job=~"prometheus|alertmanager"}) by (job) <= 1
+            sum(up{job=~"prometheus|alertmanager"}) by (job) <= 0
           |||,
           'for': '5m',
           labels: { 
@@ -15,7 +15,7 @@
             slo: componentName,
           },
           annotations: {
-            message: 'The service {{ $labels.job }} has at most 1 instance for 5 minutes.',
+            message: 'The service {{ $labels.job }} has at most 0 instance for 5 minutes.',
           },
         }] + [
           {

@@ -4,7 +4,6 @@
   consts+:: {
     // Grafana dashboard IDs are necessary for stable links for dashboards
     grafanaDashboardIDs: {
-      'boskos-http.json': 'eec46c579cbf4a518e5bbcbbf4913de9',
       'ghproxy.json': 'd72fe8d0400b2912e319b1e95d0ab1b3',
       'slo.json': 'ea313af4b7904c7c983d20d9572235a5',
     },
@@ -38,7 +37,7 @@
               '%s (Requires <https://github.com/kubernetes/test-infra/tree/master/config/prow/cluster/monitoring#access-components-web-page|port-forwarding the grafana service> and accessing path "%s")' % [text, path]
           ),
         },
-      prowImageStaleByDays+: default(config.prowImageStaleByDays, 'daysStale', 7)
+      prowImageStaleByDays+: default(config.prowImageStaleByDays, 'daysStale', 14)
         + default(config.prowImageStaleByDays, 'eventDuration', '24h'),
     }
   ),
