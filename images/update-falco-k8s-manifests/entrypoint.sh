@@ -42,7 +42,9 @@ generate_deployment_files() {
 
     echo "> generating template files"
     # inspired by https://github.com/helm/helm/issues/4680#issuecomment-613201032
-    helm template "${chart_name}" "falcosecurity/${chart_name}" --dry-run | awk -vout=$1 -F": " '
+    helm template --dry-run \
+      "${chart_name}" "falcosecurity/${chart_name}" \
+      | awk -vout=$1 -F": " '
         $0~/^# Source: / {
             file=out"/"$2;
             if (!(file in filemap)) {
@@ -55,7 +57,11 @@ generate_deployment_files() {
             if (file) {
                 print $0 >> file;
             }
-        }' && return 0
+        }' && \
+        { pushd ${1}/${chart_name} && \
+          kustomize create --autodetect --recursive && \
+          popd ; } && \
+        return 0
     echo "ERROR: Unable to generate deployment files from helm template" >&2
     return 1
 }
