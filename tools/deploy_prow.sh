@@ -39,10 +39,34 @@ function launchConfig(){
   kubectl create secret generic oauth-token --from-literal=oauth="$(./tools/1password.sh -d config/prow/oauth-token)" -n test-pods || true
   
   # Related to OAuth setup... need to setup base url on Github for callback before we can create these
-  
+
   # kubectl create secret generic github-oauth-config --from-file=secret="$(./tools/1password.sh -d config/prow/github-oauth-config)" || true
   # kubectl create secret generic cookie --from-file=secret="$(./tools/1password.sh -d config/prow/cookie)" || true
 }
+
+
+function launchMonitoring(){
+  # Requires EBS CSI driver installed, and prow installation to create the storage-class
+
+  # Create monitoring namespace
+  kubectl apply -f config/clusters/monitoring/prow_monitoring_namespace.yaml
+
+  # Create Secrets from 1password
+  kubectl create secret generic grafana-password --from-literal=grafana-password="$(./tools/1password.sh -d grafana-password)" || true
+
+  # Launch Prometheus CRD's
+  kubectl apply -f config/clusters/monitoring/crd/
+
+  # Launch Prometheus
+  kubectl apply -f config/clusters/monitoring/prometheus/
+
+  # Launch Prometheus Alertmanager
+  kubectl apply -f config/clusters/monitoring/alertmanager/
+
+  # Launch Grafana
+  kubectl apply -f config/clusters/monitoring/grafana/
+}
+
 
 function launchProw(){
   kubectl apply -f config/prow/

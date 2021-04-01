@@ -24,7 +24,7 @@ grafana-dashboards:
 
 prow_prometheusrule.yaml:
 	@echo "Generating prow_prometheusrule.yaml ..."
-	jsonnet -J lib/ ./prometheus/prow_prometheusrule.jsonnet | gojsontoyaml > prometheus_out/$@
+	jsonnet -J lib/ ./prometheus/prow_prometheusrule.jsonnet | gojsontoyaml > ../alertmanager/$@
 
 clean-vendor:
 	rm -rfv ./vendor

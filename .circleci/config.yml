@@ -43,6 +43,21 @@ jobs:
             wget "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl
             chmod +x /usr/local/bin/kubectl
             ./tools/deploy_prow.sh
+  "test-infra/deploy/monitoring":
+    requires:
+      - test-infra/deploy/prow
+    docker:
+      - image: amazon/aws-cli:latest
+    steps:
+      - checkout
+      - run:
+          name: Deploy prow
+          command: |
+            yum update -y
+            yum install jq unzip git wget curl which -y
+            wget "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" -O /usr/local/bin/kubectl
+            chmod +x /usr/local/bin/kubectl
+            ./tools/deploy_monitoring.sh
 workflows:
   version: 2
   build:
@@ -59,6 +74,13 @@ workflows:
       - "test-infra/deploy/prow":
           requires:
             - test-infra/deploy/terraform
+          context: test-infra
+          filters:
+            branches:
+              only: master
+      - "test-infra/deploy/monitoring":
+          requires:
+            - test-infra/deploy/prow
           context: test-infra
           filters:
             branches:
