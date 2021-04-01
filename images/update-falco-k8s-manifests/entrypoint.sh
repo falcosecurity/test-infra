@@ -42,7 +42,7 @@ generate_deployment_files() {
 
     echo "> generating template files"
     # inspired by https://github.com/helm/helm/issues/4680#issuecomment-613201032
-    helm template --dry-run \
+    helm template --skip-tests --dry-run \
       "${chart_name}" "falcosecurity/${chart_name}" \
       | awk -vout=$1 -F": " '
         $0~/^# Source: / {
