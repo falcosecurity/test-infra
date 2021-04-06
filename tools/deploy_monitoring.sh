@@ -17,7 +17,10 @@ function launchMonitoring(){
   kubectl apply -f config/clusters/monitoring/prow_monitoring_namespace.yaml
 
   # Create Secrets from 1password
-  kubectl create secret generic grafana-password --from-literal=grafana-password="$(./tools/1password.sh -d grafana-password)" || true
+  export SLACK_API_URL=$(./tools/1password.sh -d slack-api-url)
+  envsubst < config/clusters/monitoring/alertmanager/alertmanager-prow_secret.yaml | kubectl apply -f -
+
+  kubectl create secret generic grafana-password --from-literal=grafana-password="$(./tools/1password.sh -d grafana-password)" --namespace=prow-monitoring  || true
 
   # Launch Prometheus CRD's
   kubectl apply -f config/clusters/monitoring/crd/
