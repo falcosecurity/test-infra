@@ -1,6 +1,0 @@
-kernelversion: 12
-kernelrelease: 5.11.0-11-generic
-target: ubuntu-generic
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.11.0-11-generic_12.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.11.0-11-generic_12.o

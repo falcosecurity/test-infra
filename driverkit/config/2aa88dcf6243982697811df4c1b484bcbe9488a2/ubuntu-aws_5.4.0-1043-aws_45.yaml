@@ -1,0 +1,6 @@
+kernelversion: 45
+kernelrelease: 5.4.0-1043-aws
+target: ubuntu-aws
+output:
+  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-aws_5.4.0-1043-aws_45.ko
+  probe: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-aws_5.4.0-1043-aws_45.o
