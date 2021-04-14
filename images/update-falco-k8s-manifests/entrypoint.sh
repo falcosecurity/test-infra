@@ -59,7 +59,7 @@ generate_deployment_files() {
             }
         }' && \
         { pushd ${1}/${chart_name} && \
-          kustomize create --autodetect --recursive && \
+          rm -f kustomization.yaml && kustomize create --autodetect --recursive && \
           popd ; } && \
         return 0
     echo "ERROR: Unable to generate deployment files from helm template" >&2
