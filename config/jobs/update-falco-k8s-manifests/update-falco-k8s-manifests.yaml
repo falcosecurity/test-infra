@@ -42,7 +42,7 @@ periodics:
       nodeSelector:
         Archtype: "x86"
   - name: update-falco-exporter-k8s-manifests
-    cron: "0 7 * * *" # Run everyday at 7:00
+    cron: "0 8 * * *" # Run everyday at 8:00
     decorate: true
     extra_refs:
     # Check out the falcosecurity/evolution repo
@@ -84,7 +84,7 @@ periodics:
       nodeSelector:
         Archtype: "x86"
   - name: update-falco-sidekick-k8s-manifests
-    cron: "0 7 * * *" # Run everyday at 7:00
+    cron: "0 9 * * *" # Run everyday at 9:00
     decorate: true
     extra_refs:
     # Check out the falcosecurity/evolution repo
