@@ -4,10 +4,20 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# Specific to Prow instance
+CLUSTER="falco-prow"
+ZONE="eu-west-1"
+
 function main() {
+  echo "Getting Kubeconfig for cluster access" 
+  updateKubeConfig
   echo "Launching Prow Monitoring stack" 
   launchMonitoring
   echo "All done!"
+}
+
+function updateKubeConfig() {
+  aws eks --region ${ZONE} update-kubeconfig --name ${CLUSTER}-test-infra
 }
 
 function launchMonitoring(){
