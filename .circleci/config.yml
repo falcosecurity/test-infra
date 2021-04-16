@@ -79,9 +79,9 @@ workflows:
             branches:
               only: master
       - "test-infra/deploy/monitoring":
-          requires:
-            - test-infra/deploy/prow
           context: test-infra
+          # requires:
+          #   - test-infra/deploy/prow
           filters:
             branches:
-              only: master
+              only: feat-monitoring

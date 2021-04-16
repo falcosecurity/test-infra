@@ -22,17 +22,17 @@ function launchMonitoring(){
 
   kubectl create secret generic grafana-password --from-literal=grafana-password="$(./tools/1password.sh -d grafana-password)" --namespace=prow-monitoring  || true
 
-  # Launch Prometheus CRD's
-  kubectl apply -f config/clusters/monitoring/crd/
+  # # Launch Prometheus CRD's
+  # kubectl apply -f config/clusters/monitoring/crd/
 
-  # Launch Prometheus
-  kubectl apply -f config/clusters/monitoring/prometheus/
+  # # Launch Prometheus
+  # kubectl apply -f config/clusters/monitoring/prometheus/
 
-  # Launch Prometheus Alertmanager
-  kubectl apply -f config/clusters/monitoring/alertmanager/
+  # # Launch Prometheus Alertmanager
+  # kubectl apply -f config/clusters/monitoring/alertmanager/
 
-  # Launch Grafana
-  kubectl apply -f config/clusters/monitoring/grafana/
+  # # Launch Grafana
+  # kubectl apply -f config/clusters/monitoring/grafana/
 }
 
 function cleanup() {
