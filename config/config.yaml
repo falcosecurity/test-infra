@@ -147,7 +147,7 @@ branch-protection:
           branches:
             master:
               protect: true
-            "release/0.26.2":
+            "release/0.28.1":
               protect: true
         falcosidekick:
           required_status_checks:
