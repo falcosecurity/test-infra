@@ -266,6 +266,7 @@ triggers:
 
 plugins:
   falcosecurity/.github:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -285,6 +286,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/advocacy:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -304,6 +306,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/charts:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -324,6 +327,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/client-go:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -346,6 +350,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/client-py:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -367,6 +372,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/client-rs:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -388,6 +394,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/cloud-native-security-hub:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -406,6 +413,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/cloud-native-security-hub-frontend:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -424,6 +432,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/cloud-native-security-hub-backend:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -443,6 +452,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/community:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -463,6 +473,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/evolution:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -483,6 +494,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/driverkit:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -504,6 +516,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/event-generator:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -525,6 +538,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/falco:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -548,6 +562,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/falcosidekick:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -570,6 +585,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/falcosidekick-ui:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -592,6 +608,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/falco-exporter:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -613,6 +630,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/falcoctl:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -635,6 +653,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/falco-website:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -655,6 +674,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/kilt:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -669,6 +689,7 @@ plugins:
     - lifecycle
     - lgtm
     - mergecommitblocker
+    - release-note
     - require-matching-label
     - retitle
     - size
@@ -676,6 +697,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/libs:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -699,6 +721,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/pdig:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -720,6 +743,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/template-repository:
+    plugins:
     - approve
     - assign
     - blunderbuss
@@ -737,6 +761,7 @@ plugins:
     - welcome
     - wip
   falcosecurity/test-infra:
+    plugins:
     - approve # Allow OWNERS to /approve
     - assign # Allow /assign and /cc
     - blunderbuss # Auto-assign people
@@ -756,7 +781,7 @@ plugins:
     - verify-owners # Validates OWNERS file changes in PRs.
     - welcome # welcomes new PR users
     - wip # Auto-hold PRs with WIP in title
-
+    
 external_plugins:
   falcosecurity/.github:
     - name: needs-rebase
