@@ -781,7 +781,7 @@ plugins:
     - verify-owners # Validates OWNERS file changes in PRs.
     - welcome # welcomes new PR users
     - wip # Auto-hold PRs with WIP in title
-    
+
 external_plugins:
   falcosecurity/.github:
     - name: needs-rebase
