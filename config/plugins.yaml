@@ -13,21 +13,26 @@ approve:
       - falcosecurity/evolution
       - falcosecurity/driverkit
       - falcosecurity/event-generator
-      - falcosecurity/falco
       - falcosecurity/falcoctl
       - falcosecurity/falcosidekick
       - falcosecurity/falcosidekick-ui
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/kilt
-      - falcosecurity/libs
       - falcosecurity/pdig
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     lgtm_acts_as_approve: true
     require_self_approval: true
     commandHelpLink: https://prow.falco.org/command-help
-
+  - repos:
+      - falcosecurity/falco
+      - falcosecurity/libs
+    lgtm_acts_as_approve: true
+    require_self_approval: true
+    commandHelpLink: https://prow.falco.org/command-help
+    ignore_review_state: true
+    
 blunderbuss:
   max_request_count: 2
   use_status_availability: true
