@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/'
+    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/amazonlinux_4\.*$'
     spec:
       serviceAccountName: driver-kit
       containers:
