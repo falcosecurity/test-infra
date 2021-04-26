@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/amazonlinux_\.*$'
+    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/amazonlinux_.*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -32,7 +32,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/amazonlinux2_\.*$'
+    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/amazonlinux2_.*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -58,7 +58,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/'
+    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/centos_.*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -84,7 +84,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/'
+    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/debian_.*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -110,7 +110,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/'
+    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/ubuntu-aws_.*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -136,7 +136,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit\/'
+    run_if_changed: '^driverkit/config/(2aa88dcf6243982697811df4c1b484bcbe9488a2|5c0b863ddade7a45568c0ac97d037422c9efb750|85c88952b018fdbce2464222c3303229f5bfcfad|ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7)/ubuntu-generic_.*'
     spec:
       serviceAccountName: driver-kit
       containers:
