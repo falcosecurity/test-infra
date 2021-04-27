@@ -4,21 +4,12 @@ resource "aws_s3_bucket" "prow_storage" {
   acl = "private"
 
   lifecycle_rule = {
-    id      = "ten_day_retention_logs"
-    prefix  = "logs/"
+    id      = "ten_day_retention_pr_logs"
+    prefix  = "pr-logs/"
     enabled = true
     expiration = {
       days = 10
     }
-  }
-
-  lifecycle_rule = {
-      id      = "ten_day_retention_pr_logs"
-      prefix  = "pr-logs/"
-      enabled = true
-      expiration = {
-        days = 10
-      }
   }
   server_side_encryption_configuration {
     rule {
