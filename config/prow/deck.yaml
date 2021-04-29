@@ -123,11 +123,11 @@ spec:
         - --config-path=/etc/config/config.yaml
         - --job-config-path=/etc/job-config
         - --plugin-config=/etc/plugins/plugins.yaml
-        # - --github-oauth-config-file=/etc/githuboauth/secret
+        - --github-oauth-config-file=/etc/githuboauth/secret
         # - --kubeconfig=/etc/kubeconfig/config
         # - --cookie-secret=/etc/cookie/secret
         # - --rerun-creates-job
-        # - --oauth-url=/github-login
+        - --oauth-url=/github-login
         # - --github-token-path=/etc/github/oauth
         - --github-endpoint=http://ghproxy
         - --github-endpoint=https://api.github.com
@@ -145,9 +145,9 @@ spec:
         # - name: oauth
         #   mountPath: /etc/github
         #   readOnly: true
-        # - name: oauth-config
-        #   mountPath: /etc/githuboauth
-        #   readOnly: true
+        - name: oauth-config
+          mountPath: /etc/githuboauth
+          readOnly: true
         - name: plugins
           mountPath: /etc/plugins
           readOnly: true
@@ -157,20 +157,20 @@ spec:
         # - name: kubeconfig
         #   mountPath: /etc/kubeconfig
         #   readOnly: true
-        # - name: cookie-secret
-        #   mountPath: /etc/cookie
-        #   readOnly: true
+        - name: cookie-secret
+          mountPath: /etc/cookie
+          readOnly: true
       volumes:
       # - name: kubeconfig
       #   secret:
       #     defaultMode: 420
       #     secretName: kubeconfig
-      # - name: oauth-config
-      #   secret:
-      #       secretName: github-oauth-config
-      # - name: cookie-secret
-      #   secret:
-      #       secretName: cookie
+      - name: oauth-config
+        secret:
+            secretName: github-oauth-config
+      - name: cookie-secret
+        secret:
+            secretName: cookie
       - name: config
         configMap:
           name: config
