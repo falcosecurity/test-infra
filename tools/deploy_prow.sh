@@ -39,8 +39,8 @@ function launchConfig(){
   kubectl create secret generic oauth-token --from-literal=oauth="$(./tools/1password.sh -d config/prow/oauth-token)" -n test-pods || true
 
   # PR Status
-  kubectl create secret generic github-oauth-config --from-literal=oauth="$(./tools/1password.sh -d prow-prstatus-github-oauth-app.yaml)" || true
-  kubectl create secret generic cookie --from-literal=oauth="$(./tools/1password.sh -d prow-prstatus-cookie-encryption-key.txt)" || true
+  kubectl create secret generic github-oauth-config --from-literal=secret="$(./tools/1password.sh -d prow-prstatus-github-oauth-app.yaml)" || true
+  kubectl create secret generic cookie --from-literal=secret="$(./tools/1password.sh -d prow-prstatus-cookie-encryption-key.txt)" || true
   
   # Related to OAuth setup... need to setup base url on Github for callback before we can create these
   
