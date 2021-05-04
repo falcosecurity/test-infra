@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "prow_storage" {
     id      = "ten_day_retention_logs"
     prefix  = "logs/"
     enabled = true
-    expiration = {
+    expiration {
       days = 10
     }
   }
@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "prow_storage" {
     id      = "ten_day_retention_pr_logs"
     prefix  = "pr-logs/"
     enabled = true
-    expiration = {
+    expiration {
       days = 10
     }
   }
