@@ -125,7 +125,7 @@ spec:
         - --plugin-config=/etc/plugins/plugins.yaml
         - --github-oauth-config-file=/etc/githuboauth/secret
         # - --kubeconfig=/etc/kubeconfig/config
-        # - --cookie-secret=/etc/cookie/secret
+        - --cookie-secret=/etc/cookie/secret
         # - --rerun-creates-job
         - --oauth-url=/github-login
         # - --github-token-path=/etc/github/oauth
