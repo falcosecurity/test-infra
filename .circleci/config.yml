@@ -12,7 +12,8 @@ jobs:
             curl -L "$(curl -s https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
             tar -xf terrascan.tar.gz
             install terrascan /usr/local/bin
-            terrascan scan -d config/clusters -v --skip-rules 'AWS.VPC.Logging.Medium.0470' --skip-rules 'AC-AW-CA-LC-H-0439'
+            terrascan scan -d config/clusters -v \
+              --skip-rules 'AWS.VPC.Logging.Medium.0470,AC-AW-CA-LC-H-0439,AC_AWS_078'
   "test-infra/deploy/terraform":
     requires:
       - test-infra/scan/terraform
