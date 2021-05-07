@@ -1,5 +1,6 @@
 resource "aws_security_group" "worker_group_mgmt_one" {
   name_prefix = "worker_group_mgmt_one"
+  description = "Worker management One SSH"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
@@ -15,6 +16,7 @@ resource "aws_security_group" "worker_group_mgmt_one" {
 
 resource "aws_security_group" "all_worker_mgmt" {
   name_prefix = "all_worker_management"
+  description = "All worker management SSH"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
