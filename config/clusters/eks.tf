@@ -1,11 +1,12 @@
 module "eks" {
-  source           = "terraform-aws-modules/eks/aws"
-  cluster_name     = local.cluster_name
-  cluster_version  = "1.17"
-  subnets          = module.vpc.private_subnets
-  write_kubeconfig = true
-  map_users        = var.eks_users
-  enable_irsa      = true
+  source                    = "terraform-aws-modules/eks/aws"
+  cluster_name              = local.cluster_name
+  cluster_version           = "1.17"
+  subnets                   = module.vpc.private_subnets
+  write_kubeconfig          = true
+  map_users                 = var.eks_users
+  enable_irsa               = true
+  cluster_enabled_log_types = ["audit"]
 
   tags = {
     Environment = "training"
