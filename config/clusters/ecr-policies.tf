@@ -1,4 +1,4 @@
-resource "aws_ecr_repository" "update_jobs" {
+resource "aws_ecr_repository_policy" "update_jobs" {
   repository = "test-infra/update-jobs"
   policy     = <<EOF
 {
@@ -29,7 +29,7 @@ resource "aws_ecr_repository" "update_jobs" {
 EOF
 }
 
-resource "aws_ecr_repository" "golang" {
+resource "aws_ecr_repository_policy" "golang" {
   repository = "test-infra/golang"
   policy     = <<EOF
 {
@@ -60,7 +60,7 @@ resource "aws_ecr_repository" "golang" {
 EOF
 }
 
-resource "aws_ecr_repository" "build_drivers" {
+resource "aws_ecr_repository_policy" "build_drivers" {
   repository = "test-infra/build-drivers"
   policy     = <<EOF
 {
@@ -91,7 +91,7 @@ resource "aws_ecr_repository" "build_drivers" {
 EOF
 }
 
-resource "aws_ecr_repository" "docker_dind" {
+resource "aws_ecr_repository_policy" "docker_dind" {
   repository = "test-infra/docker-dind"
   policy     = <<EOF
 {
@@ -122,7 +122,7 @@ resource "aws_ecr_repository" "docker_dind" {
 EOF
 }
 
-resource "aws_ecr_repository" "autobump" {
+resource "aws_ecr_repository_policy" "autobump" {
   repository = "test-infra/autobump"
   policy     = <<EOF
 {
@@ -153,7 +153,7 @@ resource "aws_ecr_repository" "autobump" {
 EOF
 }
 
-resource "aws_ecr_repository" "arm_build" {
+resource "aws_ecr_repository_policy" "arm_build" {
   repository = "test-infra/arm-build"
   policy     = <<EOF
 {
@@ -184,7 +184,7 @@ resource "aws_ecr_repository" "arm_build" {
 EOF
 }
 
-resource "aws_ecr_repository" "build_libs" {
+resource "aws_ecr_repository_policy" "build_libs" {
   repository = "test-infra/build-libs"
   policy     = <<EOF
 {
@@ -215,7 +215,7 @@ resource "aws_ecr_repository" "build_libs" {
 EOF
 }
 
-resource "aws_ecr_repository" "update_deployment_files" {
+resource "aws_ecr_repository_policy" "update_deployment_files" {
   repository = "test-infra/update-falco-k8s-manifests"
   policy     = <<EOF
 {
