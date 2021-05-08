@@ -1,5 +1,8 @@
 SHELL := /bin/bash
 
+terraform_version ?= 0.13.5
+terraform_workspace := $(PWD)/config/clusters
+terraform := docker run --rm -v $(HOME)/.aws/config:/root/.aws/config -v $(HOME)/.aws/credentials:/root/.aws/credentials -v $(terraform_workspace):/workspace -w /workspace -e AWS_PROFILE=$(AWS_PROFILE) hashicorp/terraform:$(terraform_version)
 
 .PHONY: oauth-token hmac-token github-oauth-config cookie plugins update-config
 
@@ -36,19 +39,21 @@ prow:
 #### Terraform #####
 
 tf-init:
-	terraform init config/clusters
-	terraform get
+	$(terraform) init
+	$(terraform) get
 
 tf-lint: tf-init
-	terraform validate config/clusters
-	terraform plan -var-file config/clusters/prow.tfvars config/clusters
+	$(terraform) validate
 
-tf-apply: tf-lint
-	terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
-	terraform init -force-copy config/clusters
+tf-plan: tf-lint
+	$(terraform) plan -var-file prow.tfvars
+
+tf-apply: tf-plan
+	$(terraform) apply -var-file prow.tfvars -auto-approve
+	$(terraform) init -force-copy
 
 tf-clean: tf-init
-	terraform destroy -var-file config/clusters/prow.tfvars -auto-approve config/clusters
+	$(terraform) destroy -var-file prow.tfvars -auto-approve
 
 kubeconfig:
 	aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra --profile default
