@@ -77,7 +77,7 @@ resource "aws_ecr_repository_policy" "update_jobs" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
@@ -108,7 +108,7 @@ resource "aws_ecr_repository_policy" "golang" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
@@ -139,7 +139,7 @@ resource "aws_ecr_repository_policy" "build_drivers" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
@@ -170,7 +170,7 @@ resource "aws_ecr_repository_policy" "docker_dind" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
@@ -201,7 +201,7 @@ resource "aws_ecr_repository_policy" "autobump" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
@@ -232,7 +232,7 @@ resource "aws_ecr_repository_policy" "arm_build" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
@@ -263,7 +263,7 @@ resource "aws_ecr_repository_policy" "build_libs" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
@@ -294,7 +294,7 @@ resource "aws_ecr_repository_policy" "update_deployment_files" {
                 "ecr:DescribeRepositories",
                 "ecr:GetRepositoryPolicy",
                 "ecr:ListImages",
-                "ecr:SetRepositoryPolicy",
+                "ecr:SetRepositoryPolicy"
             ]
         }
     ]
