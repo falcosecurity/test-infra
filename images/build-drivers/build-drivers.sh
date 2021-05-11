@@ -26,6 +26,7 @@ function start_docker() {
     echo "Done setting up docker in docker."
 }
 
+PUBLISH_S3="${PUBLISH_S3:-false}"
 export PULL_PULL_SHA=$PULL_PULL_SHA
 
 echo "******************************************************"
@@ -47,7 +48,7 @@ start_docker
 cd driverkit/
 make -e TARGET_DISTRO="$1" specific_target
 
-make publish_s3
+test "${PUBLISH_S3}" == "true" && make publish_s3
 
 echo "******************************************************"
 echo "Ran DriverKit tests"

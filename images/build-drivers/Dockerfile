@@ -1,5 +1,7 @@
 FROM 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
 
+ENV PUBLISH_S3="false"
+
 RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.4.0/driverkit_0.4.0_linux_amd64.tar.gz \
     && tar -xvf driverkit_0.4.0_linux_amd64.tar.gz \
     && chmod +x driverkit \
