@@ -1,0 +1,5 @@
+kernelversion: 197
+kernelrelease: 3.2.0-150-generic
+target: ubuntu-generic
+output:
+  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_3.2.0-150-generic_197.ko
