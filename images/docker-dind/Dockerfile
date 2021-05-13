@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     lsb-release \
     gettext \
-    awscli \
     groff \
     unzip \
     && apt-get clean
@@ -37,3 +36,8 @@ RUN apt-get update && \
 RUN echo 'DOCKER_OPTS="${DOCKER_OPTS} --data-root=/docker-graph"' | \
     tee --append /etc/default/docker
 RUN mkdir /docker-graph
+
+RUN tmpdir=`mktemp -d` && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${tmpdir}/awscliv2.zip" && \
+	unzip $tmpdir/awscliv2.zip -d $tmpdir && \
+	$tmpdir/aws/install -i /usr/local/aws-cli -b /usr/local/bin && \
+	rm -r $tmpdir
