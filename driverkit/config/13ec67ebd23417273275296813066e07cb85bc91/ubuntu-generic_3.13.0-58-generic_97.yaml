@@ -1,0 +1,5 @@
+kernelversion: 97
+kernelrelease: 3.13.0-58-generic
+target: ubuntu-generic
+output:
+  module: output/13ec67ebd23417273275296813066e07cb85bc91/falco_ubuntu-generic_3.13.0-58-generic_97.ko

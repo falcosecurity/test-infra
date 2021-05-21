@@ -1,0 +1,5 @@
+kernelversion: 93
+kernelrelease: 4.4.0-72-generic
+target: ubuntu-generic
+output:
+  module: output/13ec67ebd23417273275296813066e07cb85bc91/falco_ubuntu-generic_4.4.0-72-generic_93.ko
