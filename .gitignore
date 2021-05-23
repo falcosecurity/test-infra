@@ -28,3 +28,6 @@ config/prow/poiana_gpg_secret.yaml
 pj.yaml
 temp-mkpod-kind-config.yaml
 pod.yaml
+
+# local 1password exports
+1password-local.sh
