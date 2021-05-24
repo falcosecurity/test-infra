@@ -22,10 +22,16 @@ function updateKubeConfig() {
   aws eks --region ${ZONE} update-kubeconfig --name ${CLUSTER}-test-infra
 }
 
-function launchConfig(){
+function launchInfraConfig() {
   #ALB Ingress and ebs CSI driver
   kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/arm64/?ref=release-0.9"
 
+  # Metrics Server
+  local metrics_server_version="v0.4.4"
+  kubectl apply -f "https://github.com/kubernetes-sigs/metrics-server/releases/download/${metrics_server_version}/components.yaml"
+}
+
+function launchProwConfig() {
   kubectl create configmap plugins --from-file=plugins.yaml=./config/plugins.yaml || true
   kubectl create configmap config --from-file "./config/config.yaml" || true
   kubectl create configmap config --from-file "./config/config.yaml" -n test-pods || true
@@ -46,6 +52,11 @@ function launchConfig(){
   
   # kubectl create secret generic github-oauth-config --from-file=secret="$(./tools/1password.sh -d config/prow/github-oauth-config)" || true
   # kubectl create secret generic cookie --from-file=secret="$(./tools/1password.sh -d config/prow/cookie)" || true
+}
+
+function launchConfig(){
+  launchInfraConfig
+  launchProwConfig
 }
 
 function launchProw(){
