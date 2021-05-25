@@ -30,9 +30,9 @@ PUBLISH_S3="${PUBLISH_S3:-false}"
 
 TARGET_DISTRO="${1}"
 TARGET_KERNEL="${2}"
-DBG_PARAMS="-e TARGET_DISTRO=${TARGET_DISTRO}"
+DBG_ENV_PARAMS="-e TARGET_DISTRO=${TARGET_DISTRO}"
 test -z "${TARGET_KERNEL}" \
-	|| DBG_PARAMS="${DBG_PARAMS} -e TARGET_KERNEL=${TARGET_KERNEL}"
+	|| DBG_ENV_PARAMS="${DBG_ENV_PARAMS} -e TARGET_KERNEL=${TARGET_KERNEL}"
 
 export PULL_PULL_SHA=$PULL_PULL_SHA
 
@@ -54,7 +54,7 @@ start_docker
 
 cd driverkit/
 
-make $DBG_PARAMS specific_target
+make $DBG_ENV_PARAMS specific_target
 
 test "${PUBLISH_S3}" == "true" \
 	&& make publish_s3
