@@ -1,5 +1,7 @@
 module "eks" {
-  source                    = "terraform-aws-modules/eks/aws"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "17.0.3"
+
   cluster_name              = local.cluster_name
   cluster_version           = "1.17"
   subnets                   = module.vpc.private_subnets
@@ -28,6 +30,7 @@ module "eks" {
   #Managed Node Group
   node_groups = {
     falco-ng = {
+      name_prefix        = null
       desired_capacity   = var.eks_default_worker_group_asg_desired_capacity
       max_capacity       = var.eks_default_worker_group_asg_max_capacity
       min_capacity       = var.eks_default_worker_group_asg_min_capacity
@@ -45,6 +48,7 @@ module "eks" {
       }
     }
     arm-ng = {
+      name_prefix        = null
       desired_capacity   = 1
       max_capacity       = 2
       min_capacity       = 1
