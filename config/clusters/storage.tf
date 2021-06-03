@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "prow_storage" {
   bucket = "falco-prow-logs"
 
+  policy = data.aws_iam_policy_document.prow_storage.json
   acl = "private"
 
   lifecycle_rule {
@@ -41,11 +42,6 @@ resource "aws_kms_key" "prow_storage" {
   description             = "Prow storage master encryption key"
   deletion_window_in_days = 10
   enable_key_rotation     = true
-}
-
-resource "aws_s3_bucket_policy" "prow_storage" {
-  bucket = aws_s3_bucket.prow_storage.id
-  policy = data.aws_iam_policy_document.prow_storage.json
 }
 
 data "aws_iam_policy_document" "prow_storage" {
