@@ -2,6 +2,36 @@
 set -eo pipefail
 set -o errexit
 
+# Optional positional arguments:
+# $1: Linux distribution name
+# $2: Kernel version filter as expected by DBG (e.g. "5.*")
+# $3: Falco driver version
+#
+# Environment variables:
+# PUBLISH_S3: whether to publish built drivers to S3
+# DBG_WORKDIR: the absolute path from where to run DBG
+# ENSURE_DOCKER: whether to ensure Docker daemon running
+
+# Needed Bash >= 4.0
+declare -A DBG_FILTERS
+DBG_FILTERS['TARGET_DISTRO']="${1}"
+DBG_FILTERS['TARGET_KERNEL']="${2}"
+DBG_FILTERS['TARGET_VERSION']="${3}"
+DBG_MAKE_BUILD_OPTIONS=""
+DBG_MAKE_BUILD_TARGET="specific_target"
+DBG_MAKE_PUBLISH_TARGET="publish_s3"
+DBG_WORKDIR="${DBG_WORKDIR:-/home/prow/go/src/github.com/falcosecurity/test-infra/driverkit}"
+
+ENSURE_DOCKER="${ENSURE_DOCKER:-true}"
+
+make="$(command -v make)"
+
+function pretty_echo() {
+	echo "******************************************************"
+	echo "${1}"
+	echo "******************************************************"
+}
+
 function start_docker() {
     echo "Docker in Docker enabled, initializing..."
     printf '=%.0s' {1..80}; echo
@@ -26,41 +56,38 @@ function start_docker() {
     echo "Done setting up docker in docker."
 }
 
-PUBLISH_S3="${PUBLISH_S3:-false}"
+function build() {
+	PUBLISH_S3="${PUBLISH_S3:-false}"
+	export PULL_PULL_SHA=$PULL_PULL_SHA
+	
+	for filter_key in "${!DBG_FILTERS[@]}"; do
+		test -z "${DBG_FILTERS[$filter_key]}" \
+			|| DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} -e ${filter_key}=${DBG_FILTERS[$filter_key]}"
+	done
 
-TARGET_DISTRO="${1}"
-TARGET_KERNEL="${2}"
-DBG_ENV_PARAMS="-e TARGET_DISTRO=${TARGET_DISTRO}"
-test -z "${TARGET_KERNEL}" \
-	|| DBG_ENV_PARAMS="${DBG_ENV_PARAMS} -e TARGET_KERNEL=${TARGET_KERNEL}"
+	pretty_echo "Testing building Drivers for PR hash $PULL_PULL_SHA"
+	
+	cd $DBG_WORKDIR
+	touch output/failing.log
+	DBG_COMMIT=$(git log -1 --format=format:%H --full-diff -- ./)
 
-export PULL_PULL_SHA=$PULL_PULL_SHA
+	pretty_echo "Found current driverkit version DBG_COMMIT $DBG_COMMIT. Running DBG build..."
+	
+	$make $DBG_MAKE_BUILD_OPTIONS $DBG_MAKE_BUILD_TARGET
+	
+	pretty_echo "DBG build complete"
+}
 
-echo "******************************************************"
-echo "Testing building Drivers for PR hash $PULL_PULL_SHA"
-echo "******************************************************"
+function publish() {
+	pretty_echo "Running DBG publishing..."
+	$make $DBG_MAKE_PUBLISH_TARGET
+	pretty_echo "DBG publishing complete"
+}
 
-cd /home/prow/go/src/github.com/falcosecurity/test-infra
+function main() {
+	test "${ENSURE_DOCKER}" == "true" && start_docker
+	build
+	test "${PUBLISH_S3}" == "true" && publish
+}
 
-touch driverkit/output/failing.log
-
-DRIVERKIT_COMMIT=$(git log -1 --format=format:%H --full-diff -- driverkit/)
-
-echo "******************************************************"
-echo "Found current driverkit version DRIVERKIT_COMMIT $DRIVERKIT_COMMIT"
-echo "******************************************************"
-
-start_docker
-
-cd driverkit/
-
-make $DBG_ENV_PARAMS specific_target
-
-test "${PUBLISH_S3}" == "true" \
-	&& make publish_s3
-
-echo "******************************************************"
-echo "Ran DriverKit tests"
-echo "******************************************************"
-
-exit 0
+main
