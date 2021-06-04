@@ -1,5 +1,32 @@
 presubmits:
   falcosecurity/test-infra:
+  - name: build-drivers-ubuntu-aws-3-presubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-aws_.*'
+    spec:
+      serviceAccountName: driver-kit
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - ubuntu-aws
+        - "3.*"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 6Gi
+      nodeSelector:
+        Archtype: "x86"
   - name: build-drivers-ubuntu-aws-4-presubmit
     decorate: true
     skip_report: false
@@ -55,6 +82,32 @@ presubmits:
       nodeSelector:
         Archtype: "x86"
 periodics:
+  - name: build-drivers-ubuntu-aws-3-periodic
+    decorate: true
+    cron: "0 03 * * 5"
+    extra_refs:
+    - org: falcosecurity
+      repo: test-infra
+      base_ref: master
+    agent: kubernetes
+    spec:
+      serviceAccountName: driver-kit
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - ubuntu-aws
+        - "3.*"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        - name: PUBLISH_S3
+          value: "true"
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+      nodeSelector:
+        Archtype: "x86"
   - name: build-drivers-ubuntu-aws-4-periodic
     decorate: true
     cron: "0 03 * * 5"
@@ -109,6 +162,35 @@ periodics:
         Archtype: "x86"
 postsubmits:
   falcosecurity/test-infra:
+  - name: build-drivers-ubuntu-aws-3-postsubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-aws_.*'
+    spec:
+      serviceAccountName: driver-kit
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - ubuntu-aws
+        - "3.*"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        - name: PUBLISH_S3
+          value: "true"
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 6Gi
+      nodeSelector:
+        Archtype: "x86"
   - name: build-drivers-ubuntu-aws-4-postsubmit
     decorate: true
     skip_report: false
