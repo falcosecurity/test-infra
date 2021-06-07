@@ -1,6 +1,7 @@
-presubmits:
+
+postsubmits:
   falcosecurity/test-infra:
-  - name: build-images-autobump
+  - name: publish-images-autobump
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
@@ -11,7 +12,7 @@ presubmits:
     spec:
       containers:
       - command:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build.sh"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/autobump"
         env:
@@ -28,7 +29,7 @@ presubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: build-images-build-drivers
+  - name: publish-images-build-drivers
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
@@ -39,7 +40,7 @@ presubmits:
     spec:
       containers:
       - command:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build.sh"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build-drivers"
         env:
@@ -56,7 +57,7 @@ presubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: build-images-golang
+  - name: publish-images-golang
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
@@ -67,7 +68,7 @@ presubmits:
     spec:
       containers:
       - command:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build.sh"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/golang"
         env:
@@ -84,7 +85,7 @@ presubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: build-images-update-jobs
+  - name: publish-images-update-jobs
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
@@ -95,7 +96,7 @@ presubmits:
     spec:
       containers:
       - command:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build.sh"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/update-jobs"
         env:
@@ -112,7 +113,7 @@ presubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: build-images-update-maintainers
+  - name: publish-images-update-maintainers
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
@@ -123,7 +124,7 @@ presubmits:
     spec:
       containers:
       - command:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build.sh"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/update-maintainers"
         env:
@@ -140,7 +141,7 @@ presubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: build-images-build-libs
+  - name: publish-images-build-libs
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
@@ -151,7 +152,7 @@ presubmits:
     spec:
       containers:
       - command:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build.sh"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build-libs"
         env:
@@ -168,7 +169,7 @@ presubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: build-images-update-falco-k8s-manifests
+  - name: publish-images-update-falco-k8s-manifests
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
@@ -179,7 +180,7 @@ presubmits:
     spec:
       containers:
       - command:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/build.sh"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/update-falco-k8s-manifests"
         env:
