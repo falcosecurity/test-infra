@@ -88,6 +88,7 @@ function main() {
 	test "${ENSURE_DOCKER}" == "true" && start_docker
 	build
 	test "${PUBLISH_S3}" == "true" && publish
+	exit 0
 }
 
 main
