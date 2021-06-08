@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "prow_storage" {
   bucket = "falco-prow-logs"
 
-  policy = data.aws_iam_policy_document.prow_storage.json
-  acl = "private"
+  acl    = "private"
+  policy = null
 
   lifecycle_rule {
     id      = "ten_day_retention_logs"
@@ -36,6 +36,11 @@ resource "aws_s3_bucket" "prow_storage" {
   }
 
   tags = module.label.tags
+}
+
+resource "aws_s3_bucket_policy" "prow_storage" {
+  bucket = aws_s3_bucket.prow_storage.id
+  policy = data.aws_iam_policy_document.prow_storage.json
 }
 
 resource "aws_kms_key" "prow_storage" {
