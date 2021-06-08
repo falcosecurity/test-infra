@@ -1,5 +1,0 @@
-kernelversion: 36
-kernelrelease: 3.2.0-23-generic
-target: ubuntu-generic
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_3.2.0-23-generic_36.ko
