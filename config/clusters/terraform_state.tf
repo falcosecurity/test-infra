@@ -1,7 +1,8 @@
 resource "aws_s3_bucket" "falco-test-infra-state" {
   bucket = "falco-test-infra-state"
 
-  acl = "private"
+  acl    = "private"
+  policy = null
 
   lifecycle {
     prevent_destroy = false
