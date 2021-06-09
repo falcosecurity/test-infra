@@ -23,13 +23,13 @@ approve:
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     lgtm_acts_as_approve: true
-    require_self_approval: true
+    require_self_approval: false
     commandHelpLink: https://prow.falco.org/command-help
   - repos:
       - falcosecurity/falco
       - falcosecurity/libs
     lgtm_acts_as_approve: true
-    require_self_approval: true
+    require_self_approval: false
     commandHelpLink: https://prow.falco.org/command-help
     ignore_review_state: true
     
@@ -85,6 +85,7 @@ lgtm:
       - falcosecurity/test-infra
     review_acts_as_lgtm: true
     store_tree_hash: true
+    trusted_team_for_sticky_lgtm: test-infra-maintainers
 
 repo_milestone:
   # Default/fallback milestone maintainers
