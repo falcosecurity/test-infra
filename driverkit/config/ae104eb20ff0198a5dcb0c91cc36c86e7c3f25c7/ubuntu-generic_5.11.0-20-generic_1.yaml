@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 5.11.0-20-generic
+target: ubuntu-generic
+output:
+  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_5.11.0-20-generic_1.ko
+  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_5.11.0-20-generic_1.o
