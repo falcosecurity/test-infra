@@ -267,7 +267,7 @@ size:
 triggers:
 - repos:
   - falcosecurity
-  join_org_url: "https://github.com/falcosecurity/.github/blob/master/GOVERNANCE.md"
+  join_org_url: "https://github.com/falcosecurity/.github/blob/master/CONTRIBUTING.md"
   only_org_members: true
 
 plugins:
