@@ -1,9 +1,9 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "17.0.3"
+  version = "17.1.0"
 
   cluster_name              = local.cluster_name
-  cluster_version           = "1.17"
+  cluster_version           = "1.20"
   subnets                   = module.vpc.private_subnets
   write_kubeconfig          = true
   map_users                 = var.eks_users
