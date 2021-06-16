@@ -22,7 +22,7 @@ function terraform-install() {
     jq -r '.versions[].builds[].url | select(.|test("alpha|beta|rc")|not) | select(.|contains("linux_amd64"))' |
     sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n |
     tail -n1)
-  STABLE_URL="https://releases.hashicorp.com/terraform/0.13.5/terraform_0.13.5_linux_amd64.zip"
+  STABLE_URL="https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip"
   curl ${STABLE_URL} > terraform.zip
   unzip terraform.zip
   rm -rf terraform.zip
