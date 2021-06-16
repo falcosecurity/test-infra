@@ -44,11 +44,11 @@ function createClusterStateBackend() {
 function createCluster() {
   echo "Creating cluster '${CLUSTER}' (this may take a few minutes)..."
   echo
-  terraform init config/clusters
+  terraform -chdir=config/clusters init
   terraform get
-  terraform validate config/clusters
+  terraform -chdir=config/clusters validate
 
-  terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
+  terraform -chdir=config/clusters apply -var-file config/clusters/prow.tfvars -auto-approve
   aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
 }
 
