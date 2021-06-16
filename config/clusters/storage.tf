@@ -65,7 +65,7 @@ data "aws_iam_policy_document" "prow_storage" {
 
     principals {
       type        = "AWS"
-      identifiers = [module.iam_assumable_role_admin.this_iam_role_arn] # Prow IAM Role
+      identifiers = [module.iam_assumable_role_admin.iam_role_arn] # Prow IAM Role
     }
   }
 }
