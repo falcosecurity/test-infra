@@ -1,0 +1,5 @@
+kernelversion: 76
+kernelrelease: 4.4.0-1066-aws
+target: ubuntu-aws
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-aws_4.4.0-1066-aws_76.ko

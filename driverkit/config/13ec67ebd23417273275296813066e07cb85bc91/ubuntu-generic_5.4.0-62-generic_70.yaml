@@ -1,6 +1,0 @@
-kernelversion: 70
-kernelrelease: 5.4.0-62-generic
-target: ubuntu-generic
-output:
-  module: output/13ec67ebd23417273275296813066e07cb85bc91/falco_ubuntu-generic_5.4.0-62-generic_70.ko
-  probe: output/13ec67ebd23417273275296813066e07cb85bc91/falco_ubuntu-generic_5.4.0-62-generic_70.o
