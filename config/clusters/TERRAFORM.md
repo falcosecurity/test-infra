@@ -2,9 +2,9 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.2 |
-| terraform | 0.13.5 |
-| aws | ~> 3.40.0 |
+| terraform | >= 1.0.0 |
+| terraform | 1.0.0 |
+| aws | ~> 3.45.0 |
 | kubernetes | ~> 2.0.1 |
 | local | ~> 1.2 |
 | null | ~> 2.1 |
@@ -15,7 +15,7 @@
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.40.0 |
+| aws | ~> 3.45.0 |
 
 ## Inputs
 
