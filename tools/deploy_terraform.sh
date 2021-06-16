@@ -22,7 +22,7 @@ function terraform-install() {
     jq -r '.versions[].builds[].url | select(.|test("alpha|beta|rc")|not) | select(.|contains("linux_amd64"))' |
     sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n |
     tail -n1)
-  STABLE_URL="https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip"
+  STABLE_URL="https://releases.hashicorp.com/terraform/0.15.5/terraform_0.15.5_linux_amd64.zip"
   curl ${STABLE_URL} > terraform.zip
   unzip terraform.zip
   rm -rf terraform.zip
@@ -44,11 +44,11 @@ function createClusterStateBackend() {
 function createCluster() {
   echo "Creating cluster '${CLUSTER}' (this may take a few minutes)..."
   echo
-  terraform -chdir=config/clusters init
+  terraform init config/clusters
   terraform get
-  terraform -chdir=config/clusters validate
+  terraform validate config/clusters
 
-  terraform -chdir=config/clusters apply -var-file config/clusters/prow.tfvars -auto-approve
+  terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
   aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
 }
 
