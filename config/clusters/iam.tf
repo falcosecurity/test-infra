@@ -56,7 +56,7 @@ resource "aws_iam_policy" "cluster_autoscaler_policy" {
 
 module "iam_assumable_role_admin" {
   source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version          = "2.14.0"
+  version          = "4.1.0"
   create_role      = true
   role_name        = "${local.cluster_name}-prow_s3_access"
   provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
@@ -109,7 +109,7 @@ data "aws_iam_policy_document" "s3_access" {
 
 module "driver_kit_s3_role" {
   source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version          = "2.14.0"
+  version          = "4.1.0"
   create_role      = true
   role_name        = "${local.cluster_name}-drivers_s3_access"
   provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
@@ -143,7 +143,7 @@ data "aws_iam_policy_document" "driverkit_s3_access" {
 
 module "load_balancer_controller" {
   source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version          = "2.14.0"
+  version          = "4.1.0"
   create_role      = true
   role_name        = "${local.cluster_name}-loadbalancer-controller"
   provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
