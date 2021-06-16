@@ -30,5 +30,12 @@ periodics:
             secretKeyRef:
               name: oauth-token
               key: oauth
+        command:
+        - /usr/local/bin/entrypoint.sh
+        args:
+        - ghissue
+        - create
+        - "--byline=false"
+        - issue.txt
       nodeSelector:
         Archtype: "x86"
