@@ -1,6 +1,0 @@
-kernelversion: 17
-kernelrelease: 5.11.0-16-generic
-target: ubuntu-generic
-output:
-  module: output/13ec67ebd23417273275296813066e07cb85bc91/falco_ubuntu-generic_5.11.0-16-generic_17.ko
-  probe: output/13ec67ebd23417273275296813066e07cb85bc91/falco_ubuntu-generic_5.11.0-16-generic_17.o
