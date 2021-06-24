@@ -2,8 +2,8 @@
 
 | Name | Version |
 |------|---------|
-| terraform | >= 1.0.0 |
-| terraform | 1.0.0 |
+| terraform | >= 0.15.5 |
+| terraform | 0.15.5 |
 | aws | ~> 3.45.0 |
 | kubernetes | ~> 2.0.1 |
 | local | ~> 1.2 |
