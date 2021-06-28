@@ -71,4 +71,4 @@ A few things to call out.
 - decorate: `true` is adding pod utilities to the prow jobs as an init container. This pulls in source code for the job, to leverage scripts and files in the pull request. 
 
 
-3. Once we add this job, we're going to createe our PR, and test this via Github / commands.
+3. Once we add this job, we're going to create our PR, and test this via Github / commands.
