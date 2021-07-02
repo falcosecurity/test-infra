@@ -1,0 +1,6 @@
+kernelversion: 13
+kernelrelease: 5.11.0-1013-aws
+target: ubuntu-aws
+output:
+  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.11.0-1013-aws_13.ko
+  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.11.0-1013-aws_13.o
