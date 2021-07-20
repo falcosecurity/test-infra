@@ -1,5 +1,5 @@
 kernelversion: 1
-kernelrelease: 5.12.3-arch1-1_1
+kernelrelease: 5.12.3-arch1-1
 target: ubuntu-generic
 output:
   module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_ubuntu-generic_5.12.3-arch1-1_1.ko
