@@ -1,6 +1,0 @@
-kernelversion: 55
-kernelrelease: 5.8.0-49-generic
-target: ubuntu-generic
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.8.0-49-generic_55.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.8.0-49-generic_55.o
