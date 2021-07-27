@@ -1,6 +1,0 @@
-kernelversion: 36
-kernelrelease: 5.8.0-33-generic
-target: ubuntu-generic
-output:
-  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_5.8.0-33-generic_36.ko
-  probe: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_5.8.0-33-generic_36.o
