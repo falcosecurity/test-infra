@@ -266,6 +266,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/advocacy
       labels:
@@ -278,6 +279,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/charts
       labels:
@@ -290,6 +292,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/client-go
       labels:
@@ -303,6 +306,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/event-generator
       labels:
@@ -315,6 +319,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
       labels:
@@ -328,6 +333,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/client-py
       labels:
@@ -341,6 +347,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/client-rs
       labels:
@@ -354,6 +361,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/cloud-native-security-hub
       labels:
@@ -367,6 +375,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/cloud-native-security-hub-frontend
       labels:
@@ -380,6 +389,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/cloud-native-security-hub-backend
       labels:
@@ -393,6 +403,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/community
       labels:
@@ -405,6 +416,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/driverkit
       labels:
@@ -417,6 +429,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/evolution
       labels:
@@ -429,6 +442,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
       labels:
@@ -442,6 +456,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falcosidekick
       labels:
@@ -454,6 +469,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falcosidekick-ui
       labels:
@@ -466,6 +482,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falcoctl
       labels:
@@ -479,6 +496,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
       labels:
@@ -492,6 +510,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-exporter
       labels:
@@ -504,6 +523,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-website
       labels:
@@ -516,6 +536,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/kilt
       labels:
@@ -529,6 +550,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/libs
       labels:
@@ -542,6 +564,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/pdig
       labels:
@@ -554,6 +577,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/test-infra
       labels:
@@ -566,6 +590,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/template-repository
       labels:
@@ -578,3 +603,4 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
