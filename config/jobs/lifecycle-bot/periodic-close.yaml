@@ -7,7 +7,7 @@ periodics:
     agent: kubernetes
     spec:
       containers:
-        - image: gcr.io/k8s-prow/commenter:v20201116-dbd60ab192
+        - image: gcr.io/k8s-prow/commenter:v20210806-c95403cd67
           command:
             - /app/robots/commenter/app.binary
           args:
@@ -17,6 +17,7 @@ periodics:
               label:lifecycle/rotten
             - --updated=720h
             - --token=/etc/github/oauth
+            - --endpoint=http://ghproxy.default.svc.cluster.local
             - |-
               --comment=Rotten issues close after 30d of inactivity.
 
