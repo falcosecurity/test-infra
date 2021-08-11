@@ -54,7 +54,23 @@ resource "aws_s3_bucket_object" "distribution_index" {
 
 resource "aws_s3_bucket" "logging_bucket" {
   bucket = var.logging_bucket_name
-  acl    = "private"
+  #acl    = "private"
+
+  grant {
+    id = "6e179ab6a522e9123d39ace0dace05f83ca531f9e778367bb90199a80786c709"
+    permissions = [
+      "FULL_CONTROL",
+    ]
+    type = "CanonicalUser"
+  }
+
+  grant {
+    id = "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0"
+    permissions = [
+      "FULL_CONTROL",
+    ]
+    type = "CanonicalUser"
+  }
 
   tags = {
     Name = var.logging_bucket_name
