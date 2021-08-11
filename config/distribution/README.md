@@ -1,9 +1,15 @@
-# Falco artifacts on S3
+# Falco distribution artifacts
 
-This repo contains an infrastructure implementation to host Falco distribution artifacts
-on Amazon S3.
+This repo contains an infrastructure implementation to host Falco official support and incubating projects distribution artifacts.
+Read more [here](https://github.com/falcosecurity/evolution#adoption-model) about the Falco projects adoption model.
 
-Proposal related to this document [here](https://github.com/falcosecurity/falco/blob/master/proposals/20201025-drivers-storage-s3.md).
+The Artifacts Scope follows [this proposal](https://github.com/falcosecurity/falco/blob/master/proposals/20200506-artifacts-scope-part-2.md).
+
+Instead, you can find [here](https://github.com/falcosecurity/falco/blob/master/proposals/20201025-drivers-storage-s3.md) the proposal document related to the specific storage for the Falco Drivers artifacts.
+
+## Usage
+
+### Requirements
 
 After installing the AWS CLI. Configure it to use your credentials.
 
@@ -17,7 +23,7 @@ Default output format [None]: json
 
 This enables Terraform access to the configuration file and performs operations on your behalf with these security credentials.
 
-## Normal operations
+### Normal operations
 
 If you are making changes to the terraform configuration here, your AWS account
 will need to be able to read the `falco-distribution-state-bucket` S3 and read the
@@ -30,7 +36,7 @@ terraform init
 terraform apply
 ```
 
-## First initialization
+### First initialization
 
 **Warning**: only do this if this distribution infrastructure is not
 yet on your cluster. If it is, you will damage the state.
@@ -69,5 +75,4 @@ terraform apply
 ```
 
 From now on you can manage the distribution infra using the "Normal operations" section.
-
 
