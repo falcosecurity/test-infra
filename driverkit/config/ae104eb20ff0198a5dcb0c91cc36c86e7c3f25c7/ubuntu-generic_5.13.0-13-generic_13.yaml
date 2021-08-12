@@ -1,6 +1,0 @@
-kernelversion: 13
-kernelrelease: 5.13.0-13-generic
-target: ubuntu-generic
-output:
-  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_5.13.0-13-generic_13.ko
-  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_5.13.0-13-generic_13.o

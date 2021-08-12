@@ -1,6 +1,0 @@
-kernelversion: 25
-kernelrelease: 5.11.0-24-generic
-target: ubuntu-generic
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.11.0-24-generic_25.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.11.0-24-generic_25.o
