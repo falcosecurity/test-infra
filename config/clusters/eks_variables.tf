@@ -28,6 +28,20 @@ variable "eks_default_worker_group_additional_userdata" {
   description = "Uerdata to append to the default userdata of the default EKS worker group"
 }
 
+variable "eks_arm_worker_group_asg_min_capacity" {
+  default     = 1
+  description = "The Autoscaling Group size of the ARM EKS worker group"
+}
+
+variable "eks_arm_worker_group_asg_desired_capacity" {
+  default     = 1
+  description = "The Autoscaling Group size of the ARM EKS worker group"
+}
+
+variable "eks_arm_worker_group_asg_max_capacity" {
+  default     = 2
+  description = "The Autoscaling Group size of the ARM EKS worker group"
+}
 
 variable "eks_users" {
   description = "Additional IAM users to add to the aws-auth configmap."

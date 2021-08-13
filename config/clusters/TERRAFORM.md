@@ -8,7 +8,6 @@
 | local | ~> 1.2 |
 | null | ~> 2.1 |
 | random | ~> 2.1 |
-| template | ~> 2.1 |
 
 ## Providers
 
@@ -23,6 +22,9 @@
 | app\_name | n/a | `any` | n/a | yes |
 | app\_namespace | n/a | `any` | n/a | yes |
 | app\_stage | n/a | `any` | n/a | yes |
+| eks\_arm\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `1` | no |
+| eks\_arm\_worker\_group\_asg\_max\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `2` | no |
+| eks\_arm\_worker\_group\_asg\_min\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `0` | no |
 | eks\_default\_worker\_group\_additional\_userdata | Uerdata to append to the default userdata of the default EKS worker group | `number` | `1` | no |
 | eks\_default\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `4` | no |
 | eks\_default\_worker\_group\_asg\_max\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `10` | no |
