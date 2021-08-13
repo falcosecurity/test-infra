@@ -41,6 +41,10 @@ EOF
     expose_headers  = ["ETag"]
     max_age_seconds = 3000
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_object" "distribution_index" {
@@ -76,6 +80,7 @@ resource "aws_s3_bucket" "logging_bucket" {
     Name = var.logging_bucket_name
   }
 }
+
 resource "aws_acm_certificate" "cert" {
   domain_name       = var.distribution_name_alias
   validation_method = "DNS"
@@ -135,5 +140,9 @@ resource "aws_cloudfront_distribution" "distribution" {
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.cert.arn
     ssl_support_method  = "sni-only"
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
