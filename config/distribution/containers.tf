@@ -13,6 +13,10 @@ resource "aws_ecrpublic_repository" "falcosidekick" {
     architectures     = ["x86-64"]
     operating_systems = ["Linux"]
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 data "http" "falcosidekick_ui_readme" {
@@ -29,5 +33,9 @@ resource "aws_ecrpublic_repository" "falcosidekick_ui" {
     about_text        = substr(data.http.falcosidekick_ui_readme.body, 0, 10240)
     architectures     = ["x86-64"]
     operating_systems = ["Linux"]
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
