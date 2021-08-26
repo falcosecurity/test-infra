@@ -12,7 +12,7 @@ jobs:
             curl -L "$(curl -s https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
             tar -xf terrascan.tar.gz
             install terrascan /usr/local/bin
-            terrascan scan -d config/clusters -v \
+            terrascan scan -i terraform -d config/clusters -v \
               --skip-rules 'AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'
   "test-infra/deploy/terraform":
     requires:
