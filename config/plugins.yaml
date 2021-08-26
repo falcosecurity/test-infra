@@ -18,6 +18,7 @@ approve:
       - falcosecurity/falcosidekick-ui
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
+      - falcosecurity/katacoda-scenarios
       - falcosecurity/kilt
       - falcosecurity/pdig
       - falcosecurity/template-repository
@@ -78,6 +79,7 @@ lgtm:
       - falcosecurity/falcosidekick-ui
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
+      - falcosecurity/katacoda-scenarios
       - falcosecurity/kilt
       - falcosecurity/libs
       - falcosecurity/pdig
@@ -232,6 +234,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco-website
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: katacoda-scenarios
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -679,6 +689,28 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/katacoda-scenarios:
+    plugins:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - mergecommitblocker
+    - require-matching-label
+    - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/kilt:
     plugins:
     - approve
@@ -866,6 +898,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falco-website:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/katacoda-scenarios:
     - name: needs-rebase
       events:
         - pull_request
