@@ -191,6 +191,10 @@ branch-protection:
           required_status_checks:
             contexts:
               - "netlify/falcosecurity/deploy-preview"
+        katacoda-scenarios:
+          branches:
+            master:
+              protect: true
         kilt:
           branches:
             master:
@@ -248,6 +252,7 @@ tide:
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
+    falcosecurity/katacoda-scenarios: rebase
     falcosecurity/kilt: rebase
     falcosecurity/libs: rebase
     falcosecurity/pdig: rebase
@@ -535,6 +540,20 @@ tide:
         - do-not-merge/hold
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/katacoda-scenarios
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
