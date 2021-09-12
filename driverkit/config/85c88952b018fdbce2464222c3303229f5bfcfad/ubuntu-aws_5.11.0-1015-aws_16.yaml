@@ -1,6 +1,0 @@
-kernelversion: 16
-kernelrelease: 5.11.0-1015-aws
-target: ubuntu-aws
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.11.0-1015-aws_16.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.11.0-1015-aws_16.o
