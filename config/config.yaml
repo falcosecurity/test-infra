@@ -211,6 +211,10 @@ branch-protection:
               protect: true
         plugins:
           branches:
+            main:
+              protect: true
+        plugin-sdk-go:
+          branches:
             master:
               protect: true
         test-infra:
@@ -257,6 +261,7 @@ tide:
     falcosecurity/libs: rebase
     falcosecurity/pdig: rebase
     falcosecurity/plugins: rebase
+    falcosecurity/plugin-sdk-go: rebase
     falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
   queries:
@@ -600,6 +605,20 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/plugins
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/plugin-sdk-go
       labels:
         - approved
         - lgtm

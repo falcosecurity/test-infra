@@ -22,6 +22,7 @@ approve:
       - falcosecurity/kilt
       - falcosecurity/pdig
       - falcosecurity/plugins
+      - falcosecurity/plugin-sdk-go
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     lgtm_acts_as_approve: true
@@ -85,6 +86,7 @@ lgtm:
       - falcosecurity/libs
       - falcosecurity/pdig
       - falcosecurity/plugins
+      - falcosecurity/plugin-sdk-go
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     review_acts_as_lgtm: true
@@ -264,6 +266,14 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: plugin-sdk-go
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
@@ -814,6 +824,30 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/plugin-sdk-go:
+    plugins:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - mergecommitblocker
+    - release-note
+    - require-matching-label
+    - retitle
+    - size
+    - trigger
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/template-repository:
     plugins:
     - approve
@@ -952,6 +986,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/plugins:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/plugin-sdk-go:
     - name: needs-rebase
       events:
         - pull_request
