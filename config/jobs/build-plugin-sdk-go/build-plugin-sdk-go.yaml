@@ -5,10 +5,11 @@ presubmits:
     skip_report: false
     agent: kubernetes
     always_run: true  # Run for every PR, but master
+    path_alias: github.com/falcosecurity/plugin-sdk-go
     spec:
       containers:
       - command:
-        - /code/github.com/falcosecurity/plugins/build.sh
+        - /home/prow/go/src/github.com/falcosecurity/plugin-sdk-go/build.sh
         env:
         - name: AWS_REGION
           value: eu-west-1
