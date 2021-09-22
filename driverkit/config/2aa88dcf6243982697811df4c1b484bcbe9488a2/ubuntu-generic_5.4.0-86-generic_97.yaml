@@ -1,0 +1,6 @@
+kernelversion: 97
+kernelrelease: 5.4.0-86-generic
+target: ubuntu-generic
+output:
+  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_5.4.0-86-generic_97.ko
+  probe: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_5.4.0-86-generic_97.o
