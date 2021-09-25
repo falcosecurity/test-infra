@@ -1,6 +1,0 @@
-kernelversion: 19
-kernelrelease: 5.11.0-1018-aws
-target: ubuntu-aws
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.11.0-1018-aws_19.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.11.0-1018-aws_19.o

@@ -1,5 +1,0 @@
-kernelversion: 163
-kernelrelease: 4.4.0-137-generic
-target: ubuntu-generic
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_4.4.0-137-generic_163.ko

@@ -1,5 +1,0 @@
-kernelversion: 131
-kernelrelease: 4.4.0-108-generic
-target: ubuntu-generic
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_4.4.0-108-generic_131.ko
