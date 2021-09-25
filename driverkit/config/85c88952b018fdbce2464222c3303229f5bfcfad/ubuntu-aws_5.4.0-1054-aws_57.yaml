@@ -1,6 +1,0 @@
-kernelversion: 57
-kernelrelease: 5.4.0-1054-aws
-target: ubuntu-aws
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.4.0-1054-aws_57.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-aws_5.4.0-1054-aws_57.o

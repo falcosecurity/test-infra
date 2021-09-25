@@ -1,6 +1,0 @@
-kernelversion: 55
-kernelrelease: 4.15.0-51-generic
-target: ubuntu-generic
-output:
-  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-51-generic_55.ko
-  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-51-generic_55.o

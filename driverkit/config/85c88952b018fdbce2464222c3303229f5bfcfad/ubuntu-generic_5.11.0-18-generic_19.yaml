@@ -1,6 +1,0 @@
-kernelversion: 19
-kernelrelease: 5.11.0-18-generic
-target: ubuntu-generic
-output:
-  module: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.11.0-18-generic_19.ko
-  probe: output/85c88952b018fdbce2464222c3303229f5bfcfad/falco_ubuntu-generic_5.11.0-18-generic_19.o

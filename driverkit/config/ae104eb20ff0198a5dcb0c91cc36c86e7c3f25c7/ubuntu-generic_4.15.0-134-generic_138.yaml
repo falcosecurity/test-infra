@@ -1,6 +1,0 @@
-kernelversion: 138
-kernelrelease: 4.15.0-134-generic
-target: ubuntu-generic
-output:
-  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-134-generic_138.ko
-  probe: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-generic_4.15.0-134-generic_138.o

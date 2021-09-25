@@ -1,6 +1,0 @@
-kernelversion: 37
-kernelrelease: 5.11.0-35-generic
-target: ubuntu-generic
-output:
-  module: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_5.11.0-35-generic_37.ko
-  probe: output/2aa88dcf6243982697811df4c1b484bcbe9488a2/falco_ubuntu-generic_5.11.0-35-generic_37.o

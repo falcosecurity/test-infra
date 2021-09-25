@@ -1,5 +1,0 @@
-kernelversion: 52
-kernelrelease: 4.4.0-1043-aws
-target: ubuntu-aws
-output:
-  module: output/ae104eb20ff0198a5dcb0c91cc36c86e7c3f25c7/falco_ubuntu-aws_4.4.0-1043-aws_52.ko
