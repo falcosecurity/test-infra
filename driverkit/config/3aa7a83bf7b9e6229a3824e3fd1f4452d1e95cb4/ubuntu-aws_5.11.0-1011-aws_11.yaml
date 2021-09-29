@@ -1,0 +1,6 @@
+kernelversion: 11
+kernelrelease: 5.11.0-1011-aws
+target: ubuntu-aws
+output:
+  module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_ubuntu-aws_5.11.0-1011-aws_11.ko
+  probe: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_ubuntu-aws_5.11.0-1011-aws_11.o
