@@ -1,5 +1,0 @@
-kernelversion: 1
-kernelrelease: 3.16.0-11-amd64
-target: debian
-output:
-  module: output/5727c456ce22f3c1da8c3b1d7d6b6937a9b2126b/falco_debian_3.16.0-11-amd64_1.ko

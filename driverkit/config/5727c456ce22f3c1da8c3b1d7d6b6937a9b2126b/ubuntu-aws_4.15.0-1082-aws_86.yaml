@@ -1,6 +1,0 @@
-kernelversion: 86
-kernelrelease: 4.15.0-1082-aws
-target: ubuntu-aws
-output:
-  module: output/5727c456ce22f3c1da8c3b1d7d6b6937a9b2126b/falco_ubuntu-aws_4.15.0-1082-aws_86.ko
-  probe: output/5727c456ce22f3c1da8c3b1d7d6b6937a9b2126b/falco_ubuntu-aws_4.15.0-1082-aws_86.o
