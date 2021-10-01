@@ -30,7 +30,7 @@ IMAGE_PATH="$(pwd)/images/update-maintainers" \
 ./tools/local_prowjob.sh update-maintainers
 ```
 
-## Testing the build-drivers ProwJobs locally
+## Testing the build-new-drivers ProwJobs locally
 
 ### Build a local image, and push it to the local registry
 
@@ -52,13 +52,13 @@ Here we have our makefile, and can go into our image folder, and run `make local
 
 Create a new file at the following path:
 
-`config/jobs/build-drivers/build-drivers.local`
+`config/jobs/build-new-drivers/build-drivers.local`
 
 Put in it the following content:
 
 ```yaml
   falcosecurity/test-infra:
-  - name: build-drivers-amazonlinux-presubmit
+  - name: build-new-drivers-amazonlinux-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -84,13 +84,13 @@ Skip this if not performing image build in script
 
 ```bash
 export CONFIG_PATH="$(pwd)/config/config.yaml"
-export JOB_CONFIG_PATH="$(pwd)/config/jobs/build-drivers/build-drivers.local"
+export JOB_CONFIG_PATH="$(pwd)/config/jobs/build-new-drivers/build-drivers.local"
 export IMAGE_PATH="$(pwd)/images/build-drivers"
 ```
 
 ### Run the script with the name of the job to test as the argument
 
-`./tools/local_prowjob.sh build-drivers-amazonlinux-presubmit`
+`./tools/local_prowjob.sh build-new-drivers-amazonlinux-presubmit`
 
 ### This will write the new cluster as your current Kube Config, and you can check the logs of your running job
 
