@@ -1,21 +1,25 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: build-drivers-debian-presubmit
+  - name: rebuild-all-drivers-centos
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/debian_.*'
+    always_run: false
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
-        - debian
+        - centos
         env:
         - name: AWS_REGION
           value: eu-west-1
+        - name: PUBLISH_S3
+          value: "true"
+        - name: SKIP_EXISTING
+          value: "false"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
@@ -27,9 +31,9 @@ presubmits:
       nodeSelector:
         Archtype: "x86"
 periodics:
-  - name: build-drivers-debian-periodic
+  - name: rebuild-all-drivers-centos-periodic
     decorate: true
-    cron: "0 03 * * 4"
+    cron: "0 03 * * 3"
     extra_refs:
     - org: falcosecurity
       repo: test-infra
@@ -40,45 +44,17 @@ periodics:
       containers:
       - command:
         - /workspace/build-drivers.sh
-        - debian
+        - centos
         env:
         - name: AWS_REGION
           value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
+        - name: SKIP_EXISTING
+          value: "false"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
-      nodeSelector:
-        Archtype: "x86"
-postsubmits:
-  falcosecurity/test-infra:
-  - name: build-drivers-debian-postsubmit
-    decorate: true
-    skip_report: false
-    agent: kubernetes
-    branches:
-      - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/debian_.*'
-    spec:
-      serviceAccountName: driver-kit
-      containers:
-      - command:
-        - /workspace/build-drivers.sh
-        - debian
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        - name: PUBLISH_S3
-          value: "true"
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
       nodeSelector:
         Archtype: "x86"

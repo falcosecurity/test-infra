@@ -1,12 +1,12 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: build-drivers-amazonlinux-presubmit
+  - name: rebuild-all-drivers-amazonlinux
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/amazonlinux_.*'
+    always_run: false
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -16,6 +16,10 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
+        - name: PUBLISH_S3
+          value: "true"
+        - name: SKIP_EXISTING
+          value: "false"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
@@ -26,13 +30,13 @@ presubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
-  - name: build-drivers-amazonlinux2-presubmit
+  - name: rebuild-all-drivers-amazonlinux2
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/amazonlinux2_.*'
+    always_run: false
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -42,6 +46,10 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
+        - name: PUBLISH_S3
+          value: "true"
+        - name: SKIP_EXISTING
+          value: "false"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
@@ -53,7 +61,7 @@ presubmits:
       nodeSelector:
         Archtype: "x86"
 periodics:
-  - name: build-drivers-amazonlinux-periodic
+  - name: rebuild-all-drivers-amazonlinux-periodic
     decorate: true
     cron: "0 03 * * 1"
     extra_refs:
@@ -72,13 +80,15 @@ periodics:
           value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
+        - name: SKIP_EXISTING
+          value: "false"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: build-drivers-amazonlinux2-periodic
+  - name: rebuild-all-drivers-amazonlinux2-periodic
     decorate: true
     cron: "0 03 * * 2"
     extra_refs:
@@ -97,67 +107,11 @@ periodics:
           value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
+        - name: SKIP_EXISTING
+          value: "false"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
-      nodeSelector:
-        Archtype: "x86"
-postsubmits:
-  falcosecurity/test-infra:
-  - name: build-drivers-amazonlinux-postsubmit
-    decorate: true
-    skip_report: false
-    agent: kubernetes
-    branches:
-      - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/amazonlinux_.*'
-    spec:
-      serviceAccountName: driver-kit
-      containers:
-      - command:
-        - /workspace/build-drivers.sh
-        - amazonlinux
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        - name: PUBLISH_S3
-          value: "true"
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
-      nodeSelector:
-        Archtype: "x86"
-  - name: build-drivers-amazonlinux2-postsubmit
-    decorate: true
-    skip_report: false
-    agent: kubernetes
-    branches:
-      - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/amazonlinux2_.*'
-    spec:
-      serviceAccountName: driver-kit
-      containers:
-      - command:
-        - /workspace/build-drivers.sh
-        - amazonlinux2
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        - name: PUBLISH_S3
-          value: "true"
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
       nodeSelector:
         Archtype: "x86"
