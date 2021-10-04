@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: crier
-        image: gcr.io/k8s-prow/crier:v20210916-7657ce97bf
+        image: gcr.io/k8s-prow/crier:v20211001-6cf1ab3b20
         env:
         - name: AWS_REGION
           value: eu-west-1
