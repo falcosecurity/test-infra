@@ -1,0 +1,5 @@
+kernelversion:1
+kernelrelease: 4.18.0-305.19.1.el8_4
+target: centos
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco-4.18.0-305.19.1.el8_4.x86_64.ko
