@@ -1,0 +1,5 @@
+kernelversion: 1
+kernelrelease: 5.4.93-1.el7.elrepo.x86_64
+target: centos
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_centos_5.4.93-1.el7.elrepo.x86_64_1.ko
