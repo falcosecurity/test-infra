@@ -70,7 +70,7 @@ spec:
       serviceAccountName: "tide"
       containers:
       - name: tide
-        image: gcr.io/k8s-prow/tide:v20211001-6cf1ab3b20
+        image: gcr.io/k8s-prow/tide:v20211008-8c358bcb9d
         env:
         - name: AWS_REGION
           value: eu-west-1
