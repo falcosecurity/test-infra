@@ -11,31 +11,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+OUTPUT_DIR="${OUTPUT_DIR:=output}"
 PUBLISH_S3="${PUBLISH_S3:=false}"
 PUBLISH_TAG="${PUBLISH_TAG:=dev}"
 
-s3_dest_path=$S3_PATH/$PUBLISH_TAG/
-
-# Build
-./build.sh
+# Build packages
+make packages
 
 # Publish
 if "$PUBLISH_S3"; then
-    dest_path=$(mktemp -d)
-    
-    for source_folder in plugins/*/ ; do
-        name=$(echo $source_folder | cut -f2 -d'/')
-        dest_folder=$dest_path/$name
-        mkdir -p $dest_folder
-        cp $source_folder/*.so $dest_folder/
-        cp $source_folder/README.md $dest_folder/
-    done
-    
-    echo "> Cleaning up destination path on S3 ($s3_dest_path)"
-    aws s3 rm --recursive $s3_dest_path
-    
     echo "> Uploading plugins to S3"
-    aws s3 cp --recursive $dest_path $s3_dest_path
+    for package in $OUTPUT_DIR/*.tar.gz; do
+        aws s3 cp --no-progress $package ${S3_PATH%/}/$PUBLISH_TAG/
+    done
 else
     echo "> Publishing skipped due to configuration"
 fi
