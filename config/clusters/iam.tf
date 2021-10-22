@@ -145,7 +145,7 @@ module "build_plugins_s3_role" {
   create_role      = true
   role_name        = "${local.cluster_name}-build_plugins_s3_access"
   provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
-  role_policy_arns = [aws_iam_policy.driverkit_s3_access.arn]
+  role_policy_arns = [aws_iam_policy.build_plugins_s3_access.arn]
   oidc_fully_qualified_subjects = [
     "system:serviceaccount:${local.k8s_test_service_account_namespace}:build-plugins",
   ]
@@ -159,7 +159,7 @@ resource "aws_iam_policy" "build_plugins_s3_access" {
 
 data "aws_iam_policy_document" "build_plugins_s3_access" {
   statement {
-    sid    = "build_plugins_s3_access"
+    sid    = "BuildPluginsS3Access"
     effect = "Allow"
     actions = [
       "s3:*"
