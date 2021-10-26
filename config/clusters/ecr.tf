@@ -47,6 +47,13 @@ resource "aws_ecr_repository" "build_libs" {
   }
 }
 
+resource "aws_ecr_repository" "build_plugins" {
+  name = "test-infra/build-plugins"
+  encryption_configuration {
+    encryption_type = "KMS"
+  }
+}
+
 resource "aws_ecr_repository" "update_deployment_files" {
   name = "test-infra/update-falco-k8s-manifests"
   encryption_configuration {
