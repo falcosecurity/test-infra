@@ -55,6 +55,11 @@ resource "aws_ecr_repository_policy" "build_libs" {
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
+resource "aws_ecr_repository_policy" "build_plugins" {
+  repository = "test-infra/build-plugins"
+  policy     = data.aws_iam_policy_document.ecr_standard.json
+}
+
 resource "aws_ecr_repository_policy" "update_deployment_files" {
   repository = "test-infra/update-falco-k8s-manifests"
   policy     = data.aws_iam_policy_document.ecr_standard.json
