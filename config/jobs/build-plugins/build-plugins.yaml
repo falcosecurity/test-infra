@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/plugins:
-  - name: build-plugins
+  - name: build-plugins-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -10,14 +10,35 @@ presubmits:
       containers:
       - command:
         - /home/prow/go/src/github.com/falcosecurity/plugins/build.sh
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        image: golang:1.15
+        image: golang:1.17
         imagePullPolicy: Always
         resources:
           requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
             memory: 3Gi
-            cpu: 1.5
+      nodeSelector:
+        Archtype: "x86"
+postsubmits:
+  falcosecurity/plugins:
+  - name: build-plugins-postsubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    spec:
+      serviceAccountName: build-plugins
+      containers:
+      - command:
+        - /build-and-publish.sh
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-plugins:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 3Gi
       nodeSelector:
         Archtype: "x86"

@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC1090
+
+currentdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+source "${currentdir}/parseyaml"
+
+input="$1"
+IFS=/ read -a input_parts <<< ${input}
+driver_version="${input_parts[1]}"
+
+output_module=
+output_probe=
+create_variables "$input"
+
+should_build=false
+
+check_s3_existence() {
+    local object_exists=$(aws s3api head-object --bucket ${S3_DRIVERS_BUCKET} --key ${S3_DRIVERS_KEY_PREFIX}/${driver_version}/${1} 2> /dev/null || true)
+    if [[ -z "${object_exists}" ]]; then
+        false
+    else
+        true
+    fi
+}
+
+# Check whether the kernel module already exists on S3
+if [ -n "${output_module}" ]; then
+    output_module_filename="${output_module##*/}"
+    if [ ${SKIP_EXISTING} ] && check_s3_existence "${output_module_filename}"; then
+        >&2 echo "output module already esists inside S3 bucket - skipping (${S3_DRIVERS_KEY_PREFIX}/${driver_version}/${output_module_filename})"
+    else
+        should_build=true
+    fi
+fi
+
+# Check whether the eBPF probe already exists on S3
+if [ -n "${output_probe}" ]; then
+    output_probe_filename="${output_probe##*/}"
+    if [ ${SKIP_EXISTING} ] && check_s3_existence "${output_probe_filename}"; then
+        >&2 echo "output probe already esists inside S3 bucket - skipping (${S3_DRIVERS_KEY_PREFIX}/${driver_version}/${output_probe_filename})"
+    else
+        should_build=true
+    fi
+fi
+
+# Build 
+if [ ${should_build} ]; then
+    mkdir -p output/${driver_version}
+    ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --timeout 1000 || echo ${input} >> output/failing.log
+fi

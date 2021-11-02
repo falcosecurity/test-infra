@@ -8,7 +8,9 @@ VERSIONS := $(VERSIONS:/=)
 TARGET_VERSION ?= *
 TARGET_DISTRO ?= *
 TARGET_KERNEL ?= *
-S3_DRIVERS_BUCKET ?= "falco-distribution/driver"
+S3_DRIVERS_BUCKET ?= "falco-distribution"
+S3_DRIVERS_KEY_PREFIX ?= "driver"
+SKIP_EXISTING ?= true
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
@@ -22,7 +24,7 @@ cleanup:
 	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
 
 cleanup_s3:
-	S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} utils/cleanup_s3 $(addprefix -v ,$(VERSIONS))
+	S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} S3_DRIVERS_KEY_PREFIX=${S3_DRIVERS_KEY_PREFIX} utils/cleanup_s3 $(addprefix -v ,$(VERSIONS))
 
 # $(1): pseudo-target name
 # $(2): driver version
@@ -30,8 +32,7 @@ cleanup_s3:
 define gen_build_targets
 $(1): $(3)
 	utils/checkfiles $(3)
-	@mkdir -p output/$(2)
-	@${DRIVERKIT} docker -c $(3) --driverversion $(2) --timeout 1000 || echo $(3) >> output/failing.log
+	DRIVERKIT=${DRIVERKIT} S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} S3_DRIVERS_KEY_PREFIX=${S3_DRIVERS_KEY_PREFIX} SKIP_EXISTING=${SKIP_EXISTING} utils/build $(3)
 endef
 $(foreach CONFIG,$(CONFIGS),\
 	$(eval INNER := $(patsubst config/%,%,$(CONFIG)))\
@@ -69,11 +70,11 @@ publish_$(1): prepare_$(1)
 publish_s3_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
 	if [ -d "output/$(1)/ebpf-probe" ]; then \
 			echo "publishing eBPF probes (version $(1)) to S3 ..."; \
-			aws s3 cp "output/$(1)/ebpf-probe/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.o" --acl public-read; \
+			aws s3 cp "output/$(1)/ebpf-probe/" s3://${S3_DRIVERS_BUCKET}/${S3_DRIVERS_KEY_PREFIX}/$(1) --recursive --exclude "*" --include "*.o" --acl public-read; \
 	fi
 	if [ -d "output/$(1)/kernel-module" ]; then \
 			echo "publishing kernel modules (version $(1)) to S3 ..."; \
-			aws s3 cp "output/$(1)/kernel-module/" s3://${S3_DRIVERS_BUCKET}/$(1) --recursive --exclude "*" --include "*.ko" --acl public-read; \
+			aws s3 cp "output/$(1)/kernel-module/" s3://${S3_DRIVERS_BUCKET}/${S3_DRIVERS_KEY_PREFIX}/$(1) --recursive --exclude "*" --include "*.ko" --acl public-read; \
 	fi
 
 endef

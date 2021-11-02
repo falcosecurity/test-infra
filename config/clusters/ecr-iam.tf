@@ -20,42 +20,48 @@ data "aws_iam_policy_document" "ecr_standard" {
     }
   }
 }
+
 resource "aws_ecr_repository_policy" "update_jobs" {
-  repository = "test-infra/update-jobs"
+  repository = aws_ecr_repository.update_jobs.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
 resource "aws_ecr_repository_policy" "golang" {
-  repository = "test-infra/golang"
+  repository = aws_ecr_repository.golang.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
 resource "aws_ecr_repository_policy" "build_drivers" {
-  repository = "test-infra/build-drivers"
+  repository = aws_ecr_repository.build_drivers.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
 resource "aws_ecr_repository_policy" "docker_dind" {
-  repository = "test-infra/docker-dind"
+  repository = aws_ecr_repository.docker_dind.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
 resource "aws_ecr_repository_policy" "autobump" {
-  repository = "test-infra/autobump"
+  repository = aws_ecr_repository.autobump.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
 resource "aws_ecr_repository_policy" "arm_build" {
-  repository = "test-infra/arm-build"
+  repository = aws_ecr_repository.arm_build.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
 resource "aws_ecr_repository_policy" "build_libs" {
-  repository = "test-infra/build-libs"
+  repository = aws_ecr_repository.build_libs.name
+  policy     = data.aws_iam_policy_document.ecr_standard.json
+}
+
+resource "aws_ecr_repository_policy" "build_plugins" {
+  repository = aws_ecr_repository.build_plugins.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
 resource "aws_ecr_repository_policy" "update_deployment_files" {
-  repository = "test-infra/update-falco-k8s-manifests"
+  repository = aws_ecr_repository.update_deployment_files.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
