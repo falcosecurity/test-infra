@@ -10,25 +10,31 @@ CLUSTER="falco-prow"
 ZONE="eu-west-1"
 
 function main() {
-  echo "installing terraform"
+  echo "> Installing terraform"
+  echo
   terraform-install
-  echo "Running Terraform"
+  echo "> Running Terraform"
+  echo
   createCluster
 }
 
 function terraform-install() {
-  [[ -f /usr/local/bin/terraform ]] && echo "`/usr/local/bin/terraform version` already installed at /usr/local/bin/terraform" && return 0
-  LATEST_URL=$(curl -sL https://releases.hashicorp.com/terraform/index.json |
-    jq -r '.versions[].builds[].url | select(.|test("alpha|beta|rc")|not) | select(.|contains("linux_amd64"))' |
-    sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n |
-    tail -n1)
-  STABLE_URL="https://releases.hashicorp.com/terraform/0.14.11/terraform_0.14.11_linux_amd64.zip"
-  curl ${STABLE_URL} > terraform.zip
-  unzip terraform.zip
-  rm -rf terraform.zip
-  install terraform /usr/local/bin/
+  hash terraform 2>/dev/null && \
+    echo "Already installed at $(command -v terraform)." && \
+    echo "Version: $(terraform version)" && \
+    return 0
+
+  local terraform_version=$(grep required_version config/clusters/terraform_versions.tf | cut -d '=' -f2 | tr -d '"' | tr -d ' ')
+  local terraform_url="https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip"
+  local install_path="/usr/local/bin/"
+  local tmpdir=$(mktemp -d)
+
+  curl -s "${terraform_url}" > $tmpdir/terraform.zip
+  unzip $tmpdir/terraform.zip
+  rm -rf $tmpdir
+  install terraform $install_path
   terraform --version
-  echo "Installed: `terraform`"
+  echo "Installed: $(terraform)"
 }
 
 # Will add this in once we have the need for multiple workspaces (dev/prod or multi account)
