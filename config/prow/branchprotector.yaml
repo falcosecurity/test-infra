@@ -51,7 +51,7 @@ spec:
         spec:
           containers:
           - name: branchprotector
-            image: gcr.io/k8s-prow/branchprotector:v20211126-48cb2fc883
+            image: gcr.io/k8s-prow/branchprotector:v20211203-281e29a97a
             imagePullPolicy: Always
             args:
             - --config-path=/etc/config/config.yaml
