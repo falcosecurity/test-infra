@@ -22,7 +22,7 @@ publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 
 generate:
 	$(foreach VERSION,$(VERSIONS),\
-    	utils/generate -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -v ${VERSION}; \
+		utils/generate -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -v ${VERSION}; \
 	)
 
 cleanup:
