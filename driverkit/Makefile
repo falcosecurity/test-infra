@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-DRIVERKIT ?= $(shell which driverkit)
+DRIVERKIT ?= $(-shell which driverkit)
 
 CONFIGS := $(wildcard config/*/*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
@@ -19,6 +19,11 @@ specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VE
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
 publish_s3: $(addprefix publish_s3_,$(VERSIONS))
+
+generate:
+	$(foreach VERSION,$(VERSIONS),\
+    utils/generate -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -v ${VERSION}; \
+	)
 
 cleanup:
 	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
