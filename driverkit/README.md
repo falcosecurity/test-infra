@@ -77,6 +77,7 @@ Q: Falco doesn't find the kernel module/ eBPF probe for my OS, what do I do?
 A: 
 
 *Solution 1*: Go to the `config/` folder and add your kernel/OS combination there as a YAML file, then send a PR for everyone to profit!
+
 *Solution 2*:
   - Fork this repo (see [Docs](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
   - Git clone your fork `git clone https://github.com/<user>/test-infra.git` or `git clone git@github.com:<user>/test-infra.git`
