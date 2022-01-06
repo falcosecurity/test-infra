@@ -13,6 +13,7 @@ make
 ### Available make targets
 
 - `all`: build all the Falco drivers (all the versions), for every supported distro, and every supported kernel release
+- `generate`: generate yaml files for building drivers for specific kernel and target for all Falco lib versions
 - `specific_target`: build the filtered driver versions
 - `clean`: remove everything in the `output/` directory (except it, and its `.gitignore` file)
 - `publish`: publish all the built Falco drivers (those existing in the `output/` directory) to bintray
@@ -42,7 +43,7 @@ These are the available filters as environment variables:
   - in <kernel_version>.<major_version>.* format
   - in <kernel_version>.* format
 
-Notice all the filters are optional.
+Notice all the filters are optional (except `TARGET_DISTRO` and `TARGET_KERNEL` for `generate`).
 
 You can also filter a specific distro with a specific kernel version:
 
@@ -73,7 +74,17 @@ make -e TARGET_DISTRO=debian stats
 ## FAQ
 
 Q: Falco doesn't find the kernel module/ eBPF probe for my OS, what do I do?
-A: Go to the `config/` folder and add your kernel/OS combination there as a YAML file, then send a PR for everyone to profit!
+A: 
+
+*Solution 1*: Go to the `config/` folder and add your kernel/OS combination there as a YAML file, then send a PR for everyone to profit!
+*Solution 2*:
+  - Fork this repo (see [Docs](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
+  - Git clone your fork `git clone https://github.com/<user>/test-infra.git` or `git clone git@github.com:<user>/test-infra.git`
+  - Go into `test-infra/driverkit`
+  - If you want the drivers for your locale system: `export TARGET_KERNEL="$(uname -r)_$(uname -v | sed 's/#\([[:digit:]]\+\).*/\1/')"`
+  - Run `Makefile`: `make generate -e TARGET_DISTRO=<TARGET_DISTRO> -e TARGET_KERNEL=<TARGET_KERNEL>` (available values for `TARGET_DISTRO` can be found [here](https://github.com/falcosecurity/driverkit#supported-targets))
+  - Commit the new files and push: `git add . && git commit -s -m "adding new configuration files for ${TARGET_KERNEL}" && git push origin master`
+  - Send a PR for everyone to profit
 
 Q: How do you publish new drivers?
 A: If you have proper S3 permissions from Terraform or Prow, run
