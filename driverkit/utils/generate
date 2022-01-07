@@ -46,13 +46,14 @@ generate_yamls() {
     echo "output:"
     echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
     echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
     
     echo "kernelversion: ${TARGET_KERNEL##*_}" > ${FILE}
     echo "kernelrelease: ${TARGET_KERNEL%_${TARGET_KERNEL##*_}}" >> ${FILE}
     echo "target: ${TARGET_DISTRO}" >> ${FILE}
     echo "output:" >> ${FILE}
     echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
-
+    echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
 }
 
 generate_yamls
