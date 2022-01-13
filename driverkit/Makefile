@@ -1,6 +1,9 @@
 SHELL := /bin/bash
 
-DRIVERKIT ?= $(-shell which driverkit)
+DRIVERKIT := $(shell command -v driverkit)
+ifeq ($(DRIVERKIT),)
+DRIVERKIT := "/bin/driverkit"
+endif
 
 CONFIGS := $(wildcard config/*/*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
