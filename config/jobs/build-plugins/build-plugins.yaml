@@ -42,3 +42,25 @@ postsubmits:
             memory: 3Gi
       nodeSelector:
         Archtype: "x86"
+  - name: build-plugins-release-postsubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^[a-z]+[a-z_]*-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?$
+    spec:
+      serviceAccountName: build-plugins
+      containers:
+      - command:
+        - /build-and-publish.sh
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-plugins:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 3Gi
+      nodeSelector:
+        Archtype: "x86"
