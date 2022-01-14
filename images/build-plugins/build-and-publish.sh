@@ -15,8 +15,20 @@ OUTPUT_DIR="${OUTPUT_DIR:=output}"
 PUBLISH_S3="${PUBLISH_S3:=false}"
 PUBLISH_TAG="${PUBLISH_TAG:=dev}"
 
-# Build packages
-make packages
+# see: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+VERSION_RGX="^[a-z]+[a-z_]*-(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?$"
+
+if [[ $PULL_BASE_REF =~ $VERSION_RGX ]];
+then
+    # Build only tagged package
+    make release/$(echo $PULL_BASE_REF | cut -f1 -d'-')
+
+    # Publish artifacts in "stable" dir
+    PUBLISH_TAG="stable"
+else
+    # Build all dev packages
+    make packages
+fi
 
 # Publish
 if "$PUBLISH_S3"; then
