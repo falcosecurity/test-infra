@@ -2,6 +2,11 @@
 
 This folder contains the configuration files for the driverkit build grid.
 
+## Requirements
+
+- [`driverkit`](https://github.com/falcosecurity/driverkit/releases) CLI
+- Access to Falco distribution AWS S3 bucket
+
 ## Usage
 
 Just make is enough! :heart:

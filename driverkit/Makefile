@@ -14,7 +14,7 @@ SKIP_EXISTING ?= true
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+specific_target: pre_checks $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
@@ -83,9 +83,22 @@ publish_s3_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
 	fi
 
 endef
+
 $(foreach VERSION,$(VERSIONS),\
 	$(eval $(call gen_publish_targets,$(VERSION)))\
 )
+
+pre_checks: check_driverkit_cli check_distribution_read_access
+
+check_distribution_read_access:
+ifneq ($(shell aws s3 ls s3://$(S3_DRIVERS_BUCKET) &>/dev/null; echo $$?),0)
+	$(error Access denied to distribution S3 bucket)
+endif
+
+check_driverkit_cli:
+ifneq ($(shell hash driverkit 2>/dev/null; echo $$?),0)
+	$(error You need driverkit CLI)
+endif
 
 .PHONY: clean
 clean:
