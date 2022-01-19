@@ -66,13 +66,6 @@ postsubmits:
         Archtype: "x86"
   - name: build-plugins-update-readme-postsubmit
     decorate: true
-    extra_refs:
-    # Check out the falcosecurity/plugins repo
-    # This will be the working directory
-    - org: falcosecurity
-      repo: plugins
-      base_ref: master
-      workdir: true
     skip_report: false
     agent: kubernetes
     branches:
