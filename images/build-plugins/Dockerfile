@@ -18,6 +18,9 @@ RUN chmod +x /build-and-publish.sh
 COPY update-readme.sh /
 RUN chmod +x /update-readme.sh
 
+COPY build.sh /
+RUN chmod +x /build.sh
+
 WORKDIR /workspace
 
 ENTRYPOINT ["/build-and-publish.sh"]
