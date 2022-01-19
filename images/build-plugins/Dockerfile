@@ -15,6 +15,9 @@ RUN pip install awscli
 COPY build-and-publish.sh /
 RUN chmod +x /build-and-publish.sh
 
+COPY update-readme.sh /
+RUN chmod +x /update-readme.sh
+
 WORKDIR /workspace
 
 ENTRYPOINT ["/build-and-publish.sh"]
