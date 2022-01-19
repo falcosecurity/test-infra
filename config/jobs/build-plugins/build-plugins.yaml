@@ -64,3 +64,26 @@ postsubmits:
             memory: 3Gi
       nodeSelector:
         Archtype: "x86"
+  - name: build-plugins-update-readme-postsubmit
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    run_if_changed: "^registry.yaml"
+    spec:
+      serviceAccountName: build-plugins
+      containers:
+      - command:
+        - /update-readme.sh
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-plugins:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 1Gi
+      nodeSelector:
+        Archtype: "x86"
