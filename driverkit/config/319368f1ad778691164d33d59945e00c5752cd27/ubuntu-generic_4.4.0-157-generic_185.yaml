@@ -1,0 +1,5 @@
+kernelversion: 185
+kernelrelease: 4.4.0-157-generic
+target: ubuntu-generic
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-generic_4.4.0-157-generic_185.ko
