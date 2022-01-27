@@ -25,9 +25,9 @@ check_s3_existence() {
 }
 
 # Check whether the kernel module already exists on S3
-if [ -n "${output_module}" ]; then
+if [[ -n "${output_module}" ]]; then
     output_module_filename="${output_module##*/}"
-    if [ ${SKIP_EXISTING} ] && check_s3_existence "${output_module_filename}"; then
+    if [[ ${SKIP_EXISTING} == "true" ]] && check_s3_existence "${output_module_filename}"; then
         >&2 echo "output module already esists inside S3 bucket - skipping (${S3_DRIVERS_KEY_PREFIX}/${driver_version}/${output_module_filename})"
     else
         should_build=true
@@ -35,9 +35,9 @@ if [ -n "${output_module}" ]; then
 fi
 
 # Check whether the eBPF probe already exists on S3
-if [ -n "${output_probe}" ]; then
+if [[ -n "${output_probe}" ]]; then
     output_probe_filename="${output_probe##*/}"
-    if [ ${SKIP_EXISTING} ] && check_s3_existence "${output_probe_filename}"; then
+    if [[ ${SKIP_EXISTING} == "true" ]] && check_s3_existence "${output_probe_filename}"; then
         >&2 echo "output probe already esists inside S3 bucket - skipping (${S3_DRIVERS_KEY_PREFIX}/${driver_version}/${output_probe_filename})"
     else
         should_build=true
@@ -45,7 +45,7 @@ if [ -n "${output_probe}" ]; then
 fi
 
 # Build 
-if [ ${should_build} ]; then
+if [[ ${should_build} == "true" ]]; then
     mkdir -p output/${driver_version}
     ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --timeout 1000 || echo ${input} >> output/failing.log
 fi
