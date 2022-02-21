@@ -13,7 +13,7 @@ jobs:
             tar -xf terrascan.tar.gz
             install terrascan /usr/local/bin
             terrascan scan -i terraform -d config/clusters -v \
-              --skip-rules 'AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'
+              --skip-rules 'AC_AWS_0214,AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'
   "test-infra/deploy/terraform":
     requires:
       - test-infra/scan/terraform
