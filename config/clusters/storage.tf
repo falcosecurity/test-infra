@@ -1,41 +1,65 @@
 resource "aws_s3_bucket" "prow_storage" {
   bucket = "falco-prow-logs"
 
-  acl    = "private"
   policy = null
 
-  lifecycle_rule {
-    id      = "ten_day_retention_logs"
-    prefix  = "logs/"
-    enabled = true
-    expiration {
-      days = 10
-    }
-  }
-
-  lifecycle_rule {
-    id      = "ten_day_retention_pr_logs"
-    prefix  = "pr-logs/"
-    enabled = true
-    expiration {
-      days = 10
-    }
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.prow_storage.arn
-        sse_algorithm     = "aws:kms"
-      }
-    }
-  }
-
-  versioning {
-    enabled = true
-  }
-
   tags = module.label.tags
+}
+
+resource "aws_s3_bucket_acl" "prow_storage" {
+  bucket = aws_s3_bucket.prow_storage.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "prow_storage" {
+  bucket = aws_s3_bucket.prow_storage.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "prow_storage" {
+  bucket = aws_s3_bucket.prow_storage.bucket
+
+  rule {
+    id = "ten_day_retention_logs"
+
+    filter {
+      prefix = "logs/"
+    }
+
+    expiration {
+      days = 10
+    }
+
+    status = "Enabled"
+  }
+
+  rule {
+    id = "ten_day_retention_pr_logs"
+
+    filter {
+      prefix = "pr-logs/"
+    }
+
+    expiration {
+      days = 10
+    }
+
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "prow_storage" {
+  bucket = aws_s3_bucket.prow_storage.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.prow_storage.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
 }
 
 resource "aws_s3_bucket_policy" "prow_storage" {
