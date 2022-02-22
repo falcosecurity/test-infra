@@ -11,6 +11,7 @@ presubmits:
         - /build.sh
         args:
         - -DBUILD_BPF=On
+        - -DUSE_BUNDLED_DEPS=False
         env:
         - name: AWS_REGION
           value: eu-west-1
