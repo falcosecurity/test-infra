@@ -8,7 +8,7 @@ presubmits:
       always_run: true
       spec:
         containers:
-          - image: gcr.io/k8s-prow/checkconfig:v20220221-8b6a2593f3
+          - image: gcr.io/k8s-prow/checkconfig:v20220225-e131bfaf16
             command:
               - /checkconfig
             args:
@@ -27,7 +27,7 @@ periodics:
     base_ref: master
   spec:
     containers:
-    - image: gcr.io/k8s-prow/checkconfig:v20220221-8b6a2593f3
+    - image: gcr.io/k8s-prow/checkconfig:v20220225-e131bfaf16
       command:
       - /checkconfig
       args:
