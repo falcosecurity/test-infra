@@ -10,7 +10,7 @@ presubmits:
         containers:
           - image: gcr.io/k8s-prow/checkconfig:v20220225-e131bfaf16
             command:
-              - /checkconfig
+              - checkconfig
             args:
             - --config-path=config/config.yaml
             - --job-config-path=config/jobs
@@ -29,7 +29,7 @@ periodics:
     containers:
     - image: gcr.io/k8s-prow/checkconfig:v20220225-e131bfaf16
       command:
-      - /checkconfig
+      - checkconfig
       args:
       - --config-path=config/config.yaml
       - --job-config-path=config/jobs
