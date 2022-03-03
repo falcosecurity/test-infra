@@ -47,14 +47,14 @@ periodics:
     # bump.sh args
       # Directory containing k8s deployment YAMLs for Prow components.
       - name: COMPONENT_FILE_DIR
-        value: config/prow
+        value: config/prow/
       # Repo relative path of the core Prow config file (config.yaml).
       - name: CONFIG_PATH
         value: config/config.yaml
       # Repo relative path of the ProwJob config file or directory.
       # Omit this if ProwJobs are only defined in config.yaml (or are not configured at all).
       - name: JOB_CONFIG_PATH
-        value: config/jobs/check-prow-config/check-prow-config.yaml
+        value: config/jobs/
       - name: GOOGLE_APPLICATION_CREDENTIALS
         value: /etc/service-account/service-account.json
     volumes:
