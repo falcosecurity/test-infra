@@ -87,7 +87,7 @@ main() {
   done
   local token="$(gcloud auth print-access-token)"
   # Update image tags in the identified files. This supports both normal image and -arm64 images
-  local matcher="gcr.io\/k8s-prow\/\([[:alnum:]_-]\+\):v[a-f0-9-]\+\(-arm64\)\?$"
+  local matcher="gcr.io\/k8s-prow\/\([[:alnum:]_-]\+\):v[a-f0-9-]\+\(-arm64\)\{0,1\}"
   local replacer="s/${matcher}/gcr.io\/k8s-prow\/\1:${new_version}\2/I"
   for file in "${bumpfiles[@]}"; do
     ${SED} -i "${replacer}" "${file}"
