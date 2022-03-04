@@ -135,6 +135,13 @@ spec:
         ports:
           - name: http
             containerPort: 8080
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256M
+          requests:
+            cpu: 100m
+            memory: 256M
         volumeMounts:
         - name: config
           mountPath: /etc/config

@@ -31,6 +31,13 @@ spec:
         - --job-config-path=/etc/job-config
         - --s3-credentials-file=/etc/s3-credentials/service-account.json
         - --status-path=s3://falco-prow-logs/status-reconciler-status #S3 location where Status-reconciler stores last known state, i.e. configuration.
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256M
+          requests:
+            cpu: 100m
+            memory: 256M
         volumeMounts:
         - name: oauth
           mountPath: /etc/github
