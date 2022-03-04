@@ -31,6 +31,13 @@ spec:
             - --job-config-path=/etc/job-config
             - --enable-controller=plank
             # - --kubeconfig=/etc/kubeconfig/config
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256M
+            requests:
+              cpu: 100m
+              memory: 256M
           volumeMounts:
             - name: config
               mountPath: /etc/config

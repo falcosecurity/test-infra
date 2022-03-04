@@ -69,6 +69,13 @@ spec:
         - --serve-metrics=true
         ports:
         - containerPort: 8888
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256M
+          requests:
+            cpu: 100m
+            memory: 256M
         volumeMounts:
         - name: cache
           mountPath: /cache
