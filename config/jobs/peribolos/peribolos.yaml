@@ -1,0 +1,108 @@
+presubmits:
+  falcosecurity/test-infra:
+    - name: peribolos-pre-submit
+      branches:
+        - ^master$
+      decorate: true
+      max_concurrency: 1
+      skip_report: false
+      always_run: true
+      spec:
+        containers:
+          - image: gcr.io/k8s-prow/peribolos:v20220225-e131bfaf16
+            command:
+              - /peribolos
+            args:
+              - --config-path=config/org.yaml
+              - --fix-org
+              - --fix-org-members
+              - --fix-repos
+              - --fix-teams
+              - --fix-team-members
+              - --fix-team-repos
+              - --github-endpoint=http://ghproxy.default.svc.cluster.local
+              - --github-endpoint=https://api.github.com
+              - --github-token-path=/etc/github-token/oauth
+            volumeMounts:
+              - name: github
+                mountPath: /etc/github-token
+        volumes:
+          - name: github
+            secret:
+              secretName: oauth-token
+        nodeSelector:
+          Archtype: "x86"
+
+postsubmits:
+  falcosecurity/test-infra:
+    - name: peribolos-post-submit
+      branches:
+        - ^master$
+      decorate: true
+      max_concurrency: 1
+      skip_report: false
+      always_run: true
+      spec:
+        containers:
+          - image: gcr.io/k8s-prow/peribolos:v20220225-e131bfaf16
+            command:
+              - /peribolos
+            args:
+              - --confirm
+              - --config-path=config/org.yaml
+              - --fix-org
+              - --fix-org-members
+              - --fix-repos
+              - --fix-teams
+              - --fix-team-members
+              - --fix-team-repos
+              - --github-endpoint=http://ghproxy.default.svc.cluster.local
+              - --github-endpoint=https://api.github.com
+              - --github-token-path=/etc/github-token/oauth
+            volumeMounts:
+              - name: github
+                mountPath: /etc/github-token
+        volumes:
+          - name: github
+            secret:
+              secretName: oauth-token
+        nodeSelector:
+          Archtype: "x86"
+
+periodics:
+  - name: peribolos-periodic
+    interval: 24h
+    decorate: true
+    max_concurrency: 1
+    skip_report: false
+    always_run: true
+    extra_refs:
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+    spec:
+      containers:
+        - image: gcr.io/k8s-prow/peribolos:v20220225-e131bfaf16
+          command:
+            - /peribolos
+          args:
+            - --confirm
+            - --config-path=config/org.yaml
+            - --fix-org
+            - --fix-org-members
+            - --fix-repos
+            - --fix-teams
+            - --fix-team-members
+            - --fix-team-repos
+            - --github-endpoint=http://ghproxy.default.svc.cluster.local
+            - --github-endpoint=https://api.github.com
+            - --github-token-path=/etc/github-token/oauth
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github-token
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+      nodeSelector:
+        Archtype: "x86"
