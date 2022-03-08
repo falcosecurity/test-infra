@@ -22,6 +22,7 @@ presubmits:
               - --fix-team-repos
               - --github-endpoint=http://ghproxy.default.svc.cluster.local
               - --github-endpoint=https://api.github.com
+              - --github-hourly-tokens=1200
               - --github-token-path=/etc/github-token/oauth
             volumeMounts:
               - name: github
@@ -58,6 +59,7 @@ postsubmits:
               - --fix-team-repos
               - --github-endpoint=http://ghproxy.default.svc.cluster.local
               - --github-endpoint=https://api.github.com
+              - --github-hourly-tokens=1200
               - --github-token-path=/etc/github-token/oauth
             volumeMounts:
               - name: github
@@ -96,6 +98,7 @@ periodics:
             - --fix-team-repos
             - --github-endpoint=http://ghproxy.default.svc.cluster.local
             - --github-endpoint=https://api.github.com
+            - --github-hourly-tokens=1200
             - --github-token-path=/etc/github-token/oauth
           volumeMounts:
             - name: github
