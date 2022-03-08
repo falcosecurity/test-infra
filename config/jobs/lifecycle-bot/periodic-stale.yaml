@@ -9,7 +9,7 @@ periodics:
       containers:
         - image: gcr.io/k8s-prow/commenter:v20220225-e131bfaf16
           command:
-            - /app/robots/commenter/app.binary
+            - commenter
           args:
             - |-
               --query=org:falcosecurity
