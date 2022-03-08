@@ -6,12 +6,12 @@ presubmits:
       decorate: true
       max_concurrency: 1
       skip_report: false
-      always_run: true
+      run_if_changed: '^config/org.yaml$|^config/jobs/peribolos/.*'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20220225-e131bfaf16
             command:
-              - /peribolos
+              - /ko-app/peribolos
             args:
               - --config-path=config/org.yaml
               - --fix-org
@@ -42,12 +42,12 @@ postsubmits:
       decorate: true
       max_concurrency: 1
       skip_report: false
-      always_run: true
+      run_if_changed: '^config/org.yaml$|^config/jobs/peribolos/.*'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20220225-e131bfaf16
             command:
-              - /peribolos
+              - /ko-app/peribolos
             args:
               - --confirm
               - --config-path=config/org.yaml
@@ -86,7 +86,7 @@ periodics:
       containers:
         - image: gcr.io/k8s-prow/peribolos:v20220225-e131bfaf16
           command:
-            - /peribolos
+            - /ko-app/peribolos
           args:
             - --confirm
             - --config-path=config/org.yaml
