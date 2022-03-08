@@ -27,7 +27,7 @@ RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID"
     "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
     $(lsb_release -cs) stable"
 
-ENV DOCKER_VERSION=18.06.1*
+ENV DOCKER_VERSION=5:20.10.1*
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends docker-ce=${DOCKER_VERSION} && \
