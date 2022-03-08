@@ -152,7 +152,7 @@ spec:
           mountPath: /etc/plugins
           readOnly: true
         - name: branding
-          mountPath: /static/extensions
+          mountPath: /var/run/ko/static/extensions
           readOnly: true
         # - name: kubeconfig
         #   mountPath: /etc/kubeconfig
