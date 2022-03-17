@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 5.4.181-99.354.amzn2.x86
+target: amazonlinux2
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_amazonlinux2_5.4.181-99.354.amzn2.x86_64.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_amazonlinux2_5.4.181-99.354.amzn2.x86_64.o
