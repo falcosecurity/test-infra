@@ -111,7 +111,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: deck
-        image: gcr.io/k8s-prow/deck:v20211210-dfd4c4dd7d
+        image: gcr.io/k8s-prow/deck:v20220225-e131bfaf16
         env:
         - name: AWS_REGION #required for splyglass bucket looku
           value: eu-west-1
@@ -152,7 +152,7 @@ spec:
           mountPath: /etc/plugins
           readOnly: true
         - name: branding
-          mountPath: /static/extensions
+          mountPath: /var/run/ko/static/extensions
           readOnly: true
         # - name: kubeconfig
         #   mountPath: /etc/kubeconfig

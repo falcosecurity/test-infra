@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# set -xe
+
+DRIVER_NAME="falco"
+PROBE_NAME="falco"
+
+CURRENT_DIR="$(pwd)"
+
+while getopts ":k:d:v:" arg; do
+  case $arg in
+    k)
+      TARGET_KERNEL=${OPTARG}
+      ;;
+    d)
+      TARGET_DISTRO=${OPTARG}
+      ;;
+    v)
+      TARGET_VERSION=${OPTARG}
+      ;;
+  esac
+done
+
+if [ -z ${TARGET_DISTRO} ]; then
+    echo "TARGET_DISTRO can't be empty"
+    exit 1
+fi
+if [ -z ${TARGET_KERNEL} ]; then
+    echo "TARGET_KERNEL can't be empty"
+    exit 1
+fi
+if [ -z ${TARGET_VERSION} ]; then
+    echo "TARGET_VERSION can't be empty"
+    exit 1
+fi
+
+generate_yamls() {
+    FOLDER="${CURRENT_DIR}/../driverkit/config/${TARGET_VERSION}"
+    mkdir -p ${FOLDER}
+    FILE="${FOLDER}/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml"
+    echo "---"
+    echo "${FILE}"
+    echo "---"
+    echo "kernelversion: ${TARGET_KERNEL##*_}"
+    echo "kernelrelease: ${TARGET_KERNEL%_${TARGET_KERNEL##*_}}"
+    echo "target: ${TARGET_DISTRO}"
+    echo "output:"
+    echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
+    echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    
+    echo "kernelversion: ${TARGET_KERNEL##*_}" > ${FILE}
+    echo "kernelrelease: ${TARGET_KERNEL%_${TARGET_KERNEL##*_}}" >> ${FILE}
+    echo "target: ${TARGET_DISTRO}" >> ${FILE}
+    echo "output:" >> ${FILE}
+    echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
+    echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
+}
+
+generate_yamls

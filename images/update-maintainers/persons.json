@@ -13,7 +13,7 @@
     },
     "issif": {
         "name": "Thomas Labarussias",
-        "company": "Qonto"
+        "company": "Sysdig"
     },
     "cpanato": {
         "name": "Carlos Tadeu Panato Junior",
@@ -117,6 +117,14 @@
     },
     "pabloopez" : {
         "name": "Pablo Zaldivar",
+        "company": "Sysdig"
+    },
+    "jasondellaluce" : {
+        "name": "Jason Dellaluce",
+        "company": "Sysdig"
+    },
+    "fededp" : {
+        "name": "Federico Di Pierro",
         "company": "Sysdig"
     }
 }
