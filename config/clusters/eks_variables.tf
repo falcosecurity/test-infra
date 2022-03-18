@@ -44,7 +44,7 @@ variable "eks_arm_worker_group_asg_desired_capacity" {
 }
 
 variable "eks_arm_worker_group_asg_max_capacity" {
-  default     = 2
+  default     = 3
   description = "The Autoscaling Group size of the ARM EKS worker group"
 }
 
