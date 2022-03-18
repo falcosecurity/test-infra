@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - feature/github-actions # master
+
+jobs:
+  terrascan:
+    uses: ./.github/workflows/terrascan.yaml
+
+  terraform-plan:
+    uses: ./.github/workflows/terraform-plan.yaml
+  
+  deploy-terraform:
+    needs: terrascan
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: config/clusters/
+    steps:
+      - uses: actions/checkout@v2
+      - run: terraform apply
+
+  deploy-prow-manifests:
+    needs: deploy-terraform
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: config/prow/
+    steps:
+      - uses: actions/checkout@v2
+      # - run: ./tools/deploy_prow.sh

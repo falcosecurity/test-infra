@@ -1,0 +1,18 @@
+on:
+  pull_request:
+    branches:
+      - feature/github-actions # master
+  workflow_call:
+
+jobs:
+  terrascan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: accurics/terrascan-action@v1.4.1
+        with:
+          iac_type: terraform
+          iac_version: v14
+          iac_dir: config/clusters/
+          skip_rules: AC_AWS_0214,AC_AWS_0320,AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,
+          verbose: true
