@@ -53,7 +53,7 @@ module "eks" {
       desired_capacity   = var.eks_arm_worker_group_asg_desired_capacity
       max_capacity       = var.eks_arm_worker_group_asg_max_capacity
       min_capacity       = var.eks_arm_worker_group_asg_min_capacity
-      instance_types     = ["m6g.medium"]
+      instance_types     = ["m6g.large"]
       ami_type           = "AL2_ARM_64"
       version            = var.eks_cluster_version
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi --register-with-taints=${local.arm_nodegroup_taints}"
