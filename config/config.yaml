@@ -71,11 +71,7 @@ branch-protection:
           - dco
       repos:
         .github:
-          branches:
-            master:
-              protect: true
-        advocacy:
-          branches:
+          branches: &default_branch_protection
             master:
               protect: true
         charts:
@@ -85,8 +81,7 @@ branch-protection:
               - "ci/circleci: lint-scripts"
               - "ci/circleci: install-charts"
           branches:
-            master:
-              protect: true
+            << : *default_branch_protection
             gh-pages:
               protect: true
               enforce_admins: false # do not enforce all configured restrictions for admins, since our bot needs to push while the CI workflow is running
@@ -94,48 +89,22 @@ branch-protection:
                 require_code_owner_reviews: false
                 required_approving_review_count: 0
         client-go:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
           required_status_checks:
             contexts:
               - "ci/circleci: test"
         client-py:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         client-rs:
-          branches:
-            master:
-              protect: true
-        cloud-native-security-hub:
-          branches:
-            master:
-              protect: true
-        cloud-native-security-hub-frontend:
-          branches:
-            master:
-              protect: true
-        cloud-native-security-hub-backend:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         community:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         driverkit:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         evolution:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         event-generator:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         falco:
           required_pull_request_reviews:
             required_approving_review_count: 2
@@ -145,8 +114,7 @@ branch-protection:
               - "ci/circleci: centos7"
               - "ci/circleci: musl"
           branches:
-            master:
-              protect: true
+            << : *default_branch_protection
             "release/0.28.1":
               protect: true
         falcosidekick:
@@ -155,33 +123,24 @@ branch-protection:
               - "ci/circleci: lint"
               - "ci/circleci: test"
               - "ci/circleci: build-image"
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         falcosidekick-ui:
           required_status_checks:
             contexts:
               - "ci/circleci: lint"
               - "ci/circleci: test"
               - "ci/circleci: build-image"
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         falco-exporter:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
           required_status_checks:
             contexts:
               - "ci/circleci: test"
         falcoctl:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         falco-website:
           branches:
-            master:
-              protect: true
+            << : *default_branch_protection
             v0.26:
               protect: true
             v0.27:
@@ -196,39 +155,27 @@ branch-protection:
             contexts:
               - "netlify/falcosecurity/deploy-preview"
         katacoda-scenarios:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         kilt:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         libs:
           required_pull_request_reviews:
             required_approving_review_count: 2
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         pdig:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
         plugins:
           branches:
             main:
               protect: true
-        plugin-sdk-go:
-          branches:
-            master:
-              protect: true
         plugin-sdk-cpp:
-          branches:
-            master:
-              protect: true      
+          branches: *default_branch_protection
+        plugin-sdk-go:
+          branches: *default_branch_protection
+        template-repository:
+          branches: *default_branch_protection
         test-infra:
-          branches:
-            master:
-              protect: true
+          branches: *default_branch_protection
           required_status_checks:
             contexts:
               - "check-prow-config"
@@ -245,64 +192,27 @@ tide:
     skip-unknown-contexts: true
     from-branch-protection: true
   merge_method:
-    falcosecurity/.github: rebase
-    falcosecurity/advocacy: rebase
-    falcosecurity/charts: rebase
-    falcosecurity/client-go: rebase
-    falcosecurity/client-py: rebase
-    falcosecurity/client-rs: rebase
-    falcosecurity/cloud-native-security-hub: rebase
-    falcosecurity/cloud-native-security-hub-frontend: rebase
-    falcosecurity/cloud-native-security-hub-backend: rebase
-    falcosecurity/community: rebase
-    falcosecurity/driverkit: rebase
-    falcosecurity/evolution: rebase
-    falcosecurity/event-generator: rebase
-    falcosecurity/falco: rebase
-    falcosecurity/falcosidekick: rebase
-    falcosecurity/falcosidekick-ui: rebase
-    falcosecurity/falco-exporter: rebase
-    falcosecurity/falcoctl: rebase
-    falcosecurity/falco-website: rebase
-    falcosecurity/katacoda-scenarios: rebase
-    falcosecurity/kilt: rebase
-    falcosecurity/libs: rebase
-    falcosecurity/pdig: rebase
-    falcosecurity/plugins: rebase
-    falcosecurity/plugin-sdk-go: rebase
-    falcosecurity/plugin-sdk-cpp: rebase
-    falcosecurity/template-repository: rebase
-    falcosecurity/test-infra: rebase
+    falcosecurity: rebase
   queries:
+    # Query for repos that DON'T need release notes
     - repos:
         - falcosecurity/.github
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/advocacy
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/charts
-      labels:
+        - falcosecurity/community
+        - falcosecurity/driverkit
+        - falcosecurity/event-generator
+        - falcosecurity/evolution
+        - falcosecurity/falco-exporter
+        - falcosecurity/falco-website
+        - falcosecurity/falcosidekick
+        - falcosecurity/falcosidekick-ui
+        - falcosecurity/katacoda-scenarios
+        - falcosecurity/pdig
+        - falcosecurity/plugin-sdk-cpp
+        - falcosecurity/plugins
+        - falcosecurity/template-repository
+        - falcosecurity/test-infra
+      labels: &default_required_labels
         - approved
         - lgtm
         - "dco-signoff: yes"
@@ -313,367 +223,23 @@ tide:
         - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
+
+    # Query for repos that DO need release notes (should be in sync with repos that adopt `release-note` plugin)
     - repos:
         - falcosecurity/client-go
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/event-generator
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/falco
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/client-py
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/client-rs
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/cloud-native-security-hub
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/cloud-native-security-hub-frontend
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/cloud-native-security-hub-backend
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/community
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/driverkit
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/evolution
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/falco
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/falcosidekick
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/falcosidekick-ui
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/falcoctl
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/falco
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/falco-exporter
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/falco-website
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/katacoda-scenarios
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/kilt
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/libs
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/pdig
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/plugins
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/plugin-sdk-go
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
+      labels: *default_required_labels
       missingLabels:
         - do-not-merge
         - do-not-merge/hold
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/plugin-sdk-cpp
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true  
-    - repos:
-        - falcosecurity/test-infra
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/template-repository
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
