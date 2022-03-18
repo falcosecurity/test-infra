@@ -1,3 +1,8 @@
+variable "eks_cluster_version" {
+  default     = "1.20"
+  description = "See https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
+}
+
 variable "eks_default_worker_group_name" {
   default     = "default-worker-group"
   description = "The name of the default EKS worker group"
