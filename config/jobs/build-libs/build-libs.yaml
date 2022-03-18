@@ -46,6 +46,11 @@ presubmits:
             cpu: 1.5
       nodeSelector:
         Archtype: "arm"
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
   - name: build-libs-bundled-deps
     decorate: true
     skip_report: false
