@@ -1,0 +1,20 @@
+presubmits:
+  falcosecurity/falco-aws-terraform:
+  - name: build-aws-terraform
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    always_run: true  # Run for every PR, but master
+    path_alias: github.com/falcosecurity/falco-aws-terraform
+    spec:
+      containers:
+      - command:
+        - /home/prow/go/src/github.com/falcosecurity/falco-aws-terraform/presubmit.sh
+        image: hashicorp/terraform:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 3Gi
+      nodeSelector:
+        Archtype: "x86"
