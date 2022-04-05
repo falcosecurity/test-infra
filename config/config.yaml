@@ -167,6 +167,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        falco-aws-terraform:
+          branches:
+            master:
+              protect: true
         falco-exporter:
           branches:
             master:
@@ -261,6 +265,7 @@ tide:
     falcosecurity/falco: rebase
     falcosecurity/falcosidekick: rebase
     falcosecurity/falcosidekick-ui: rebase
+    falcosecurity/falco-aws-terraform: rebase
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
@@ -519,6 +524,20 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-aws-terraform
       labels:
         - approved
         - lgtm
