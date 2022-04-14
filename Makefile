@@ -36,3 +36,10 @@ prow:
 
 kubeconfig:
 	aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra --profile default
+
+local:
+	@kind create cluster --config config/local/kind.yaml || true
+	@./tools/deploy_prow_local.sh
+
+local/cleanup:
+	@kind delete cluster --name prow

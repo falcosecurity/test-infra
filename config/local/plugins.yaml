@@ -1,0 +1,315 @@
+approve:
+  - repos:
+      - falcosecurity-test
+    lgtm_acts_as_approve: true
+    require_self_approval: false
+    commandHelpLink: https://prow.falco.local/command-help
+  - repos:
+      - falcosecurity-test/falco
+      - falcosecurity-test/libs
+    ignore_review_state: true
+
+blunderbuss:
+  max_request_count: 2
+  use_status_availability: true
+
+config_updater:
+  maps:
+    config/config.yaml:
+      name: config
+    config/plugins.yaml:
+      name: plugins
+    config/jobs/**/*.yaml:
+      name: job-config
+      gzip: true
+
+goose:
+  key_path: /etc/unsplash/honk
+
+label:
+  additional_labels:
+    # Custom kind/* labels for evolution repository
+    - kind/sandbox
+    - kind/incubation
+    - kind/officialsupport
+
+lgtm:
+  - repos:
+      - falcosecurity-test
+    review_acts_as_lgtm: true
+    store_tree_hash: true
+    trusted_team_for_sticky_lgtm: test-infra-maintainers
+
+repo_milestone:
+  "":
+    maintainers_id: 3283563
+    maintainers_team: maintainers
+  falcosecurity-test/falco:
+    maintainers_id: 3283563
+    maintainers_team: maintainers
+    maintainers_friendly_name: Falco maintainers
+
+require_matching_label:
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: .github
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: client-go
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: client-py
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: client-rs
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: community
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this proposal.
+      Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity-test/falco).
+      Please specify it either using `/kind <group>` or manually from the side menu.
+      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: driverkit
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: evolution
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: event-generator
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: falco
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: falcosidekick
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: falcosidekick-ui
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: falco-exporter
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: falcoctl
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: falco-website
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: katacoda-scenarios
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: kilt
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: plugins
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: plugin-sdk-go
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: plugin-sdk-cpp
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity-test
+    repo: libs
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+
+retitle:
+  allow_closed_issues: true
+
+size:
+  s: 10
+  m: 30
+  l: 90
+  xl: 270
+  xxl: 520
+
+triggers:
+- repos:
+  - falcosecurity-test
+  join_org_url: "https://github.com/falcosecurity-test/.github/blob/master/CONTRIBUTING.md"
+  only_org_members: true
+
+plugins:
+  falcosecurity-test:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - skip
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity-test/client-go:
+    plugins:
+      - golint
+      - release-note
+  falcosecurity-test/client-py:
+    plugins:
+      - release-note
+  falcosecurity-test/client-rs:
+    plugins:
+      - release-note
+  falcosecurity-test/driverkit:
+    plugins:
+      - golint
+  falcosecurity-test/event-generator:
+    plugins:
+      - golint
+  falcosecurity-test/falco:
+    plugins:
+      - milestone
+      - release-note
+  falcosecurity-test/falcosidekick:
+    plugins:
+      - golint
+  falcosecurity-test/falcosidekick-ui:
+    plugins:
+      - golint
+  falcosecurity-test/falco-exporter:
+    plugins:
+      - golint
+  falcosecurity-test/falcoctl:
+    plugins:
+      - golint
+      - release-note
+  falcosecurity-test/kilt:
+    plugins:
+      - release-note
+  falcosecurity-test/libs:
+    plugins:
+      - release-note
+  falcosecurity-test/pdig:
+    plugins:
+      - milestone
+  falcosecurity-test/plugin-sdk-go:
+    plugins:
+      - release-note
+  falcosecurity-test/test-infra:
+    plugins:
+      - config-updater
+
+external_plugins:
+  falcosecurity-test:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity-test/falco:
+    - name: saymyname
+      endpoint: http://saymyname.default.svc.cluster.local:8787
+      events:
+        - issue_comment

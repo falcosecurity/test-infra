@@ -1,0 +1,80 @@
+#---
+#kind: StorageClass
+#apiVersion: storage.k8s.io/v1
+#metadata:
+#  namespace: default
+#  name: ebs-ssd-retain
+#provisioner: ebs.csi.aws.com
+#volumeBindingMode: WaitForFirstConsumer
+#reclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: default
+  labels:
+    app: ghproxy
+  name: ghproxy
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  labels:
+    app: ghproxy
+  name: ghproxy
+spec:
+  ports:
+  - name: hook
+    port: 80
+    protocol: TCP
+    targetPort: 8888
+  - name: metrics
+    port: 9090
+  selector:
+    app: ghproxy
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: ghproxy
+  labels:
+    app: ghproxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghproxy
+  template:
+    metadata:
+      labels:
+        app: ghproxy
+    spec:
+      containers:
+      - name: ghproxy
+        image: gcr.io/k8s-prow/ghproxy:v20220318-1a1db3d5d8
+        args:
+        - --cache-dir=/cache
+        - --cache-sizeGB=99
+        - --push-gateway=pushgateway
+        - --serve-metrics=true
+        ports:
+        - containerPort: 8888
+        volumeMounts:
+        - name: cache
+          mountPath: /cache
+      volumes:
+      - name: cache
+        persistentVolumeClaim:
+          claimName: ghproxy
+      nodeSelector:
+        Archtype: "x86"
