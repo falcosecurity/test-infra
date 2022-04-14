@@ -3,3 +3,4 @@ kernelrelease: 5.4.129-62.227.amzn2.x86_64
 target: amazonlinux2
 output:
   module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_amazonlinux2_5.4.129-62.227.amzn2.x86_64_1.ko
+  probe: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_amazonlinux2_5.4.129-62.227.amzn2.x86_64_1.o
