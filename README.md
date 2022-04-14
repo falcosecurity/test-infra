@@ -72,3 +72,40 @@ A few things to call out.
 
 
 3. Once we add this job, we're going to create our PR, and test this via Github / commands.
+
+### End-to-end testing: run an hybrid test environment
+
+The environment is supposed to be hybrid as:
+- Local:
+  - Prow will run on a local Kubernetes cluster
+  - Prow storage will run on a local Kubernetes cluster
+  - Artifacts storage will run on a local Kubernetes cluster
+- Remote: a complete remote Github environment is expected. I.e.:
+  - `falcosecurity-test` organization
+  - [`pigeona`](https://github.com/pigeona) test bot, a [`poiana`](https://github.com/poiana)'s cousin
+  - PRStatus Github test application
+
+#### Setup the local environment:
+
+##### Pre-requisites:
+
+Export:
+- `OP_SIGNIN_ADDRESS`
+- `OP_EMAIL_ADDRESS`
+- `OP_SECRET_KEY`
+- `OP_MASTER_KEY`
+environment variables.
+
+##### Provisioning
+
+```
+make local
+
+echo "127.0.0.1 prow.falco.local" >> /etc/hosts
+```
+
+#### Cleanup the local environment
+
+```
+make local/cleanup
+```

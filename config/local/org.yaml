@@ -1,0 +1,41 @@
+orgs:
+  falcosecurity-test:
+    name: (test) Falco
+    description: (test) Falco is Container Native Runtime Security
+
+    default_repository_permission: read
+    has_organization_projects: true
+    has_repository_projects: true
+    members_can_create_repositories: false
+
+    admins:
+      - zuc
+      - maxgio92
+      - pigeona
+
+    members: []
+
+    repos:
+      dodo:
+        allow_merge_commit: false
+        allow_squash_merge: false
+        description: Cloud Native Runtime Security
+        has_projects: true
+        has_wiki: false
+
+    teams:
+      admins:
+        description: admins of the org
+        maintainers:
+          - zuc
+          - maxgio92
+        privacy: closed
+        repos:
+          advocacy: admin
+      machine_users:
+        description: bots
+        maintainers:
+          - pigeona
+        privacy: secret
+        repos:
+          dodo: admin
