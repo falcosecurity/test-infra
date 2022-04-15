@@ -2,4 +2,4 @@ kernelversion: 1
 kernelrelease: 4.18.0-365.el8.x86_64
 target: centos
 output:
-  module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_centos_4.18.0-365.el8.x86_64.x86_64_1.ko
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_centos_4.18.0-365.el8.x86_64_1.ko
