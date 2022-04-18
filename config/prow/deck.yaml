@@ -111,7 +111,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: deck
-        image: gcr.io/k8s-prow/deck:v20220408-547c14a0ca
+        image: gcr.io/k8s-prow/deck:v20220414-949f7bddd3
         env:
         - name: AWS_REGION #required for splyglass bucket looku
           value: eu-west-1
