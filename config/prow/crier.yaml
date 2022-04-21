@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: crier
-        image: gcr.io/k8s-prow/crier:v20220318-1a1db3d5d8
+        image: gcr.io/k8s-prow/crier:v20220414-949f7bddd3
         env:
         - name: AWS_REGION
           value: eu-west-1
@@ -33,6 +33,13 @@ spec:
         - --github-endpoint=http://ghproxy
         - --github-endpoint=https://api.github.com
         - --github-token-path=/etc/github/oauth
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256M
+          requests:
+            cpu: 100m
+            memory: 256M
         volumeMounts:
         - name: config
           mountPath: /etc/config

@@ -22,6 +22,13 @@ spec:
           ports:
             - name: http
               containerPort: 9091
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256M
+            requests:
+              cpu: 100m
+              memory: 256M
       nodeSelector:
         Archtype: "x86"
 ---

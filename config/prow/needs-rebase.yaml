@@ -32,7 +32,7 @@ spec:
       terminationGracePeriodSeconds: 180
       containers:
       - name: needs-rebase
-        image: gcr.io/k8s-prow/needs-rebase:v20220318-1a1db3d5d8
+        image: gcr.io/k8s-prow/needs-rebase:v20220414-949f7bddd3
         imagePullPolicy: Always
         args:
         - --dry-run=false
@@ -41,6 +41,13 @@ spec:
         ports:
           - name: http
             containerPort: 8888
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256M
+          requests:
+            cpu: 100m
+            memory: 256M
         volumeMounts:
         - name: hmac
           mountPath: /etc/webhook
