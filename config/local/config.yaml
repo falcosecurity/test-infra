@@ -22,11 +22,11 @@ deck:
           - podinfo.json
 
 plank:
-  job_url_template: 'http://prow.falco.org/view/s3/falco-prow-logs/{{if eq .Spec.Type "presubmit"}}pr-logs/pull{{else if eq .Spec.Type "batch"}}pr-logs/pull{{else}}logs{{end}}{{if .Spec.Refs}}{{if ne .Spec.Refs.Org ""}}/{{.Spec.Refs.Org}}_{{.Spec.Refs.Repo}}{{end}}{{end}}{{if eq .Spec.Type "presubmit"}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}{{else if eq .Spec.Type "batch"}}/batch{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}/'
+  job_url_template: 'https://prow.falco.local/view/s3/falco-prow-logs/{{if eq .Spec.Type "presubmit"}}pr-logs/pull{{else if eq .Spec.Type "batch"}}pr-logs/pull{{else}}logs{{end}}{{if .Spec.Refs}}{{if ne .Spec.Refs.Org ""}}/{{.Spec.Refs.Org}}_{{.Spec.Refs.Repo}}{{end}}{{end}}{{if eq .Spec.Type "presubmit"}}/{{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}{{else if eq .Spec.Type "batch"}}/batch{{end}}/{{.Spec.Job}}/{{.Status.BuildID}}/'
   job_url_prefix_config:
-    '*': http://prow.falco.org/view/
+    '*': https://prow.falco.local/view/
   report_templates:
-    '*': '[Full PR test history](http://prow.falco.org/pr-history?org={{.Spec.Refs.Org}}&repo={{.Spec.Refs.Repo}}&pr={{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}). Please help us cut down on flakes by [linking to](https://git.k8s.io/community/contributors/devel/sig-testing/flaky-tests.md#filing-issues-for-flaky-tests) an [open issue](https://github.com/{{.Spec.Refs.Org}}/{{.Spec.Refs.Repo}}/issues?q=is:issue+is:open) when you hit one in your PR.'
+    '*': '[Full PR test history](https://prow.falco.local/pr-history?org={{.Spec.Refs.Org}}&repo={{.Spec.Refs.Repo}}&pr={{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}). Please help us cut down on flakes by [linking to](https://git.k8s.io/community/contributors/devel/sig-testing/flaky-tests.md#filing-issues-for-flaky-tests) an [open issue](https://github.com/{{.Spec.Refs.Org}}/{{.Spec.Refs.Repo}}/issues?q=is:issue+is:open) when you hit one in your PR.'
   max_concurrency: 100 # Limit of concurrent ProwJobs. Need to be adjusted depending of the cluster size.
   pod_pending_timeout: 60m
   default_decoration_configs:
@@ -34,10 +34,10 @@ plank:
       timeout: 24h # Up to 24 hours for driverkit builder jobs
       grace_period: 10m
       utility_images:
-        clonerefs: "gcr.io/k8s-prow/clonerefs:v20220414-949f7bddd3"
-        initupload: "gcr.io/k8s-prow/initupload:v20220414-949f7bddd3"
-        entrypoint: "gcr.io/k8s-prow/entrypoint:v20220414-949f7bddd3"
-        sidecar: "gcr.io/k8s-prow/sidecar:v20220414-949f7bddd3"
+        clonerefs: "gcr.io/k8s-prow/clonerefs:v20220318-1a1db3d5d8"
+        initupload: "gcr.io/k8s-prow/initupload:v20220318-1a1db3d5d8"
+        entrypoint: "gcr.io/k8s-prow/entrypoint:v20220318-1a1db3d5d8"
+        sidecar: "gcr.io/k8s-prow/sidecar:v20220318-1a1db3d5d8"
       gcs_configuration:
         bucket: s3://falco-prow-logs
         path_strategy: explicit
@@ -64,8 +64,8 @@ branch-protection:
   required_status_checks:
     strict: false # we don't want to block any PR if it's not up to date, we have the rebase merge strategy and needs-rebase plugin
   orgs:
-    falcosecurity:
-      # dco check is required for all PRs of any falcosecurity project
+    falcosecurity-test:
+      # dco check is required for all PRs of any falcosecurity-test project
       required_status_checks:
         contexts:
           - dco
@@ -153,7 +153,7 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - "netlify/falcosecurity/deploy-preview"
+              - "netlify/falcosecurity-test/deploy-preview"
         katacoda-scenarios:
           branches: *default_branch_protection
         kilt:
@@ -187,31 +187,32 @@ pod_namespace: test-pods
 prowjob_namespace: default
 
 tide:
-  target_url: https://prow.falco.org/tide
+  target_url: https://prow.falco.local/tide
   context_options:
     skip-unknown-contexts: true
     from-branch-protection: true
   merge_method:
-    falcosecurity: rebase
+    falcosecurity-test: rebase
   queries:
     # Query for repos that DON'T need release notes
     - repos:
-        - falcosecurity/.github
-        - falcosecurity/charts
-        - falcosecurity/community
-        - falcosecurity/driverkit
-        - falcosecurity/event-generator
-        - falcosecurity/evolution
-        - falcosecurity/falco-exporter
-        - falcosecurity/falco-website
-        - falcosecurity/falcosidekick
-        - falcosecurity/falcosidekick-ui
-        - falcosecurity/katacoda-scenarios
-        - falcosecurity/pdig
-        - falcosecurity/plugin-sdk-cpp
-        - falcosecurity/plugins
-        - falcosecurity/template-repository
-        - falcosecurity/test-infra
+        - falcosecurity-test/dodo
+        - falcosecurity-test/.github
+        - falcosecurity-test/charts
+        - falcosecurity-test/community
+        - falcosecurity-test/driverkit
+        - falcosecurity-test/event-generator
+        - falcosecurity-test/evolution
+        - falcosecurity-test/falco-exporter
+        - falcosecurity-test/falco-website
+        - falcosecurity-test/falcosidekick
+        - falcosecurity-test/falcosidekick-ui
+        - falcosecurity-test/katacoda-scenarios
+        - falcosecurity-test/pdig
+        - falcosecurity-test/plugin-sdk-cpp
+        - falcosecurity-test/plugins
+        - falcosecurity-test/template-repository
+        - falcosecurity-test/test-infra
       labels: &default_required_labels
         - approved
         - lgtm
@@ -226,14 +227,14 @@ tide:
 
     # Query for repos that DO need release notes (should be in sync with repos that adopt `release-note` plugin)
     - repos:
-        - falcosecurity/client-go
-        - falcosecurity/client-py
-        - falcosecurity/client-rs
-        - falcosecurity/falco
-        - falcosecurity/falcoctl
-        - falcosecurity/kilt
-        - falcosecurity/libs
-        - falcosecurity/plugin-sdk-go
+        - falcosecurity-test/client-go
+        - falcosecurity-test/client-py
+        - falcosecurity-test/client-rs
+        - falcosecurity-test/falco
+        - falcosecurity-test/falcoctl
+        - falcosecurity-test/kilt
+        - falcosecurity-test/libs
+        - falcosecurity-test/plugin-sdk-go
       labels: *default_required_labels
       missingLabels:
         - do-not-merge

@@ -1,0 +1,10 @@
+rootUser: rootuser
+rootPassword: rootpass123
+replicas: 8
+resources:
+  requests:
+    memory: 256Mi
+buckets:
+  - name: falco-prow-logs
+    policy: none
+    purge: "false"
