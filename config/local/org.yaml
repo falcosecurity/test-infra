@@ -22,6 +22,12 @@ orgs:
         description: Cloud Native Runtime Security
         has_projects: true
         has_wiki: false
+      test-infra:
+        allow_merge_commit: false
+        description: Falco workflow & testing infrastructure
+        has_projects: true
+        has_wiki: false
+        homepage: https://prow.falco.org
 
     teams:
       admins:
