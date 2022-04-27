@@ -6,6 +6,8 @@ PROBE_NAME="falco"
 
 CURRENT_DIR="$(pwd)"
 
+DEFAULT_KERNEL_VERSION="1"
+
 while getopts ":k:d:v:" arg; do
   case $arg in
     k)
@@ -33,6 +35,19 @@ if [ -z ${TARGET_VERSION} ]; then
     exit 1
 fi
 
+ensure_kernelversion() {
+    TARGET_KERNEL_VERSION="$(expr match "${TARGET_KERNEL}" '^.*_\(.*\)$')"
+
+    # If kernel version is missing
+    test -z $TARGET_KERNEL_VERSION &&\
+	    TARGET_KERNEL_VERSION=$DEFAULT_KERNEL_VERSION &&\
+	    TARGET_KERNEL="${TARGET_KERNEL}_${TARGET_KERNEL_VERSION}"
+}
+
+ensure_kernelrelease() {
+    TARGET_KERNEL_RELEASE="${TARGET_KERNEL%_${TARGET_KERNEL_VERSION}}"
+}
+
 generate_yamls() {
     FOLDER="${CURRENT_DIR}/../driverkit/config/${TARGET_VERSION}"
     mkdir -p ${FOLDER}
@@ -40,19 +55,21 @@ generate_yamls() {
     echo "---"
     echo "${FILE}"
     echo "---"
-    echo "kernelversion: ${TARGET_KERNEL##*_}"
-    echo "kernelrelease: ${TARGET_KERNEL%_${TARGET_KERNEL##*_}}"
+    echo "kernelversion: ${TARGET_KERNEL_VERSION}"
+    echo "kernelrelease: ${TARGET_KERNEL_RELEASE}"
     echo "target: ${TARGET_DISTRO}"
     echo "output:"
     echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
     echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
     
-    echo "kernelversion: ${TARGET_KERNEL##*_}" > ${FILE}
-    echo "kernelrelease: ${TARGET_KERNEL%_${TARGET_KERNEL##*_}}" >> ${FILE}
+    echo "kernelversion: ${TARGET_KERNEL_VERSION}" > ${FILE}
+    echo "kernelrelease: ${TARGET_KERNEL_RELEASE}" >> ${FILE}
     echo "target: ${TARGET_DISTRO}" >> ${FILE}
     echo "output:" >> ${FILE}
     echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
     echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
 }
 
+ensure_kernelversion
+ensure_kernelrelease
 generate_yamls
