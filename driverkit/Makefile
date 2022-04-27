@@ -28,6 +28,9 @@ generate:
 		utils/generate -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -v ${VERSION}; \
 	)
 
+generate/auto:
+	utils/scrape_and_generate
+
 cleanup:
 	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
 
