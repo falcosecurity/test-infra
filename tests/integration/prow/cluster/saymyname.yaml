@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: saymyname
+spec:
+  selector:
+    app: saymyname
+  ports:
+    - port: 8787
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: saymyname
+  labels:
+    app: saymyname
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: saymyname
+  template:
+    metadata:
+      labels:
+        app: saymyname
+    spec:
+      serviceAccountName: "hook"
+      terminationGracePeriodSeconds: 180
+      containers:
+        - name: saymyname
+          image: leodido/saymyname-prow-plugin:latest
+          imagePullPolicy: Always
+          args:
+            - --dry-run=false
+            - --github-token-path=/etc/github/oauth
+          ports:
+            - name: http
+              containerPort: 8787
+          volumeMounts:
+            - name: hmac
+              mountPath: /etc/webhook
+              readOnly: true
+            - name: oauth
+              mountPath: /etc/github
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz/ready
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 3
+            timeoutSeconds: 600
+      volumes:
+        - name: hmac
+          secret:
+            secretName: hmac-token
+        - name: oauth
+          secret:
+            secretName: oauth-token
+      nodeSelector:
+        Archtype: "x86"

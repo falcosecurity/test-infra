@@ -1,0 +1,6 @@
+kernelversion: 5.6.0-1048-generic
+kernelrelease: 5.6.0-1048-generic
+target: ubuntu-generic
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-generic_5.6.0-1048-generic.ko
+  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-generic_5.6.0-1048-generic.o

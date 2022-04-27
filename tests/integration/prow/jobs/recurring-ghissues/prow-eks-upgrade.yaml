@@ -1,0 +1,41 @@
+periodics:
+  - name: prow-eks-upgrade-reminder
+    #cron: "0 7 1 */4 *" # Run every 4 month, the first day of the month, at 7am
+    cron: "0 7 21 6 *"
+    decorate: true
+    spec:
+      containers:
+      - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/ghissue:latest
+        imagePullPolicy: Always
+        env:
+        - name: GH_REPO
+          value: test-infra
+        - name: GH_ISSUE_TITLE
+          value: "Upgrade EKS cluster to latest stable version"
+        - name: GH_ISSUE_BODY
+          value: |
+            This is a reminder to upgrade the Prow EKS cluster to the latest stable version available.
+
+            These are the main components to keep up to date:
+            * EKS Control plane Version
+            * EKS Data plane version
+            * EKS optimized AMI ID
+            * VPC CNI image tag/version
+            * EKS Kubelet version
+            * CoreDNS tag/version
+        - name: GH_ISSUE_TAGS
+          value: "maintenance,eks"
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: oauth-token
+              key: oauth
+        command:
+        - /usr/local/bin/entrypoint.sh
+        args:
+        - ghissue
+        - create
+        - "--byline=false"
+        - issue.txt
+      nodeSelector:
+        Archtype: "x86"

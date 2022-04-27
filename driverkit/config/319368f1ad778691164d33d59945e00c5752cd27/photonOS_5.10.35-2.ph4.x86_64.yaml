@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 5.10.35-2.ph4.x86
+target: photonOS
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_photonOS_5.10.35-2.ph4.x86_64.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_photonOS_5.10.35-2.ph4.x86_64.o

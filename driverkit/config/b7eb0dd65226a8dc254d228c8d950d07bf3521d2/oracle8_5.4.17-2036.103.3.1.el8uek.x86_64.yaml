@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 5.4.17-2036.103.3.1.el8uek.x86
+target: oracle8
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_oracle8_5.4.17-2036.103.3.1.el8uek.x86_64.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_oracle8_5.4.17-2036.103.3.1.el8uek.x86_64.o

@@ -1,0 +1,6 @@
+kernelversion: 2466.0.0
+kernelrelease: 2466.0.0
+target: flatcar
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_flatcar_2466.0.0.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_flatcar_2466.0.0.o

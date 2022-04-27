@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 4.19.65-3.ph3.x86
+target: photonOS
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_photonOS_4.19.65-3.ph3.x86_64.ko
+  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_photonOS_4.19.65-3.ph3.x86_64.o

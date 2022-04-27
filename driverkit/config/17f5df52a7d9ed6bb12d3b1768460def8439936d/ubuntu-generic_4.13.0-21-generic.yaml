@@ -1,0 +1,6 @@
+kernelversion: 4.13.0-21-generic
+kernelrelease: 4.13.0-21-generic
+target: ubuntu-generic
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-generic_4.13.0-21-generic.ko
+  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-generic_4.13.0-21-generic.o

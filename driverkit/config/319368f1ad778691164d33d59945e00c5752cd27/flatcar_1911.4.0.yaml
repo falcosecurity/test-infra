@@ -1,0 +1,6 @@
+kernelversion: 1911.4.0
+kernelrelease: 1911.4.0
+target: flatcar
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_flatcar_1911.4.0.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_flatcar_1911.4.0.o

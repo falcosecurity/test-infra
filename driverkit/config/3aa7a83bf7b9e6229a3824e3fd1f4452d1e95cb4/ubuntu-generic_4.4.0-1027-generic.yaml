@@ -1,0 +1,6 @@
+kernelversion: 4.4.0-1027-generic
+kernelrelease: 4.4.0-1027-generic
+target: ubuntu-generic
+output:
+  module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_ubuntu-generic_4.4.0-1027-generic.ko
+  probe: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_ubuntu-generic_4.4.0-1027-generic.o

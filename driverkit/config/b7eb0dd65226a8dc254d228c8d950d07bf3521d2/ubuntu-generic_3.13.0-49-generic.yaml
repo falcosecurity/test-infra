@@ -1,0 +1,6 @@
+kernelversion: 3.13.0-49-generic
+kernelrelease: 3.13.0-49-generic
+target: ubuntu-generic
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-generic_3.13.0-49-generic.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-generic_3.13.0-49-generic.o

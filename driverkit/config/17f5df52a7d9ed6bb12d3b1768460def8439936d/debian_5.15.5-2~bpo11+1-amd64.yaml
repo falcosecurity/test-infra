@@ -1,0 +1,6 @@
+kernelversion: 5.15.5-2~bpo11+1-amd64
+kernelrelease: 5.15.5-2~bpo11+1-amd64
+target: debian
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_debian_5.15.5-2~bpo11+1-amd64.ko
+  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_debian_5.15.5-2~bpo11+1-amd64.o

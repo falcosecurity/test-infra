@@ -1,0 +1,41 @@
+presubmits:
+  falcosecurity/test-infra:
+    - name: check-prow-config
+      branches:
+        - ^master$
+      decorate: true
+      skip_report: false
+      run_if_changed: '^(config/(config|plugins).yaml$|config/jobs/.*.yaml$)'
+      spec:
+        containers:
+          - image: gcr.io/k8s-prow/checkconfig:v20220318-1a1db3d5d8
+            command:
+              - checkconfig
+            args:
+              - --config-path=config/config.yaml
+              - --job-config-path=config/jobs
+              - --plugin-config=config/plugins.yaml
+              - --strict
+        nodeSelector:
+          Archtype: "x86"
+
+periodics:
+- name: check-prow-config-periodic
+  interval: 1h
+  decorate: true
+  extra_refs:
+    - org: falcosecurity
+      repo: test-infra
+      base_ref: master
+  spec:
+    containers:
+      - image: gcr.io/k8s-prow/checkconfig:v20220318-1a1db3d5d8
+        command:
+          - checkconfig
+        args:
+          - --config-path=config/config.yaml
+          - --job-config-path=config/jobs
+          - --plugin-config=config/plugins.yaml
+          - --strict
+    nodeSelector:
+      Archtype: "x86"

@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 3.10.0-229.7.2.el7.x86
+target: centos
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_centos_3.10.0-229.7.2.el7.x86_64.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_centos_3.10.0-229.7.2.el7.x86_64.o

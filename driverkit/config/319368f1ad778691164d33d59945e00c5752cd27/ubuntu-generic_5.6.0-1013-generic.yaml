@@ -1,0 +1,6 @@
+kernelversion: 5.6.0-1013-generic
+kernelrelease: 5.6.0-1013-generic
+target: ubuntu-generic
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-generic_5.6.0-1013-generic.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-generic_5.6.0-1013-generic.o

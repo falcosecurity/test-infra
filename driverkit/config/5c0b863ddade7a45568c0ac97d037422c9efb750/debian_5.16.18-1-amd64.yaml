@@ -1,0 +1,6 @@
+kernelversion: 5.16.18-1-amd64
+kernelrelease: 5.16.18-1-amd64
+target: debian
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_debian_5.16.18-1-amd64.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_debian_5.16.18-1-amd64.o

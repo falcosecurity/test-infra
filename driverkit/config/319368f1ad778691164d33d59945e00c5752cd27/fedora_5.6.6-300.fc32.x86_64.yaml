@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 5.6.6-300.fc32.x86
+target: fedora
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_fedora_5.6.6-300.fc32.x86_64.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_fedora_5.6.6-300.fc32.x86_64.o

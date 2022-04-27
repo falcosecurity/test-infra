@@ -1,0 +1,6 @@
+kernelversion: 3.19.0-47-generic
+kernelrelease: 3.19.0-47-generic
+target: ubuntu-generic
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-generic_3.19.0-47-generic.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-generic_3.19.0-47-generic.o

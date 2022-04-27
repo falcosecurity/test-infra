@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 3.8.13-55.1.5.el7uek.x86
+target: oracle7
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_oracle7_3.8.13-55.1.5.el7uek.x86_64.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_oracle7_3.8.13-55.1.5.el7uek.x86_64.o

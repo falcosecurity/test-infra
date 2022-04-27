@@ -1,0 +1,6 @@
+kernelversion: 2705.1.2
+kernelrelease: 2705.1.2
+target: flatcar
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_flatcar_2705.1.2.ko
+  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_flatcar_2705.1.2.o
