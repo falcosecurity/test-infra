@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 4.4.0-1060-aws
+target: ubuntu-aws
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-aws_4.4.0-1060-aws_1.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-aws_4.4.0-1060-aws_1.o

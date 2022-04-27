@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 5.16.20-200.fc35.x86
+target: fedora
+output:
+  module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_fedora_5.16.20-200.fc35.x86_64.ko
+  probe: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_fedora_5.16.20-200.fc35.x86_64.o

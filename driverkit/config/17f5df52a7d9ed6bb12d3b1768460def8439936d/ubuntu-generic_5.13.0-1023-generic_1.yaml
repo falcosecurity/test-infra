@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 5.13.0-1023-generic
+target: ubuntu-generic
+output:
+  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-generic_5.13.0-1023-generic_1.ko
+  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-generic_5.13.0-1023-generic_1.o

@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 4.14.248-129.473.amzn1.x86
+target: amazonlinux
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_amazonlinux_4.14.248-129.473.amzn1.x86_64.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_amazonlinux_4.14.248-129.473.amzn1.x86_64.o

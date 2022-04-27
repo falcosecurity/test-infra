@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 2905.2.3
+target: flatcar
+output:
+  module: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_flatcar_2905.2.3_1.ko
+  probe: output/5c0b863ddade7a45568c0ac97d037422c9efb750/falco_flatcar_2905.2.3_1.o

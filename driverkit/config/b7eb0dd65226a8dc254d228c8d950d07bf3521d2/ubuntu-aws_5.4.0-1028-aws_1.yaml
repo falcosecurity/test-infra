@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 5.4.0-1028-aws
+target: ubuntu-aws
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-aws_5.4.0-1028-aws_1.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-aws_5.4.0-1028-aws_1.o

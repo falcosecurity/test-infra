@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 2.6.39-400.215.14.el6uek.x86
+target: oracle6
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_oracle6_2.6.39-400.215.14.el6uek.x86_64.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_oracle6_2.6.39-400.215.14.el6uek.x86_64.o

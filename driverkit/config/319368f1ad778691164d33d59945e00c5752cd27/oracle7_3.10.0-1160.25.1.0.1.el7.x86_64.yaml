@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 3.10.0-1160.25.1.0.1.el7.x86
+target: oracle7
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_oracle7_3.10.0-1160.25.1.0.1.el7.x86_64.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_oracle7_3.10.0-1160.25.1.0.1.el7.x86_64.o

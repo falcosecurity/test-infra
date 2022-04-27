@@ -1,0 +1,6 @@
+kernelversion: 64
+kernelrelease: 2.6.32-573.1.1.el6.x86
+target: centos
+output:
+  module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_centos_2.6.32-573.1.1.el6.x86_64.ko
+  probe: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_centos_2.6.32-573.1.1.el6.x86_64.o
