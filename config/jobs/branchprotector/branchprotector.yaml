@@ -15,7 +15,7 @@ postsubmit:
             command:
               - branchprotector
             args:
-              - --config-path=config/prow/config.yaml
+              - --config-path=config/config.yaml
               - --job-config-path=config/jobs
               - --github-token-path=/etc/github/oauth
               - --confirm
@@ -48,7 +48,7 @@ periodics:
           command:
             - branchprotector
           args:
-            - --config-path=config/prow/config.yaml
+            - --config-path=config/config.yaml
             - --job-config-path=config/jobs
             - --github-token-path=/etc/github/oauth
             - --confirm
