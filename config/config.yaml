@@ -203,6 +203,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        kernel-crawler:
+          branches:
+            main:
+              protect: true
         kilt:
           branches:
             master:
@@ -270,6 +274,7 @@ tide:
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
     falcosecurity/katacoda-scenarios: rebase
+    falcosecurity/kernel-crawler: rebase
     falcosecurity/kilt: rebase
     falcosecurity/libs: rebase
     falcosecurity/pdig: rebase
@@ -578,6 +583,19 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/katacoda-scenarios
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/kernel-crawler
       labels:
         - approved
         - lgtm
