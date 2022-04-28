@@ -1,0 +1,66 @@
+# Run branchprotector on both post-submit events on test-infra AND as a cron job for health checks.
+
+postsubmit:
+  falcosecurity/test-infra:
+    - name: branchprotector-post-submit
+      branches:
+        - ^master$
+      decorate: true
+      max_concurrency: 1
+      skip_report: false
+      run_if_changed: '^config/config.yaml$'
+      spec:
+        containers:
+          - image: gcr.io/k8s-prow/branchprotector:v20220414-949f7bddd3
+            command:
+              - branchprotector
+            args:
+              - --config-path=config/prow/config.yaml
+              - --job-config-path=config/jobs
+              - --github-token-path=/etc/github/oauth
+              - --confirm
+              - --github-endpoint=http://ghproxy.default.svc.cluster.local
+              - --github-endpoint=https://api.github.com
+            volumeMounts:
+              - name: github
+                mountPath: /etc/github
+                readOnly: true
+        volumes:
+          - name: github
+            secret:
+              secretName: oauth-token
+        nodeSelector:
+          Archtype: "x86"
+
+periodics:
+  - name: branchprotector-hourly
+    cron: "55 * * * *"
+    extra_refs:
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+    decorate: true
+    max_concurrency: 1
+    skip_report: false
+    spec:
+      containers:
+        - image: gcr.io/k8s-prow/branchprotector:v20220414-949f7bddd3
+          command:
+            - branchprotector
+          args:
+            - --config-path=config/prow/config.yaml
+            - --job-config-path=config/jobs
+            - --github-token-path=/etc/github/oauth
+            - --confirm
+            - --github-endpoint=http://ghproxy.default.svc.cluster.local
+            - --github-endpoint=https://api.github.com
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github
+              readOnly: true
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+      nodeSelector:
+        Archtype: "x86"
