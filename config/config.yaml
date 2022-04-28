@@ -169,7 +169,7 @@ branch-protection:
               protect: true
         falco-aws-terraform:
           branches:
-            master:
+            main:
               protect: true
         falco-exporter:
           branches:
