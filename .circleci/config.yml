@@ -18,7 +18,7 @@ jobs:
     requires:
       - test-infra/scan/terraform
     docker:
-      - image: amazon/aws-cli:latest
+      - image: amazon/aws-cli:2.6.3
     steps:
       - checkout
       - run:
@@ -31,7 +31,7 @@ jobs:
     requires:
       - test-infra/deploy/terraform
     docker:
-      - image: amazon/aws-cli:2.2.37
+      - image: amazon/aws-cli:2.6.3
     steps:
       - checkout
       - run:
