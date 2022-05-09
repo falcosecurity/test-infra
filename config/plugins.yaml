@@ -22,6 +22,7 @@ approve:
       - falcosecurity/katacoda-scenarios
       - falcosecurity/kernel-crawler
       - falcosecurity/kilt
+      - falcosecurity/libs-sdk-go
       - falcosecurity/pdig
       - falcosecurity/plugins
       - falcosecurity/plugin-sdk-go
@@ -38,7 +39,7 @@ approve:
     require_self_approval: false
     commandHelpLink: https://prow.falco.org/command-help
     ignore_review_state: true
-    
+
 blunderbuss:
   max_request_count: 2
   use_status_availability: true
@@ -89,6 +90,7 @@ lgtm:
       - falcosecurity/kernel-crawler
       - falcosecurity/kilt
       - falcosecurity/libs
+      - falcosecurity/libs-sdk-go
       - falcosecurity/pdig
       - falcosecurity/plugins
       - falcosecurity/plugin-sdk-go
@@ -308,6 +310,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: libs
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: libs-sdk-go
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -852,6 +862,27 @@ plugins:
     - verify-owners
     - welcome
     - wip
+  falcosecurity/libs-sdk-go:
+    plugins:
+    - approve
+    - assign
+    - blunderbuss
+    - branchcleaner
+    - cat
+    - dco
+    - dog
+    - goose
+    - help
+    - hold
+    - label
+    - lifecycle
+    - lgtm
+    - require-matching-label
+    - retitle
+    - size
+    - verify-owners
+    - welcome
+    - wip
   falcosecurity/pdig:
     plugins:
     - approve
@@ -1085,6 +1116,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+  falcosecurity/libs-sdk-go:
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/pdig:
     - name: needs-rebase
       events:
@@ -1100,7 +1135,7 @@ external_plugins:
   falcosecurity/plugin-sdk-cpp:
     - name: needs-rebase
       events:
-        - pull_request      
+        - pull_request
   falcosecurity/template-repository:
     - name: needs-rebase
       events:
