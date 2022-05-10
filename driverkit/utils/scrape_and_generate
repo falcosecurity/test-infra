@@ -4,7 +4,8 @@ set -euo pipefail
 
 DRY_RUN="${DRY_RUN:-false}"
 TMPDIR="$(mktemp -d)"
-LIST_URL="https://github.com/FedeDP/kernel-crawler/raw/dev/kernels/x86_64/list.json"
+ARCH="x86_64"
+LIST_URL="https://raw.githubusercontent.com/falcosecurity/kernel-crawler/main/kernels/${ARCH}/list.json"
 
 function pretty_echo() {
 	echo
@@ -23,7 +24,11 @@ function generate_from_kernel_releases() {
 			read -r target
 			pretty_echo "Generating configs for:"
 			echo "release: $release	version: $version	target: $target"
-			test $DRY_RUN == "true" || make -e TARGET_KERNEL="${release}" -e TARGET_DISTRO="${target}" generate >/dev/null
+			test $DRY_RUN == "true" || \
+				make -C "$(dirname $0)/.." \
+				-e TARGET_KERNEL="${release}" \
+				-e TARGET_DISTRO="${target}" \
+				generate >/dev/null
 		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target)" $TMPDIR/sample.json)
 	done
 }
