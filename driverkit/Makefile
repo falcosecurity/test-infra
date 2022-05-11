@@ -15,6 +15,8 @@ S3_DRIVERS_BUCKET ?= "falco-distribution"
 S3_DRIVERS_KEY_PREFIX ?= "driver"
 SKIP_EXISTING ?= true
 
+validate: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
 specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
@@ -41,10 +43,13 @@ cleanup_s3:
 # $(2): driver version
 # $(3): config file path
 define gen_build_targets
-$(1): $(3)
+validate/$(1): $(3)
 	utils/checkfiles $(3)
+
+$(1): validate/$(1) $(3)
 	DRIVERKIT=${DRIVERKIT} S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} S3_DRIVERS_KEY_PREFIX=${S3_DRIVERS_KEY_PREFIX} SKIP_EXISTING=${SKIP_EXISTING} utils/build $(3)
 endef
+
 $(foreach CONFIG,$(CONFIGS),\
 	$(eval INNER := $(patsubst config/%,%,$(CONFIG)))\
 	$(eval VERSION := $(patsubst %/,%,$(dir $(INNER))))\
