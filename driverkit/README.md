@@ -13,7 +13,8 @@ make
 ### Available make targets
 
 - `all`: build all the Falco drivers (all the versions), for every supported distro, and every supported kernel release
-- `generate`: generate yaml files for building drivers for specific kernel and target for all Falco lib versions
+- `generate`: generate Driverkit config files for building drivers for specific kernel and target for all Falco lib versions
+- `validate`: validate Driverkit config files for building drivers for specific kernel and target for all Falco lib versions
 - `specific_target`: build the filtered driver versions
 - `clean`: remove everything in the `output/` directory (except it, and its `.gitignore` file)
 - `publish`: publish all the built Falco drivers (those existing in the `output/` directory) to bintray
