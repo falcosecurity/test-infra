@@ -17,6 +17,9 @@ function get_kernel_releases() {
 }
 
 function generate_from_kernel_releases() {
+	local target_match="ubuntu-gke"
+	local target_replace="ubuntu-generic"
+
 	for distro_family in $(jq -cr '. | keys[]' $TMPDIR/sample.json); do
 		while read -r release
 		do
@@ -27,7 +30,7 @@ function generate_from_kernel_releases() {
 			test $DRY_RUN == "true" || \
 				make -C "$(dirname $0)/.." \
 				-e TARGET_KERNEL="${release}" \
-				-e TARGET_DISTRO="${target}" \
+				-e TARGET_DISTRO="${target/${target_match}/${target_replace}}" \
 				generate >/dev/null
 		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target)" $TMPDIR/sample.json)
 	done
