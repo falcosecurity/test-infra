@@ -9,7 +9,7 @@ jobs:
           name: Scan terraform code # terrascan -d does not currently support remote TF modules. See: https://github.com/accurics/terrascan/issues/332
           command: |
             apk add curl tar
-            curl -L "$(curl -s https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
+            curl -L "$(curl -Ls https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
             tar -xf terrascan.tar.gz
             install terrascan /usr/local/bin
             terrascan scan -i terraform -d config/clusters -v \
