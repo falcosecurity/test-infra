@@ -1,6 +1,6 @@
 periodics:
   - name: update-dbg
-    cron: "0 10 * * 6" # Run every Sunday at 10:00
+    cron: "0 10 5,20 * *"
     decorate: true
     extra_refs:
     # Check out the falcosecurity/test-infra repo
