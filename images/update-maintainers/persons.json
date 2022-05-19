@@ -126,5 +126,9 @@
     "fededp" : {
         "name": "Federico Di Pierro",
         "company": "Sysdig"
+    },
+    "dwindsor" : {
+        "name": "David Windsor",
+        "company": "Secureworks"
     }
 }
