@@ -1,0 +1,6 @@
+kernelversion: 110
+kernelrelease: 4.15.0-109-generic
+target: ubuntu-generic
+output:
+  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_4.15.0-109-generic_110.ko
+  probe: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_4.15.0-109-generic_110.o

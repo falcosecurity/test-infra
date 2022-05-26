@@ -1,0 +1,6 @@
+kernelversion: 17
+kernelrelease: 5.4.0-1017-aws
+target: ubuntu-aws
+output:
+  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-aws_5.4.0-1017-aws_17.ko
+  probe: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-aws_5.4.0-1017-aws_17.o

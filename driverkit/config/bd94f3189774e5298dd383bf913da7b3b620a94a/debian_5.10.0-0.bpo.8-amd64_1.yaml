@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 5.10.0-0.bpo.8-amd64
+target: debian
+output:
+  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_debian_5.10.0-0.bpo.8-amd64_1.ko
+  probe: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_debian_5.10.0-0.bpo.8-amd64_1.o

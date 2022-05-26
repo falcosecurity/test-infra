@@ -1,0 +1,5 @@
+kernelversion: 236
+kernelrelease: 4.4.0-204-generic
+target: ubuntu-generic
+output:
+  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_4.4.0-204-generic_236.ko

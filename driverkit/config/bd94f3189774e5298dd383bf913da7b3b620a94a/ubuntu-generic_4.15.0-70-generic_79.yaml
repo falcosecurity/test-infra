@@ -1,0 +1,6 @@
+kernelversion: 79
+kernelrelease: 4.15.0-70-generic
+target: ubuntu-generic
+output:
+  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_4.15.0-70-generic_79.ko
+  probe: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_4.15.0-70-generic_79.o
