@@ -1,0 +1,6 @@
+kernelversion: 167
+kernelrelease: 4.15.0-159-generic
+target: ubuntu-generic
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-generic_4.15.0-159-generic_167.ko
+  probe: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-generic_4.15.0-159-generic_167.o

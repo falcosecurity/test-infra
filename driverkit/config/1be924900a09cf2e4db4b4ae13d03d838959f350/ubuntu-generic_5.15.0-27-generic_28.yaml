@@ -1,0 +1,6 @@
+kernelversion: 28
+kernelrelease: 5.15.0-27-generic
+target: ubuntu-generic
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-generic_5.15.0-27-generic_28.ko
+  probe: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-generic_5.15.0-27-generic_28.o
