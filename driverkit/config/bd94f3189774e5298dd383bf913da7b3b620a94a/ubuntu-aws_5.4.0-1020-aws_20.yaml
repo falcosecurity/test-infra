@@ -1,6 +1,0 @@
-kernelversion: 20
-kernelrelease: 5.4.0-1020-aws
-target: ubuntu-aws
-output:
-  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-aws_5.4.0-1020-aws_20.ko
-  probe: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-aws_5.4.0-1020-aws_20.o

@@ -1,0 +1,5 @@
+kernelversion: 1
+kernelrelease: 4.18.0-348.2.1.el8_5.x86_64
+target: rocky
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_rocky_4.18.0-348.2.1.el8_5.x86_64_1.ko

@@ -1,6 +1,0 @@
-kernelversion: 80
-kernelrelease: 5.4.0-72-generic
-target: ubuntu-generic
-output:
-  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_5.4.0-72-generic_80.ko
-  probe: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_5.4.0-72-generic_80.o

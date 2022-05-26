@@ -1,0 +1,5 @@
+kernelversion: 154
+kernelrelease: 3.13.0-107-generic
+target: ubuntu-generic
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-generic_3.13.0-107-generic_154.ko

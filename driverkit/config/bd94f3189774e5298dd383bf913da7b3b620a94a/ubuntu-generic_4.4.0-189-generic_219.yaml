@@ -1,5 +1,0 @@
-kernelversion: 219
-kernelrelease: 4.4.0-189-generic
-target: ubuntu-generic
-output:
-  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_4.4.0-189-generic_219.ko

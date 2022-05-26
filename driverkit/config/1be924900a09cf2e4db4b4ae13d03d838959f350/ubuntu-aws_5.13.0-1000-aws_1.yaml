@@ -1,0 +1,6 @@
+kernelversion: 1
+kernelrelease: 5.13.0-1000-aws
+target: ubuntu-aws
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.13.0-1000-aws_1.ko
+  probe: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.13.0-1000-aws_1.o

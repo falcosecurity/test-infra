@@ -1,5 +1,0 @@
-kernelversion: 79
-kernelrelease: 3.13.0-46-generic
-target: ubuntu-generic
-output:
-  module: output/bd94f3189774e5298dd383bf913da7b3b620a94a/falco_ubuntu-generic_3.13.0-46-generic_79.ko

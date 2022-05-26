@@ -1,0 +1,6 @@
+kernelversion: 38
+kernelrelease: 5.8.0-1036-aws
+target: ubuntu-aws
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.8.0-1036-aws_38.ko
+  probe: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.8.0-1036-aws_38.o

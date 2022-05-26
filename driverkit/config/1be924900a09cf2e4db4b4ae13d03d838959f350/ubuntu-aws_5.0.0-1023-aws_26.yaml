@@ -1,0 +1,6 @@
+kernelversion: 26
+kernelrelease: 5.0.0-1023-aws
+target: ubuntu-aws
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.0.0-1023-aws_26.ko
+  probe: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.0.0-1023-aws_26.o

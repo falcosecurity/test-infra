@@ -1,0 +1,6 @@
+kernelversion: 22
+kernelrelease: 5.4.0-1022-aws
+target: ubuntu-aws
+output:
+  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.4.0-1022-aws_22.ko
+  probe: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-aws_5.4.0-1022-aws_22.o
