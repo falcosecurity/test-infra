@@ -1,6 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.10.0-10-amd64
-target: debian
-output:
-  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_debian_5.10.0-10-amd64_1.ko
-  probe: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_debian_5.10.0-10-amd64_1.o

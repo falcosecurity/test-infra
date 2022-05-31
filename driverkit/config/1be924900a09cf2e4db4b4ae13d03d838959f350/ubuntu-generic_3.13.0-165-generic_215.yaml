@@ -1,5 +1,0 @@
-kernelversion: 215
-kernelrelease: 3.13.0-165-generic
-target: ubuntu-generic
-output:
-  module: output/1be924900a09cf2e4db4b4ae13d03d838959f350/falco_ubuntu-generic_3.13.0-165-generic_215.ko

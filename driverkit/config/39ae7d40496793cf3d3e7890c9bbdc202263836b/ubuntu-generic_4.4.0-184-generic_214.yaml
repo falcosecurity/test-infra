@@ -1,0 +1,5 @@
+kernelversion: 214
+kernelrelease: 4.4.0-184-generic
+target: ubuntu-generic
+output:
+  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_4.4.0-184-generic_214.ko
