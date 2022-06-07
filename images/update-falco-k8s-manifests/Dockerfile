@@ -1,7 +1,7 @@
-FROM golang:1.17 AS pullrequestcreator
+FROM golang:1.18 AS pullrequestcreator
 
 RUN git clone https://github.com/kubernetes/test-infra
-RUN cd test-infra/robots/pr-creator && env GO111MODULE=on go build -v -o pr-creator ./main.go
+RUN cd test-infra/robots/pr-creator && go build -v -o pr-creator ./main.go
 
 FROM debian:buster
 
