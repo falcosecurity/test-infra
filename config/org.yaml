@@ -343,9 +343,9 @@ orgs:
         description: maintainers of falcosidekick-ui
         maintainers:
           - leogr
+          - Issif
         members:
           - cpanato
-          - Issif
           - fjogeleit
         privacy: closed
         repos:
@@ -502,6 +502,7 @@ orgs:
           - radhikapc
           - jasondellaluce
           - Rajakavitha1
+          - Issif
         privacy: closed
         repos:
           falco-website: maintain
