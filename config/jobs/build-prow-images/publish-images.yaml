@@ -253,4 +253,32 @@ postsubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
+  - name: publish-images-update-dbg
+    decorate: true
+    path_alias: github.com/falcosecurity/test-infra
+    skip_report: false
+    agent: kubernetes
+    run_if_changed: '^images/update-dbg/'
+    branches:
+      - ^master$
+    spec:
+      containers:
+      - command:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
+        args:
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/update-dbg"
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: 3Gi
+            cpu: 1.5
+            ephemeral-storage: "2Gi"
+        securityContext:
+          privileged: true
+      nodeSelector:
+        Archtype: "x86"
       
