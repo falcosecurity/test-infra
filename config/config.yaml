@@ -145,9 +145,10 @@ branch-protection:
             required_approving_review_count: 2
           required_status_checks:
             contexts:
-              - "ci/circleci: integration"
-              - "ci/circleci: centos7"
-              - "ci/circleci: musl"
+              - "ci/circleci: tests-driver-loader-integration"
+              - "ci/circleci: tests-integration"
+              # note: we don't need build jobs, since tests depends on them
+              # todo(leogr,FedeDP): ARM64 tests
           branches:
             master:
               protect: true
