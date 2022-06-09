@@ -7,7 +7,6 @@ aws ecr create-repository --repository-name test-infra/golang || true
 aws ecr create-repository --repository-name test-infra/build-drivers || true
 aws ecr create-repository --repository-name test-infra/docker-dind || true
 aws ecr create-repository --repository-name test-infra/autobump || true
-aws ecr create-repository --repository-name test-infra/arm-build || true
 aws ecr create-repository --repository-name test-infra/update-maintainers || true
 aws ecr create-repository --repository-name test-infra/build-libs || true
 aws ecr create-repository --repository-name test-infra/build-plugins || true
