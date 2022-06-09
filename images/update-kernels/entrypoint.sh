@@ -29,7 +29,7 @@ export GIT_COMMITTER_EMAIL=${BOT_MAIL}
 export GIT_AUTHOR_NAME=${BOT_NAME}
 export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
-generate_driverkit_configs() {
+crawl_kernels() {
     /usr/bin/pip install -e .
     python __init__.py crawl --distro=* --out_fmt=driverkit > kernels/x86_64/list.json
     python __init__.py crawl --distro=* --out_fmt=driverkit --arch=aarch64 > kernels/aarch64/list.json
