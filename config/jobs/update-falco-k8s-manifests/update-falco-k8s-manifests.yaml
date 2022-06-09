@@ -1,13 +1,13 @@
 periodics:
   - name: update-falco-k8s-manifests
-    cron: "0 7 * * *" # Run everyday at 7:00
+    cron: "0 10 * * *" # Run everyday at 10:00
     decorate: true
     extra_refs:
     # Check out the falcosecurity/evolution repo
     # This will be the working directory
     - org: falcosecurity
-      repo: evolution
-      base_ref: master
+      repo: deploy-kubernetes
+      base_ref: main
       workdir: true
     spec:
       containers:
@@ -42,14 +42,14 @@ periodics:
       nodeSelector:
         Archtype: "x86"
   - name: update-falco-exporter-k8s-manifests
-    cron: "0 8 * * *" # Run everyday at 8:00
+    cron: "0 11 * * *" # Run everyday at 11:00
     decorate: true
     extra_refs:
     # Check out the falcosecurity/evolution repo
     # This will be the working directory
     - org: falcosecurity
-      repo: evolution
-      base_ref: master
+      repo: deploy-kubernetes
+      base_ref: main
       workdir: true
     spec:
       containers:
@@ -84,14 +84,14 @@ periodics:
       nodeSelector:
         Archtype: "x86"
   - name: update-falco-sidekick-k8s-manifests
-    cron: "0 9 * * *" # Run everyday at 9:00
+    cron: "0 12 * * *" # Run everyday at 12:00
     decorate: true
     extra_refs:
     # Check out the falcosecurity/evolution repo
     # This will be the working directory
     - org: falcosecurity
-      repo: evolution
-      base_ref: master
+      repo: deploy-kubernetes
+      base_ref: main
       workdir: true
     spec:
       containers:
