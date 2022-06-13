@@ -7,7 +7,7 @@ periodics:
     # This will be the working directory
     - org: falcosecurity
       repo: kernel-crawler
-      base_ref: master
+      base_ref: main
       workdir: true
     spec:
       containers:
