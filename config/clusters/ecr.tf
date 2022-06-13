@@ -53,3 +53,10 @@ resource "aws_ecr_repository" "update_deployment_files" {
     encryption_type = "KMS"
   }
 }
+
+resource "aws_ecr_repository" "update_kernels" {
+  name = "test-infra/update-kernels"
+  encryption_configuration {
+    encryption_type = "KMS"
+  }
+}

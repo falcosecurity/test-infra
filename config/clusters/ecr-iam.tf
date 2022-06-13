@@ -60,3 +60,8 @@ resource "aws_ecr_repository_policy" "update_deployment_files" {
   repository = aws_ecr_repository.update_deployment_files.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
+
+resource "aws_ecr_repository_policy" "update_kernels" {
+  repository = aws_ecr_repository.update_kernels.name
+  policy     = data.aws_iam_policy_document.ecr_standard.json
+}
