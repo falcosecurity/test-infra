@@ -30,9 +30,9 @@ export GIT_AUTHOR_NAME=${BOT_NAME}
 export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 crawl_kernels() {
-    /usr/bin/pip install -e .
-    python __init__.py crawl --distro=* --out_fmt=driverkit > kernels/x86_64/list.json
-    python __init__.py crawl --distro=* --out_fmt=driverkit --arch=aarch64 > kernels/aarch64/list.json
+    /usr/bin/pip3 install -e .
+    python3 __init__.py crawl --distro=* --out_fmt=driverkit > kernels/x86_64/list.json
+    python3 __init__.py crawl --distro=* --out_fmt=driverkit --arch=aarch64 > kernels/aarch64/list.json
     return $?
 }
 
