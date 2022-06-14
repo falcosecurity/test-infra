@@ -8,8 +8,11 @@ CURRENT_DIR="$(pwd)"
 
 DEFAULT_KERNEL_VERSION="1"
 
-while getopts ":k:d:v:" arg; do
+while getopts ":a:k:d:v:" arg; do
   case $arg in
+    a)
+      TARGET_ARCH=${OPTARG}
+      ;;
     k)
       TARGET_KERNEL=${OPTARG}
       ;;
@@ -22,6 +25,11 @@ while getopts ":k:d:v:" arg; do
   esac
 done
 
+
+if [ -z ${TARGET_ARCH} ]; then
+    echo "TARGET_ARCH can't be empty"
+    exit 1
+fi
 if [ -z ${TARGET_DISTRO} ]; then
     echo "TARGET_DISTRO can't be empty"
     exit 1
@@ -48,8 +56,23 @@ ensure_kernelrelease() {
     TARGET_KERNEL_RELEASE="${TARGET_KERNEL%_${TARGET_KERNEL_VERSION}}"
 }
 
+function arch_to_driverkit_arch() {
+	case "$1" in
+		"x86_64")
+			echo -n "amd64"
+			;;
+		"aarch64")
+			echo -n "arm64"
+			;;
+		*)
+			echo "unknown architecture"
+			exit 1
+			;;
+	esac
+}
+
 generate_yamls() {
-    FOLDER="${CURRENT_DIR}/../driverkit/config/${TARGET_VERSION}"
+    FOLDER="${CURRENT_DIR}/../driverkit/config/${TARGET_VERSION}/${TARGET_ARCH}"
     mkdir -p ${FOLDER}
     FILE="${FOLDER}/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml"
     echo "---"
@@ -58,16 +81,18 @@ generate_yamls() {
     echo "kernelversion: ${TARGET_KERNEL_VERSION}"
     echo "kernelrelease: ${TARGET_KERNEL_RELEASE}"
     echo "target: ${TARGET_DISTRO}"
+    echo "architecture: $(arch_to_driverkit_arch ${TARGET_ARCH})"
     echo "output:"
-    echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
-    echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    echo "  module: output/${TARGET_VERSION}/${TARGET_ARCH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
+    echo "  probe: output/${TARGET_VERSION}/${TARGET_ARCH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
     
     echo "kernelversion: ${TARGET_KERNEL_VERSION}" > ${FILE}
     echo "kernelrelease: ${TARGET_KERNEL_RELEASE}" >> ${FILE}
     echo "target: ${TARGET_DISTRO}" >> ${FILE}
+    echo "architecture: $(arch_to_driverkit_arch ${TARGET_ARCH})" >> ${FILE}
     echo "output:" >> ${FILE}
-    echo "  module: output/${TARGET_VERSION}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
-    echo "  probe: output/${TARGET_VERSION}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
+    echo "  module: output/${TARGET_VERSION}/${TARGET_ARCH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
+    echo "  probe: output/${TARGET_VERSION}/${TARGET_ARCH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
 }
 
 ensure_kernelversion

@@ -5,21 +5,25 @@ ifeq ($(DRIVERKIT),)
 DRIVERKIT := "/bin/driverkit"
 endif
 
-CONFIGS := $(wildcard config/*/*.yaml)
+# Recursive wildcard
+rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+
+CONFIGS := $(call rwildcard,config/*,*.yaml)
 VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
 VERSIONS := $(VERSIONS:/=)
 TARGET_VERSION ?= *
 TARGET_DISTRO ?= *
 TARGET_KERNEL ?= *
+TARGET_ARCH ?= *
 S3_DRIVERS_BUCKET ?= "falco-distribution"
 S3_DRIVERS_KEY_PREFIX ?= "driver"
 SKIP_EXISTING ?= true
 
-validate: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+validate: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
@@ -27,11 +31,12 @@ publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 
 generate:
 	$(foreach VERSION,$(VERSIONS),\
-		utils/generate -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -v ${VERSION}; \
+		utils/generate -a $(TARGET_ARCH) -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -v ${VERSION}; \
 	)
 
 generate/auto:
-	utils/scrape_and_generate
+	utils/scrape_and_generate "x86_64"
+	utils/scrape_and_generate "aarch64"
 
 cleanup:
 	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
@@ -60,15 +65,33 @@ $(foreach CONFIG,$(CONFIGS),\
 # $(1): driver version
 define gen_publish_targets
 split_$(1)_kernelmodules:
+# root is old x86_64
 ifneq ("$(wildcard output/$(1)/*.ko)","")
 	@mkdir -p output/$(1)/kernel-module
 	@mv -f output/$(1)/*.ko output/$(1)/kernel-module
 endif
+ifneq ("$(wildcard output/$(1)/x86_64/*.ko)","")
+	@mkdir -p output/$(1)/kernel-module/x86_64
+	@mv -f output/$(1)/x86_64/*.ko output/$(1)/kernel-module/x86_64
+endif
+ifneq ("$(wildcard output/$(1)/aarch64/*.ko)","")
+	@mkdir -p output/$(1)/kernel-module/aarch64
+	@mv -f output/$(1)/aarch64/*.ko output/$(1)/kernel-module/aarch64
+endif
 
 split_$(1)_ebpfprobes:
+# root is old x86_64
 ifneq ("$(wildcard output/$(1)/*.o)","")
 	@mkdir -p output/$(1)/ebpf-probe
 	@mv -f output/$(1)/*.o output/$(1)/ebpf-probe
+endif
+ifneq ("$(wildcard output/$(1)/x86_64/*.o)","")
+	@mkdir -p output/$(1)/ebpf-probe/x86_64
+	@mv -f output/$(1)/x86_64/*.o output/$(1)/ebpf-probe/x86_64
+endif
+ifneq ("$(wildcard output/$(1)/aarch64/*.o)","")
+	@mkdir -p output/$(1)/ebpf-probe/aarch64
+	@mv -f output/$(1)/aarch64/*.o output/$(1)/ebpf-probe/aarch64
 endif
 
 prepare_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes

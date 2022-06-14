@@ -13,8 +13,8 @@ make
 ### Available make targets
 
 - `all`: build all the Falco drivers (all the versions), for every supported distro, and every supported kernel release
-- `generate`: generate Driverkit config files for building drivers for specific kernel and target for all Falco lib versions
-- `validate`: validate Driverkit config files for building drivers for specific kernel and target for all Falco lib versions
+- `generate`: generate Driverkit config files for building drivers for specific arch, kernel and target for all Falco lib versions
+- `validate`: validate Driverkit config files for building drivers for specific arch, kernel and target for all Falco lib versions
 - `specific_target`: build the filtered driver versions
 - `clean`: remove everything in the `output/` directory (except it, and its `.gitignore` file)
 - `publish`: publish all the built Falco drivers (those existing in the `output/` directory) to bintray
@@ -37,6 +37,7 @@ make -e TARGET_DISTRO=amazonlinux2 specific_target
 
 These are the available filters as environment variables:
 
+- `TARGET_ARCH`: a specific arch between { "x86_64", "aarch64" }
 - `TARGET_VERSION`: a specific Falco driver version
 - `TARGET_DISTRO`: a spefific Linux distribution
 - `TARGET_KERNEL`: a specific Linux version

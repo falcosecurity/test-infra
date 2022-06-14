@@ -9,6 +9,14 @@ input="$1"
 IFS=/ read -a input_parts <<< ${input}
 driver_version="${input_parts[1]}"
 
+# If there is an arch subdir -> use it!
+if [[ ${#input_parts[@]} -eq 4 ]]; then
+    arch="${input_parts[2]}/"
+else
+    # fallback at no arch (ie: x86_64, root folder on s3 bucket)
+    arch=""
+fi
+
 output_module=
 output_probe=
 create_variables "$input"
@@ -26,7 +34,7 @@ check_s3_existence() {
 
 # Check whether the kernel module already exists on S3
 if [[ -n "${output_module}" ]]; then
-    output_module_filename="${output_module##*/}"
+    output_module_filename="${arch}${output_module##*/}"
     if [[ ${SKIP_EXISTING} == "true" ]] && check_s3_existence "${output_module_filename}"; then
         >&2 echo "output module already esists inside S3 bucket - skipping (${S3_DRIVERS_KEY_PREFIX}/${driver_version}/${output_module_filename})"
     else
@@ -36,7 +44,7 @@ fi
 
 # Check whether the eBPF probe already exists on S3
 if [[ -n "${output_probe}" ]]; then
-    output_probe_filename="${output_probe##*/}"
+    output_probe_filename="${arch}${output_probe##*/}"
     if [[ ${SKIP_EXISTING} == "true" ]] && check_s3_existence "${output_probe_filename}"; then
         >&2 echo "output probe already esists inside S3 bucket - skipping (${S3_DRIVERS_KEY_PREFIX}/${driver_version}/${output_probe_filename})"
     else
