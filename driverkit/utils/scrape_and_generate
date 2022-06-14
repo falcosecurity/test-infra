@@ -4,7 +4,7 @@ set -euo pipefail
 
 DRY_RUN="${DRY_RUN:-false}"
 TMPDIR="$(mktemp -d)"
-ARCH="x86_64"
+ARCH="$1"
 LIST_URL="https://raw.githubusercontent.com/falcosecurity/kernel-crawler/main/kernels/${ARCH}/list.json"
 
 function pretty_echo() {
@@ -29,6 +29,7 @@ function generate_from_kernel_releases() {
 			echo "release: $release	version: $version	target: $target"
 			test $DRY_RUN == "true" || \
 				make -C "$(dirname $0)/.." \
+				-e TARGET_ARCH="${ARCH}"
 				-e TARGET_KERNEL="${release}" \
 				-e TARGET_DISTRO="${target/${target_match}/${target_replace}}" \
 				generate >/dev/null
