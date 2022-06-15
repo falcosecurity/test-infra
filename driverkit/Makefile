@@ -24,6 +24,7 @@ validate: validate_old validate_new
 # old fmt had x86_64 only in root folder. Note: this breaks filtering for TARGET_ARCH
 # because validate_old will always validate any old config.
 # Not a big deal because we were not going to filter for TARGET_ARCH in any case.
+# TODO: rm once old format support is dropped
 validate_old: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 # new fmt has $arch subfolders
 validate_new: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
@@ -34,6 +35,7 @@ specific_target: specific_target_old specific_target_new
 # old fmt had x86_64 only in root folder. Note: this breaks filtering for TARGET_ARCH
 # because specific_target_old will always build any old config.
 # Not a big deal because we were not going to filter for TARGET_ARCH in any case.
+# TODO: rm once old format support is dropped
 specific_target_old: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 # new fmt has $arch subfolders
 specific_target_new: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
@@ -76,6 +78,7 @@ $(foreach CONFIG,$(CONFIGS),\
 define gen_publish_targets
 split_$(1)_kernelmodules:
 # root is old x86_64
+# TODO: rm once old format support is dropped
 ifneq ("$(wildcard output/$(1)/*.ko)","")
 	@mkdir -p output/$(1)/kernel-module
 	@mv -f output/$(1)/*.ko output/$(1)/kernel-module
@@ -91,6 +94,7 @@ endif
 
 split_$(1)_ebpfprobes:
 # root is old x86_64
+# TODO: rm once old format support is dropped
 ifneq ("$(wildcard output/$(1)/*.o)","")
 	@mkdir -p output/$(1)/ebpf-probe
 	@mv -f output/$(1)/*.o output/$(1)/ebpf-probe
