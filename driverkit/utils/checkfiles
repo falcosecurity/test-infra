@@ -7,6 +7,20 @@ source "${currentdir}/parseyaml"
 
 input="$1"
 filename="${input##*/}"
+input="$1"
+
+function get_arch_from_path() {
+    # Check if arch subdir exists
+    IFS=/ read -a input_parts <<< ${1}
+    if [[ ${#input_parts[@]} -eq 4 ]]; then
+        arch="${input_parts[2]}/"
+    else
+        arch=""
+    fi
+    echo -n "${arch}"
+}
+
+arch="$(get_arch_from_path ${input})"
 
 target=
 kernelrelease=
@@ -34,6 +48,13 @@ if [ -n "${output_probe}" ]; then
         >&2 echo "output probe filename is wrong (${1})"
         exit 1
     fi
+
+    if [[ -n "${arch}" ]]; then
+        if [ "$arch" != "$(get_arch_from_path ${output_probe})" ]; then
+            >&2 echo "output probe filename has not architecture in its config path (${1})"
+            exit 1
+        fi
+    fi
 fi
 
 # Check whether the kernel module filename follows the convention otherwise exit
@@ -42,5 +63,12 @@ if [ -n "${output_module}" ]; then
     if [ "${output_module_filename}" != "falco_${target}_${kernelrelease}_${kernelversion}.ko" ]; then
         >&2 echo "output module filename is wrong (${1})"
         exit 1
+    fi
+
+    if [[ -n "${arch}" ]]; then
+        if [ "$arch" != "$(get_arch_from_path ${output_module})" ]; then
+             >&2 echo "output module filename has not architecture in its config path (${1})"
+             exit 1
+        fi
     fi
 fi

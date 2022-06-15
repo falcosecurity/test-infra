@@ -54,6 +54,6 @@ fi
 
 # Build 
 if [[ ${should_build} == "true" ]]; then
-    mkdir -p output/${driver_version}
+    mkdir -p output/${driver_version}/${arch}
     ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --timeout 1000 || echo ${input} >> output/failing.log
 fi
