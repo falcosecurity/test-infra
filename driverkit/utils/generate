@@ -8,7 +8,7 @@ CURRENT_DIR="$(pwd)"
 
 DEFAULT_KERNEL_VERSION="1"
 
-while getopts ":a:k:d:v:" arg; do
+while getopts ":a:k:d:v:h:" arg; do
   case $arg in
     a)
       TARGET_ARCH=${OPTARG}
@@ -21,6 +21,9 @@ while getopts ":a:k:d:v:" arg; do
       ;;
     v)
       TARGET_VERSION=${OPTARG}
+      ;;
+    h)
+      TARGET_HEADERS=${OPTARG}
       ;;
   esac
 done
@@ -85,6 +88,9 @@ generate_yamls() {
     echo "output:"
     echo "  module: output/${TARGET_VERSION}/${TARGET_ARCH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
     echo "  probe: output/${TARGET_VERSION}/${TARGET_ARCH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    if [[ ! -z "${TARGET_HEADERS}" ]]; then
+        echo "kernelurls: ${TARGET_HEADERS}"
+    fi
     
     echo "kernelversion: ${TARGET_KERNEL_VERSION}" > ${FILE}
     echo "kernelrelease: ${TARGET_KERNEL_RELEASE}" >> ${FILE}
@@ -93,6 +99,9 @@ generate_yamls() {
     echo "output:" >> ${FILE}
     echo "  module: output/${TARGET_VERSION}/${TARGET_ARCH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
     echo "  probe: output/${TARGET_VERSION}/${TARGET_ARCH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
+    if [[ ! -z "${TARGET_HEADERS}" ]]; then
+        echo "kernelurls: ${TARGET_HEADERS}" >> ${FILE}
+    fi   
 }
 
 ensure_kernelversion

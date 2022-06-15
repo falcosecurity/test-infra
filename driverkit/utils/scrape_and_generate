@@ -25,6 +25,7 @@ function generate_from_kernel_releases() {
 		do
 			read -r version
 			read -r target
+			read -r kernelurls
 			pretty_echo "Generating configs for:"
 			echo "release: $release	version: $version	target: $target"
 			test $DRY_RUN == "true" || \
@@ -32,8 +33,9 @@ function generate_from_kernel_releases() {
 				-e TARGET_ARCH="${ARCH}"
 				-e TARGET_KERNEL="${release}" \
 				-e TARGET_DISTRO="${target/${target_match}/${target_replace}}" \
+				-e TARGET_HEADERS="${kernelurls}" \
 				generate >/dev/null
-		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target)" $TMPDIR/sample.json)
+		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target, .headers)" $TMPDIR/sample.json)
 	done
 }
 
