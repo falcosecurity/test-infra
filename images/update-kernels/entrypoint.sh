@@ -78,7 +78,7 @@ create_pr() {
     git commit -s -m "${title}"
 
     user=$(get_user_from_token "$1")
-    branch="update/dbg"
+    branch="update/kernels"
     echo "> pushing commit as ${user} on branch ${branch}..." >&2
     git push -f \
         "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_REPO}" \
