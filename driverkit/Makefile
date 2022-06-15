@@ -21,14 +21,22 @@ S3_DRIVERS_KEY_PREFIX ?= "driver"
 SKIP_EXISTING ?= true
 
 validate: validate_old validate_new
-# old fmt had x86_64 only in root folder
+# old fmt had x86_64 only in root folder. Note: this breaks filtering for TARGET_ARCH
+# because validate_old will always validate any old config.
+# Not a big deal because we were not going to filter for TARGET_ARCH in any case.
 validate_old: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
-# new fmt has %arch subfolders
+# new fmt has $arch subfolders
 validate_new: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+specific_target: specific_target_old specific_target_new
+# old fmt had x86_64 only in root folder. Note: this breaks filtering for TARGET_ARCH
+# because specific_target_old will always build any old config.
+# Not a big deal because we were not going to filter for TARGET_ARCH in any case.
+specific_target_old: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+# new fmt has $arch subfolders
+specific_target_new: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
@@ -50,21 +58,18 @@ cleanup_s3:
 	S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} S3_DRIVERS_KEY_PREFIX=${S3_DRIVERS_KEY_PREFIX} utils/cleanup_s3 $(addprefix -v ,$(VERSIONS))
 
 # $(1): pseudo-target name
-# $(2): driver version
-# $(3): config file path
+# $(2): config file path
 define gen_build_targets
-validate/$(1): $(3)
-	utils/checkfiles $(3)
+validate/$(1): $(2)
+	utils/checkfiles $(2)
 
-$(1): validate/$(1) $(3)
-	DRIVERKIT=${DRIVERKIT} S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} S3_DRIVERS_KEY_PREFIX=${S3_DRIVERS_KEY_PREFIX} SKIP_EXISTING=${SKIP_EXISTING} utils/build $(3)
+$(1): validate/$(1) $(2)
+	DRIVERKIT=${DRIVERKIT} S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} S3_DRIVERS_KEY_PREFIX=${S3_DRIVERS_KEY_PREFIX} SKIP_EXISTING=${SKIP_EXISTING} utils/build $(2)
 endef
 
 $(foreach CONFIG,$(CONFIGS),\
-	$(eval INNER := $(patsubst config/%,%,$(CONFIG)))\
-	$(eval VERSION := $(patsubst %/,%,$(dir $(INNER))))\
 	$(eval TARGET := $(patsubst config_%,%,$(subst /,_,$(CONFIG))))\
-	$(eval $(call gen_build_targets,$(TARGET),$(VERSION),$(CONFIG)))\
+	$(eval $(call gen_build_targets,$(TARGET),$(CONFIG)))\
 )
 
 # $(1): driver version

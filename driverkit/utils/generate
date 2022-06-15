@@ -103,7 +103,7 @@ generate_yamls() {
     echo "output:"
     echo "  module: output/$(path_from_version)/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
     echo "  probe: output/$(path_from_version)/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
-    if [[ ! -z "${TARGET_HEADERS}" ]]; then
+    if [[ -n "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}"
     fi
     
@@ -114,7 +114,7 @@ generate_yamls() {
     echo "output:" >> ${FILE}
     echo "  module: output/$(path_from_version)/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
     echo "  probe: output/$(path_from_version)/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
-    if [[ ! -z "${TARGET_HEADERS}" ]]; then
+    if [[ -n "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}" >> ${FILE}
     fi   
 }
