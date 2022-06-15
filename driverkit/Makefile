@@ -20,7 +20,11 @@ S3_DRIVERS_BUCKET ?= "falco-distribution"
 S3_DRIVERS_KEY_PREFIX ?= "driver"
 SKIP_EXISTING ?= true
 
-validate: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+validate: validate_old validate_new
+# old fmt had x86_64 only in root folder
+validate_old: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+# new fmt has %arch subfolders
+validate_new: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
