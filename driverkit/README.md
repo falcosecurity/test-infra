@@ -45,7 +45,7 @@ These are the available filters as environment variables:
   - in <kernel_version>.<major_version>.* format
   - in <kernel_version>.* format
 
-Notice all the filters are optional (except `TARGET_DISTRO` and `TARGET_KERNEL` for `generate`).
+Notice all the filters are optional (except for `generate` where they are mandatory).
 
 You can also filter a specific distro with a specific kernel version:
 
