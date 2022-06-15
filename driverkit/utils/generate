@@ -74,8 +74,23 @@ function arch_to_driverkit_arch() {
 	esac
 }
 
+# If driver version is a semver, we are in the newest case
+# thus we must support %arch/ subfolder for configs.
+# Else, we are in the old case, and we only support x86_64 configs
+# in the TARGET_VERSION folder.
+function path_from_version() {
+  rx='^([0-9]+\.){0,2}(\*|[0-9]+)$'
+  if [[ $TARGET_VERSION =~ $rx ]]; then
+    # valid semver
+    echo -n "${TARGET_VERSION}/${TARGET_ARCH}"
+  else
+    # not valid (old versions)
+    echo -n "${TARGET_VERSION}"
+  fi
+}
+
 generate_yamls() {
-    FOLDER="${CURRENT_DIR}/../driverkit/config/${TARGET_VERSION}/${TARGET_ARCH}"
+    FOLDER="${CURRENT_DIR}/../driverkit/config/$(path_from_version)"
     mkdir -p ${FOLDER}
     FILE="${FOLDER}/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml"
     echo "---"
@@ -86,8 +101,8 @@ generate_yamls() {
     echo "target: ${TARGET_DISTRO}"
     echo "architecture: $(arch_to_driverkit_arch ${TARGET_ARCH})"
     echo "output:"
-    echo "  module: output/${TARGET_VERSION}/${TARGET_ARCH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
-    echo "  probe: output/${TARGET_VERSION}/${TARGET_ARCH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    echo "  module: output/$(path_from_version)/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
+    echo "  probe: output/$(path_from_version)/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
     if [[ ! -z "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}"
     fi
@@ -97,8 +112,8 @@ generate_yamls() {
     echo "target: ${TARGET_DISTRO}" >> ${FILE}
     echo "architecture: $(arch_to_driverkit_arch ${TARGET_ARCH})" >> ${FILE}
     echo "output:" >> ${FILE}
-    echo "  module: output/${TARGET_VERSION}/${TARGET_ARCH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
-    echo "  probe: output/${TARGET_VERSION}/${TARGET_ARCH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
+    echo "  module: output/$(path_from_version)/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
+    echo "  probe: output/$(path_from_version)/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
     if [[ ! -z "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}" >> ${FILE}
     fi   

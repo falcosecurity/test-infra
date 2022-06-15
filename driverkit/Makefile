@@ -15,6 +15,7 @@ TARGET_VERSION ?= *
 TARGET_DISTRO ?= *
 TARGET_KERNEL ?= *
 TARGET_ARCH ?= *
+TARGET_HEADERS ?=
 S3_DRIVERS_BUCKET ?= "falco-distribution"
 S3_DRIVERS_KEY_PREFIX ?= "driver"
 SKIP_EXISTING ?= true
@@ -31,7 +32,7 @@ publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 
 generate:
 	$(foreach VERSION,$(VERSIONS),\
-		utils/generate -a $(TARGET_ARCH) -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -v ${VERSION}; \
+		utils/generate -a $(TARGET_ARCH) -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -h ${TARGET_HEADERS} -v ${VERSION}; \
 	)
 
 generate/auto:
