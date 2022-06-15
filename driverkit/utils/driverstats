@@ -10,8 +10,13 @@ source "${currentdir}/parseyaml"
 TARGET_VERSION=${TARGET_VERSION:-"*"}
 TARGET_DISTRO=${TARGET_DISTRO:-"*"}
 TARGET_KERNEL=${TARGET_KERNEL:-"*"}
+TARGET_ARCH=${TARGET_ARCH:-"*"}
 
-configs=(config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*.yaml)
+# Only load old configs if x86_64 or * arch is requested
+if [ "${TARGET_ARCH}" = "*" ] || [ "${TARGET_ARCH}" = "x86_64" ]; then
+    configs_old=(config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*.yaml)
+fi
+configs_new=(config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*.yaml)
 
 total_ebpf_drivers=0
 total_kmod_drivers=0
@@ -47,26 +52,33 @@ cleanup() {
     hdestroy kmod_drivers_by_version
 }
 
-for file in "${configs[@]}"
-do
-    driver_version=${file%/*}
-    driver_version=${driver_version##config/}
-    output_module=
-    output_probe=
-    create_variables "$file"
-    if [ -n "${output_probe}" ]; then
-        ((total_ebpf_drivers=total_ebpf_drivers+1))
-        current_num_ebpf_drivers=$(hget ebpf_drivers_by_version "${driver_version}") || current_num_ebpf_drivers=0
-        ((current_num_ebpf_drivers=current_num_ebpf_drivers+1))
-        hput ebpf_drivers_by_version "${driver_version}" "${current_num_ebpf_drivers}"
-    fi
-    if [ -n "${output_module}" ]; then
-        ((total_kmod_drivers=total_kmod_drivers+1))
-        current_num_kmod_drivers=$(hget kmod_drivers_by_version "${driver_version}") || current_num_kmod_drivers=0
-        ((current_num_kmod_drivers=current_num_kmod_drivers+1))
-        hput kmod_drivers_by_version "${driver_version}" "${current_num_kmod_drivers}"
-    fi
-done
+loop() {
+    configs=("$@")
+    for file in "${configs[@]}"
+    do
+        driver_version=${file%/*}
+        driver_version=${driver_version##config/}
+        driver_version=$(echo "$driver_version" | tr '/' '_')
+        output_module=
+        output_probe=
+        create_variables "$file"
+        if [ -n "${output_probe}" ]; then
+            ((total_ebpf_drivers=total_ebpf_drivers+1))
+            current_num_ebpf_drivers=$(hget ebpf_drivers_by_version "${driver_version}") || current_num_ebpf_drivers=0
+            ((current_num_ebpf_drivers=current_num_ebpf_drivers+1))
+            hput ebpf_drivers_by_version "${driver_version}" "${current_num_ebpf_drivers}"
+        fi
+        if [ -n "${output_module}" ]; then
+            ((total_kmod_drivers=total_kmod_drivers+1))
+            current_num_kmod_drivers=$(hget kmod_drivers_by_version "${driver_version}") || current_num_kmod_drivers=0
+            ((current_num_kmod_drivers=current_num_kmod_drivers+1))
+            hput kmod_drivers_by_version "${driver_version}" "${current_num_kmod_drivers}"
+        fi
+    done
+}
+
+loop "${configs_old[@]}"
+loop "${configs_new[@]}"
 
 for driver_version in $(hkeys kmod_drivers_by_version)
 do

@@ -7,7 +7,6 @@ source "${currentdir}/parseyaml"
 
 input="$1"
 filename="${input##*/}"
-input="$1"
 
 function get_arch_from_path() {
     # Check if arch subdir exists
