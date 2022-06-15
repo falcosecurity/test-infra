@@ -10,6 +10,7 @@ IFS=/ read -a input_parts <<< ${input}
 driver_version="${input_parts[1]}"
 
 # If there is an arch subdir -> use it!
+# TODO: rm once old format support is dropped; just use arch="${input_parts[2]}"
 if [[ ${#input_parts[@]} -eq 4 ]]; then
     arch="${input_parts[2]}/"
 else

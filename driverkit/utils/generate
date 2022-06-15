@@ -78,6 +78,7 @@ function arch_to_driverkit_arch() {
 # thus we must support %arch/ subfolder for configs.
 # Else, we are in the old case, and we only support x86_64 configs
 # in the TARGET_VERSION folder.
+# TODO: rm this once old format support is dropped, and always use ${TARGET_VERSION}/${TARGET_ARCH}
 function path_from_version() {
   rx='^([0-9]+\.){0,2}(\*|[0-9]+)$'
   if [[ $TARGET_VERSION =~ $rx ]]; then
