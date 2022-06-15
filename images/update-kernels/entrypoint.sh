@@ -84,13 +84,13 @@ create_pr() {
         "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_REPO}" \
         "HEAD:${branch}"
 
-    echo "> creating pull-request to merge ${user}:${branch} into master..." >&2
+    echo "> creating pull-request to merge ${user}:${branch} into main..." >&2
     body="This PR updates the list of kernels from the latest crawling. Do not edit this PR."
 
     pr-creator \
         --github-endpoint="${GH_PROXY}" \
         --github-token-path="$1" \
-        --org="${GH_ORG}" --repo="${GH_REPO}" --branch=master \
+        --org="${GH_ORG}" --repo="${GH_REPO}" --branch=main \
         --title="${title}" --match-title="${title}" \
         --body="${body}" \
         --local --source="${branch}" \
