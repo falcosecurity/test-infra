@@ -1,6 +1,0 @@
-kernelversion: 94
-kernelrelease: 5.4.0-84-generic
-target: ubuntu-generic
-output:
-  module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_ubuntu-generic_5.4.0-84-generic_94.ko
-  probe: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_ubuntu-generic_5.4.0-84-generic_94.o

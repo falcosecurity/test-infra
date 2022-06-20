@@ -1,6 +1,0 @@
-kernelversion: 37
-kernelrelease: 5.8.0-1035-aws
-target: ubuntu-aws
-output:
-  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-aws_5.8.0-1035-aws_37.ko
-  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-aws_5.8.0-1035-aws_37.o

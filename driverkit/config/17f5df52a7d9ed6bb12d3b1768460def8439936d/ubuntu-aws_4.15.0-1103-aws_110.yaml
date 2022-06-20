@@ -1,6 +1,0 @@
-kernelversion: 110
-kernelrelease: 4.15.0-1103-aws
-target: ubuntu-aws
-output:
-  module: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-aws_4.15.0-1103-aws_110.ko
-  probe: output/17f5df52a7d9ed6bb12d3b1768460def8439936d/falco_ubuntu-aws_4.15.0-1103-aws_110.o
