@@ -1,5 +1,0 @@
-kernelversion: 29
-kernelrelease: 4.4.0-1020-aws
-target: ubuntu-aws
-output:
-  module: output/3aa7a83bf7b9e6229a3824e3fd1f4452d1e95cb4/falco_ubuntu-aws_4.4.0-1020-aws_29.ko
