@@ -31,7 +31,7 @@ validate_new: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TAR
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-specific_target: specific_target_old specific_target_new
+specific_target: specific_target_new
 # old fmt had x86_64 only in root folder. Note: this breaks filtering for TARGET_ARCH
 # because specific_target_old will always build any old config.
 # Not a big deal because we were not going to filter for TARGET_ARCH in any case.
@@ -44,14 +44,22 @@ prepare: $(addprefix prepare_,$(VERSIONS))
 publish: $(addprefix publish_,$(VERSIONS))
 publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 
+ALL_ARCHS := x86_64 aarch64
+eq = $(and $(findstring $(1),$(2)),$(findstring $(2),$(1)))
+
+TARGET_ARCHS := $(if $(call eq,$(TARGET_ARCH),*),$(ALL_ARCHS),$(TARGET_ARCH))
+
 generate:
-	$(foreach VERSION,$(VERSIONS),\
-		utils/generate -a $(TARGET_ARCH) -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -h ${TARGET_HEADERS} -v ${VERSION}; \
+	$(foreach ARCH,$(TARGET_ARCHS),\
+		$(foreach VERSION,$(VERSIONS),\
+			utils/generate -a $(ARCH) -k ${TARGET_KERNEL} -d ${TARGET_DISTRO} -h ${TARGET_HEADERS} -v ${VERSION}; \
+		)\
 	)
 
 generate/auto:
-	utils/scrape_and_generate "x86_64"
-	utils/scrape_and_generate "aarch64"
+	$(foreach ARCH,$(TARGET_ARCHS),\
+		utils/scrape_and_generate $(ARCH);\
+	)
 
 cleanup:
 	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
