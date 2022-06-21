@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     gnupg2 \
     curl \
+    make \
+    jq \
     && apt-get clean
 
 COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
