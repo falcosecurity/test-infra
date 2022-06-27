@@ -59,7 +59,7 @@ ensure_kernelrelease() {
     TARGET_KERNEL_RELEASE="${TARGET_KERNEL%_${TARGET_KERNEL_VERSION}}"
 }
 
-function arch_to_driverkit_arch() {
+arch_to_driverkit_arch() {
 	case "$1" in
 		"x86_64")
 			echo -n "amd64"
