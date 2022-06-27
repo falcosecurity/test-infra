@@ -3,7 +3,8 @@
 
 currentdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
-source "${currentdir}/parseyaml"
+source "${currentdir}/parseyaml"    # create_variables
+source "${currentdir}/generate"     # arch_to_driverkit_arch
 
 input="$1"
 IFS=/ read -a input_parts <<< ${input}
@@ -56,5 +57,12 @@ fi
 # Build 
 if [[ ${should_build} == "true" ]]; then
     mkdir -p output/${driver_version}/${arch}
-    ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --timeout 1000 || echo ${input} >> output/failing.log
+    if [[ -n "${arch}" ]]; then
+        # if we have an architecture in our config path, force use it
+        ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --architecture $(arch_to_driverkit_arch ${arch}) --timeout 1000 || echo ${input} >> output/failing.log
+    else
+        # we only support x86_64
+        # TODO: remove once we drop support for old tree
+        ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --architecture amd64 --timeout 1000 || echo ${input} >> output/failing.log
+    fi
 fi
