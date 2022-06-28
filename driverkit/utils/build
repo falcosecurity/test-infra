@@ -4,7 +4,6 @@
 currentdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 source "${currentdir}/parseyaml"    # create_variables
-source "${currentdir}/generate"     # arch_to_driverkit_arch
 
 input="$1"
 IFS=/ read -a input_parts <<< ${input}
@@ -32,6 +31,21 @@ check_s3_existence() {
     else
         true
     fi
+}
+
+arch_to_driverkit_arch() {
+	case "$1" in
+		"x86_64")
+			echo -n "amd64"
+			;;
+		"aarch64")
+			echo -n "arm64"
+			;;
+		*)
+			echo "unknown architecture"
+			exit 1
+			;;
+	esac
 }
 
 # Check whether the kernel module already exists on S3
