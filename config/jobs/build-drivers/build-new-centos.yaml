@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/centos_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -34,7 +34,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/centos_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_*'
     spec:
       serviceAccountName: driver-kit
       containers:

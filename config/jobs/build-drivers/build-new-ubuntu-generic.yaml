@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-generic_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?ubuntu-generic_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -33,7 +33,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-generic_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?ubuntu-generic_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -60,7 +60,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-generic_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?ubuntu-generic_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -89,7 +89,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-generic_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?ubuntu-generic_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -118,7 +118,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-generic_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?ubuntu-generic_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -147,7 +147,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9]{40,}/ubuntu-generic_.*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?ubuntu-generic_*'
     spec:
       serviceAccountName: driver-kit
       containers:
