@@ -35,10 +35,10 @@ check_s3_existence() {
 
 arch_to_driverkit_arch() {
 	case "$1" in
-		"x86_64")
+		"x86_64/"|"") # TODO: remove "" once we drop support for old tree
 			echo -n "amd64"
 			;;
-		"aarch64")
+		"aarch64/")
 			echo -n "arm64"
 			;;
 		*)
@@ -71,12 +71,6 @@ fi
 # Build 
 if [[ ${should_build} == "true" ]]; then
     mkdir -p output/${driver_version}/${arch}
-    if [[ -n "${arch}" ]]; then
-        # if we have an architecture in our config path, force use it
-        ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --architecture $(arch_to_driverkit_arch ${arch}) --timeout 1000 || echo ${input} >> output/failing.log
-    else
-        # we only support x86_64
-        # TODO: remove once we drop support for old tree
-        ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --architecture amd64 --timeout 1000 || echo ${input} >> output/failing.log
-    fi
+    # if we have an architecture in our config path, force use it
+    ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --architecture $(arch_to_driverkit_arch ${arch}) --timeout 1000 || echo ${input} >> output/failing.log
 fi
