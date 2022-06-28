@@ -47,7 +47,7 @@ specific_target_old: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGE
 specific_target_new: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
-publish: $(addprefix publish_,$(VERSIONS))
+publish: publish_s3 # alias publish_s3; artifactory is no more supported
 publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 
 generate:
@@ -116,18 +116,6 @@ ifneq ("$(wildcard output/$(1)/aarch64/*.o)","")
 	@mkdir -p output/$(1)/ebpf-probe/aarch64
 	@mv -f output/$(1)/aarch64/*.o output/$(1)/ebpf-probe/aarch64
 endif
-
-prepare_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
-	@echo "upserting falcosecurity/driver/kernel-module/$(1) version..."
-	jfrog bt vs falcosecurity/driver/kernel-module/$(1) --user poiana --key ${BINTRAY_SECRET} || jfrog bt vc falcosecurity/driver/kernel-module/$(1) --desc="Falco kernel module" --released=`date -u +"%Y-%m-%dT%H:%M:%S.000Z"` --user poiana --key ${BINTRAY_SECRET}
-	@echo "upserting falcosecurity/driver/ebpf-probe/$(1) version..."
-	jfrog bt vs falcosecurity/driver/ebpf-probe/$(1) --user poiana --key ${BINTRAY_SECRET} || jfrog bt vc falcosecurity/driver/ebpf-probe/$(1) --desc="Falco eBPF probe" --released=`date -u +"%Y-%m-%dT%H:%M:%S.000Z"` --user poiana --key ${BINTRAY_SECRET}
-
-publish_$(1): prepare_$(1)
-	@echo "publishing kernel modules (version $(1)) to bintray ..."
-	jfrog bt u "output/$(1)/kernel-module/*" falcosecurity/driver/kernel-module/$(1) $(1)/ --user poiana --key ${BINTRAY_SECRET} --publish --override
-	@echo "publishing eBPF probes (version $(1)) to bintray ..."
-	jfrog bt u "output/$(1)/ebpf-probe/*" falcosecurity/driver/ebpf-probe/$(1) $(1)/ --user poiana --key ${BINTRAY_SECRET} --publish --override
 
 publish_s3_$(1): split_$(1)_kernelmodules split_$(1)_ebpfprobes
 	if [ -d "output/$(1)/ebpf-probe" ]; then \
