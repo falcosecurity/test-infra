@@ -11,7 +11,7 @@ COPY build-drivers.sh /workspace/build-drivers.sh
 
 RUN chmod 755 /workspace/build-drivers.sh
 
-ENV DOCKER_API_VERSION=1.38
+ENV DOCKER_API_VERSION=1.41
 
 WORKDIR /workspace
 
