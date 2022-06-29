@@ -147,8 +147,8 @@ branch-protection:
             contexts:
               - "ci/circleci: tests-driver-loader-integration"
               - "ci/circleci: tests-integration"
+              - "ci/circleci: tests-integration-arm64"
               # note: we don't need build jobs, since tests depends on them
-              # todo(leogr,FedeDP): ARM64 tests
           branches:
             master:
               protect: true
