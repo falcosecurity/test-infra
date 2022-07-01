@@ -1,0 +1,5 @@
+kernelversion: 164
+kernelrelease: 4.4.0-138-generic
+target: ubuntu-generic
+output:
+  module: output/2.0.0-rc1+driver/x86_64/falco_ubuntu-generic_4.4.0-138-generic_164.ko

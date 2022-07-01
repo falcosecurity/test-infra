@@ -1,6 +1,0 @@
-kernelversion: 38
-kernelrelease: 5.8.0-1036-aws
-target: ubuntu-aws
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-aws_5.8.0-1036-aws_38.ko
-  probe: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-aws_5.8.0-1036-aws_38.o

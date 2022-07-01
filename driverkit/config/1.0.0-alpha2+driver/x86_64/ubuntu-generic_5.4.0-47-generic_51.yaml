@@ -1,6 +1,0 @@
-kernelversion: 51
-kernelrelease: 5.4.0-47-generic
-target: ubuntu-generic
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_5.4.0-47-generic_51.ko
-  probe: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_5.4.0-47-generic_51.o

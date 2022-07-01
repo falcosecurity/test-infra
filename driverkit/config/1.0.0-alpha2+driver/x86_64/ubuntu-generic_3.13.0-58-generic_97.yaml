@@ -1,5 +1,0 @@
-kernelversion: 97
-kernelrelease: 3.13.0-58-generic
-target: ubuntu-generic
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_3.13.0-58-generic_97.ko
