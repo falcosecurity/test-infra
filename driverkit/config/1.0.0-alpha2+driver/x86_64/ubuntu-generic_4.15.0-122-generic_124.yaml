@@ -1,6 +1,0 @@
-kernelversion: 124
-kernelrelease: 4.15.0-122-generic
-target: ubuntu-generic
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_4.15.0-122-generic_124.ko
-  probe: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_4.15.0-122-generic_124.o

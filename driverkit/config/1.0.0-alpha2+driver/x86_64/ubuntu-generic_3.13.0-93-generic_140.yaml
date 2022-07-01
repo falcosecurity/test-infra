@@ -1,5 +1,0 @@
-kernelversion: 140
-kernelrelease: 3.13.0-93-generic
-target: ubuntu-generic
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_3.13.0-93-generic_140.ko

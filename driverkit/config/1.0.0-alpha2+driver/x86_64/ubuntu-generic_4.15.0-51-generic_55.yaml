@@ -1,6 +1,0 @@
-kernelversion: 55
-kernelrelease: 4.15.0-51-generic
-target: ubuntu-generic
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_4.15.0-51-generic_55.ko
-  probe: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_4.15.0-51-generic_55.o

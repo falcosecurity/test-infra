@@ -1,6 +1,0 @@
-kernelversion: 16
-kernelrelease: 5.13.0-16-generic
-target: ubuntu-generic
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_5.13.0-16-generic_16.ko
-  probe: output/1.0.0-alpha2+driver/x86_64/falco_ubuntu-generic_5.13.0-16-generic_16.o

@@ -1,5 +1,0 @@
-kernelversion: 1
-kernelrelease: 3.16.0-6-amd64
-target: debian
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_debian_3.16.0-6-amd64_1.ko

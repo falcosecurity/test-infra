@@ -1,5 +1,0 @@
-kernelversion: 1
-kernelrelease: 4.9.27-14.31.amzn1.x86_64
-target: amazonlinux
-output:
-  module: output/1.0.0-alpha2+driver/x86_64/falco_amazonlinux_4.9.27-14.31.amzn1.x86_64_1.ko
