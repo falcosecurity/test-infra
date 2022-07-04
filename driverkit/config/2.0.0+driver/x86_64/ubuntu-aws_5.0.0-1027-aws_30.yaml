@@ -1,0 +1,6 @@
+kernelversion: 30
+kernelrelease: 5.0.0-1027-aws
+target: ubuntu-aws
+output:
+  module: output/2.0.0+driver/x86_64/falco_ubuntu-aws_5.0.0-1027-aws_30.ko
+  probe: output/2.0.0+driver/x86_64/falco_ubuntu-aws_5.0.0-1027-aws_30.o

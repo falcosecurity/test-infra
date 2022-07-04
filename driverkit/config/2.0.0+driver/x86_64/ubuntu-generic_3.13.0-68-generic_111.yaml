@@ -1,0 +1,5 @@
+kernelversion: 111
+kernelrelease: 3.13.0-68-generic
+target: ubuntu-generic
+output:
+  module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_3.13.0-68-generic_111.ko

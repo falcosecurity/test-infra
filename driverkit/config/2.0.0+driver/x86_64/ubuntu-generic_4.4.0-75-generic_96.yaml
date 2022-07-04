@@ -1,0 +1,5 @@
+kernelversion: 96
+kernelrelease: 4.4.0-75-generic
+target: ubuntu-generic
+output:
+  module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_4.4.0-75-generic_96.ko

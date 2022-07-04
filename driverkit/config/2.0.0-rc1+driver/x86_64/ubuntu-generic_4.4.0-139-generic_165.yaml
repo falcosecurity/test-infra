@@ -1,5 +1,0 @@
-kernelversion: 165
-kernelrelease: 4.4.0-139-generic
-target: ubuntu-generic
-output:
-  module: output/2.0.0-rc1+driver/x86_64/falco_ubuntu-generic_4.4.0-139-generic_165.ko
