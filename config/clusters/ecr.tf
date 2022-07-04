@@ -33,13 +33,6 @@ resource "aws_ecr_repository" "autobump" {
   }
 }
 
-resource "aws_ecr_repository" "build_libs" {
-  name = "test-infra/build-libs"
-  encryption_configuration {
-    encryption_type = "KMS"
-  }
-}
-
 resource "aws_ecr_repository" "build_plugins" {
   name = "test-infra/build-plugins"
   encryption_configuration {

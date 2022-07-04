@@ -46,11 +46,6 @@ resource "aws_ecr_repository_policy" "autobump" {
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
-resource "aws_ecr_repository_policy" "build_libs" {
-  repository = aws_ecr_repository.build_libs.name
-  policy     = data.aws_iam_policy_document.ecr_standard.json
-}
-
 resource "aws_ecr_repository_policy" "build_plugins" {
   repository = aws_ecr_repository.build_plugins.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
