@@ -1,0 +1,5 @@
+kernelversion: 199
+kernelrelease: 3.13.0-149-generic
+target: ubuntu-generic
+output:
+  module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_3.13.0-149-generic_199.ko

@@ -1,6 +1,0 @@
-kernelversion: 90
-kernelrelease: 5.4.0-80-generic
-target: ubuntu-generic
-output:
-  module: output/2.0.0-rc1+driver/x86_64/falco_ubuntu-generic_5.4.0-80-generic_90.ko
-  probe: output/2.0.0-rc1+driver/x86_64/falco_ubuntu-generic_5.4.0-80-generic_90.o

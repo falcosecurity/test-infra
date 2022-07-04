@@ -1,0 +1,6 @@
+kernelversion: 167
+kernelrelease: 4.15.0-159-generic
+target: ubuntu-generic
+output:
+  module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_4.15.0-159-generic_167.ko
+  probe: output/2.0.0+driver/x86_64/falco_ubuntu-generic_4.15.0-159-generic_167.o
