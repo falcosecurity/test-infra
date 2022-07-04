@@ -84,6 +84,10 @@ function path_from_version() {
   if [[ $TARGET_VERSION =~ $SEMVER_REGEX ]]; then
     # valid semver
     echo -n "${TARGET_VERSION}/${TARGET_ARCH}"
+  elif [[ $TARGET_ARCH == "aarch64" ]]; then
+    # not valid (old versions) -> skip arm64
+    echo "Skipping arm64 configs for old tree."
+    exit 1
   else
     # not valid (old versions)
     echo -n "${TARGET_VERSION}"
@@ -91,7 +95,12 @@ function path_from_version() {
 }
 
 generate_yamls() {
-    FOLDER="${CURRENT_DIR}/../driverkit/config/$(path_from_version)"
+    # TODO: remove once we only support new tree. It is not an error, as we are skipping
+    # arm64 configs for old tree.
+    SUBPATH=$(path_from_version) || exit 0
+    # This is an error: wrong arch passed to make generate
+    DKARCH=$(arch_to_driverkit_arch ${TARGET_ARCH}) || exit 1
+    FOLDER="${CURRENT_DIR}/../driverkit/config/${SUBPATH}"
     mkdir -p ${FOLDER}
     FILE="${FOLDER}/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml"
     echo "---"
@@ -100,10 +109,10 @@ generate_yamls() {
     echo "kernelversion: ${TARGET_KERNEL_VERSION}"
     echo "kernelrelease: ${TARGET_KERNEL_RELEASE}"
     echo "target: ${TARGET_DISTRO}"
-    echo "architecture: $(arch_to_driverkit_arch ${TARGET_ARCH})"
+    echo "architecture: ${DKARCH}"
     echo "output:"
-    echo "  module: output/$(path_from_version)/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
-    echo "  probe: output/$(path_from_version)/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    echo "  module: output/${SUBPATH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
+    echo "  probe: output/${SUBPATH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
     if [[ -n "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}"
     fi
@@ -111,10 +120,10 @@ generate_yamls() {
     echo "kernelversion: ${TARGET_KERNEL_VERSION}" > ${FILE}
     echo "kernelrelease: ${TARGET_KERNEL_RELEASE}" >> ${FILE}
     echo "target: ${TARGET_DISTRO}" >> ${FILE}
-    echo "architecture: $(arch_to_driverkit_arch ${TARGET_ARCH})" >> ${FILE}
+    echo "architecture: ${DKARCH}" >> ${FILE}
     echo "output:" >> ${FILE}
-    echo "  module: output/$(path_from_version)/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
-    echo "  probe: output/$(path_from_version)/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
+    echo "  module: output/${SUBPATH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
+    echo "  probe: output/${SUBPATH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
     if [[ -n "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}" >> ${FILE}
     fi   
