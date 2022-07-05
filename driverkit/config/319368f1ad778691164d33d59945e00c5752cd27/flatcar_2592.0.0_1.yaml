@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 2592.0.0
+target: flatcar
+architecture: amd64
+output:
+  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_flatcar_2592.0.0_1.ko
+  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_flatcar_2592.0.0_1.o
+kernelurls: ["https://alpha.release.flatcar-linux.net/amd64-usr/2592.0.0/flatcar_developer_container.bin.bz2"]

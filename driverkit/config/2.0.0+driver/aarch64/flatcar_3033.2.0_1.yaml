@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 3033.2.0
+target: flatcar
+architecture: arm64
+output:
+  module: output/2.0.0+driver/aarch64/falco_flatcar_3033.2.0_1.ko
+  probe: output/2.0.0+driver/aarch64/falco_flatcar_3033.2.0_1.o
+kernelurls: ["https://stable.release.flatcar-linux.net/arm64-usr/3033.2.0/flatcar_developer_container.bin.bz2"]

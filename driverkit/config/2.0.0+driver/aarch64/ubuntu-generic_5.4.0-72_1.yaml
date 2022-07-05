@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 5.4.0-72
+target: ubuntu-generic
+architecture: arm64
+output:
+  module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_5.4.0-72_1.ko
+  probe: output/2.0.0+driver/aarch64/falco_ubuntu-generic_5.4.0-72_1.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.4.0-72-generic_5.4.0-72.80_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.4.0-72_5.4.0-72.80_all.deb"]

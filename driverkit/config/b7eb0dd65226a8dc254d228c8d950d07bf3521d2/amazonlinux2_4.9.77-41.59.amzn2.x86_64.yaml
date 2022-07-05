@@ -1,0 +1,8 @@
+kernelversion: 64
+kernelrelease: 4.9.77-41.59.amzn2.x86
+target: amazonlinux2
+architecture: amd64
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_amazonlinux2_4.9.77-41.59.amzn2.x86_64.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_amazonlinux2_4.9.77-41.59.amzn2.x86_64.o
+kernelurls: ["http://amazonlinux.us-east-1.amazonaws.com/2/core/2.0/x86_64/5454bdaaf3e2fa8d3aac354bd0b9f21079f8efbfc8b04fb40db462ed434f9f04/../../../../../blobstore/b7c31d392e4b09503950d7d4c6590000cd7b7111d304e02e01b6b884a5882baf/kernel-devel-4.9.77-41.59.amzn2.x86_64.rpm"]

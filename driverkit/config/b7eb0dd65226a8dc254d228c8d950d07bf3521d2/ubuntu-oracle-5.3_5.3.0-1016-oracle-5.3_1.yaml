@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 5.3.0-1016-oracle-5.3
+target: ubuntu-oracle-5.3
+architecture: amd64
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-oracle-5.3_5.3.0-1016-oracle-5.3_1.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-oracle-5.3_5.3.0-1016-oracle-5.3_1.o
+kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux-oracle-5.3/linux-oracle-5.3-headers-5.3.0-1016_5.3.0-1016.18~18.04.1_all.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-oracle-5.3/linux-headers-5.3.0-1016-oracle_5.3.0-1016.18~18.04.1_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oracle-5.3/linux-headers-5.3.0-1016-oracle_5.3.0-1016.18~18.04.1_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oracle-5.3/linux-oracle-5.3-headers-5.3.0-1016_5.3.0-1016.18~18.04.1_all.deb"]

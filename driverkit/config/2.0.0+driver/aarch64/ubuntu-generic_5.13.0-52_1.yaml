@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 5.13.0-52
+target: ubuntu-generic
+architecture: arm64
+output:
+  module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_5.13.0-52_1.ko
+  probe: output/2.0.0+driver/aarch64/falco_ubuntu-generic_5.13.0-52_1.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.13.0-52_5.13.0-52.59_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.13.0-52-generic-64k_5.13.0-52.59_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.13.0-52-generic_5.13.0-52.59_arm64.deb"]
