@@ -1,6 +1,4 @@
 approvers:
-  - leodido
-  - fntlnz
   - jonahjon
   - maxgio92
 reviewers:
@@ -9,3 +7,6 @@ reviewers:
   - markyjackson-taulia
   - jonahjon
   - maxgio92
+emeritus_approvers:
+  - leodido
+  - fntlnz
