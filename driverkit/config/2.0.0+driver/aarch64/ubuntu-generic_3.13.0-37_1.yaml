@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 3.13.0-37
+target: ubuntu-generic
+architecture: arm64
+output:
+  module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-37_1.ko
+  probe: output/2.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-37_1.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-37-generic_3.13.0-37.64_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-37_3.13.0-37.64_all.deb"]

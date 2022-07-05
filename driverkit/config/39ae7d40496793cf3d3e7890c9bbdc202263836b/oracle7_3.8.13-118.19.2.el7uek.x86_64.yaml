@@ -1,0 +1,8 @@
+kernelversion: 64
+kernelrelease: 3.8.13-118.19.2.el7uek.x86
+target: oracle7
+architecture: amd64
+output:
+  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_oracle7_3.8.13-118.19.2.el7uek.x86_64.ko
+  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_oracle7_3.8.13-118.19.2.el7uek.x86_64.o
+kernelurls: ["http://yum.oracle.com/repo/OracleLinux/OL7/UEKR3/x86_64/getPackage/kernel-uek-devel-3.8.13-118.19.2.el7uek.x86_64.rpm"]

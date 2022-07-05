@@ -1,0 +1,8 @@
+kernelversion: 64
+kernelrelease: 3.10.0-1160.2.1.el7.x86
+target: centos
+architecture: amd64
+output:
+  module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_centos_3.10.0-1160.2.1.el7.x86_64.ko
+  probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_centos_3.10.0-1160.2.1.el7.x86_64.o
+kernelurls: ["http://mirror.centos.org/centos/7.9.2009/updates/x86_64/Packages/kernel-devel-3.10.0-1160.2.1.el7.x86_64.rpm"]

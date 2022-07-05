@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 5.4.0-64
+target: ubuntu-generic
+architecture: amd64
+output:
+  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_5.4.0-64_1.ko
+  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_5.4.0-64_1.o
+kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-64-generic_5.4.0-64.72_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-64_5.4.0-64.72_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-64-lowlatency_5.4.0-64.72_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-64_5.4.0-64.72_all.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-64-lowlatency_5.4.0-64.72_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-64-generic_5.4.0-64.72_amd64.deb"]
