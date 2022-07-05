@@ -1,7 +1,8 @@
 approvers:
-  - leodido
-  - fntlnz
   - maxgio92
   - jonahjon
   - leogr
   - zuc
+emeritus_approvers:
+  - leodido
+  - fntlnz
