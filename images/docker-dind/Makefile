@@ -1,14 +1,7 @@
-IMG_NAME = test-infra/docker-dind
-ACCOUNT=292999226676
-DOCKER_PUSH_REPOSITORY=dkr.ecr.eu-west-1.amazonaws.com
+this_path := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
+IMG_SLUG := test-infra
+IMG_NAME = docker-dind
 TAG?=latest
-IMAGE=$(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)/$(IMG_NAME)
 
-
-build-push: build-image push-image
-
-build-image:
-	docker build -t $(IMG_NAME) .
-push-image:
-	docker tag $(IMG_NAME) $(IMAGE):$(TAG)
-	docker push $(IMAGE):$(TAG)
+include $(this_path)/../common.Makefile

@@ -1,5 +1,8 @@
 FROM debian:buster
 
+LABEL name="test-infra/docker-dind"
+LABEL maintainer="falcosecurity/test-infra"
+
 ARG COSIGN_VERSION=1.9.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \

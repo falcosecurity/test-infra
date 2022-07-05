@@ -2,7 +2,7 @@
 
 set -e
 
-source utils.sh
+source common.sh
 
 start_docker
 

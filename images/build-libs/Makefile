@@ -5,7 +5,7 @@ cosign_version ?= 1.9.0
 cosign_key ?= k8s://cosign/openinfra-oci-sign
 
 IMG_SLUG := test-infra
-IMG_NAME := build-plugins
+IMG_NAME := build-libs
 IMG_TAG ?= latest
 
 ACCOUNT := 292999226676
@@ -23,20 +23,20 @@ build-push: push-image
 create-builder:
 	# Workaround for buildx issue, see https://github.com/docker/buildx/issues/495#issuecomment-761562905
 	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-	docker buildx create --name pluginsbuilder --driver docker-container --use
+	docker buildx create --name libsbuilder --driver docker-container --use
 	docker buildx inspect --bootstrap
 
 build-image: create-builder
 	docker buildx build --platform $(ARCHS) -o type=image,push="false" .
-
-sign-image: cosign
-	$(cosign) sign --key $(cosign_key) $(IMAGE)
 
 push-image: create-builder
 	docker buildx build --push --platform $(ARCHS) -t "$(IMAGE)" .
 
 local-registry: create-builder
 	docker buildx build --push --platform $(ARCHS) -t "localhost:5000/$(IMG_NAME)" .
+
+sign-image: cosign
+	$(cosign) sign --key $(cosign_key) $(IMAGE)
 
 cosign: go
 	@hash cosign 2>dev/null || \
