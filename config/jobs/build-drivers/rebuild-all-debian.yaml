@@ -28,6 +28,9 @@ presubmits:
           requests:
             cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
             memory: 6Gi
+          limits:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 6Gi
       nodeSelector:
         Archtype: "x86"
 periodics:
@@ -58,6 +61,9 @@ periodics:
           privileged: true
         resources:
           requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 6Gi
+          limits:
             cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
             memory: 6Gi
       nodeSelector:
