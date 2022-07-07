@@ -47,7 +47,7 @@ if [ -z ${TARGET_VERSION} ]; then
 fi
 
 ensure_kernelversion() {
-    TARGET_KERNEL_VERSION="$(expr match "${TARGET_KERNEL}" '^.*_\(.*\)$')"
+    TARGET_KERNEL_VERSION="$(expr match "${TARGET_KERNEL}" '^.*_\(\d*\)$')"
 
     # If kernel version is missing
     test -z $TARGET_KERNEL_VERSION &&\
