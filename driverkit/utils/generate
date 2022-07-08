@@ -6,8 +6,6 @@ PROBE_NAME="falco"
 
 CURRENT_DIR="$(pwd)"
 
-DEFAULT_KERNEL_VERSION="1"
-
 while getopts ":a:k:d:v:h:" arg; do
   case $arg in
     a)
@@ -46,16 +44,11 @@ if [ -z ${TARGET_VERSION} ]; then
     exit 1
 fi
 
-ensure_kernelversion() {
-    TARGET_KERNEL_VERSION="$(expr match "${TARGET_KERNEL}" '^.*_\(\d*\)$')"
-
-    # If kernel version is missing
-    test -z $TARGET_KERNEL_VERSION &&\
-	    TARGET_KERNEL_VERSION=$DEFAULT_KERNEL_VERSION &&\
-	    TARGET_KERNEL="${TARGET_KERNEL}_${TARGET_KERNEL_VERSION}"
+compute_kernelversion() {
+    TARGET_KERNEL_VERSION=$(echo "${TARGET_KERNEL##*_}")
 }
 
-ensure_kernelrelease() {
+compute_kernelrelease() {
     TARGET_KERNEL_RELEASE="${TARGET_KERNEL%_${TARGET_KERNEL_VERSION}}"
 }
 
@@ -129,6 +122,6 @@ generate_yamls() {
     fi   
 }
 
-ensure_kernelversion
-ensure_kernelrelease
+compute_kernelversion
+compute_kernelrelease
 generate_yamls
