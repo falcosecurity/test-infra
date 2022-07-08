@@ -1,6 +1,0 @@
-kernelversion: 147
-kernelrelease: 4.15.0-143-generic
-target: ubuntu-generic
-output:
-  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-generic_4.15.0-143-generic_147.ko
-  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-generic_4.15.0-143-generic_147.o
