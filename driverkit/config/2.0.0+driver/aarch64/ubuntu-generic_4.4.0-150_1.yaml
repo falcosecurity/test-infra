@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 4.4.0-150
-target: ubuntu-generic
-architecture: arm64
-output:
-  module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_4.4.0-150_1.ko
-  probe: output/2.0.0+driver/aarch64/falco_ubuntu-generic_4.4.0-150_1.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-150-generic_4.4.0-150.176_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-150_4.4.0-150.176_all.deb"]

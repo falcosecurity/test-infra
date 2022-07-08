@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 4.4.0-83-lts-xenial
-target: ubuntu-lts-xenial
-architecture: arm64
-output:
-  module: output/2.0.0+driver/aarch64/falco_ubuntu-lts-xenial_4.4.0-83-lts-xenial_1.ko
-  probe: output/2.0.0+driver/aarch64/falco_ubuntu-lts-xenial_4.4.0-83-lts-xenial_1.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-xenial/linux-headers-4.4.0-83_4.4.0-83.106~14.04.1_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-xenial/linux-headers-4.4.0-83-generic_4.4.0-83.106~14.04.1_arm64.deb"]

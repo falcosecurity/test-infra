@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.13.0-1020-aws
-target: ubuntu-aws
-architecture: arm64
-output:
-  module: output/2.0.0+driver/aarch64/falco_ubuntu-aws_5.13.0-1020-aws_1.ko
-  probe: output/2.0.0+driver/aarch64/falco_ubuntu-aws_5.13.0-1020-aws_1.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-aws-headers-5.13.0-1020_5.13.0-1020.22_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-5.13.0-1020-aws_5.13.0-1020.22_arm64.deb"]

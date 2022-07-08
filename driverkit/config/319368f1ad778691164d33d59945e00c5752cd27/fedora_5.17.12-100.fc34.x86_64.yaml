@@ -1,8 +1,0 @@
-kernelversion: 64
-kernelrelease: 5.17.12-100.fc34.x86
-target: fedora
-architecture: amd64
-output:
-  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_fedora_5.17.12-100.fc34.x86_64.ko
-  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_fedora_5.17.12-100.fc34.x86_64.o
-kernelurls: ["https://mirrors.kernel.org/fedora/updates/34/Everything/x86_64/Packages/k/kernel-devel-5.17.12-100.fc34.x86_64.rpm"]

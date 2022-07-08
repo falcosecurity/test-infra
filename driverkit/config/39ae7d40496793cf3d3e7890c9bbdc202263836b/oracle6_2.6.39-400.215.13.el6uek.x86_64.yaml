@@ -1,8 +1,0 @@
-kernelversion: 64
-kernelrelease: 2.6.39-400.215.13.el6uek.x86
-target: oracle6
-architecture: amd64
-output:
-  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_oracle6_2.6.39-400.215.13.el6uek.x86_64.ko
-  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_oracle6_2.6.39-400.215.13.el6uek.x86_64.o
-kernelurls: ["http://yum.oracle.com/repo/OracleLinux/OL6/UEK/latest/x86_64/getPackage/kernel-uek-devel-2.6.39-400.215.13.el6uek.x86_64.rpm"]
