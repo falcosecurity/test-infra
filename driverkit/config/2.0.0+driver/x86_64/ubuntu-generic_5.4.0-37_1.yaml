@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.4.0-37
-target: ubuntu-generic
-architecture: amd64
-output:
-  module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_5.4.0-37_1.ko
-  probe: output/2.0.0+driver/x86_64/falco_ubuntu-generic_5.4.0-37_1.o
-kernelurls: ["http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-37-generic_5.4.0-37.41_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-37_5.4.0-37.41_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-37_5.4.0-37.41_all.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-37-lowlatency_5.4.0-37.41_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-37-generic_5.4.0-37.41_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-37-lowlatency_5.4.0-37.41_amd64.deb"]

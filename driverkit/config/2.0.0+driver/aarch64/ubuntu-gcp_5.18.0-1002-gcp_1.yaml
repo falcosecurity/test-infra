@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.18.0-1002-gcp
-target: ubuntu-gcp
-architecture: arm64
-output:
-  module: output/2.0.0+driver/aarch64/falco_ubuntu-gcp_5.18.0-1002-gcp_1.ko
-  probe: output/2.0.0+driver/aarch64/falco_ubuntu-gcp_5.18.0-1002-gcp_1.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp/linux-gcp-headers-5.18.0-1002_5.18.0-1002.2_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp/linux-headers-5.18.0-1002-gcp_5.18.0-1002.2_arm64.deb"]

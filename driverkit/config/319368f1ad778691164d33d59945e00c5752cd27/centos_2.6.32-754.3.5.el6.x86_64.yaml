@@ -1,8 +1,0 @@
-kernelversion: 64
-kernelrelease: 2.6.32-754.3.5.el6.x86
-target: centos
-architecture: amd64
-output:
-  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_centos_2.6.32-754.3.5.el6.x86_64.ko
-  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_centos_2.6.32-754.3.5.el6.x86_64.o
-kernelurls: ["http://linuxsoft.cern.ch/centos-vault/6.10/updates/x86_64/Packages/kernel-devel-2.6.32-754.3.5.el6.x86_64.rpm"]

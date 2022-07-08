@@ -1,0 +1,8 @@
+kernelversion: 20
+kernelrelease: 5.13.0-1018-azure
+target: ubuntu-azure
+architecture: arm64
+output:
+  module: output/2.0.0+driver/aarch64/falco_ubuntu-azure_5.13.0-1018-azure_20.ko
+  probe: output/2.0.0+driver/aarch64/falco_ubuntu-azure_5.13.0-1018-azure_20.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-headers-5.13.0-1018-azure_5.13.0-1018.20_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-azure-headers-5.13.0-1018_5.13.0-1018.20_all.deb"]

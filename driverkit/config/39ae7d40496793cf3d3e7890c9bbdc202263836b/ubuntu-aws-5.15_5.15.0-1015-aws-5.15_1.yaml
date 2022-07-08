@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.15.0-1015-aws-5.15
-target: ubuntu-aws-5.15
-architecture: amd64
-output:
-  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-aws-5.15_5.15.0-1015-aws-5.15_1.ko
-  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-aws-5.15_5.15.0-1015-aws-5.15_1.o
-kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws-5.15/linux-aws-5.15-headers-5.15.0-1015_5.15.0-1015.19~20.04.1_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws-5.15/linux-headers-5.15.0-1015-aws_5.15.0-1015.19~20.04.1_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws-5.15/linux-aws-5.15-headers-5.15.0-1015_5.15.0-1015.19~20.04.1_all.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws-5.15/linux-headers-5.15.0-1015-aws_5.15.0-1015.19~20.04.1_amd64.deb"]
