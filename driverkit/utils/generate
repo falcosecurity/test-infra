@@ -4,6 +4,16 @@
 DRIVER_NAME="falco"
 PROBE_NAME="falco"
 
+aarch64_MINIMUM_KVER=(
+        "eBPF:4.17"
+        "kmod:3.4"
+)
+x86_64_MINIMUM_KVER=(
+        "eBPF:4.14"
+        "kmod:2.6"
+)
+declare -A output=()
+
 CURRENT_DIR="$(pwd)"
 
 while getopts ":a:k:d:v:h:" arg; do
@@ -50,6 +60,49 @@ compute_kernelversion() {
 
 compute_kernelrelease() {
     TARGET_KERNEL_RELEASE="${TARGET_KERNEL%_${TARGET_KERNEL_VERSION}}"
+}
+
+check_outputs() {
+    regex='([0-9]+)\.([0-9]+)'
+    if [[ "${TARGET_KERNEL}" =~ ${regex} ]]
+    then
+        maj=${BASH_REMATCH[1]}
+        min=${BASH_REMATCH[2]}
+
+        # Use correct array for target arch
+        declare -n arrayname=${TARGET_ARCH}_MINIMUM_KVER
+        ctr=0
+        for min_kver in "${arrayname[@]}" ; do
+            KEY="${min_kver%%:*}"
+            VALUE="${min_kver##*:}"
+
+            if [[ "${VALUE}" =~ ${regex} ]]
+            then
+                req_maj=${BASH_REMATCH[1]}
+                req_min=${BASH_REMATCH[2]}
+
+                if [[ ( $maj -gt $req_maj ) || ( $maj -eq $req_maj && $min -ge $req_min ) ]]
+                then
+                    output["$KEY"]=1
+                    ctr=$((ctr+1))
+                else
+                    echo "Skipping $KEY output: version ($maj.$min) too low: minimum: ($req_maj.$req_min)"
+                fi
+            else
+                echo "Wrong minimum kernel version: ${VALUE}."
+                return 1
+            fi
+        done
+    else
+        echo "Wrong target kernel: ${TARGET_KERNEL}."
+        return 1
+    fi
+
+    if [[ $ctr -eq 0 ]];
+    then
+        echo "No outputs configured. Unsupported target kernel version: ${TARGET_KERNEL}."
+        return 1
+    fi
 }
 
 arch_to_driverkit_arch() {
@@ -104,8 +157,14 @@ generate_yamls() {
     echo "target: ${TARGET_DISTRO}"
     echo "architecture: ${DKARCH}"
     echo "output:"
-    echo "  module: output/${SUBPATH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
-    echo "  probe: output/${SUBPATH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    if [[ ${output["kmod"]} -eq 1 ]]
+    then
+        echo "  module: output/${SUBPATH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko"
+    fi
+    if [[ ${output["eBPF"]} -eq 1 ]]
+    then
+        echo "  probe: output/${SUBPATH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o"
+    fi
     if [[ -n "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}"
     fi
@@ -115,13 +174,20 @@ generate_yamls() {
     echo "target: ${TARGET_DISTRO}" >> ${FILE}
     echo "architecture: ${DKARCH}" >> ${FILE}
     echo "output:" >> ${FILE}
-    echo "  module: output/${SUBPATH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
-    echo "  probe: output/${SUBPATH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
+    if [[ ${output["kmod"]} -eq 1 ]]
+    then
+        echo "  module: output/${SUBPATH}/${DRIVER_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.ko" >> ${FILE}
+    fi
+    if [[ ${output["eBPF"]} -eq 1 ]]
+    then
+        echo "  probe: output/${SUBPATH}/${PROBE_NAME}_${TARGET_DISTRO}_${TARGET_KERNEL}.o" >> ${FILE}
+    fi
     if [[ -n "${TARGET_HEADERS}" ]]; then
         echo "kernelurls: ${TARGET_HEADERS}" >> ${FILE}
-    fi   
+    fi
 }
 
 compute_kernelversion
 compute_kernelrelease
+check_outputs || exit 0
 generate_yamls
