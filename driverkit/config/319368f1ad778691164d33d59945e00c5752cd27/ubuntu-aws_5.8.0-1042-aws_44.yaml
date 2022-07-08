@@ -1,6 +1,0 @@
-kernelversion: 44
-kernelrelease: 5.8.0-1042-aws
-target: ubuntu-aws
-output:
-  module: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-aws_5.8.0-1042-aws_44.ko
-  probe: output/319368f1ad778691164d33d59945e00c5752cd27/falco_ubuntu-aws_5.8.0-1042-aws_44.o
