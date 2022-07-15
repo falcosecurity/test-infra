@@ -18,7 +18,9 @@ VERSIONS := $(patsubst config/%,%,$(sort $(dir $(wildcard config/*/))))
 VERSIONS := $(VERSIONS:/=)
 TARGET_VERSION ?= *
 TARGET_DISTRO ?= *
-TARGET_KERNEL ?= *
+TARGET_KERNEL_RELEASE ?= *
+TARGET_KERNEL_VERSION ?= *
+TARGET_KERNEL ?= ${TARGET_KERNEL_RELEASE}_${TARGET_KERNEL_VERSION}
 TARGET_ARCH ?= *
 TARGET_ARCHS := $(if $(call eq,$(TARGET_ARCH),*),$(ALL_ARCHS),$(TARGET_ARCH))
 TARGET_HEADERS ?=
@@ -31,20 +33,23 @@ validate: validate_old validate_new
 # because validate_old will always validate any old config.
 # Not a big deal because we were not going to filter for TARGET_ARCH in any case.
 # TODO: rm once old format support is dropped
-validate_old: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+validate_old: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml)))
 # new fmt has $arch subfolders
-validate_new: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+validate_new: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml)))
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-specific_target: specific_target_old specific_target_new
+debug:
+	echo "${TARGET_KERNEL}"
+
+specific_target: debug specific_target_old specific_target_new
 # old fmt had x86_64 only in root folder. Note: this breaks filtering for TARGET_ARCH
 # because specific_target_old will always build any old config.
 # Not a big deal because we were not going to filter for TARGET_ARCH in any case.
 # TODO: rm once old format support is dropped
-specific_target_old: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+specific_target_old: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml)))
 # new fmt has $arch subfolders
-specific_target_new: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*)))
+specific_target_new: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: publish_s3 # alias publish_s3; artifactory is no more supported
