@@ -1,9 +1,11 @@
+ARG COSIGN_VERSION=v1.9.0
+
+FROM gcr.io/projectsigstore/cosign:${COSIGN_VERSION} as cosign-bin
+
 FROM debian:buster
 
 LABEL name="test-infra/docker-dind"
 LABEL maintainer="falcosecurity/test-infra"
-
-ARG COSIGN_VERSION=1.9.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -47,9 +49,6 @@ RUN tmpdir=`mktemp -d` && curl "https://awscli.amazonaws.com/awscli-exe-linux-x8
 	$tmpdir/aws/install -i /usr/local/aws-cli -b /usr/local/bin && \
 	rm -r $tmpdir
 
-RUN apt-get update && TMPDIR=$(mktemp -d) \
-	&& curl -SL -o $TMPDIR/cosign.deb \
-		"https://github.com/sigstore/cosign/releases/download/v${COSIGN_VERSION}/cosign_${COSIGN_VERSION}_amd64.deb" \
-	&& apt-get install -y --no-install-recommends \
-		$TMPDIR/cosign.deb \
-	&& apt-get clean
+COPY --from=cosign-bin \
+	/ko-app/cosign \
+	/usr/local/bin/cosign
