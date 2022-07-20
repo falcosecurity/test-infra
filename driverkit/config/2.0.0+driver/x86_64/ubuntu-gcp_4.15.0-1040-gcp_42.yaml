@@ -1,6 +1,6 @@
 kernelversion: 42
 kernelrelease: 4.15.0-1040-gcp
-target: ubuntu-gcp
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-gcp_4.15.0-1040-gcp_42.ko

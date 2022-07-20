@@ -1,6 +1,6 @@
 kernelversion: 17
 kernelrelease: 5.13.0-1015-raspi
-target: ubuntu-raspi
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-raspi_5.13.0-1015-raspi_17.ko

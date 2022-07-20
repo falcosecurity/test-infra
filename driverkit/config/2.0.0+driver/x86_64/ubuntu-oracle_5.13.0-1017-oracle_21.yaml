@@ -1,6 +1,6 @@
 kernelversion: 21
 kernelrelease: 5.13.0-1017-oracle
-target: ubuntu-oracle
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-oracle_5.13.0-1017-oracle_21.ko

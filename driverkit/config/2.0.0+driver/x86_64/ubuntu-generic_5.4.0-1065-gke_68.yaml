@@ -1,6 +1,6 @@
 kernelversion: 68
 kernelrelease: 5.4.0-1065-gke
-target: ubuntu-generic
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_5.4.0-1065-gke_68.ko

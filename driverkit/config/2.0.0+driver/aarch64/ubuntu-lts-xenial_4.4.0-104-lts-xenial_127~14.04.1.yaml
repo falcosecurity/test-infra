@@ -1,6 +1,6 @@
 kernelversion: 127~14.04.1
 kernelrelease: 4.4.0-104-lts-xenial
-target: ubuntu-lts-xenial
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-lts-xenial_4.4.0-104-lts-xenial_127~14.04.1.ko

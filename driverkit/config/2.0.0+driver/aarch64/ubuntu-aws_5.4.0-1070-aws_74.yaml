@@ -1,6 +1,6 @@
 kernelversion: 74
 kernelrelease: 5.4.0-1070-aws
-target: ubuntu-aws
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-aws_5.4.0-1070-aws_74.ko

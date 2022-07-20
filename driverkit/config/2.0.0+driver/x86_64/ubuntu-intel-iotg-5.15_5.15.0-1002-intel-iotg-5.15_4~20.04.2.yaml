@@ -1,6 +1,6 @@
 kernelversion: 4~20.04.2
 kernelrelease: 5.15.0-1002-intel-iotg-5.15
-target: ubuntu-intel-iotg-5.15
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-intel-iotg-5.15_5.15.0-1002-intel-iotg-5.15_4~20.04.2.ko

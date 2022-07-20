@@ -1,6 +1,6 @@
 kernelversion: 4
 kernelrelease: 5.13.0-1003-aws
-target: ubuntu-aws
+target: ubuntu
 output:
   module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-aws_5.13.0-1003-aws_4.ko
   probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-aws_5.13.0-1003-aws_4.o

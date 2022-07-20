@@ -1,6 +1,6 @@
 kernelversion: 66
 kernelrelease: 5.4.0-1063-kvm
-target: ubuntu-kvm
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-kvm_5.4.0-1063-kvm_66.ko

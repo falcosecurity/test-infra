@@ -1,6 +1,6 @@
 kernelversion: 25~18.04.1
 kernelrelease: 4.18.0-24-hwe
-target: ubuntu-hwe
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-hwe_4.18.0-24-hwe_25~18.04.1.ko

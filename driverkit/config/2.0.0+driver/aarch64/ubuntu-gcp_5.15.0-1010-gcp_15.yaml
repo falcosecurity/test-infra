@@ -1,6 +1,6 @@
 kernelversion: 15
 kernelrelease: 5.15.0-1010-gcp
-target: ubuntu-gcp
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-gcp_5.15.0-1010-gcp_15.ko

@@ -1,6 +1,6 @@
 kernelversion: 40~18.04.1
 kernelrelease: 5.0.0-37-hwe
-target: ubuntu-hwe
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-hwe_5.0.0-37-hwe_40~18.04.1.ko

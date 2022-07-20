@@ -1,6 +1,6 @@
 kernelversion: 42
 kernelrelease: 4.15.0-39-generic
-target: ubuntu-generic
+target: ubuntu
 output:
   module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-generic_4.15.0-39-generic_42.ko
   probe: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-generic_4.15.0-39-generic_42.o

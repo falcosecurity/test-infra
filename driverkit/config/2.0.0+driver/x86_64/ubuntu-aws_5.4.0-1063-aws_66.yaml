@@ -1,6 +1,6 @@
 kernelversion: 66
 kernelrelease: 5.4.0-1063-aws
-target: ubuntu-aws
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-aws_5.4.0-1063-aws_66.ko

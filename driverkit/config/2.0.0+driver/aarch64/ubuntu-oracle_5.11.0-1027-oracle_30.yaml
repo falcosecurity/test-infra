@@ -1,6 +1,6 @@
 kernelversion: 30
 kernelrelease: 5.11.0-1027-oracle
-target: ubuntu-oracle
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-oracle_5.11.0-1027-oracle_30.ko

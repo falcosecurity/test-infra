@@ -1,6 +1,6 @@
 kernelversion: 13~20.04.2
 kernelrelease: 5.13.0-1011-oracle-5.13
-target: ubuntu-oracle-5.13
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-oracle-5.13_5.13.0-1011-oracle-5.13_13~20.04.2.ko

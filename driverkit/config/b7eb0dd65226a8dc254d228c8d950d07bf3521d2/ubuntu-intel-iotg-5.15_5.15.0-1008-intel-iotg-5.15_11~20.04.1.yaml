@@ -1,6 +1,6 @@
 kernelversion: 11~20.04.1
 kernelrelease: 5.15.0-1008-intel-iotg-5.15
-target: ubuntu-intel-iotg-5.15
+target: ubuntu
 architecture: amd64
 output:
   module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-intel-iotg-5.15_5.15.0-1008-intel-iotg-5.15_11~20.04.1.ko

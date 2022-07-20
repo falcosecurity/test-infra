@@ -1,6 +1,6 @@
 kernelversion: 83
 kernelrelease: 4.15.0-1081-kvm
-target: ubuntu-kvm
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-kvm_4.15.0-1081-kvm_83.ko

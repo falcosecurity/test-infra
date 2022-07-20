@@ -1,6 +1,6 @@
 kernelversion: 9
 kernelrelease: 5.15.0-1008-azure
-target: ubuntu-azure
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-azure_5.15.0-1008-azure_9.ko

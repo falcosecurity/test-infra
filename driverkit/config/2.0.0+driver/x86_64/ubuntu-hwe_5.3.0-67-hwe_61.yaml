@@ -1,6 +1,6 @@
 kernelversion: 61
 kernelrelease: 5.3.0-67-hwe
-target: ubuntu-hwe
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-hwe_5.3.0-67-hwe_61.ko

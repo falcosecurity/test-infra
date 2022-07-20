@@ -1,6 +1,6 @@
 kernelversion: 37~18.04.1
 kernelrelease: 5.4.0-1036-gkeop-5.4
-target: ubuntu-genericop-5.4
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-genericop-5.4_5.4.0-1036-gkeop-5.4_37~18.04.1.ko

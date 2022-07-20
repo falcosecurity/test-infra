@@ -1,6 +1,6 @@
 kernelversion: 30
 kernelrelease: 5.11.0-1027-azure
-target: ubuntu-azure
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-azure_5.11.0-1027-azure_30.ko

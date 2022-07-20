@@ -1,6 +1,6 @@
 kernelversion: 71
 kernelrelease: 4.15.0-1066-azure
-target: ubuntu-azure
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-azure_4.15.0-1066-azure_71.ko

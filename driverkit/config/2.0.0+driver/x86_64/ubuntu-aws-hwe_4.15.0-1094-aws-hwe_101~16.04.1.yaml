@@ -1,6 +1,6 @@
 kernelversion: 101~16.04.1
 kernelrelease: 4.15.0-1094-aws-hwe
-target: ubuntu-aws-hwe
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-aws-hwe_4.15.0-1094-aws-hwe_101~16.04.1.ko

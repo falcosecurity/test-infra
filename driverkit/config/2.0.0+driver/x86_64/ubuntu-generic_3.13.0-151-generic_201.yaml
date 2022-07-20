@@ -1,5 +1,5 @@
 kernelversion: 201
 kernelrelease: 3.13.0-151-generic
-target: ubuntu-generic
+target: ubuntu
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_3.13.0-151-generic_201.ko

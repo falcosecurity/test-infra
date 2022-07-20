@@ -1,6 +1,6 @@
 kernelversion: 26
 kernelrelease: 5.0.0-1023-aws
-target: ubuntu-aws
+target: ubuntu
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-aws_5.0.0-1023-aws_26.ko
   probe: output/2.0.0+driver/x86_64/falco_ubuntu-aws_5.0.0-1023-aws_26.o

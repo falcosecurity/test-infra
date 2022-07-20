@@ -1,6 +1,6 @@
 kernelversion: 36~14.04.1
 kernelrelease: 4.2.0-30-lts-wily
-target: ubuntu-lts-wily
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-lts-wily_4.2.0-30-lts-wily_36~14.04.1.ko

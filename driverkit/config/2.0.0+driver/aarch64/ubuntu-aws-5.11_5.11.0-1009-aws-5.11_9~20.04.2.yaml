@@ -1,6 +1,6 @@
 kernelversion: 9~20.04.2
 kernelrelease: 5.11.0-1009-aws-5.11
-target: ubuntu-aws-5.11
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-aws-5.11_5.11.0-1009-aws-5.11_9~20.04.2.ko

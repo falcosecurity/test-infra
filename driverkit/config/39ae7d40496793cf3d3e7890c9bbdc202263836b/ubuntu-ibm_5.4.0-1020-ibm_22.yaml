@@ -1,6 +1,6 @@
 kernelversion: 22
 kernelrelease: 5.4.0-1020-ibm
-target: ubuntu-ibm
+target: ubuntu
 architecture: amd64
 output:
   module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-ibm_5.4.0-1020-ibm_22.ko

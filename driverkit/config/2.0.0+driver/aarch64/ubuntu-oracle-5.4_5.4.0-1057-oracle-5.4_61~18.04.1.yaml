@@ -1,6 +1,6 @@
 kernelversion: 61~18.04.1
 kernelrelease: 5.4.0-1057-oracle-5.4
-target: ubuntu-oracle-5.4
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-oracle-5.4_5.4.0-1057-oracle-5.4_61~18.04.1.ko

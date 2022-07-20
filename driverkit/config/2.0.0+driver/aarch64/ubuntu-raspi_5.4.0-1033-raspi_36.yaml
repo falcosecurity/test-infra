@@ -1,6 +1,6 @@
 kernelversion: 36
 kernelrelease: 5.4.0-1033-raspi
-target: ubuntu-raspi
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-raspi_5.4.0-1033-raspi_36.ko

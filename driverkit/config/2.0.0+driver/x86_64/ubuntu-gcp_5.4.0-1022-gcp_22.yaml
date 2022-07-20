@@ -1,6 +1,6 @@
 kernelversion: 22
 kernelrelease: 5.4.0-1022-gcp
-target: ubuntu-gcp
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-gcp_5.4.0-1022-gcp_22.ko

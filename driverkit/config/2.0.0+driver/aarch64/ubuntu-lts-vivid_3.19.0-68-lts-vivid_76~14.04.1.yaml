@@ -1,6 +1,6 @@
 kernelversion: 76~14.04.1
 kernelrelease: 3.19.0-68-lts-vivid
-target: ubuntu-lts-vivid
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-lts-vivid_3.19.0-68-lts-vivid_76~14.04.1.ko

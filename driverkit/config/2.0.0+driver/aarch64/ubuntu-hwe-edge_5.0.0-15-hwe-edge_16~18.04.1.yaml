@@ -1,6 +1,6 @@
 kernelversion: 16~18.04.1
 kernelrelease: 5.0.0-15-hwe-edge
-target: ubuntu-hwe-edge
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-hwe-edge_5.0.0-15-hwe-edge_16~18.04.1.ko

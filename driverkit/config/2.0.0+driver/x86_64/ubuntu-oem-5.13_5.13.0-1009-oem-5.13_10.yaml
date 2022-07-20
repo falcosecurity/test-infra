@@ -1,6 +1,6 @@
 kernelversion: 10
 kernelrelease: 5.13.0-1009-oem-5.13
-target: ubuntu-oem-5.13
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-oem-5.13_5.13.0-1009-oem-5.13_10.ko

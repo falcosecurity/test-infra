@@ -1,6 +1,6 @@
 kernelversion: 92~14.04.1
 kernelrelease: 3.16.0-71-lts-utopic
-target: ubuntu-lts-utopic
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-lts-utopic_3.16.0-71-lts-utopic_92~14.04.1.ko

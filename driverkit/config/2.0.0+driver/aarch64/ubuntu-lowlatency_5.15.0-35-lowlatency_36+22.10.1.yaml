@@ -1,6 +1,6 @@
 kernelversion: 36+22.10.1
 kernelrelease: 5.15.0-35-lowlatency
-target: ubuntu-lowlatency
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-lowlatency_5.15.0-35-lowlatency_36+22.10.1.ko

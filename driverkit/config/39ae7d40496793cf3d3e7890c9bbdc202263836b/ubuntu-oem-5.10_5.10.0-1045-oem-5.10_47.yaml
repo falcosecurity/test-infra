@@ -1,6 +1,6 @@
 kernelversion: 47
 kernelrelease: 5.10.0-1045-oem-5.10
-target: ubuntu-oem-5.10
+target: ubuntu
 architecture: amd64
 output:
   module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-oem-5.10_5.10.0-1045-oem-5.10_47.ko

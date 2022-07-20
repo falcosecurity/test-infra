@@ -1,6 +1,6 @@
 kernelversion: 121
 kernelrelease: 4.15.0-1109-azure-4.15
-target: ubuntu-azure-4.15
+target: ubuntu
 architecture: amd64
 output:
   module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-azure-4.15_4.15.0-1109-azure-4.15_121.ko

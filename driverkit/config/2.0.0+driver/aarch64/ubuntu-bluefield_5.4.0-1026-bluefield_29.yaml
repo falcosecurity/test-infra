@@ -1,6 +1,6 @@
 kernelversion: 29
 kernelrelease: 5.4.0-1026-bluefield
-target: ubuntu-bluefield
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-bluefield_5.4.0-1026-bluefield_29.ko

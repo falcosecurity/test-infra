@@ -1,6 +1,6 @@
 kernelversion: 34~20.04.1
 kernelrelease: 5.8.0-1033-oracle-5.8
-target: ubuntu-oracle-5.8
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-oracle-5.8_5.8.0-1033-oracle-5.8_34~20.04.1.ko

@@ -1,6 +1,6 @@
 kernelversion: 23
 kernelrelease: 5.11.0-22-generic
-target: ubuntu-generic
+target: ubuntu
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_5.11.0-22-generic_23.ko
   probe: output/2.0.0+driver/x86_64/falco_ubuntu-generic_5.11.0-22-generic_23.o

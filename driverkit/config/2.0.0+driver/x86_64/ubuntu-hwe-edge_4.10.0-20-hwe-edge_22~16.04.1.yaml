@@ -1,6 +1,6 @@
 kernelversion: 22~16.04.1
 kernelrelease: 4.10.0-20-hwe-edge
-target: ubuntu-hwe-edge
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-hwe-edge_4.10.0-20-hwe-edge_22~16.04.1.ko

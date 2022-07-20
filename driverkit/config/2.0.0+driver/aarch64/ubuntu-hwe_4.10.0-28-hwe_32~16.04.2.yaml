@@ -1,6 +1,6 @@
 kernelversion: 32~16.04.2
 kernelrelease: 4.10.0-28-hwe
-target: ubuntu-hwe
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-hwe_4.10.0-28-hwe_32~16.04.2.ko

@@ -1,6 +1,6 @@
 kernelversion: 59
 kernelrelease: 5.3.0-65-hwe
-target: ubuntu-hwe
+target: ubuntu
 architecture: amd64
 output:
   module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-hwe_5.3.0-65-hwe_59.ko

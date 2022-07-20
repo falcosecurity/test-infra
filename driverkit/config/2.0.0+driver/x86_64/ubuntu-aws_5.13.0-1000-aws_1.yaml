@@ -1,6 +1,6 @@
 kernelversion: 1
 kernelrelease: 5.13.0-1000-aws
-target: ubuntu-aws
+target: ubuntu
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-aws_5.13.0-1000-aws_1.ko
   probe: output/2.0.0+driver/x86_64/falco_ubuntu-aws_5.13.0-1000-aws_1.o

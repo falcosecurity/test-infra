@@ -1,6 +1,6 @@
 kernelversion: 106
 kernelrelease: 4.15.0-1093-gcp-4.15
-target: ubuntu-gcp-4.15
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-gcp-4.15_4.15.0-1093-gcp-4.15_106.ko

@@ -1,6 +1,6 @@
 kernelversion: 83~18.04.2
 kernelrelease: 5.4.0-1080-azure-5.4
-target: ubuntu-azure-5.4
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-azure-5.4_5.4.0-1080-azure-5.4_83~18.04.2.ko

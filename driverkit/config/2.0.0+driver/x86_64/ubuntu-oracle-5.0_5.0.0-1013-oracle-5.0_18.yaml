@@ -1,6 +1,6 @@
 kernelversion: 18
 kernelrelease: 5.0.0-1013-oracle-5.0
-target: ubuntu-oracle-5.0
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-oracle-5.0_5.0.0-1013-oracle-5.0_18.ko

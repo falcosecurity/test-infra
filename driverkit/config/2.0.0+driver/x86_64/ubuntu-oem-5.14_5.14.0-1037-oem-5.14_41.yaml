@@ -1,6 +1,6 @@
 kernelversion: 41
 kernelrelease: 5.14.0-1037-oem-5.14
-target: ubuntu-oem-5.14
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-oem-5.14_5.14.0-1037-oem-5.14_41.ko

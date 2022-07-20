@@ -1,6 +1,6 @@
 kernelversion: 46~16.04.1
 kernelrelease: 4.15.0-43-hwe
-target: ubuntu-hwe
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-hwe_4.15.0-43-hwe_46~16.04.1.ko

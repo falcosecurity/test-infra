@@ -1,6 +1,6 @@
 kernelversion: 25~20.04.2
 kernelrelease: 5.15.0-25-hwe-5.15
-target: ubuntu-hwe-5.15
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-hwe-5.15_5.15.0-25-hwe-5.15_25~20.04.2.ko

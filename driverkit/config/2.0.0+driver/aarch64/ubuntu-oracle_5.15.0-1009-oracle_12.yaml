@@ -1,6 +1,6 @@
 kernelversion: 12
 kernelrelease: 5.15.0-1009-oracle
-target: ubuntu-oracle
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-oracle_5.15.0-1009-oracle_12.ko

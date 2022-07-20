@@ -1,6 +1,6 @@
 kernelversion: 103
 kernelrelease: 5.4.0-92
-target: ubuntu-generic
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_5.4.0-92_103.ko

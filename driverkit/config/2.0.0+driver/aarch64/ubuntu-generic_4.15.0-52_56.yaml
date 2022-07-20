@@ -1,6 +1,6 @@
 kernelversion: 56
 kernelrelease: 4.15.0-52
-target: ubuntu-generic
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_4.15.0-52_56.ko

@@ -1,6 +1,6 @@
 kernelversion: 63
 kernelrelease: 4.4.0-43
-target: ubuntu-generic
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_4.4.0-43_63.ko

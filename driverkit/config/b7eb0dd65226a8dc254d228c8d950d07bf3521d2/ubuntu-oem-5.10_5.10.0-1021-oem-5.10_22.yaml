@@ -1,6 +1,6 @@
 kernelversion: 22
 kernelrelease: 5.10.0-1021-oem-5.10
-target: ubuntu-oem-5.10
+target: ubuntu
 architecture: amd64
 output:
   module: output/b7eb0dd65226a8dc254d228c8d950d07bf3521d2/falco_ubuntu-oem-5.10_5.10.0-1021-oem-5.10_22.ko

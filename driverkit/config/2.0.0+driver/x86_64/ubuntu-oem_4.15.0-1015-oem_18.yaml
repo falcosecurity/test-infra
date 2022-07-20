@@ -1,6 +1,6 @@
 kernelversion: 18
 kernelrelease: 4.15.0-1015-oem
-target: ubuntu-oem
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-oem_4.15.0-1015-oem_18.ko

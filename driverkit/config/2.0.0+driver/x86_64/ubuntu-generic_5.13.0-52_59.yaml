@@ -1,6 +1,6 @@
 kernelversion: 59
 kernelrelease: 5.13.0-52
-target: ubuntu-generic
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_5.13.0-52_59.ko

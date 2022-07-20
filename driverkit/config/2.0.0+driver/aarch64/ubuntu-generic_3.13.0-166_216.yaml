@@ -1,6 +1,6 @@
 kernelversion: 216
 kernelrelease: 3.13.0-166
-target: ubuntu-generic
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-166_216.ko

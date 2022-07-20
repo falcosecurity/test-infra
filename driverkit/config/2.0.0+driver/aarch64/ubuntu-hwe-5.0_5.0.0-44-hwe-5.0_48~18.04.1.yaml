@@ -1,6 +1,6 @@
 kernelversion: 48~18.04.1
 kernelrelease: 5.0.0-44-hwe-5.0
-target: ubuntu-hwe-5.0
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-hwe-5.0_5.0.0-44-hwe-5.0_48~18.04.1.ko

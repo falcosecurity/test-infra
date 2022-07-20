@@ -1,6 +1,6 @@
 kernelversion: 127
 kernelrelease: 5.4.0-113
-target: ubuntu-generic
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_5.4.0-113_127.ko

@@ -1,6 +1,6 @@
 kernelversion: 25~18.04.1
 kernelrelease: 5.4.0-1025-gke-5.4
-target: ubuntu-generic-5.4
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-generic-5.4_5.4.0-1025-gke-5.4_25~18.04.1.ko

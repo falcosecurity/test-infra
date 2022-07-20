@@ -1,5 +1,5 @@
 kernelversion: 135
 kernelrelease: 4.4.0-112-generic
-target: ubuntu-generic
+target: ubuntu
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-generic_4.4.0-112-generic_135.ko

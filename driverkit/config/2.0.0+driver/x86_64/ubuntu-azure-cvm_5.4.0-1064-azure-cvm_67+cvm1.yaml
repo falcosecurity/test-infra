@@ -1,6 +1,6 @@
 kernelversion: 67+cvm1
 kernelrelease: 5.4.0-1064-azure-cvm
-target: ubuntu-azure-cvm
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-azure-cvm_5.4.0-1064-azure-cvm_67+cvm1.ko

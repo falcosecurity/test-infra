@@ -1,6 +1,6 @@
 kernelversion: 1
 kernelrelease: 5.18.0-1001-ibm
-target: ubuntu-ibm
+target: ubuntu
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_ubuntu-ibm_5.18.0-1001-ibm_1.ko

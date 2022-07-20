@@ -1,6 +1,6 @@
 kernelversion: 61~18.04.3
 kernelrelease: 5.4.0-1058-aws-5.4
-target: ubuntu-aws-5.4
+target: ubuntu
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-aws-5.4_5.4.0-1058-aws-5.4_61~18.04.3.ko
