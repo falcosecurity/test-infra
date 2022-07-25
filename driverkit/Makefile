@@ -26,8 +26,7 @@ TARGET_ARCH ?= *
 # otherwise we just keep the one passed as parameter.
 TARGET_ARCHS := $(if $(call eq,$(TARGET_ARCH),*),$(ALL_ARCHS),$(TARGET_ARCH))
 TARGET_HEADERS ?=
-TARGET_KERNEL_RELEASE ?=
-TARGET_KERNEL_VERSION ?=
+TARGET_KERNEL_DEFCONFIG ?=
 S3_DRIVERS_BUCKET ?= "falco-distribution"
 S3_DRIVERS_KEY_PREFIX ?= "driver"
 SKIP_EXISTING ?= true
@@ -62,7 +61,7 @@ publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 generate:
 	$(foreach ARCH,$(TARGET_ARCHS),\
 		$(foreach VERSION,$(VERSIONS),\
-			utils/generate -a '$(ARCH)' -k '${TARGET_KERNEL_VERSION}' -r '${TARGET_KERNEL_RELEASE}' -d '${TARGET_DISTRO}' -h '${TARGET_HEADERS}' -v '${VERSION}'; \
+			utils/generate -a '$(ARCH)' -k '${TARGET_KERNEL}' -r '${TARGET_KERNEL_RELEASE}' -t '${TARGET_KERNEL_VERSION}' -d '${TARGET_DISTRO}' -h '${TARGET_HEADERS}' -v '${VERSION}' -c '${TARGET_KERNEL_DEFCONFIG}'; \
 		)\
 	)
 
