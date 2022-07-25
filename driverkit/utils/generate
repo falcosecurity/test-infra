@@ -16,13 +16,10 @@ declare -A output=()
 
 CURRENT_DIR="$(pwd)"
 
-while getopts ":a:k:d:v:h:" arg; do
+while getopts ":a:k:d:v:h:r:" arg; do
   case $arg in
     a)
       TARGET_ARCH=${OPTARG}
-      ;;
-    k)
-      TARGET_KERNEL=${OPTARG}
       ;;
     d)
       TARGET_DISTRO=${OPTARG}
@@ -32,6 +29,12 @@ while getopts ":a:k:d:v:h:" arg; do
       ;;
     h)
       TARGET_HEADERS=${OPTARG}
+      ;;
+    r)
+      TARGET_KERNEL_RELEASE=${OPTARG}
+      ;;
+    k)
+      TARGET_KERNEL_VERSION=${OPTARG}
       ;;
   esac
 done
@@ -45,8 +48,12 @@ if [ -z ${TARGET_DISTRO} ]; then
     echo "TARGET_DISTRO can't be empty"
     exit 1
 fi
-if [ -z ${TARGET_KERNEL} ]; then
-    echo "TARGET_KERNEL can't be empty"
+if [ -z ${TARGET_KERNEL_RELEASE} ]; then
+    echo "TARGET_KERNEL_RELEASE can't be empty"
+    exit 1
+fi
+if [ -z ${TARGET_KERNEL_VERSION} ]; then
+    echo "TARGET_KERNEL_VERSION can't be empty"
     exit 1
 fi
 if [ -z ${TARGET_VERSION} ]; then
@@ -54,12 +61,8 @@ if [ -z ${TARGET_VERSION} ]; then
     exit 1
 fi
 
-compute_kernelversion() {
-    TARGET_KERNEL_VERSION=$(echo "${TARGET_KERNEL##*_}")
-}
-
-compute_kernelrelease() {
-    TARGET_KERNEL_RELEASE="${TARGET_KERNEL%_${TARGET_KERNEL_VERSION}}"
+compute_kernel() {
+    TARGET_KERNEL="${TARGET_KERNEL_RELEASE}_${TARGET_KERNEL_VERSION}"
 }
 
 check_outputs() {
@@ -187,7 +190,6 @@ generate_yamls() {
     fi
 }
 
-compute_kernelversion
-compute_kernelrelease
+compute_kernel
 check_outputs || exit 0
 generate_yamls
