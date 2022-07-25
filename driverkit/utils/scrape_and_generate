@@ -26,18 +26,19 @@ function generate_from_kernel_releases() {
 			read -r version
 			read -r target
 			read -r kernelurls
+			read -r kerneldefconfig
 			pretty_echo "Generating configs for:"
 			echo "release: $release	version: $version	target: $target"
 			test $DRY_RUN == "true" || \
 				make -C "$(dirname $0)/.." \
 				-e TARGET_ARCH="${ARCH}" \
-				-e TARGET_KERNEL="${release}_${version}" \
 				-e TARGET_KERNEL_RELEASE="${release}" \
 				-e TARGET_KERNEL_VERSION="${version}" \
 				-e TARGET_DISTRO="${target/${target_match}/${target_replace}}" \
 				-e TARGET_HEADERS="${kernelurls}" \
+				-e TARGET_KERNEL_DEFCONFIG="${kerneldefconfig}" \
 				generate >/dev/null
-		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target, .headers)" $TMPDIR/sample.json)
+		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target, .headers, .kernelconfigdata)" $TMPDIR/sample.json)
 	done
 }
 
