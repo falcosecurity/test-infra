@@ -32,6 +32,8 @@ function generate_from_kernel_releases() {
 				make -C "$(dirname $0)/.." \
 				-e TARGET_ARCH="${ARCH}" \
 				-e TARGET_KERNEL="${release}_${version}" \
+				-e TARGET_KERNEL_RELEASE="${release}" \
+				-e TARGET_KERNEL_VERSION="${version}" \
 				-e TARGET_DISTRO="${target/${target_match}/${target_replace}}" \
 				-e TARGET_HEADERS="${kernelurls}" \
 				generate >/dev/null
