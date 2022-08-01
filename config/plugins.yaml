@@ -106,13 +106,18 @@ lgtm:
 repo_milestone:
   # Default/fallback milestone maintainers
   # To obtain the team ID: curl -H "Authorization: token <token>" "https://api.github.com/orgs/falcosecurity/teams"
-  "":
-    maintainers_id: 3283563
-    maintainers_team: maintainers
   falcosecurity/falco:
-    maintainers_id: 3283563
-    maintainers_team: maintainers
-    maintainers_friendly_name: Falco maintainers
+    maintainers_id: 3770343
+    maintainers_team: falco-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/falco
+  falcosecurity/libs:
+    maintainers_id: 4535471
+    maintainers_team: libs-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/libs
+  falcosecurity/pdig:
+    maintainers_id: 3832091
+    maintainers_team: pdig-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/pdig
 
 require_matching_label:
   - missing_label: needs-kind
