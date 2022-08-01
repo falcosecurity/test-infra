@@ -40,17 +40,32 @@ These are the available filters as environment variables:
 - `TARGET_ARCH`: a specific arch between { "x86_64", "aarch64" }
 - `TARGET_VERSION`: a specific Falco driver version
 - `TARGET_DISTRO`: a spefific Linux distribution
-- `TARGET_KERNEL`: a specific Linux version
+- `TARGET_KERNEL_RELEASE`: a specific Linux kernel release (i.e. the result of `uname -r`):
   - in <kernel_version>.<major_version>.<minor_version> format
   - in <kernel_version>.<major_version>.* format
   - in <kernel_version>.* format
+- `TARGET_KERNEL_VERSION`: a specific Linux version (i.e. from the result of `uname -v`)
+- `TARGET_KERNEL`: a specific Linux kernel release and kernel version, separated by underscore ('_'). Specifying it will override `TARGET_KERNEL_RELEASE` and `TARGET_KERNEL_VERSION`.
 
 Notice all the filters are optional (except for `generate` where they are mandatory).
 
-You can also filter a specific distro with a specific kernel version:
+##### Examples
+
+You can filter a specific distro with a specific kernel (i.e. 5.9.0 release and version #1):
 
 ```console
-make -e TARGET_DISTRO="debian" -e TARGET_KERNEL="5.9.0" specific_target
+make -e TARGET_DISTRO="debian" -e TARGET_KERNEL="5.9.0_1" specific_target
+```
+
+> The result would be the same of:
+> ```console
+> make -e TARGET_DISTRO="debian" -e TARGET_KERNEL_RELEASE="5.9.0" -e TARGET_KERNEL_VERSION="1" specific_target
+> ```
+
+Or, you can ask it to make all the Falco drivers for all the kernel versions of the 5.9.0 kernel release:
+
+```console
+make -e TARGET_DISTRO="debian" -e TARGET_KERNEL_RELEASE="5.9.0" specific_target
 ```
 
 Or, you can ask it to make all the Falco drivers for debian 5.x kernels.
