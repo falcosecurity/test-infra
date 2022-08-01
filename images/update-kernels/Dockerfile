@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-lxml \
     python3-requests \
     python3-click \
+    python3-cffi \
+    python3-pygit2 \
     && apt-get clean
 
 COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
