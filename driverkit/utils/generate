@@ -45,28 +45,44 @@ while getopts ":a:k:d:v:h:c:r:t:" arg; do
   esac
 done
 
-
 if [ -z ${TARGET_ARCH} ]; then
     echo "TARGET_ARCH can't be empty"
     exit 1
 fi
+
 if [ -z ${TARGET_DISTRO} ]; then
     echo "TARGET_DISTRO can't be empty"
     exit 1
 fi
-if [ -z ${TARGET_KERNEL_RELEASE} ]; then
-    echo "TARGET_KERNEL_RELEASE can't be empty"
-    exit 1
-fi
-if [ -z ${TARGET_KERNEL_VERSION} ]; then
-    echo "TARGET_KERNEL_VERSION can't be empty"
-    exit 1
-fi
-if [ -z ${TARGET_VERSION} ]; then
-    echo "TARGET_VERSION can't be empty"
-    exit 1
-fi
 
+compute_kernel() {
+    TARGET_KERNEL="${TARGET_KERNEL_RELEASE}_${TARGET_KERNEL_VERSION}"
+}
+
+compute_kernelversion() {
+    TARGET_KERNEL_VERSION=$(echo "${TARGET_KERNEL##*_}")
+}
+
+compute_kernelrelease() {
+    TARGET_KERNEL_RELEASE="${TARGET_KERNEL%_${TARGET_KERNEL_VERSION}}"
+}
+
+# If target kernel is not empty, compute release and version
+# Else, compute it with release and version
+if [ -n "${TARGET_KERNEL}" ]; then
+  if [ -z "${TARGET_KERNEL_RELEASE}" ]; then
+    compute_kernelrelease
+  fi
+  if [ -z "${TARGET_KERNEL_VERSION}" ]; then
+    compute_kernelversion
+  fi
+else
+  if [ -z "${TARGET_KERNEL_RELEASE}" ] || [ -z "${TARGET_KERNEL_VERSION}" ]; then
+    echo "TARGET_KERNEL, TARGET_KERNEL_RELEASE, TARGET_KERNEL_RELEASE can't be empty at the same time"
+    exit 1
+  fi
+  compute_kernel
+fi
 
 check_outputs() {
     regex='([0-9]+)\.([0-9]+)'
