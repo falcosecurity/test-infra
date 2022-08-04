@@ -72,5 +72,5 @@ fi
 if [[ ${should_build} == "true" ]]; then
     mkdir -p output/${driver_version}/${arch}
     # if we have an architecture in our config path, force use it
-    ${DRIVERKIT} docker -c ${input} --driverversion ${driver_version} --architecture $(arch_to_driverkit_arch ${arch}) --timeout 1000 || echo ${input} >> output/failing.log
+    ${DRIVERKIT} ${DRIVERKIT_BACKEND} -c ${input} --driverversion ${driver_version} --architecture $(arch_to_driverkit_arch ${arch}) --timeout 1000 || echo ${input} >> output/failing.log
 fi
