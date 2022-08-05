@@ -70,11 +70,11 @@ compute_kernelrelease() {
 # If target kernel is not empty, compute release and version
 # Else, compute it with release and version
 if [ -n "${TARGET_KERNEL}" ]; then
-  if [ -z "${TARGET_KERNEL_RELEASE}" ]; then
-    compute_kernelrelease
-  fi
   if [ -z "${TARGET_KERNEL_VERSION}" ]; then
     compute_kernelversion
+  fi
+  if [ -z "${TARGET_KERNEL_RELEASE}" ]; then
+    compute_kernelrelease
   fi
 else
   if [ -z "${TARGET_KERNEL_RELEASE}" ] || [ -z "${TARGET_KERNEL_VERSION}" ]; then
