@@ -779,7 +779,6 @@ plugins:
       - label
       - lifecycle
       - lgtm
-      - release-note
       - require-matching-label
       - retitle
       - size
