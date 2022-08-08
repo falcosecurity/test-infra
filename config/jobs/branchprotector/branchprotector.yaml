@@ -11,7 +11,7 @@ postsubmit:
       run_if_changed: '^config/config.yaml$'
       spec:
         containers:
-          - image: gcr.io/k8s-prow/branchprotector:v20220727-38eaa13df1
+          - image: gcr.io/k8s-prow/branchprotector:v20220805-e0ec00dd27
             command:
               - branchprotector
             args:
@@ -44,7 +44,7 @@ periodics:
     skip_report: false
     spec:
       containers:
-        - image: gcr.io/k8s-prow/branchprotector:v20220727-38eaa13df1
+        - image: gcr.io/k8s-prow/branchprotector:v20220805-e0ec00dd27
           command:
             - branchprotector
           args:
