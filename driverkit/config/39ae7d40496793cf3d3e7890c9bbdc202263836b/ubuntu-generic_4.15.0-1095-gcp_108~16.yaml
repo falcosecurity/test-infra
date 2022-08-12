@@ -1,0 +1,8 @@
+kernelversion: 108~16
+kernelrelease: 4.15.0-1095-gcp
+target: ubuntu-generic
+architecture: amd64
+output:
+  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_4.15.0-1095-gcp_108~16.ko
+  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_4.15.0-1095-gcp_108~16.o
+kernelurls: ["http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-gcp/linux-gcp-headers-4.15.0-1095_4.15.0-1095.108~16.04.1_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-gcp/linux-headers-4.15.0-1095-gcp_4.15.0-1095.108~16.04.1_amd64.deb"]
