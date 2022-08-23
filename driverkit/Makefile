@@ -44,10 +44,7 @@ validate_new: $(patsubst config_%,validate/%,$(subst /,_,$(wildcard config/${TAR
 
 all: $(patsubst config_%,%,$(subst /,_,$(CONFIGS)))
 
-debug:
-	echo "${TARGET_KERNEL}"
-
-specific_target: debug specific_target_old specific_target_new
+specific_target: specific_target_old specific_target_new
 # old fmt had x86_64 only in root folder. Note: this breaks filtering for TARGET_ARCH
 # because specific_target_old will always build any old config.
 # Not a big deal because we were not going to filter for TARGET_ARCH in any case.
@@ -57,7 +54,7 @@ specific_target_old: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGE
 specific_target_new: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}.yaml)))
 
 prepare: $(addprefix prepare_,$(VERSIONS))
-publish: publish_s3 # alias publish_s3; artifactory is no more supported
+publish: publish_s3 # alias publish_s3; bintray is no more supported
 publish_s3: $(addprefix publish_s3_,$(VERSIONS))
 
 generate:
@@ -72,9 +69,7 @@ generate/auto:
 		utils/scrape_and_generate $(ARCH); \
 	)
 
-cleanup:
-	utils/cleanup -p ${BINTRAY_SECRET} $(addprefix -v ,$(VERSIONS))
-
+cleanup: cleanup_s3 # alias cleanup_s3; bintray is no more supported
 cleanup_s3:
 	S3_DRIVERS_BUCKET=${S3_DRIVERS_BUCKET} S3_DRIVERS_KEY_PREFIX=${S3_DRIVERS_KEY_PREFIX} utils/cleanup_s3 $(addprefix -v ,$(VERSIONS))
 
