@@ -124,6 +124,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        contrib:
+          branches:
+            master:
+              protect: true
         deploy-kubernetes:
           branches:
             main:
@@ -276,6 +280,7 @@ tide:
     falcosecurity/cloud-native-security-hub-frontend: rebase
     falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
+    falcosecurity/contrib: rebase
     falcosecurity/deploy-kubernetes: rebase
     falcosecurity/driverkit: rebase
     falcosecurity/evolution: rebase
@@ -451,6 +456,19 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/community
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/contrib
       labels:
         - approved
         - lgtm

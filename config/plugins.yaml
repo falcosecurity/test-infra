@@ -10,6 +10,7 @@ approve:
       - falcosecurity/cloud-native-security-hub-frontend
       - falcosecurity/cloud-native-security-hub-backend
       - falcosecurity/community
+      - falcosecurity/contrib
       - falcosecurity/evolution
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
@@ -77,6 +78,7 @@ lgtm:
       - falcosecurity/cloud-native-security-hub-frontend
       - falcosecurity/cloud-native-security-hub-backend
       - falcosecurity/community
+      - falcosecurity/contrib
       - falcosecurity/evolution
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
@@ -185,6 +187,14 @@ require_matching_label:
       Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity/falco).
       Please specify it either using `/kind <group>` or manually from the side menu.
       In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: contrib
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
     repo: deploy-kubernetes
@@ -542,6 +552,27 @@ plugins:
       - welcome
       - wip
   falcosecurity/community:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/contrib:
     plugins:
       - approve
       - assign
@@ -1088,6 +1119,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/community:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/contrib:
     - name: needs-rebase
       events:
         - pull_request
