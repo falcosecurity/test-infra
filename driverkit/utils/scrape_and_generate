@@ -17,9 +17,6 @@ function get_kernel_releases() {
 }
 
 function generate_from_kernel_releases() {
-	local target_match="ubuntu-gke"
-	local target_replace="ubuntu-generic"
-
 	for distro_family in $(jq -cr '. | keys[]' $TMPDIR/sample.json); do
 		while read -r release
 		do
@@ -27,6 +24,24 @@ function generate_from_kernel_releases() {
 			read -r target
 			read -r kernelurls
 			read -r kerneldefconfig
+
+			# While driverkit supports "ubuntu" target nowadays,
+			# our configs were all made having "ubuntu-generic" and "ubuntu-aws" in mind.
+			# So, flat out any flavor != "aws" as "ubuntu-generic" target.
+			# Even falco-driver-loader: https://github.com/falcosecurity/falco/blob/master/scripts/falco-driver-loader#L132
+			# expects either ubuntu-aws for aws, or ubuntu-generic for any other flavor!
+			if [[ ( ${target} = "ubuntu" ) && ( ${release} =~ -(.*) ) ]] # capture ubuntu flavor
+			then
+				real_ubuntu_flavor=${BASH_REMATCH[1]}
+				if [[ ${real_ubuntu_flavor} =~ aws(\-.*|$) ]] # check if it ends with "aws" (eventually "aws-foo", like "5.4.0-1064-aws-5.4")
+				then
+					ubuntu_flavor="aws"
+				else
+					ubuntu_flavor="generic"
+				fi
+				target+="-${ubuntu_flavor}" # either ubuntu-aws or ubuntu-generic
+			fi
+
 			pretty_echo "Generating configs for:"
 			echo "release: $release	version: $version	target: $target"
 			test $DRY_RUN == "true" || \
@@ -34,7 +49,7 @@ function generate_from_kernel_releases() {
 				-e TARGET_ARCH="${ARCH}" \
 				-e TARGET_KERNEL_RELEASE="${release}" \
 				-e TARGET_KERNEL_VERSION="${version}" \
-				-e TARGET_DISTRO="${target/${target_match}/${target_replace}}" \
+				-e TARGET_DISTRO="${target}" \
 				-e TARGET_HEADERS="${kernelurls}" \
 				-e TARGET_KERNEL_DEFCONFIG="${kerneldefconfig}" \
 				generate >/dev/null
