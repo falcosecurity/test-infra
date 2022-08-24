@@ -126,7 +126,7 @@ branch-protection:
               protect: true
         contrib:
           branches:
-            master:
+            main:
               protect: true
         deploy-kubernetes:
           branches:
