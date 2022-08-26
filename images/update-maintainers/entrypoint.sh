@@ -95,7 +95,7 @@ create_pr() {
         "HEAD:${branch}" 2>/dev/null
 
     echo "> creating pull-request to merge ${user}:${branch} into master..." >&2
-    body="Updating maintainers list. Made using the [update-maintainers](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/update-maintainers/update-maintainers.yaml) periodic ProwJob. Do not edit this PR. In case you wanna change your name or your company change [this file](https://github.com/falcosecurity/evolution/tree/master/people/affiliations.json). /kind documentation"
+    body=$'Updating maintainers list. Made using the [update-maintainers](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/update-maintainers/update-maintainers.yaml) periodic ProwJob. Do not edit this PR.\n\nIn case you wanna change your name or your company change [this file](https://github.com/falcosecurity/evolution/tree/master/people/affiliations.json).\n\n/kind documentation'
 
     pr-creator \
         --github-endpoint="${GH_PROXY}" \
