@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
 COPY --from=maintainersgenerator /go/maintainers-generator /bin
-COPY persons.json /
 COPY entrypoint.sh /
 
 RUN chmod +x /entrypoint.sh
