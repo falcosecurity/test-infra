@@ -35,15 +35,20 @@ get_maintainers() {
     echo "> using maintainers-generator version: $(maintainers-generator --version)" >&2
     echo "> using GitHub token at $1..." >&2
     echo "> retrieving maintainers for GitHub organization ${GH_ORG}..." >&2
-    wget https://raw.githubusercontent.com/falcosecurity/evolution/master/people/affiliations.json
     maintainers-generator \
         --org "${GH_ORG}" \
         --github-endpoint "${GH_PROXY}" \
         --github-token-path "$1" \
         --sort --dedupe \
         --log-level debug \
-        --persons-db /affiliations.json \
+        --persons-db people/affiliations.json \
         --banner --output maintainers.yaml
+}
+
+# Updates the falcosecurity/evolution resource files (README.md, MAINTAINERS.md, ...)
+update_evolution_files() {
+    echo "> updating falcosecurity/evolution files..." >&2
+    make
 }
 
 # Sets git user configs, otherwise errors out.
@@ -83,19 +88,19 @@ create_pr() {
     fi
 
     echo "> creating commit..." >&2
-    title="update: maintainers list"
+    title="update: maintainers list and evolution resources"
     git add .
     git commit -s -m "${title}"
 
     user=$(get_user_from_token "$1")
-    branch="maintainers-${GH_ORG}"
+    branch="update-${GH_REPO}-files"
     echo "> pushing commit as ${user} on branch ${branch}..." >&2
     git push -f \
         "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_REPO}" \
         "HEAD:${branch}" 2>/dev/null
 
     echo "> creating pull-request to merge ${user}:${branch} into master..." >&2
-    body=$'Updating maintainers list. Made using the [update-maintainers](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/update-maintainers/update-maintainers.yaml) periodic ProwJob. Do not edit this PR.\n\nIn case you wanna change your name or your company change [this file](https://github.com/falcosecurity/evolution/tree/master/people/affiliations.json).\n\n/kind documentation'
+    body=$'Updating maintainers list and the evolution resource files. Made using the [update-maintainers](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/update-maintainers/update-maintainers.yaml) periodic ProwJob. Do not edit this PR.\n\nIn case you wanna change your name or your company change [this file](https://github.com/falcosecurity/evolution/tree/master/people/affiliations.json).\n\n/kind documentation'
 
     pr-creator \
         --github-endpoint="${GH_PROXY}" \
@@ -136,6 +141,8 @@ main() {
     ensure_gpg_key "${BOT_GPG_KEY_PATH}" "${BOT_GPG_PUBLIC_KEY}"
     # Fetch maintainers
     get_maintainers "$1"
+    # Update resource files
+    update_evolution_files
     # Create PR (in case there are changes)
     create_pr "$1"
 }
