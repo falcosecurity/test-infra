@@ -14,7 +14,7 @@ presubmits:
         - /workspace/build-drivers.sh
         - minikube
         env:
-        - name: AWS_REGIONe
+        - name: AWS_REGION
           value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
