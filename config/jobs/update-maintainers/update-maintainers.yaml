@@ -1,12 +1,12 @@
 periodics:
   - name: update-maintainers
-    cron: "0 9 * * 5" # Run at 09:00 only on Fridays # Local testing: substitute with => interval: 15m
+    cron: "0 9 * * *" # Run at 09:00 everyday # Local testing: substitute with => interval: 15m
     decorate: true
     extra_refs:
     # Check out the repo containing the maintainers file
     # This will be the working directory
     - org: falcosecurity
-      repo: .github
+      repo: evolution
       base_ref: master
       workdir: true
     spec:
