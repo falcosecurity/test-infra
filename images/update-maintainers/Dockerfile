@@ -7,7 +7,7 @@ FROM golang:1.18 AS maintainersgenerator
 
 RUN wget -qO- "https://api.github.com/repos/leodido/maintainers-generator/releases/latest" | grep -Po '"browser_download_url": "\K.*?(?=")' | xargs wget -qO- | tar -xvz
 
-FROM debian:buster
+FROM golang:1.18-buster
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
