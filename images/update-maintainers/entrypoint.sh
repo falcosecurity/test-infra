@@ -18,7 +18,7 @@ set -o pipefail
 # Args from environment (with defaults)
 GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
-GH_REPO="${GH_REPO:-".github"}"
+GH_REPO="${GH_REPO:-"evolution"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
