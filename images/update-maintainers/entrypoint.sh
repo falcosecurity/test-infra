@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (C) 2021 The Falco Authors.
+# Copyright (C) 2022 The Falco Authors.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -19,6 +19,7 @@ set -o pipefail
 GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-"evolution"}"
+GH_REPO_BRANCH="${GH_REPO:-"main"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
@@ -99,13 +100,13 @@ create_pr() {
         "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_REPO}" \
         "HEAD:${branch}" 2>/dev/null
 
-    echo "> creating pull-request to merge ${user}:${branch} into master..." >&2
-    body=$'Updating maintainers list and the evolution resource files. Made using the [update-maintainers](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/update-maintainers/update-maintainers.yaml) periodic ProwJob. Do not edit this PR.\n\nIn case you wanna change your name or your company change [this file](https://github.com/falcosecurity/evolution/tree/master/people/affiliations.json).\n\n/kind documentation'
+    echo "> creating pull-request to merge ${user}:${branch} into ${GH_REPO_BRANCH}..." >&2
+    body=$'Updating maintainers list and the evolution resource files. Made using the [update-maintainers](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/update-maintainers/update-maintainers.yaml) periodic ProwJob. Do not edit this PR.\n\nIn case you wanna change your name or your company change [this file](https://github.com/falcosecurity/evolution/tree/main/people/affiliations.json).\n\n/kind documentation'
 
     pr-creator \
         --github-endpoint="${GH_PROXY}" \
         --github-token-path="$1" \
-        --org="${GH_ORG}" --repo="${GH_REPO}" --branch=master \
+        --org="${GH_ORG}" --repo="${GH_REPO}" --branch="${GH_REPO_BRANCH}" \
         --title="${title}" --match-title="${title}" \
         --body="${body}" \
         --local --source="${branch}" \
