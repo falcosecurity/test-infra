@@ -19,6 +19,7 @@ set -o pipefail
 GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-"kernel-crawler"}"
+GH_TARGET_BRANCH="${GH_TARGET_BRANCH:-"kernels"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
@@ -84,13 +85,13 @@ create_pr() {
         "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_REPO}" \
         "HEAD:${branch}"
 
-    echo "> creating pull-request to merge ${user}:${branch} into main..." >&2
+    echo "> creating pull-request to merge ${user}:${branch} into ${GH_TARGET_BRANCH} branch." >&2
     body="This PR updates the list of kernels from the latest crawling. Do not edit this PR."
 
     pr-creator \
         --github-endpoint="${GH_PROXY}" \
         --github-token-path="$1" \
-        --org="${GH_ORG}" --repo="${GH_REPO}" --branch=main \
+        --org="${GH_ORG}" --repo="${GH_REPO}" --branch=${GH_TARGET_BRANCH} \
         --title="${title}" --match-title="${title}" \
         --body="${body}" \
         --local --source="${branch}" \
