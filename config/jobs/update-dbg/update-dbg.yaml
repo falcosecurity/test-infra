@@ -2,9 +2,8 @@ postsubmits:
   falcosecurity/kernel-crawler:
     - name: update-dbg
       decorate: true
-      run_if_changed: '^kernels/'
       branches:
-        - ^main$
+        - ^kernels$
       extra_refs:
       # Check out the falcosecurity/test-infra repo
       # This will be the working directory
