@@ -28,3 +28,4 @@ config/prow/poiana_gpg_secret.yaml
 pj.yaml
 temp-mkpod-kind-config.yaml
 pod.yaml
+prow/cluster/*token
