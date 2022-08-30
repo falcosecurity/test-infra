@@ -72,7 +72,7 @@ branch-protection:
       repos:
         .github:
           branches:
-            master:
+            main:
               protect: true
         advocacy:
           branches:
@@ -122,7 +122,7 @@ branch-protection:
               protect: true
         community:
           branches:
-            master:
+            main:
               protect: true
         contrib:
           branches:
@@ -159,7 +159,7 @@ branch-protection:
             "release/0.28.1":
               protect: true
             "release/0.32.2":
-              protect: true            
+              protect: true
         falcosidekick:
           required_status_checks:
             contexts:
