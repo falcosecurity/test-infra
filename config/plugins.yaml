@@ -361,7 +361,7 @@ size:
 triggers:
   - repos:
       - falcosecurity
-    join_org_url: "https://github.com/falcosecurity/.github/blob/master/CONTRIBUTING.md"
+    join_org_url: "https://github.com/falcosecurity/.github/blob/main/CONTRIBUTING.md"
     only_org_members: true
 
 plugins:
