@@ -138,7 +138,7 @@ branch-protection:
               protect: true
         evolution:
           branches:
-            master:
+            main:
               protect: true
         event-generator:
           branches:
