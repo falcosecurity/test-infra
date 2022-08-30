@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # GitHub Workflow & Testing Infrastructure
 
 ## DBG
