@@ -108,18 +108,6 @@ branch-protection:
           branches:
             master:
               protect: true
-        cloud-native-security-hub:
-          branches:
-            master:
-              protect: true
-        cloud-native-security-hub-frontend:
-          branches:
-            master:
-              protect: true
-        cloud-native-security-hub-backend:
-          branches:
-            master:
-              protect: true
         community:
           branches:
             main:
@@ -212,10 +200,6 @@ branch-protection:
           required_status_checks:
             contexts:
               - "netlify/falcosecurity/deploy-preview"
-        katacoda-scenarios:
-          branches:
-            master:
-              protect: true
         kernel-crawler:
           branches:
             main:
@@ -278,9 +262,6 @@ tide:
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
     falcosecurity/client-rs: rebase
-    falcosecurity/cloud-native-security-hub: rebase
-    falcosecurity/cloud-native-security-hub-frontend: rebase
-    falcosecurity/cloud-native-security-hub-backend: rebase
     falcosecurity/community: rebase
     falcosecurity/contrib: rebase
     falcosecurity/deploy-kubernetes: rebase
@@ -294,7 +275,6 @@ tide:
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-website: rebase
-    falcosecurity/katacoda-scenarios: rebase
     falcosecurity/kernel-crawler: rebase
     falcosecurity/kilt: rebase
     falcosecurity/libs: rebase
@@ -402,48 +382,6 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/client-rs
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/cloud-native-security-hub
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/cloud-native-security-hub-frontend
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/cloud-native-security-hub-backend
       labels:
         - approved
         - lgtm
@@ -619,19 +557,6 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-website
-      labels:
-        - approved
-        - lgtm
-        - "dco-signoff: yes"
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/katacoda-scenarios
       labels:
         - approved
         - lgtm
