@@ -896,7 +896,6 @@ plugins:
       - lifecycle
       - lgtm
       - mergecommitblocker
-      - release-note
       - require-matching-label
       - retitle
       - size
