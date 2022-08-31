@@ -6,29 +6,31 @@ approve:
       - falcosecurity/client-go
       - falcosecurity/client-py
       - falcosecurity/client-rs
-      - falcosecurity/cloud-native-security-hub
-      - falcosecurity/cloud-native-security-hub-frontend
-      - falcosecurity/cloud-native-security-hub-backend
       - falcosecurity/community
       - falcosecurity/contrib
-      - falcosecurity/evolution
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
+      - falcosecurity/ebpf-probe
       - falcosecurity/event-generator
-      - falcosecurity/falcoctl
-      - falcosecurity/falcosidekick
-      - falcosecurity/falcosidekick-ui
+      - falcosecurity/evolution
+      - falcosecurity/falco
       - falcosecurity/falco-aws-terraform
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
-      - falcosecurity/katacoda-scenarios
+      - falcosecurity/falcoctl
+      - falcosecurity/falcosidekick
+      - falcosecurity/falcosidekick-ui
       - falcosecurity/kernel-crawler
+      - falcosecurity/kernel-module
       - falcosecurity/kilt
+      - falcosecurity/libs
       - falcosecurity/libs-sdk-go
+      - falcosecurity/libscap
+      - falcosecurity/libsinsp
       - falcosecurity/pdig
-      - falcosecurity/plugins
-      - falcosecurity/plugin-sdk-go
       - falcosecurity/plugin-sdk-cpp
+      - falcosecurity/plugin-sdk-go
+      - falcosecurity/plugins
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     lgtm_acts_as_approve: true
@@ -74,9 +76,6 @@ lgtm:
       - falcosecurity/client-go
       - falcosecurity/client-py
       - falcosecurity/client-rs
-      - falcosecurity/cloud-native-security-hub
-      - falcosecurity/cloud-native-security-hub-frontend
-      - falcosecurity/cloud-native-security-hub-backend
       - falcosecurity/community
       - falcosecurity/contrib
       - falcosecurity/evolution
@@ -90,7 +89,6 @@ lgtm:
       - falcosecurity/falco-aws-terraform
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
-      - falcosecurity/katacoda-scenarios
       - falcosecurity/kernel-crawler
       - falcosecurity/kilt
       - falcosecurity/libs
@@ -148,30 +146,6 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: client-rs
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: cloud-native-security-hub
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: cloud-native-security-hub-frontend
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: cloud-native-security-hub-backend
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -278,14 +252,6 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco-website
-    issues: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: katacoda-scenarios
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -489,64 +455,6 @@ plugins:
       - release-note
       - require-matching-label
       - retitle
-      - size
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/cloud-native-security-hub:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - release-note
-      - require-matching-label
-      - size
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/cloud-native-security-hub-frontend:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - release-note
-      - require-matching-label
-      - size
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/cloud-native-security-hub-backend:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - golint
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - release-note
-      - require-matching-label
       - size
       - verify-owners
       - welcome
@@ -831,28 +739,6 @@ plugins:
       - label
       - lifecycle
       - lgtm
-      - require-matching-label
-      - retitle
-      - size
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/katacoda-scenarios:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - mergecommitblocker
       - require-matching-label
       - retitle
       - size
@@ -1106,18 +992,6 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
-  falcosecurity/cloud-native-security-hub:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/cloud-native-security-hub-frontend:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/cloud-native-security-hub-backend:
-    - name: needs-rebase
-      events:
-        - pull_request
   falcosecurity/community:
     - name: needs-rebase
       events:
@@ -1171,10 +1045,6 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falco-website:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/katacoda-scenarios:
     - name: needs-rebase
       events:
         - pull_request
