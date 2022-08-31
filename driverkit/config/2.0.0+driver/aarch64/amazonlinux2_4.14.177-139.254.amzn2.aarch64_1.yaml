@@ -4,4 +4,4 @@ target: amazonlinux2
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_amazonlinux2_4.14.177-139.254.amzn2.aarch64_1.ko
-kernelurls: ["http://amazonlinux.us-east-1.amazonaws.com/2/core/2.0/aarch64/5454bdaaf3e2fa8d3aac354bd0b9f21079f8efbfc8b04fb40db462ed434f9f04/../../../../../blobstore/43772cabf4d00ee691a20d018ce5a31ee7b3db191add80661bdebadb335e2725/kernel-devel-4.14.177-139.254.amzn2.aarch64.rpm"]
+kernelurls: ["http://amazonlinux.us-east-1.amazonaws.com/2/core/2.0/aarch64/d9eabb739ad3274f51dac6426f86e0ef8889ded0f20abc635fbf05a6663a56f7/../../../../../blobstore/43772cabf4d00ee691a20d018ce5a31ee7b3db191add80661bdebadb335e2725/kernel-devel-4.14.177-139.254.amzn2.aarch64.rpm"]
