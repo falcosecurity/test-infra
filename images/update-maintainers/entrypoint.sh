@@ -19,7 +19,7 @@ set -o pipefail
 GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-"evolution"}"
-GH_REPO_BRANCH="${GH_REPO:-"main"}"
+GH_REPO_BRANCH="${GH_REPO_BRANCH:-"main"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
