@@ -2,6 +2,11 @@ SHELL := /usr/bin/env bash
 
 bins := docker aws cosign go
 
+# OCI build
+BUILD_CONTEXT ?= .
+DOCKERFILE ?= Dockerfile
+CACHE_FLAG ?= --no-cache
+
 # OCI artifact signing
 cosign_version ?= 1.9.0
 cosign_k8s_namespace := cosign
@@ -26,13 +31,13 @@ IMAGE := "$(REGISTRY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG)"
 
 build-push: build-image sign-image push-image
 
-build-image:
-	$(docker) build --no-cache -t "$(IMG_SLUG)/$(IMG_NAME)" .
+build-image: login
+	$(docker) build $(CACHE_FLAG) -t "$(IMG_SLUG)/$(IMG_NAME)" -f $(DOCKERFILE) $(BUILD_CONTEXT)
 
 sign-image: cosign
 	$(cosign) sign --key $(cosign_key) $(IMAGE)
 
-push-image:
+push-image: login
 	$(docker) tag "$(IMG_SLUG)/$(IMG_NAME)" $(IMAGE)
 	$(docker) push $(IMAGE)
 

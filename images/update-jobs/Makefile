@@ -1,8 +1,6 @@
 this_path := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
-BUILD_CONTEXT ?= ../../prow/update-jobs
-DOCKERFILE ?= ./Dockerfile
-CACHE_FLAG ?=
+BUILD_CONTEXT := ../../prow/update-jobs
 
 IMG_SLUG := test-infra
 IMG_NAME := update-jobs
