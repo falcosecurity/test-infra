@@ -58,6 +58,11 @@ config_updater:
       name: job-config
       gzip: true
 
+dco:
+  "*":
+    contributing_branch: main
+    contributing_repo: falcosecurity/.github
+
 goose:
   key_path: /etc/unsplash/honk
 
