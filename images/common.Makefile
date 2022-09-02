@@ -24,9 +24,7 @@ IMG_NAME ?=
 IMG_TAG ?= latest
 IMAGE := "$(REGISTRY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG)"
 
-all: build-image sign-image push-image
-
-build-push: build-image push-image
+build-push: build-image sign-image push-image
 
 build-image:
 	$(docker) build --no-cache -t "$(IMG_SLUG)/$(IMG_NAME)" .
