@@ -49,6 +49,19 @@ sinker:
   max_pod_age: 24h
   terminated_pod_ttl: 2h
 
+in_repo_config:
+  enabled:
+    # The key can be one of "*" for "globally", "org" or "org/repo".
+    # The narrowest match is used. Here the key is "kubernetes/kubernetes".
+    falcosecurity/evolution: true
+
+  # Clusters must be allowed before they can be used. Here we allow the "default"
+  # cluster globally. This setting also allows using "*" for "globally", "org" or "org/repo" as key.
+  # All clusters that are allowed for the specific repo, its org or
+  # globally can be used.
+  allowed_clusters:
+    falcosecurity/evolution: ["default"]
+
 branch-protection:
   enforce_admins: true # rules apply to admins too!
   restrictions: # restrict who can push
