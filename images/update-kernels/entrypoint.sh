@@ -19,6 +19,7 @@ set -o pipefail
 GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-"kernel-crawler"}"
+GH_SOURCE_BRANCH="${GH_SOURCE_BRANCH:-"update/kernels"}"
 GH_TARGET_BRANCH="${GH_TARGET_BRANCH:-"kernels"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
@@ -32,9 +33,15 @@ export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 crawl_kernels() {
     /usr/bin/pip3 install -e .
-    python3 __init__.py crawl --distro=* --out_fmt=driverkit > x86_64/list.json
-    python3 __init__.py crawl --distro=* --out_fmt=driverkit --arch=aarch64 > aarch64/list.json
+    python3 __init__.py crawl --distro=* --out_fmt=driverkit > x86_64_list.json
+    python3 __init__.py crawl --distro=* --out_fmt=driverkit --arch=aarch64 > aarch64_list.json
     return $?
+}
+
+mv_files_to_correct_location() {
+    git checkout ${GH_TARGET_BRANCH}
+    mv x86_64_list.json x86_64/list.json
+    mv aarch64_list.json aarch64/list.json
 }
 
 # Sets git user configs, otherwise errors out.
@@ -79,13 +86,12 @@ create_pr() {
     git commit -s -m "${title}"
 
     user=$(get_user_from_token "$1")
-    branch="update/kernels"
-    echo "> pushing commit as ${user} on branch ${branch}..." >&2
+    echo "> pushing commit as ${user} on branch ${GH_SOURCE_BRANCH}..." >&2
     git push -f \
         "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_REPO}" \
-        "HEAD:${branch}"
+        "HEAD:${GH_SOURCE_BRANCH}"
 
-    echo "> creating pull-request to merge ${user}:${branch} into ${GH_TARGET_BRANCH} branch." >&2
+    echo "> creating pull-request to merge ${user}:${GH_SOURCE_BRANCH} into ${GH_TARGET_BRANCH} branch." >&2
     body="This PR updates the list of kernels from the latest crawling. Do not edit this PR."
 
     pr-creator \
@@ -94,7 +100,7 @@ create_pr() {
         --org="${GH_ORG}" --repo="${GH_REPO}" --branch=${GH_TARGET_BRANCH} \
         --title="${title}" --match-title="${title}" \
         --body="${body}" \
-        --local --source="${branch}" \
+        --local --source="${GH_SOURCE_BRANCH}" \
         --allow-mods --confirm
 }
 
@@ -126,8 +132,11 @@ main() {
     ensure_git_config "${BOT_NAME}" "${BOT_MAIL}"
     ensure_gpg_key "${BOT_GPG_KEY_PATH}" "${BOT_GPG_PUBLIC_KEY}"
 
-    # Crawl kernels
+    # Crawl kernels from main branch
     crawl_kernels
+    
+    # Checkout the correct branch and move files to correct locations
+    mv_files_to_correct_location
     
     # Create PR (in case there are changes)
     create_pr "$1"
