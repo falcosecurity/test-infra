@@ -19,7 +19,7 @@ presubmits:
         Archtype: "x86"
   falcosecurity/evolution:
   - name: check-prow-config-evolution
-    always_run: true
+    run_if_changed: '^org/org.yaml$|^.prow/peribolos.yaml$'
     decorate: true
     extra_refs:
     - org: falcosecurity
