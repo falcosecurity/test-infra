@@ -68,42 +68,62 @@ main() {
   fi
   echo -e "Bumping: 'gcr.io/k8s-prow/' images to $(color-version "${new_version}") ..." >&2
 
-  local component_file_dir_array
-  IFS=, read -ra component_file_dir_array <<< "${COMPONENT_FILE_DIR}"
   bumpfiles=()
-  for c in "${component_file_dir_array[@]}"; do
-    # This expands wildcards into files if they exist
-    bumpfiles+=(${c}/*.yaml)
-  done
 
-  bumpfiles+=("${CONFIG_PATH}")
+  if test -n "${COMPONENT_FILE_DIR}"; then
+    local component_file_dir_array
+    IFS=, read -ra component_file_dir_array <<< "${COMPONENT_FILE_DIR}"
+    for c in "${component_file_dir_array[@]}"; do
+      # This expands wildcards into files if they exist
+      bumpfiles+=(${c}/*.yaml)
+    done
+  fi
+
+  if test -n "${CONFIG_PATH}"; then
+    bumpfiles+=("${CONFIG_PATH}")
+  fi
+
   if [[ -n "${JOB_CONFIG_PATH}" ]]; then
     bumpfiles+=($(grep -rl -e "gcr.io/k8s-prow/" "${JOB_CONFIG_PATH}"; true))
+  fi
+
+  echo "Found ${#bumpfiles[@]} files to bump."
+
+  if (( ${#bumpfiles[@]} <= 0 )); then
+    echo "Nothing to do."
+    exit 0
   fi
 
   echo "Attempting to bump the following files:" >&2
   for bf in "${bumpfiles[@]}"; do
     echo -e "$bf"
   done
+
   local token="$(gcloud auth print-access-token)"
+
   # Update image tags in the identified files. This supports both normal image and -arm64 images
   local matcher="gcr.io\/k8s-prow\/\([[:alnum:]_-]\+\):v[a-f0-9-]\+\(-arm64\)\{0,1\}"
   local replacer="s/${matcher}/gcr.io\/k8s-prow\/\1:${new_version}\2/I"
+
   for file in "${bumpfiles[@]}"; do
     ${SED} -i "${replacer}" "${file}"
     local images="$(grep -o "${matcher}" "${file}")"
     local arr=(${images//\\n/})
+
     # image is in the format of gcr.io/k8s-prow/[image_name]:[tag]
     for image in ${arr[@]+"${arr[@]}"}; do
       echo "Checking the existence of ${image}"
+
       # Use the Docker Registry v2 API to query the image manifest to check if the given image tag exists or not.
       # The manifest_url is in the format of https://gcr.io/v2/k8s-prow/[image_name]/manifests/[tag]
       # Check more details from https://stackoverflow.com/a/55344819/13578870
       local manifest_url=$(echo "$image" | ${SED} "s/:/\/manifests\//" | ${SED} "s/gcr.io/https:\/\/gcr.io\/v2/")
       if ! curl --fail -L -H "Authorization: Bearer $token" -o /dev/null -s "${manifest_url}"; then
         echo "The image ${image} does not exist, please double check." >&2
+
         # Revert the changes for this file.
         git checkout -- "${file}"
+
         return 1
       fi
     done
@@ -114,13 +134,15 @@ main() {
 
 check-args() {
   if [[ -z "${COMPONENT_FILE_DIR}" ]]; then
-    echo "ERROR: COMPONENT_FILE_DIR must be specified as an env var." >&2
-    return 1
+    echo "info: COMPONENT_FILE_DIR is empty." >&2
   fi
   if [[ -z "${CONFIG_PATH}" ]]; then
-    echo "ERROR: CONFIG_PATH must be specified as an env var." >&2
-    return 1
+    echo "info: CONFIG_PATH is empty." >&2
   fi
+  if [[ -z "${JOB_CONFIG_PATH}" ]]; then
+    echo "info: JOB_CONFIG_PATH is empty." >&2
+  fi
+  return
 }
 
 check-requirements() {

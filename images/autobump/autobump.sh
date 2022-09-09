@@ -53,20 +53,27 @@ main() {
 	echo "Bumping ${PROW_INSTANCE_NAME} to upstream (prow.k8s.io) version..." >&2
 	/bump.sh --upstream
 
-	cd "$(git rev-parse --show-toplevel)"
-	old_version=$(git show "HEAD:${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
-	version=$(cat "${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
+	title="Bump ${PROW_INSTANCE_NAME} configs"
 
-	if [[ -z "${version}" ]]; then
+	if -n "${PROW_CONTROLLER_MANAGER_FILE}"; then
+	  cd "$(git rev-parse --show-toplevel)"
+	  old_version=$(git show "HEAD:${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
+	  version=$(cat "${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
+
+	  if [[ -z "${version}" ]]; then
 		echo "Failed to fetch version from ${PROW_CONTROLLER_MANAGER_FILE}"
 		exit 1
-	fi
-	if [[ "${old_version}" == "${version}" ]]; then
+	  fi
+	  if [[ "${old_version}" == "${version}" ]]; then
 		echo "Bump did not change the Prow version: it's still ${version}. Aborting no-op bump." >&2
 		return 0
+	  fi
+
+	  title+=" and components from ${old_version} to ${version}"
 	fi
+
 	git add -u
-	title="Bump ${PROW_INSTANCE_NAME} from ${old_version} to ${version}"
+
 	comparison=$(extract-commit "${old_version}")...$(extract-commit "${version}")
 	body="Included changes: https://github.com/kubernetes/test-infra/compare/${comparison}"
 
