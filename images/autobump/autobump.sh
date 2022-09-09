@@ -56,20 +56,20 @@ main() {
 	title="Bump ${PROW_INSTANCE_NAME} configs"
 
 	if -n "${PROW_CONTROLLER_MANAGER_FILE}"; then
-	  cd "$(git rev-parse --show-toplevel)"
-	  old_version=$(git show "HEAD:${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
-	  version=$(cat "${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
+		cd "$(git rev-parse --show-toplevel)"
+		old_version=$(git show "HEAD:${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
+		version=$(cat "${PROW_CONTROLLER_MANAGER_FILE}" | extract-version)
 
-	  if [[ -z "${version}" ]]; then
-		echo "Failed to fetch version from ${PROW_CONTROLLER_MANAGER_FILE}"
-		exit 1
-	  fi
-	  if [[ "${old_version}" == "${version}" ]]; then
-		echo "Bump did not change the Prow version: it's still ${version}. Aborting no-op bump." >&2
-		return 0
-	  fi
+		if [[ -z "${version}" ]]; then
+			echo "Failed to fetch version from ${PROW_CONTROLLER_MANAGER_FILE}"
+			exit 1
+		fi
+		if [[ "${old_version}" == "${version}" ]]; then
+			echo "Bump did not change the Prow version: it's still ${version}. Aborting no-op bump." >&2
+			return 0
+		fi
 
-	  title+=" and components from ${old_version} to ${version}"
+		title+=" and components from ${old_version} to ${version}"
 	fi
 
 	git add -u
