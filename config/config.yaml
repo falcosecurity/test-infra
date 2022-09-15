@@ -213,6 +213,17 @@ branch-protection:
         libs:
           required_pull_request_reviews:
             required_approving_review_count: 2
+          required_status_checks:
+            contexts:
+              - "CI Build: build-libs-linux-amd64 😁 (system_deps)"
+              - "CI Build: build-libs-linux-amd64 😁 (bundled_deps)"
+              - "CI Build: build-libs-linux-amd64 😁 (system_deps_w_chisels)"
+              - "CI Build: build-libs-linux-amd64 😁 (system_deps_minimal)"
+              - "CI Build: build-libs-linux-amd64-asan 🧐"
+              - "CI Build: build-libs-arm64 🥶 (system_deps)"
+              - "CI Build: build-and-test-modern-bpf-x86 😇 (bundled_deps)"
+              - "CI Build: build-modern-bpf-arm64 🙃 (system_deps)"
+              - "CI Build: build-modern-bpf-s390x 😁 (system_deps)"
           branches:
             master:
               protect: true
