@@ -38,7 +38,11 @@ crawl_kernels() {
     return $?
 }
 
-mv_files_to_correct_location() {
+checkout_target_branch_and_mv_files() {
+    # prow cloned this rebo in --single-branch mode.
+    # We need to reconfigure it to fetch all branches.
+    git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+    git fetch
     git checkout ${GH_TARGET_BRANCH}
     mv x86_64_list.json x86_64/list.json
     mv aarch64_list.json aarch64/list.json
@@ -136,7 +140,7 @@ main() {
     crawl_kernels
     
     # Checkout the correct branch and move files to correct locations
-    mv_files_to_correct_location
+    checkout_target_branch_and_mv_files
     
     # Create PR (in case there are changes)
     create_pr "$1"
