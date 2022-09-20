@@ -179,7 +179,7 @@ branch-protection:
               - "ci/circleci: test"
         falcoctl:
           branches:
-            master:
+            main:
               protect: true
         falco-website:
           branches:
