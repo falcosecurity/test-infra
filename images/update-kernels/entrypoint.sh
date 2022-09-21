@@ -32,20 +32,9 @@ export GIT_AUTHOR_NAME=${BOT_NAME}
 export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 crawl_kernels() {
-    /usr/bin/pip3 install -e .
-    python3 __init__.py crawl --distro=* --out_fmt=driverkit > x86_64_list.json
-    python3 __init__.py crawl --distro=* --out_fmt=driverkit --arch=aarch64 > aarch64_list.json
+    kernel-crawler crawl --distro=* --out_fmt=driverkit > x86_64/list.json
+    kernel-crawler crawl --distro=* --out_fmt=driverkit --arch=aarch64 > aarch64/list.json
     return $?
-}
-
-checkout_target_branch_and_mv_files() {
-    # prow cloned this rebo in --single-branch mode.
-    # We need to reconfigure it to fetch all branches.
-    git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
-    git fetch -v
-    git checkout ${GH_TARGET_BRANCH}
-    mv x86_64_list.json x86_64/list.json
-    mv aarch64_list.json aarch64/list.json
 }
 
 # Sets git user configs, otherwise errors out.
@@ -131,16 +120,13 @@ main() {
     check_program "git"
     check_program "curl"
     check_program "pr-creator"
+    check_program "kernel-crawler"
 
     # Settings
     ensure_git_config "${BOT_NAME}" "${BOT_MAIL}"
     ensure_gpg_key "${BOT_GPG_KEY_PATH}" "${BOT_GPG_PUBLIC_KEY}"
 
-    # Crawl kernels from main branch
     crawl_kernels
-    
-    # Checkout the correct branch and move files to correct locations
-    checkout_target_branch_and_mv_files
     
     # Create PR (in case there are changes)
     create_pr "$1"

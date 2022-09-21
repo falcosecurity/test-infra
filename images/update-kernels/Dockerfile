@@ -3,22 +3,13 @@ FROM golang:1.18 AS pullrequestcreator
 RUN git clone https://github.com/kubernetes/test-infra
 RUN cd test-infra/robots/pr-creator && go build -v -o pr-creator ./main.go
 
-FROM debian:buster
+FROM falcosecurity/kernel_crawler:0.1.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
     gnupg2 \
     curl \
-    python \
-    python3 \
-    python3-pip \
-    python3-setuptools \
-    python3-lxml \
-    python3-requests \
-    python3-click \
-    python3-cffi \
-    python3-pygit2 \
     && apt-get clean
 
 COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
