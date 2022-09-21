@@ -22,8 +22,8 @@ COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
 COPY build-and-publish.sh /
 RUN chmod +x /build-and-publish.sh
 
-COPY update-readme.sh /
-RUN chmod +x /update-readme.sh
+COPY on-registry-changed.sh /
+RUN chmod +x /on-registry-changed.sh
 
 COPY build.sh /
 RUN chmod +x /build.sh
