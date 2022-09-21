@@ -26,6 +26,7 @@ postsubmits:
       agent: kubernetes
       branches:
         - ^master$
+      run_if_changed: "^plugins/.*"
       spec:
         serviceAccountName: build-plugins
         containers:
@@ -48,6 +49,7 @@ postsubmits:
       agent: kubernetes
       branches:
         - ^master$
+      run_if_changed: "^plugins/.*"
       spec:
         serviceAccountName: build-plugins
         containers:
