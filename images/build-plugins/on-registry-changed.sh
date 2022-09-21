@@ -99,8 +99,10 @@ clone_index_repo() {
     mkdir -p "$1"
     pushd "$1"
     git clone "https://github.com/${GH_ORG}/${GH_INDEX_REPO}.git"
+    pushd "${GH_INDEX_REPO}"
     echo "> checkout ${GH_INDEX_REPO_BRANCH} branch..." >&2
     git checkout ${GH_INDEX_REPO_BRANCH}
+    popd
     popd
 }
 
