@@ -14,6 +14,8 @@
 GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-"plugins"}"
+GH_INDEX_REPO="${GH_INDEX_REPO:-"falcoctl"}"
+GH_INDEX_REPO_BRANCH="${GH_INDEX_REPO_BRANCH:-"gh-pages"}"
 BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
@@ -91,6 +93,27 @@ get_user_from_token() {
     curl --silent -H "Authorization: token $(cat "$1")" "https://api.github.com/user" | grep -Po '"login": "\K.*?(?=")'
 }
 
+# $1: temporary path to clone the repo
+clone_index_repo() {
+    echo "> cloning distribution index repository (https://github.com/${GH_ORG}/${GH_INDEX_REPO}.git)..." >&2
+    mkdir -p "$1"
+    pushd "$1"
+    git clone "https://github.com/${GH_ORG}/${GH_INDEX_REPO}.git"
+    echo "> checkout ${GH_INDEX_REPO_BRANCH} branch..." >&2
+    git checkout ${GH_INDEX_REPO_BRANCH}
+    popd
+}
+
+# $1: path to the local working copy of the index repo
+push_index() {
+    echo "> pushing distribution index..." >&2
+    pushd "$1"
+    git add index.yaml
+    git commit --message="update(index.yaml): new plugins registry data" --signoff
+    git push origin ${GH_INDEX_REPO_BRANCH}
+    popd
+}
+
 # $1: the program to check
 function check_program {
     if hash "$1" 2>/dev/null; then
@@ -120,6 +143,16 @@ main() {
 
     # Create PR (in case there are changes)
     create_pr "$1"
+    
+    # Clone the index repo and checkout to the correct branch
+    clone_index_repo "/tmp"
+
+    # Upsert the index
+    DIST_INDEX="/tmp/${GH_INDEX_REPO}/index.yaml" make index-update
+
+    # Finally, commit and push the index
+    push_index "/tmp/${GH_INDEX_REPO}"
+
 }
 
 if [[ $# -lt 1 ]]; then
