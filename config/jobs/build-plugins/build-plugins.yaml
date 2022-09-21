@@ -118,7 +118,7 @@ postsubmits:
             operator: "Equal"
             value: "arm"
             effect: "NoSchedule"
-    - name: build-plugins-update-readme-postsubmit
+    - name: build-plugins-on-registry-changed-postsubmit
       decorate: true
       skip_report: false
       agent: kubernetes
