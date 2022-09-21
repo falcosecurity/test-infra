@@ -148,7 +148,7 @@ main() {
     clone_index_repo "/tmp"
 
     # Upsert the index
-    DIST_INDEX="/tmp/${GH_INDEX_REPO}/index.yaml" make index-update
+    DIST_INDEX="/tmp/${GH_INDEX_REPO}/index.yaml" make update-index
 
     # Finally, commit and push the index
     push_index "/tmp/${GH_INDEX_REPO}"
