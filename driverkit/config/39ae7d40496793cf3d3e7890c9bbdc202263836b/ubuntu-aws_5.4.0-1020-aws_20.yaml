@@ -5,4 +5,4 @@ architecture: amd64
 output:
   module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-aws_5.4.0-1020-aws_20.ko
   probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-aws_5.4.0-1020-aws_20.o
-kernelurls: ["http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-headers-5.4.0-1020-aws_5.4.0-1020.20_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-headers-5.4.0-1020-aws_5.4.0-1020.20_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-aws-headers-5.4.0-1020_5.4.0-1020.20_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-aws-headers-5.4.0-1020_5.4.0-1020.20_all.deb"]
+kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-headers-5.4.0-1020-aws_5.4.0-1020.20_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-aws-headers-5.4.0-1020_5.4.0-1020.20_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-aws-headers-5.4.0-1020_5.4.0-1020.20_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-headers-5.4.0-1020-aws_5.4.0-1020.20_amd64.deb"]
