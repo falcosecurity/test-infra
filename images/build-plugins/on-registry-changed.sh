@@ -106,13 +106,23 @@ clone_index_repo() {
     popd
 }
 
-# $1: path to the local working copy of the index repo
+# $1: path of the file containing the token
+# $2: path to the local working copy of the index repo
 push_index() {
     echo "> pushing distribution index..." >&2
-    pushd "$1"
+    pushd "$2"
+
     git add index.yaml
     git commit --message="update(index.yaml): new plugins registry data" --signoff
-    git push origin ${GH_INDEX_REPO_BRANCH}
+
+    # N.B., no force push here. 
+    # If other jobs modify the index and a git conflict occurs, 
+    # better to fail instead of overwriting their changes.
+    user=$(get_user_from_token "$1")
+    git push \
+        "https://${user}:$(cat "$1")@github.com/${GH_ORG}/${GH_INDEX_REPO}" \
+        "HEAD:${GH_INDEX_REPO_BRANCH}"
+
     popd
 }
 
@@ -153,7 +163,7 @@ main() {
     DIST_INDEX="/tmp/${GH_INDEX_REPO}/index.yaml" make update-index
 
     # Finally, commit and push the index
-    push_index "/tmp/${GH_INDEX_REPO}"
+    push_index "$1" "/tmp/${GH_INDEX_REPO}"
 
 }
 
