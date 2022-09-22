@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 3277.1.2
+target: flatcar
+architecture: arm64
+output:
+  module: output/2.0.0+driver/aarch64/falco_flatcar_3277.1.2_1.ko
+  probe: output/2.0.0+driver/aarch64/falco_flatcar_3277.1.2_1.o
+kernelurls: ["https://beta.release.flatcar-linux.net/arm64-usr/3277.1.2/flatcar_developer_container.bin.bz2"]
