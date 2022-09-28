@@ -1,6 +1,6 @@
 periodics:
   - name: update-kernels
-    cron: '0 0 * * 0'  # every sunday at midnight
+    cron: '0 6 * * 1'  # every monday at 6
     decorate: true
     extra_refs:
     # Check out the falcosecurity/kernel-crawler repo
