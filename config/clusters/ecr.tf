@@ -54,6 +54,13 @@ resource "aws_ecr_repository" "update_kernels" {
   }
 }
 
+resource "aws_ecr_repository" "update_syscalls" {
+  name = "test-infra/update-syscalls"
+  encryption_configuration {
+    encryption_type = "KMS"
+  }
+}
+
 resource "aws_ecr_repository" "update_dbg" {
   name = "test-infra/update-dbg"
   encryption_configuration {
