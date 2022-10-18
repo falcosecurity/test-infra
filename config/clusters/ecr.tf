@@ -60,3 +60,10 @@ resource "aws_ecr_repository" "update_dbg" {
     encryption_type = "KMS"
   }
 }
+
+resource "aws_ecr_repository" "update_drivers_website" {
+  name = "test-infra/update-drivers-website"
+  encryption_configuration {
+    encryption_type = "KMS"
+  }
+}
