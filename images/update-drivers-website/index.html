@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <title>Falco Probes</title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <style>
+        .dataTables_filter {
+            padding-right: 10px;
+        }
+        .dataTables_length {
+            padding-left: 10px;
+        }
+        .btn {
+            padding-bottom: 15px;
+        }
+        .ebpf {
+            background-color: #1C5EF5;
+        }
+        .kmod {
+            background-color: #F78919;
+        }
+        .x86_64 {
+            background-color: #5d00f2;
+        }
+        .aarch64 {
+            background-color: #0b912f;
+        }
+        .form-select {
+            margin-left: 16px;
+            margin-bottom: 5px;
+            display: inline;
+        }
+    </style>
+    <script>
+        var url = new URL(window.location);
+        var lib = url.searchParams.get('lib');
+        if (lib == null) {
+            lib = "3.0.0+driver";
+            url.searchParams.set('lib', lib);
+        };
+        var target = url.searchParams.get('target')
+        if (target == null) {
+            target = "amazonlinux2";
+            url.searchParams.set('target', target);
+        };
+        var arch = url.searchParams.get('arch')
+        if (arch == null) {
+            arch = "x86_64";
+            url.searchParams.set('arch', arch);
+        };
+        var kind = url.searchParams.get('kind')
+        if (kind == null) {
+            kind = "ebpf";
+            url.searchParams.set('kind', kind);
+        };
+        var search = url.searchParams.get('search')
+        if (search == null) {
+            search = "";
+        };
+        window.history.pushState({}, '', url);
+        $.getJSON('./index.json', function(data) {
+            Object.entries(data).forEach (([key,value]) => {
+                var searchPrms = new URLSearchParams(window.location.search);
+                searchPrms.delete('search');
+                var selected = searchPrms.get('lib');
+                searchPrms.set('lib', value);
+                var element = document.createElement('option');
+                element.text = value;
+                if (selected == value) {
+                    element.selected = value;
+                }
+                element.value = "?"+searchPrms.toString();
+                document.getElementById('lib').appendChild(element);
+            });
+        });
+    </script>
+    </head>
+    <body>
+    <div>
+        <img src="https://sysdig.com/wp-content/uploads/2018/10/Falco-horizontal-logo-teal_2x.png" height="55" alt="falco logo">
+    </div>
+    <div style="padding-left: 10px;">
+        Lib:
+        <select class="form-select w-25" id="lib" onchange="if (this.value) window.location.href=this.value"></select>
+    </div>
+    <div id="arch" style="padding-left: 10px;">
+        Arch:
+    </div>
+    <div id="kind" style="padding-left: 10px;">
+        Kind:
+    </div>
+    <div id="target" style="padding-left: 10px; padding-bottom: 15px;">
+        Target:
+    </div>
+    <table id="drivers" class="table table-striped table-condensed" style="padding-left: 10px;">
+        <thead>
+            <tr>
+                <th>Lib</th>
+                <th>Arch</th>
+                <th>Target</th>
+                <th>Kind</th> 
+                <th>Kernel</th> 
+                <th>Name</th>
+                <th>Size</th>
+                <th>Download</th>
+                <th>LastModified</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+    </table>
+    </body>
+    <script>
+        var url = new URL(window.location);
+        $(document).ready(function() {
+            $.getJSON('./'+lib+'.json', function(data) {
+                Object.entries(data['index']).forEach (([key, value]) => {
+                    var searchPrms = new URLSearchParams(window.location.search);
+                    searchPrms.delete('search');
+                    var selected = searchPrms.get(key);
+                    if (key != "lib") {
+                        searchPrms.set(key, 'all');
+                        var element = document.createElement('a');
+                        element.className = "btn btn-outline-primary btn-sm";
+                        if (selected == 'all') {
+                            element.className = "btn btn-primary btn-sm";
+                        }
+                        element.style = "margin: 5px; padding-top: 8px; padding-bottom: 10px;"
+                        element.text = 'ALL';
+                        element.href = "?"+searchPrms.toString();
+                        document.getElementById(key).appendChild(element);
+                    }
+                    for (var item of value) {
+                        searchPrms.set(key, item);
+                        if (key != "lib") {
+                            var element = document.createElement('a');
+                            element.className = "btn btn-outline-primary btn-sm";
+                            if (selected == item) {
+                                element.className = "btn btn-primary btn-sm";
+                            }
+                            element.style = "margin: 5px; padding-top: 8px; padding-bottom: 10px;"
+                            element.text = item;
+                            element.href = "?"+searchPrms.toString();
+                            document.getElementById(key).appendChild(element);
+                        }
+                    }
+                });
+                var drivers = [];
+                data['drivers'].forEach (value => {
+                    if (value.arch != url.searchParams.get('arch') && url.searchParams.get('arch') != 'all') {
+                        return;
+                    }
+                    if (value.kind != url.searchParams.get('kind') && url.searchParams.get('kind') != 'all') {
+                        return;
+                    }
+                    if (value.target != url.searchParams.get('target') && url.searchParams.get('target') != 'all') {
+                        return;
+                    }
+                    drivers.push(value);
+                });
+                $('#drivers').DataTable({
+                    "search": {"search": search },
+                    "paging": true,
+                    "pageLength": 100,
+                    "data": drivers,
+                    "order": [[ 2, "asc" ]],
+                    columns : [
+                        { "data" : "lib"},
+                        {
+                            "data": 'arch',
+                            render: function (data) {
+                                if (data === "x86_64") {
+                                    return '<span class="badge x86_64">'+data+'</span>'
+                                }
+                                if (data === "aarch64") {
+                                    return '<span class="badge aarch64">'+data+'</span>'
+                                }
+                                return data
+                            },
+                        },
+                        { "data" : "target"},
+                        {
+                            "data": 'kind',
+                            "search": "ebpf",
+                            render: function (data) {
+                                if (data === "ebpf") {
+                                    return '<span class="badge ebpf">'+data+'</span>'
+                                }
+                                if (data === "kmod") {
+                                    return '<span class="badge kmod">'+data+'</span>'
+                                }
+                                return data
+                            },
+                        },
+                        { "data" : "kernel"},
+                        { "data" : "name"},
+                        { "data" : "size"},
+                        {
+                            "data": 'download',
+                            render: function (data) {
+                                return '<a href="'+data+'" download="'+data+'"><i class="bi bi-download" style="padding-left: 30px;"></i></a>'
+                            },
+                        },
+                        { "data" : "lastmodified"},
+                        { 
+                            "data" : "name",
+                            render: function (data) {
+                                url.searchParams.set('search', data);
+                                return '<a href="?'+url.searchParams.toString()+'"><i class="bi bi-link"></i></a>';
+                            }
+                        },
+                    ]
+                });
+            });
+        });
+    </script>
+</html>
