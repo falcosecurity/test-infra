@@ -47,6 +47,12 @@ function launchProwConfig() {
   # PR Status
   kubectl create secret generic github-oauth-config --from-literal=secret="$(./tools/1password.sh -d prow-prstatus-github-oauth-app.yaml)" || true
   kubectl create secret generic cookie --from-literal=secret="$(./tools/1password.sh -d prow-prstatus-cookie-encryption-key.txt)" || true
+
+  # Cosign
+  kubectl create secret generic -n cosign openinfra-oci-sign \
+	  --from-literal="cosign.key"="$(./tools/1password.sh -d infra/cosign/key)" \
+	  --from-literal="cosign.pub"="$(./tools/1password.sh -d infra/cosign/pub)" \
+	  --from-literal="cosign.password"="$(./tools/1password.sh -d infra/cosign/password)" || true
   
   # Related to OAuth setup... need to setup base url on Github for callback before we can create these
   
