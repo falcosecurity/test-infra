@@ -1,7 +1,7 @@
 SHELL := /usr/bin/env bash
 
 cosign := $(shell command -v cosign 2>/dev/null)
-cosign_version ?= 1.9.0
+cosign_version ?= 1.13.0
 cosign_key ?= k8s://cosign/openinfra-oci-sign
 
 IMG_SLUG := test-infra

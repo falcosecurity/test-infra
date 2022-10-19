@@ -8,7 +8,7 @@ DOCKERFILE ?= Dockerfile
 CACHE_FLAG ?= --no-cache
 
 # OCI artifact signing
-cosign_version ?= 1.9.0
+cosign_version ?= 1.13.0
 cosign_k8s_namespace := cosign
 cosign_k8s_secret := openinfra-oci-sign
 cosign_k8s_key := k8s://$(cosign_k8s_namespace)/$(cosign_k8s_secret)
