@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (C) 2021 The Falco Authors.
+# Copyright (C) 2022 The Falco Authors.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -15,8 +15,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-S3_DRIVERS_BUCKET ?= "falco-distribution"
-S3_DRIVERS_KEY_PREFIX ?= "driver"
+S3_DRIVERS_BUCKET="falco-distribution"
+S3_DRIVERS_KEY_PREFIX="driver"
 
 # $1: the program to check
 function check_program {
@@ -31,14 +31,14 @@ function check_program {
 # Meant to be run in the https://github.com/falcosecurity/test-infra repository.
 main() {
     # Checks
-    check_program "awscli"
+    check_program "aws"
     check_program "update-drivers-website"
     
     # Build updated json
-    update-drivers-website /tmp/website
+    update-drivers-website images/update-drivers-website/
     
     # Push the updated files to s3 bucket
-    aws s3 cp "/tmp/website/" s3://${S3_DRIVERS_BUCKET}/${S3_DRIVERS_KEY_PREFIX}/site --recursive --include "*.json" --include "index.html" --acl public-read
+    aws s3 cp "images/update-drivers-website/" s3://${S3_DRIVERS_BUCKET}/${S3_DRIVERS_KEY_PREFIX}/site --recursive --include "*.json" --include "index.html" --acl public-read
     
     exit 0
 }
