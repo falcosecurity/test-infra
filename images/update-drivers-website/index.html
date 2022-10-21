@@ -121,7 +121,7 @@
     <script>
         var url = new URL(window.location);
         $(document).ready(function() {
-            $.getJSON(encodeURI('./'+lib+'.json'), function(data) {
+            $.getJSON('./'+encodeURIComponent(lib)+'.json', function(data) {
                 Object.entries(data['index']).forEach (([key, value]) => {
                     var searchPrms = new URLSearchParams(window.location.search);
                     searchPrms.delete('search');
