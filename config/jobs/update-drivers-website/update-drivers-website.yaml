@@ -10,6 +10,7 @@ periodics:
       base_ref: master
       workdir: true
     spec:
+      serviceAccountName: driver-kit
       containers:
       # See images/update-drivers-site
       - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-drivers-website
