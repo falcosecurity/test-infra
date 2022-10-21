@@ -2,13 +2,6 @@ periodics:
   - name: update-drivers-website
     cron: '0 0 * * *'  # every midnight, daily
     decorate: true
-    extra_refs:
-    # Check out the falcosecurity/test-infra repo
-    # This will be the working directory
-    - org: falcosecurity
-      repo: test-infra
-      base_ref: master
-      workdir: true
     spec:
       serviceAccountName: driver-kit
       containers:

@@ -35,10 +35,10 @@ main() {
     check_program "update-drivers-website"
     
     # Build updated json
-    update-drivers-website images/update-drivers-website/
+    update-drivers-website "/update-drivers-website"
     
     # Push the updated files to s3 bucket
-    aws s3 cp "images/update-drivers-website/" s3://${S3_DRIVERS_BUCKET}/${S3_DRIVERS_KEY_PREFIX}/site --recursive --include "*.json" --include "index.html" --acl public-read
+    aws s3 cp "/update-drivers-website" s3://${S3_DRIVERS_BUCKET}/${S3_DRIVERS_KEY_PREFIX}/site --recursive --include "*.json" --include "index.html" --acl public-read
     
     exit 0
 }
