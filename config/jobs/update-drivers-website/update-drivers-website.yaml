@@ -1,6 +1,6 @@
 periodics:
   - name: update-drivers-website
-    cron: '0 0 * * *'  # every midnight, daily
+    cron: '0 12 * * *'  # every day at 12pm
     decorate: true
     spec:
       serviceAccountName: driver-kit
