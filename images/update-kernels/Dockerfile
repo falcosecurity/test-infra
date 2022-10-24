@@ -3,7 +3,7 @@ FROM golang:1.18 AS pullrequestcreator
 RUN git clone https://github.com/kubernetes/test-infra
 RUN cd test-infra/robots/pr-creator && go build -v -o pr-creator ./main.go
 
-FROM falcosecurity/kernel-crawler:0.1.3
+FROM falcosecurity/kernel-crawler:0.2.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
