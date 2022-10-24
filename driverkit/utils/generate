@@ -145,8 +145,9 @@ generate_yamls() {
         echo "kernelurls: ${TARGET_HEADERS}" >> ${FILE}
     fi
 
-    if [ -n "${TARGET_KERNEL_DEFCONFIG}" ] && [ "${TARGET_KERNEL_DEFCONFIG}" != "null" ]; then
-        echo "kernelconfigdata: ${TARGET_KERNEL_DEFCONFIG}" >> ${FILE}
+    TARGET_KERNEL_DEFCONFIG_DATA="$(<${TARGET_KERNEL_DEFCONFIG})"
+    if [ -n "${TARGET_KERNEL_DEFCONFIG_DATA}" ] && [ "${TARGET_KERNEL_DEFCONFIG_DATA}" != "null" ]; then
+        echo "kernelconfigdata: ${TARGET_KERNEL_DEFCONFIG_DATA}" >> ${FILE}
     fi
 }
 
