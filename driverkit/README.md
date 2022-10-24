@@ -49,6 +49,14 @@ These are the available filters as environment variables:
 
 Notice all the filters are optional (except for `generate` where they are mandatory).
 
+##### Available generate-specific variables
+
+These are the available used as environment variables:
+
+- all of the above filter variables
+- `TARGET_KERNEL_DEFCONFIG`: a path to a file that contains the base64 encoded defconfig for the kernel. Optional.
+- `TARGET_HEADERS`: a list of headers for the current kernel. Optional.
+
 ##### Examples
 
 You can filter a specific distro with a specific kernel (i.e. 5.9.0 release and version #1):
