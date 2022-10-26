@@ -32,7 +32,7 @@ export GIT_AUTHOR_NAME=${BOT_NAME}
 export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 bump_syscalls() {
-    bumper --repo-root ${pwd} --overwrite
+    syscalls-bumper --repo-root ${pwd} --overwrite
     return $?
 }
 
@@ -119,7 +119,7 @@ main() {
     check_program "git"
     check_program "curl"
     check_program "pr-creator"
-    check_program "bumper"
+    check_program "syscalls-bumper"
 
     # Settings
     ensure_git_config "${BOT_NAME}" "${BOT_MAIL}"
