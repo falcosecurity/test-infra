@@ -32,7 +32,7 @@ export GIT_AUTHOR_NAME=${BOT_NAME}
 export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 bump_syscalls() {
-    syscalls-bumper --repo-root ${pwd} --overwrite
+    syscalls-bumper --repo-root $(pwd) --overwrite
     return $?
 }
 
