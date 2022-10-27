@@ -10,7 +10,6 @@ RUN tar -xvf syscalls-bumper_0.0.3_linux_amd64.tar.gz \
     && chmod +x syscalls-bumper \
     && mv syscalls-bumper /bin/syscalls-bumper
 
-
 COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
 
 COPY entrypoint.sh /
