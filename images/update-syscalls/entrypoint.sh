@@ -33,7 +33,6 @@ export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 bump_syscalls() {
     syscalls-bumper --repo-root $(pwd) --overwrite
-    return $?
 }
 
 # Sets git user configs, otherwise errors out.
