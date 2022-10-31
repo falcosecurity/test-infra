@@ -4,4 +4,5 @@ target: oracle7
 architecture: amd64
 output:
   module: output/2.0.0+driver/x86_64/falco_oracle7_3.10.0-957.21.2.0.1.el7.x86_64_1.ko
+  probe: output/2.0.0+driver/x86_64/falco_oracle7_3.10.0-957.21.2.0.1.el7.x86_64_1.o
 kernelurls: ["http://yum.oracle.com/repo/OracleLinux/OL7/MODRHCK/x86_64/getPackage/kernel-devel-3.10.0-957.21.2.0.1.el7.x86_64.rpm"]

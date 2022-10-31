@@ -4,4 +4,5 @@ target: ubuntu-lts-utopic
 architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-lts-utopic_3.16.0-26-lts-utopic_35~14.04.1.ko
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-utopic/linux-headers-3.16.0-26_3.16.0-26.35~14.04.1_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-utopic/linux-headers-3.16.0-26-generic_3.16.0-26.35~14.04.1_arm64.deb"]
+  probe: output/2.0.0+driver/aarch64/falco_ubuntu-lts-utopic_3.16.0-26-lts-utopic_35~14.04.1.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-utopic/linux-headers-3.16.0-26-generic_3.16.0-26.35~14.04.1_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-utopic/linux-headers-3.16.0-26_3.16.0-26.35~14.04.1_all.deb"]
