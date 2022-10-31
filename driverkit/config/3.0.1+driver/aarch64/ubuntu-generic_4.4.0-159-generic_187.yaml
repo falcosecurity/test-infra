@@ -4,4 +4,5 @@ target: ubuntu-generic
 architecture: arm64
 output:
   module: output/3.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-159-generic_187.ko
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-159-generic_4.4.0-159.187_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-159_4.4.0-159.187_all.deb"]
+  probe: output/3.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-159-generic_187.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-159_4.4.0-159.187_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-159-generic_4.4.0-159.187_arm64.deb"]
