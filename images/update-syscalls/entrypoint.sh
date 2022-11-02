@@ -83,7 +83,7 @@ create_pr() {
         "HEAD:${GH_SOURCE_BRANCH}"
 
     echo "> creating pull-request to merge ${user}:${GH_SOURCE_BRANCH} into ${GH_TARGET_BRANCH} branch." >&2
-    body="This PR updates the list of supported syscalls from the latest kernel. Do not edit this PR."
+    body="This PR updates the list of supported syscalls from the latest kernel. Do not edit this PR.\n/area driver\n\`\`\`\release-note\nNONE\n\`\`\`"
 
     pr-creator \
         --github-endpoint="${GH_PROXY}" \
