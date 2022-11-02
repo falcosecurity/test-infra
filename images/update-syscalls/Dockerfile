@@ -5,6 +5,13 @@ RUN cd test-infra/robots/pr-creator && go build -v -o pr-creator ./main.go
 
 FROM debian:buster
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    git \
+    gnupg2 \
+    curl \
+    && apt-get clean
+
 ADD https://github.com/FedeDP/syscalls-bumper/releases/download/v0.0.3/syscalls-bumper_0.0.3_linux_amd64.tar.gz .
 RUN tar -xvf syscalls-bumper_0.0.3_linux_amd64.tar.gz \
     && chmod +x syscalls-bumper \
