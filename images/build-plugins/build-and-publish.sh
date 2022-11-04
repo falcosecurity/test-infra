@@ -16,12 +16,16 @@ PUBLISH_S3="${PUBLISH_S3:=false}"
 PUBLISH_TAG="${PUBLISH_TAG:=dev}"
 
 # see: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
-VERSION_RGX="^[a-z]+[a-z0-9_]*-(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?$"
+# note: we have a capturing group for the plugin name prefix, so that we can use
+# it to specify the right make release target
+VERSION_RGX="^([a-z]+[a-z0-9_\-]*)-(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?$"
 
 if [[ $PULL_BASE_REF =~ $VERSION_RGX ]];
 then
     # Build only tagged package
-    make release/$(echo $PULL_BASE_REF | cut -f1 -d'-')
+    # note: BASH_REMATCH[1] points to the first capturing group of the matching
+    # regex, which is the plugin name
+    make release/${BASH_REMATCH[1]}
 
     # Publish artifacts in "stable" dir
     PUBLISH_TAG="stable"
