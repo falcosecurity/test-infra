@@ -31,6 +31,7 @@ approve:
       - falcosecurity/plugin-sdk-cpp
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugins
+      - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     lgtm_acts_as_approve: true
@@ -102,6 +103,7 @@ lgtm:
       - falcosecurity/plugins
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugin-sdk-cpp
+      - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
       - falcosecurity/test-infra
     review_acts_as_lgtm: true
@@ -318,6 +320,14 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this issue.
       Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: syscalls-bumper
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.    
 
 retitle:
   allow_closed_issues: true
@@ -932,6 +942,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/syscalls-bumper:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip    
   falcosecurity/template-repository:
     plugins:
       - approve
@@ -1085,6 +1117,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+  falcosecurity/syscalls-bumper:
+    - name: needs-rebase
+      events:
+        - pull_request      
   falcosecurity/template-repository:
     - name: needs-rebase
       events:
