@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && apt-get clean
 
-ADD https://github.com/FedeDP/syscalls-bumper/releases/download/v0.0.3/syscalls-bumper_0.0.3_linux_amd64.tar.gz .
-RUN tar -xvf syscalls-bumper_0.0.3_linux_amd64.tar.gz \
+ADD https://github.com/falcosecurity/syscalls-bumper/releases/download/v0.0.4/syscalls-bumper_0.0.4_linux_amd64.tar.gz .
+RUN tar -xvf syscalls-bumper_0.0.4_linux_amd64.tar.gz \
     && chmod +x syscalls-bumper \
     && mv syscalls-bumper /bin/syscalls-bumper
 
