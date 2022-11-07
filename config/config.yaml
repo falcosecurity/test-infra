@@ -121,6 +121,10 @@ branch-protection:
             main:
               protect: true
         driverkit:
+          required_status_checks:
+            contexts:
+              - "build-test"
+              - "build-test-arm64"
           branches:
             master:
               protect: true
@@ -211,6 +215,9 @@ branch-protection:
             contexts:
               - "netlify/falcosecurity/deploy-preview"
         kernel-crawler:
+          required_status_checks:
+            contexts:
+              - "test kernel-crawler"
           branches:
             main:
               protect: true
@@ -260,6 +267,9 @@ branch-protection:
             master:
               protect: true
         syscalls-bumper:
+          required_status_checks:
+            contexts:
+              - "build syscalls-bumper"
           branches:
             main:
               protect: true 
