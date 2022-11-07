@@ -7,7 +7,7 @@ periodics:
     agent: kubernetes
     spec:
       containers:
-        - image: gcr.io/k8s-prow/commenter:v20221028-a8625c1f93
+        - image: gcr.io/k8s-prow/commenter:v20221104-4497ace285
           command:
             - commenter
           args:
