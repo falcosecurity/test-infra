@@ -5,4 +5,4 @@ architecture: amd64
 output:
   module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_amazonlinux2_5.10.102-99.473.amzn2.x86_64_1.ko
   probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_amazonlinux2_5.10.102-99.473.amzn2.x86_64_1.o
-kernelurls: ["http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.10/stable/x86_64/88318c1014f7dfa825c3aae86c9d07da525f029cb31a04dee7e4ae984f702528/../../../../../../blobstore/a5cd2db69f642d9e8bde004878d19cb0446a37f2d3f1b5aef7ad6a4c6dd45eb5/kernel-devel-5.10.102-99.473.amzn2.x86_64.rpm"]
+kernelurls: ["http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.10/stable/x86_64/c41f40d2b8397590e7a012f72b31e2fe137624aa386daaea8be514b8f854dbc3/../../../../../../blobstore/a5cd2db69f642d9e8bde004878d19cb0446a37f2d3f1b5aef7ad6a4c6dd45eb5/kernel-devel-5.10.102-99.473.amzn2.x86_64.rpm"]
