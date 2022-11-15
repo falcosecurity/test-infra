@@ -5,4 +5,4 @@ architecture: amd64
 output:
   module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-kvm_4.15.0-1011-kvm_11.ko
   probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-kvm_4.15.0-1011-kvm_11.o
-kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux-kvm/linux-kvm-headers-4.15.0-1011_4.15.0-1011.11_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-kvm/linux-kvm-headers-4.15.0-1011_4.15.0-1011.11_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-kvm/linux-headers-4.15.0-1011-kvm_4.15.0-1011.11_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-kvm/linux-headers-4.15.0-1011-kvm_4.15.0-1011.11_amd64.deb"]
+kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux-kvm/linux-kvm-headers-4.15.0-1011_4.15.0-1011.11_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-kvm/linux-kvm-headers-4.15.0-1011_4.15.0-1011.11_all.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-kvm/linux-headers-4.15.0-1011-kvm_4.15.0-1011.11_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-kvm/linux-headers-4.15.0-1011-kvm_4.15.0-1011.11_amd64.deb"]
