@@ -154,6 +154,8 @@ branch-protection:
               protect: true
             "release/0.33.0":
               protect: true
+            "release/0.33.1":
+              protect: true
         falcosidekick:
           required_status_checks:
             contexts:
@@ -245,6 +247,8 @@ branch-protection:
             master:
               protect: true
             "release/0.9.0":
+              protect: true
+            "release/0.9.2":
               protect: true
         libs-sdk-go:
           branches:
