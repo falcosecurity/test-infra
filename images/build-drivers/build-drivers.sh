@@ -19,7 +19,7 @@ DBG_FILTERS['TARGET_KERNEL']="${2}"
 DBG_FILTERS['TARGET_VERSION']="${3}"
 DBG_FILTERS['TARGET_ARCH']="${4}"
 DBG_MAKE_BUILD_OPTIONS=""
-DBG_MAKE_BUILD_TARGET="specific_target"
+DBG_MAKE_BUILD_TARGET="${DBG_MAKE_BUILD_TARGET:-"specific_target"}"
 DBG_MAKE_PUBLISH_TARGET="publish_s3"
 DBG_WORKDIR="${DBG_WORKDIR:-/home/prow/go/src/github.com/falcosecurity/test-infra/driverkit}"
 
@@ -73,7 +73,6 @@ function build() {
 	DBG_COMMIT=$(git log -1 --format=format:%H --full-diff -- ./)
 
 	pretty_echo "Found current driverkit version DBG_COMMIT $DBG_COMMIT. Running DBG build..."
-	
 	$make $DBG_MAKE_BUILD_OPTIONS $DBG_MAKE_BUILD_TARGET
 	
 	pretty_echo "DBG build complete"
