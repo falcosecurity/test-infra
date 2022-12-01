@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: build-new-drivers-minikube-presubmit
+  - name: validate-new-drivers-minikube-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes

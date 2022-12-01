@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: build-new-drivers-debian-presubmit
+  - name: validiate-new-drivers-debian-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes

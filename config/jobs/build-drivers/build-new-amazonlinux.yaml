@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: build-new-drivers-amazonlinux-presubmit
+  - name: validate-new-drivers-amazonlinux-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -28,7 +28,7 @@ presubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
-  - name: build-new-drivers-amazonlinux2-presubmit
+  - name: validate-new-drivers-amazonlinux2-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
