@@ -11,6 +11,7 @@ set -o errexit
 # PUBLISH_S3: whether to publish built drivers to S3
 # DBG_WORKDIR: the absolute path from where to run DBG
 # ENSURE_DOCKER: whether to ensure Docker daemon running
+# DBG_MAKE_BUILD_TARGET: specify the makefile target
 
 # Needed Bash >= 4.0
 declare -A DBG_FILTERS
