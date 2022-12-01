@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: build-drivers-amazonlinux-presubmit
+  - name: validate-drivers-amazonlinux-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -20,7 +20,7 @@ presubmits:
         imagePullPolicy: Always
         securityContext:
           privileged: true
-  - name: build-drivers-amazonlinux2-presubmit
+  - name: validate-drivers-amazonlinux2-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes

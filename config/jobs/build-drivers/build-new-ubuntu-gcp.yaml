@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: build-new-drivers-ubuntu-gcp-3-presubmit
+  - name: validate-new-drivers-ubuntu-gcp-3-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -29,7 +29,7 @@ presubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
-  - name: build-new-drivers-ubuntu-gcp-4-presubmit
+  - name: validate-new-drivers-ubuntu-gcp-4-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -58,7 +58,7 @@ presubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
-  - name: build-new-drivers-ubuntu-gcp-5-presubmit
+  - name: validate-new-drivers-ubuntu-gcp-5-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
