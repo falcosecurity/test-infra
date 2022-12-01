@@ -14,6 +14,8 @@ presubmits:
         env:
         - name: AWS_REGION
           value: eu-west-1
+        - name: DBG_MAKE_BUILD_TARGET
+          value: validate
         image: localhost:5000/build-drivers
         imagePullPolicy: Always
         securityContext:
