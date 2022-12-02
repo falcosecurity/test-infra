@@ -72,7 +72,7 @@ create_pr() {
     fi
 
     echo "> creating commit..." >&2
-    title="update(driver): update syscalls tables."
+    title="update(driver): update syscalls tables and driver report."
     git add .
     git commit -s -m "${title}"
 
