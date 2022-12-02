@@ -65,8 +65,15 @@ generate:
 	)
 
 generate/auto:
+# clean old configurations that could not be buildable anymore
 	$(foreach ARCH,$(TARGET_ARCHS),\
-		utils/scrape_and_generate $(ARCH); \
+		find config/*/${ARCH} -mindepth 1 -mtime +180 -type f -delete; \
+	)\
+	
+	find config/*/ -mindepth 1 -mtime +180 -type f -delete
+
+	$(foreach ARCH,$(TARGET_ARCHS),\
+		#utils/scrape_and_generate $(ARCH); \
 	)
 
 cleanup: cleanup_s3 # alias cleanup_s3; bintray is no more supported
