@@ -50,7 +50,9 @@ generate:
 		)\
 	)
 
+# clean old configurations before generating the new ones
 generate/auto:
+	rm -rf config/*
 	$(foreach ARCH,$(TARGET_ARCHS),\
 		utils/scrape_and_generate $(ARCH); \
 	)

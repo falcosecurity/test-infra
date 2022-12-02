@@ -131,6 +131,8 @@ You can also validate the configurations you generate with `make validate`, and 
 
 You can find more info about the Driverkit Build Grid [here](#driverkit-build-grid).
 
+It should be noted that the Driverkit Build Grid configurations are kept only for the last kernel-crawler's result, as the crawler represents the uniqe source of truth. Therefore, added configurations will be dropped on Driverkit Build Grid updates but published artifacts will not be cleaned up and will still remain available.
+
 ### Q: How do you publish new drivers?
 
 A: If you have proper S3 permissions from Terraform or Prow, run
