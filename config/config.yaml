@@ -123,8 +123,8 @@ branch-protection:
         driverkit:
           required_status_checks:
             contexts:
-              - "build-test"
-              - "build-test-arm64"
+              - "ci/circleci: build-test"
+              - "ci/circleci: build-test-arm64"
           branches:
             master:
               protect: true
