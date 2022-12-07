@@ -8,6 +8,10 @@ It's a tool that we created to prebuilt a set of Falco drivers (both kernel modu
 
 You can find more about it [here](/driverkit).
 
+### Contribute
+
+You can contribute in order to distribute prebuilt Falco drivers for new Linux kernel releases by following [this guide](./driverkit/README.md#q-falco-doesnt-find-the-kernel-module-ebpf-probe-for-my-os-what-do-i-do).
+
 ## Prow
 
 [Prow](https://github.com/kubernetes/test-infra/tree/master/prow) is a CI/CD system running on Kubernetes.

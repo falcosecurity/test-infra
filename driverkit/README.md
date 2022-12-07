@@ -98,26 +98,41 @@ make -e TARGET_DISTRO=debian stats
 
 ## FAQ
 
-Q: Where can I found the list all pre-compiled drivers?
+### Q: Where can I found the list all pre-compiled drivers?
+
 A: Go to [https://download.falco.org/driver/site/index.html](https://download.falco.org/driver/site/index.html)
 
 ![drivers website screenshots](./drivers_website_screenshot.png)
 
-Q: Falco doesn't find the kernel module/ eBPF probe for my OS, what do I do?
-A: 
+### Q: Falco doesn't find the kernel module/ eBPF probe for my OS, what do I do?
 
-*Solution 1*: Go to the `config/` folder and add your kernel/OS combination there as a YAML file, then send a PR for everyone to profit!
+A: You can generate and contribute configurations for your OS, as follows:
 
-*Solution 2*:
-  - Fork this repo (see [Docs](https://docs.github.com/en/get-started/quickstart/fork-a-repo))
-  - Git clone your fork `git clone https://github.com/<user>/test-infra.git` or `git clone git@github.com:<user>/test-infra.git`
-  - Go into `test-infra/driverkit`
-  - If you want the drivers for your locale system: `export TARGET_KERNEL="$(uname -r)_$(uname -v | sed 's/#\([[:digit:]]\+\).*/\1/')"`
-  - Run `Makefile`: `make generate -e TARGET_DISTRO=<TARGET_DISTRO> -e TARGET_KERNEL=<TARGET_KERNEL>` (available values for `TARGET_DISTRO` can be found [here](https://github.com/falcosecurity/driverkit#supported-targets))
-  - Commit the new files and push: `git add . && git commit -s -m "adding new configuration files for ${TARGET_KERNEL}" && git push origin master`
-  - Send a PR for everyone to profit
+- [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this [repository](https://github.com/falcosecurity/test-infra)
+- From the `driverkit` directory of the repository, run:
+  ```shell
+  make generate -e TARGET_DISTRO=<TARGET_DISTRO> -e TARGET_KERNEL=<TARGET_KERNEL>
+  ```
+  > Besides `$TARGET_DISTRO` and `$TARGET_KERNEL`, you can find more filters [here](#available-filters), that help you to target specific kernel releases.
+  >
+  > If you want the drivers for your local kernel, you can fill `$TARGET_KERNEL` with: `"$(uname -r)_$(uname -v | sed 's/#\([[:digit:]]\+\).*/\1/')"`.
+  >
+  > Available values for `$TARGET_DISTRO` can be found [here](https://github.com/falcosecurity/driverkit#supported-targets).
 
-Q: How do you publish new drivers?
+- Send a PR to this upstream repository, with the changes
+
+The configurations are then consumed by [driverkit](https://github.com/falcosecurity/driverkit) in our [CI pipeline](../config/jobs).
+
+You can find examples of configurations in this repository. The configuration paths are built as follows:
+
+  `driverkit/config/<driver version>/<architecture>/<linux distribution>_<kernel release name>_<kernel build version>.yaml`.
+
+You can also validate the configurations you generate with `make validate`, and using same filters used for `make generate` to target specific configurations.
+
+You can find more info about the Driverkit Build Grid [here](#driverkit-build-grid).
+
+### Q: How do you publish new drivers?
+
 A: If you have proper S3 permissions from Terraform or Prow, run
 
 ```console
