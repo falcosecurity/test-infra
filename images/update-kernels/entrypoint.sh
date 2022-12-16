@@ -32,8 +32,8 @@ export GIT_AUTHOR_NAME=${BOT_NAME}
 export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 crawl_kernels() {
-    kernel-crawler crawl --distro=* --out_fmt=driverkit > x86_64/list.json
-    kernel-crawler crawl --distro=* --out_fmt=driverkit --arch=aarch64 > aarch64/list.json
+    kernel-crawler crawl --distro=* > x86_64/list.json
+    kernel-crawler crawl --distro=* --arch=aarch64 > aarch64/list.json
     return $?
 }
 
