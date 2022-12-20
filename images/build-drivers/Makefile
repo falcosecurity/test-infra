@@ -9,7 +9,7 @@ DOCKER_PUSH_REPOSITORY = dkr.ecr.eu-west-1.amazonaws.com
 
 IMAGE := "$(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG)"
 
-build-push: build-image push-image
+build-push: push-image
 
 ARCHS := "arm64,amd64"
 
