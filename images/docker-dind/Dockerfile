@@ -44,4 +44,5 @@ RUN tmpdir=`mktemp -d`; \
     else curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "${tmpdir}/awscliv2.zip"; fi; \
 	unzip $tmpdir/awscliv2.zip -d $tmpdir && \
 	$tmpdir/aws/install -i /usr/local/aws-cli -b /usr/local/bin && \
-	rm -r $tmpdir
+	rm -r $tmpdir \
+    aws --version
