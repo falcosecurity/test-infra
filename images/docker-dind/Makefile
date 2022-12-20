@@ -6,7 +6,7 @@ IMAGE=$(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)/$(IMG_NAME)
 
 ARCHS := "arm64,amd64"
 
-build-push: build-image push-image
+build-push: push-image
 
 create-builder:
 	# Workaround for buildx issue, see https://github.com/docker/buildx/issues/495#issuecomment-761562905
