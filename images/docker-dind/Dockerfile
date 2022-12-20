@@ -1,5 +1,7 @@
 FROM debian:buster
 
+ARG TARGETARCH
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     ca-certificates \
@@ -24,7 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg \
     | apt-key add - && \
     add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+    "deb [arch="$TARGETARCH"] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
     $(lsb_release -cs) stable"
 
 ENV DOCKER_VERSION=5:20.10.1*
@@ -37,7 +39,8 @@ RUN echo 'DOCKER_OPTS="${DOCKER_OPTS} --data-root=/docker-graph"' | \
     tee --append /etc/default/docker
 RUN mkdir /docker-graph
 
-RUN tmpdir=`mktemp -d` && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${tmpdir}/awscliv2.zip" && \
+RUN if [[ ${TARGETARCH} == "amd64" ]]; then tmpdir=`mktemp -d` && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${tmpdir}/awscliv2.zip"; else \
+    tmpdir=`mktemp -d` && curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "${tmpdir}/awscliv2.zip"; fi && \
 	unzip $tmpdir/awscliv2.zip -d $tmpdir && \
 	$tmpdir/aws/install -i /usr/local/aws-cli -b /usr/local/bin && \
 	rm -r $tmpdir
