@@ -1,9 +1,11 @@
 FROM 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/docker-dind
 
+ARG TARGETARCH
+
 ENV PUBLISH_S3="false"
 
-RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.11.0/driverkit_0.11.0_linux_amd64.tar.gz \
-    && tar -xvf driverkit_0.11.0_linux_amd64.tar.gz \
+RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.11.0/driverkit_0.11.0_linux_$TARGETARCH.tar.gz \
+    && tar -xvf driverkit_0.11.0_linux_$TARGETARCH.tar.gz \
     && chmod +x driverkit \
     && mv driverkit /bin/driverkit
 
