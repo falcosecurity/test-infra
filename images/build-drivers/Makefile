@@ -11,19 +11,25 @@ IMAGE := "$(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG
 
 build-push: build-image push-image
 
+ARCHS := "arm64,amd64"
+
 login:
 	aws ecr get-login-password \
 		| docker login \
 		--username AWS \
 		--password-stdin $(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)
+ 
+create-builder:
+	# Workaround for buildx issue, see https://github.com/docker/buildx/issues/495#issuecomment-761562905
+	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+	docker buildx create --name driverbuilder --driver docker-container --use
+	docker buildx inspect --bootstrap
 
-build-image: login
-	docker build --no-cache -t "$(IMG_SLUG)/$(IMG_NAME)" .
+build-image: login create-builder
+	docker buildx build --platform $(ARCHS) -o type=image,push="false" .
 
-push-image: login
-	docker tag "$(IMG_SLUG)/$(IMG_NAME)" $(IMAGE)
-	docker push $(IMAGE)
+push-image: login create-builder
+	docker buildx build --push --platform $(ARCHS) -t "$(IMAGE)" .
 
-local-registry:
-	docker tag "$(IMG_SLUG)/$(IMG_NAME)" localhost:5000/$(IMG_NAME)
-	docker push localhost:5000/$(IMG_NAME)
+local-registry: create-builder
+	docker buildx build --push --platform $(ARCHS) -t "localhost:5000/$(IMG_NAME)" .
