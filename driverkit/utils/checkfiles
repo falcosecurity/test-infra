@@ -7,20 +7,14 @@ source "${currentdir}/parseyaml"
 
 input="$1"
 filename="${input##*/}"
+arch="${input_parts[2]}"
 
-# TODO: rm once old format support is dropped; just use arch="${input_parts[2]}"
 function get_arch_from_path() {
     # Check if arch subdir exists
-    IFS=/ read -a input_parts <<< ${1}
-    if [[ ${#input_parts[@]} -eq 4 ]]; then
-        arch="${input_parts[2]}/"
-    else
-        arch=""
-    fi
-    echo -n "${arch}"
+    IFS=/ read -a input_parts <<<${1}
+    local architecture="${input_parts[2]}/"
+    echo -n "${architecture}"
 }
-
-arch="$(get_arch_from_path ${input})"
 
 target=
 kernelrelease=
@@ -48,13 +42,9 @@ if [ -n "${output_probe}" ]; then
         >&2 echo "output probe filename is wrong (${1}); expected: falco_${target}_${kernelrelease}_${kernelversion}.o, has ${output_probe_filename}"
         exit 1
     fi
-
-    # TODO: rm this external check once old format support is dropped (and we always have an arch)
-    if [[ -n "${arch}" ]]; then
-        if [ "${arch}" != "$(get_arch_from_path ${output_probe})" ]; then
-            >&2 echo "output probe filename has wrong architecture in its config path (${1}); expected $(get_arch_from_path ${output_probe}), has ${arch}"
-            exit 1
-        fi
+    if [ "${arch}" != "$(get_arch_from_path ${output_probe})" ]; then
+        >&2 echo "output probe filename has wrong architecture in its config path (${1}); expected $(get_arch_from_path ${output_probe}), has ${arch}"
+        exit 1
     fi
 fi
 
@@ -65,12 +55,8 @@ if [ -n "${output_module}" ]; then
         >&2 echo "output module filename is wrong (${1}); expected falco_${target}_${kernelrelease}_${kernelversion}.ko, has ${output_module_filename}"
         exit 1
     fi
-
-    # TODO: rm this external check once old format support is dropped (and we always have an arch)
-    if [[ -n "${arch}" ]]; then
-        if [ "${arch}" != "$(get_arch_from_path ${output_module})" ]; then
-             >&2 echo "output module filename has wrong architecture in its config path (${1}); expected $(get_arch_from_path ${output_module}), has ${arch}"
-             exit 1
-        fi
+    if [ "${arch}" != "$(get_arch_from_path ${output_module})" ]; then
+        >&2 echo "output module filename has wrong architecture in its config path (${1}); expected $(get_arch_from_path ${output_module}), has ${arch}"
+        exit 1
     fi
 fi

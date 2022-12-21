@@ -12,12 +12,7 @@ TARGET_DISTRO=${TARGET_DISTRO:-"*"}
 TARGET_KERNEL=${TARGET_KERNEL:-"*"}
 TARGET_ARCH=${TARGET_ARCH:-"*"}
 
-# Only load old configs if x86_64 or * arch is requested
-# TODO: rm this once old format support is dropped
-if [ "${TARGET_ARCH}" = "*" ] || [ "${TARGET_ARCH}" = "x86_64" ]; then
-    configs_old=(config/${TARGET_VERSION}*/${TARGET_DISTRO}_${TARGET_KERNEL}-*.yaml)
-fi
-configs_new=(config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*.yaml)
+configs=(config/${TARGET_VERSION}*/${TARGET_ARCH}/${TARGET_DISTRO}_${TARGET_KERNEL}-*.yaml)
 
 total_ebpf_drivers=0
 total_kmod_drivers=0
@@ -78,9 +73,7 @@ loop() {
     done
 }
 
-# TODO: rm this once old format support is dropped
-loop "${configs_old[@]}"
-loop "${configs_new[@]}"
+loop "${configs[@]}"
 
 for driver_version in $(hkeys kmod_drivers_by_version)
 do

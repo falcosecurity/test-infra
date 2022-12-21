@@ -12,13 +12,7 @@ DRIVERKIT_BACKEND="${DRIVERKIT_BACKEND:-docker}"
 DRIVERKIT_EXTRA_ARGS="${DRIVERKIT_EXTRA_ARGS:-''}"
 
 # If there is an arch subdir -> use it!
-# TODO: rm once old format support is dropped; just use arch="${input_parts[2]}"
-if [[ ${#input_parts[@]} -eq 4 ]]; then
-    arch="${input_parts[2]}/"
-else
-    # fallback at no arch (ie: x86_64, root folder on s3 bucket)
-    arch=""
-fi
+arch="${input_parts[2]}"
 
 output_module=
 output_probe=
@@ -37,7 +31,7 @@ check_s3_existence() {
 
 arch_to_driverkit_arch() {
 	case "$1" in
-		"x86_64/"|"") # TODO: remove "" once we drop support for old tree
+		"x86_64/")
 			echo -n "amd64"
 			;;
 		"aarch64/")
