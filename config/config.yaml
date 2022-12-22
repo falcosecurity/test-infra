@@ -272,6 +272,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        rules:
+          branches:
+            main:
+              protect: true
         syscalls-bumper:
           required_status_checks:
             contexts:
@@ -326,6 +330,7 @@ tide:
     falcosecurity/plugins: rebase
     falcosecurity/plugin-sdk-go: rebase
     falcosecurity/plugin-sdk-cpp: rebase
+    falcosecurity/rules: rebase
     falcosecurity/syscalls-bumper: rebase
     falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
@@ -720,6 +725,18 @@ tide:
         - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
+    - repos:
+      - falcosecurity/rules
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
     - repos:
         - falcosecurity/syscalls-bumper
       labels:
