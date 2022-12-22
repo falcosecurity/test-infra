@@ -31,6 +31,7 @@ approve:
       - falcosecurity/plugin-sdk-cpp
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugins
+      - falcosecurity/rules
       - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
       - falcosecurity/test-infra
@@ -103,6 +104,7 @@ lgtm:
       - falcosecurity/plugins
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugin-sdk-cpp
+      - falcosecurity/rules
       - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
       - falcosecurity/test-infra
@@ -942,6 +944,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/rules:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
   falcosecurity/syscalls-bumper:
     plugins:
       - approve
@@ -1114,6 +1138,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/plugin-sdk-cpp:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/rules:
     - name: needs-rebase
       events:
         - pull_request
