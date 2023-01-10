@@ -74,3 +74,10 @@ resource "aws_ecr_repository" "update_drivers_website" {
     encryption_type = "KMS"
   }
 }
+
+resource "aws_ecr_repository" "update_rules_index" {
+  name = "test-infra/update-rules-index"
+  encryption_configuration {
+    encryption_type = "KMS"
+  }
+}
