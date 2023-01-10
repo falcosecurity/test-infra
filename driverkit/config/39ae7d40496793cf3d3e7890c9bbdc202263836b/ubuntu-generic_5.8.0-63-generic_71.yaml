@@ -1,6 +1,0 @@
-kernelversion: 71
-kernelrelease: 5.8.0-63-generic
-target: ubuntu-generic
-output:
-  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_5.8.0-63-generic_71.ko
-  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_5.8.0-63-generic_71.o
