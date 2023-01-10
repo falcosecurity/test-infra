@@ -64,7 +64,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?amazonlinux_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -86,13 +86,46 @@ postsubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
+  - name: build-new-drivers-amazonlinux-postsubmit-arm
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux_*'
+    spec:
+      serviceAccountName: driver-kit
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - amazonlinux
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        - name: PUBLISH_S3
+          value: "true"
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 6Gi
+        nodeSelector:
+              Archtype: "arm"
+        tolerations:
+            - key: "Archtype"
+              operator: "Equal"
+              value: "arm"
+              effect: "NoSchedule"
   - name: build-new-drivers-amazonlinux2-postsubmit
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?amazonlinux2_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2_*'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -114,3 +147,36 @@ postsubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
+  - name: build-new-drivers-amazonlinux2-postsubmit-arm
+    decorate: true
+    skip_report: false
+    agent: kubernetes
+    branches:
+      - ^master$
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux_*'
+    spec:
+      serviceAccountName: driver-kit
+      containers:
+      - command:
+        - /workspace/build-drivers.sh
+        - amazonlinux
+        env:
+        - name: AWS_REGION
+          value: eu-west-1
+        - name: PUBLISH_S3
+          value: "true"
+        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
+            memory: 6Gi
+        nodeSelector:
+              Archtype: "arm"
+        tolerations:
+            - key: "Archtype"
+              operator: "Equal"
+              value: "arm"
+              effect: "NoSchedule"

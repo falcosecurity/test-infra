@@ -7,7 +7,6 @@ source "${currentdir}/parseyaml"
 
 input="$1"
 filename="${input##*/}"
-arch="${input_parts[2]}"
 
 function get_arch_from_path() {
     # Check if arch subdir exists
@@ -15,6 +14,8 @@ function get_arch_from_path() {
     local architecture="${input_parts[2]}/"
     echo -n "${architecture}"
 }
+
+arch="$(get_arch_from_path ${input})"
 
 target=
 kernelrelease=
