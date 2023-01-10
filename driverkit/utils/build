@@ -12,7 +12,7 @@ DRIVERKIT_BACKEND="${DRIVERKIT_BACKEND:-docker}"
 DRIVERKIT_EXTRA_ARGS="${DRIVERKIT_EXTRA_ARGS:-''}"
 
 # If there is an arch subdir -> use it!
-arch="${input_parts[2]}"
+arch="${input_parts[2]}/"
 
 output_module=
 output_probe=
