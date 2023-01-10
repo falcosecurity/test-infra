@@ -1,6 +1,0 @@
-kernelversion: 18
-kernelrelease: 5.3.0-1017-aws
-target: ubuntu-aws
-output:
-  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-aws_5.3.0-1017-aws_18.ko
-  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-aws_5.3.0-1017-aws_18.o

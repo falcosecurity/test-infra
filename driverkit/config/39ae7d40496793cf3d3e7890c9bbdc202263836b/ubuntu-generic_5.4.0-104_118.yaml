@@ -1,8 +1,0 @@
-kernelversion: 118
-kernelrelease: 5.4.0-104
-target: ubuntu-generic
-architecture: amd64
-output:
-  module: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_5.4.0-104_118.ko
-  probe: output/39ae7d40496793cf3d3e7890c9bbdc202263836b/falco_ubuntu-generic_5.4.0-104_118.o
-kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-104-lowlatency_5.4.0-104.118_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-104_5.4.0-104.118_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-104-generic_5.4.0-104.118_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-104-generic_5.4.0-104.118_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-5.4.0-104_5.4.0-104.118_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-5.4.0-104-lowlatency_5.4.0-104.118_amd64.deb"]
