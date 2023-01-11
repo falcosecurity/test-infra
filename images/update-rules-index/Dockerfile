@@ -13,4 +13,3 @@ COPY on-registry-changed.sh /
 RUN chmod +x /on-registry-changed.sh
 
 WORKDIR /workspace
-
