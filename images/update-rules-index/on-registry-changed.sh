@@ -29,6 +29,7 @@ export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 # env variables needed to update index.
 export REGISTRY_USER=$GH_ORG
 export REGISTRY="ghcr.io"
+export OCI_REPO_PREFIX="$REGISTRY/$REGISTRY_USER/$GH_REPO"
 
 # Sets git user configs, otherwise errors out.
 # $1: git user name
