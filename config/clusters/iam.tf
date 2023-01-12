@@ -171,48 +171,6 @@ data "aws_iam_policy_document" "build_plugins_s3_access" {
   }
 }
 
-##### S3 for GitHub Actions upload
-
-# GHA OIDC Provider, required to integrate with any GHA workflow
-module "iam_github_oidc_provider" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-provider"
-  version   = "5.10.0"
-}
-
-# Roles and IAM config
-module "rules_s3_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
-  version = "5.10.0"
-  create = true
-  subjects = [
-    "falcosecurity/rules:ref:refs/heads/main",
-    "falcosecurity/rules:ref:refs/tags/*"
-  ]
-  policies = {
-    rules_s3_access = "${aws_iam_policy.rules_s3_access.arn}"
-  }
-}
-
-resource "aws_iam_policy" "rules_s3_access" {
-  name_prefix = "github_actions-rules-s3"
-  description = "GitHub actions S3 access policy for rules"
-  policy      = data.aws_iam_policy_document.rules_s3_access.json
-}
-
-data "aws_iam_policy_document" "rules_s3_access" {
-  statement {
-    sid    = "UploadRulesS3Access"
-    effect = "Allow"
-    actions = [
-      "s3:*"
-    ]
-    resources = [
-      "arn:aws:s3:::falco-distribution/rules/*",
-      "arn:aws:s3:::falco-distribution/rules",
-    ]
-  }
-}
-
 ##### AWS LoadBalancer Controller
 
 module "load_balancer_controller" {
