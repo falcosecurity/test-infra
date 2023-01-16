@@ -1,0 +1,8 @@
+kernelversion: 7
+kernelrelease: 5.15.0-1005-oracle
+target: ubuntu-oracle
+architecture: arm64
+output:
+  module: output/4.0.0+driver/aarch64/falco_ubuntu-oracle_5.15.0-1005-oracle_7.ko
+  probe: output/4.0.0+driver/aarch64/falco_ubuntu-oracle_5.15.0-1005-oracle_7.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-oracle-headers-5.15.0-1005_5.15.0-1005.7_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-headers-5.15.0-1005-oracle_5.15.0-1005.7_arm64.deb"]

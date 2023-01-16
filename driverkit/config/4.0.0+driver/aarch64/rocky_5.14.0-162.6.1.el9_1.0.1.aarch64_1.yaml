@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 5.14.0-162.6.1.el9_1.0.1.aarch64
+target: rocky
+architecture: arm64
+output:
+  module: output/4.0.0+driver/aarch64/falco_rocky_5.14.0-162.6.1.el9_1.0.1.aarch64_1.ko
+  probe: output/4.0.0+driver/aarch64/falco_rocky_5.14.0-162.6.1.el9_1.0.1.aarch64_1.o
+kernelurls: ["http://dl.rockylinux.org/pub/rocky/9/AppStream/aarch64/os/Packages/k/kernel-devel-5.14.0-162.6.1.el9_1.0.1.aarch64.rpm"]
