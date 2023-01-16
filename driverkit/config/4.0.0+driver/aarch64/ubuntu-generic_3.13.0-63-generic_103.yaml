@@ -1,0 +1,8 @@
+kernelversion: 103
+kernelrelease: 3.13.0-63-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+  module: output/4.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-63-generic_103.ko
+  probe: output/4.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-63-generic_103.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-63_3.13.0-63.103_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-63-generic_3.13.0-63.103_arm64.deb"]
