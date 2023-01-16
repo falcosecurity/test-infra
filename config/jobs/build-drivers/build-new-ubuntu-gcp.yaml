@@ -145,13 +145,8 @@ postsubmits:
           requests:
             cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
             memory: 6Gi
-        nodeSelector:
-              Archtype: "arm"
-        tolerations:
-            - key: "Archtype"
-              operator: "Equal"
-              value: "arm"
-              effect: "NoSchedule"
+      nodeSelector:
+        Archtype: "arm"
   - name: build-new-drivers-ubuntu-gcp-4-postsubmit
     decorate: true
     skip_report: false
@@ -208,13 +203,8 @@ postsubmits:
           requests:
             cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
             memory: 6Gi
-        nodeSelector:
-              Archtype: "arm"
-        tolerations:
-            - key: "Archtype"
-              operator: "Equal"
-              value: "arm"
-              effect: "NoSchedule"
+      nodeSelector:
+        Archtype: "arm"
   - name: build-new-drivers-ubuntu-gcp-5-postsubmit
     decorate: true
     skip_report: false
@@ -271,10 +261,5 @@ postsubmits:
           requests:
             cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
             memory: 6Gi
-        nodeSelector:
-              Archtype: "arm"
-        tolerations:
-            - key: "Archtype"
-              operator: "Equal"
-              value: "arm"
-              effect: "NoSchedule"
+      nodeSelector:
+        Archtype: "arm"
