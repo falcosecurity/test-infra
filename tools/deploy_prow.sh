@@ -37,21 +37,23 @@ function launchProwConfig() {
   kubectl create configmap config --from-file "./config/config.yaml" -n test-pods || true
   kubectl create configmap job-config --from-file "./config/jobs/config.yaml" || true
   kubectl create configmap branding --from-file "./config/branding" || true
-  kubectl create secret generic s3-credentials --from-literal=service-account.json="$(./tools/1password.sh -d config/prow/service-account.json)" || true
+  kubectl create secret generic s3-credentials --from-literal=service-account.json="${PROW_SERVICE_ACCOUNT_JSON}" || true
 
   #Github related items
-  kubectl create secret generic hmac-token --from-literal=hmac="$(./tools/1password.sh -d config/prow/hmac-token)" || true
-  kubectl create secret generic oauth-token --from-literal=oauth="$(./tools/1password.sh -d config/prow/oauth-token)" || true
-  kubectl create secret generic oauth-token --from-literal=oauth="$(./tools/1password.sh -d config/prow/oauth-token)" -n test-pods || true
+  kubectl create secret generic hmac-token --from-literal=hmac="${PROW_HMAC_TOKEN}" || true
+  kubectl create secret generic oauth-token --from-literal=oauth="${PROW_OAUTH_TOKEN}" || true
+  kubectl create secret generic oauth-token --from-literal=oauth="${PROW_SERVICE_ACCOUNT_JSON}" -n test-pods || true
 
   # PR Status
-  kubectl create secret generic github-oauth-config --from-literal=secret="$(./tools/1password.sh -d prow-prstatus-github-oauth-app.yaml)" || true
-  kubectl create secret generic cookie --from-literal=secret="$(./tools/1password.sh -d prow-prstatus-cookie-encryption-key.txt)" || true
+  # Those secrets do not appear to exist anymore
+  # 
+  # kubectl create secret generic github-oauth-config --from-literal=secret=" ... prow-prstatus-github-oauth-app.yaml ..." || true
+  # kubectl create secret generic cookie --from-literal=secret=" ... prow-prstatus-cookie-encryption-key.txt ..." || true
   
   # Related to OAuth setup... need to setup base url on Github for callback before we can create these
   
-  # kubectl create secret generic github-oauth-config --from-file=secret="$(./tools/1password.sh -d config/prow/github-oauth-config)" || true
-  # kubectl create secret generic cookie --from-file=secret="$(./tools/1password.sh -d config/prow/cookie)" || true
+  # kubectl create secret generic github-oauth-config --from-file=secret=" ... config/prow/github-oauth-config ..." || true
+  # kubectl create secret generic cookie --from-file=secret=" ... config/prow/cookie ..." || true
 }
 
 function launchConfig(){
