@@ -133,6 +133,10 @@ branch-protection:
             main:
               protect: true
         event-generator:
+          required_status_checks:
+            contexts:
+              - "build-and-test"
+              - "build-and-test-arm64"
           branches:
             main:
               protect: true
