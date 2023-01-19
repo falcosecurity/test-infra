@@ -43,11 +43,17 @@ function createClusterStateBackend() {
 function deleteCluster() {
   echo "Deleting cluster '${CLUSTER}' (this may take a few minutes)..."
   echo
-  terraform init config/clusters
+
+
+  pushd config/clusters
+
+  terraform init
   terraform get
-  terraform validate config/clusters
-  terraform destroy -var-file config/clusters/prow.tfvars -auto-approve config/clusters
-  terraform init -force-copy config/clusters
+  terraform validate
+  terraform destroy -var-file prow.tfvars -auto-approve config/clusters
+  terraform init -force-copy
+
+  popd
 }
 
 function cleanup() {
