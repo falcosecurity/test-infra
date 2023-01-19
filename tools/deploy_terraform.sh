@@ -37,24 +37,20 @@ function terraform-install() {
   echo "Installed: $(terraform)"
 }
 
-# Will add this in once we have the need for multiple workspaces (dev/prod or multi account)
-# Uses Default workspace until we select one
-function createClusterStateBackend() {
-  local workspace="test-infra"
-  echo "Creating cluster '${CLUSTER}' state backend..."
-  terraform init config/clusters
-  terraform workspace new $workspace config/clusters || true
-  terraform workspace select $workspace config/clusters
-}
-
 function createCluster() {
   echo "Creating cluster '${CLUSTER}' (this may take a few minutes)..."
   echo
-  terraform init config/clusters
-  terraform get
-  terraform validate config/clusters
 
-  terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
+  pushd config/clusters
+
+  terraform init
+  terraform get
+  terraform validate
+
+  terraform apply -var-file prow.tfvars -auto-approve config/clusters
+  
+  popd
+
   aws eks --region ${ZONE} update-kubeconfig --name falco-prow-test-infra
 }
 
