@@ -47,7 +47,7 @@ function createCluster() {
   terraform get
   terraform validate
 
-  terraform apply -var-file prow.tfvars -auto-approve config/clusters
+  terraform apply -var-file prow.tfvars -auto-approve
   
   popd
 

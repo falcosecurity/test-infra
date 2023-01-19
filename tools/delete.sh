@@ -50,7 +50,7 @@ function deleteCluster() {
   terraform init
   terraform get
   terraform validate
-  terraform destroy -var-file prow.tfvars -auto-approve config/clusters
+  terraform destroy -var-file prow.tfvars -auto-approve
   terraform init -force-copy
 
   popd
