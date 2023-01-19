@@ -1,27 +1,36 @@
 resource "aws_s3_bucket" "falco-test-infra-state" {
   bucket = "falco-test-infra-state"
 
-  acl    = "private"
   policy = null
 
   lifecycle {
     prevent_destroy = false
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.falco-test-infra-state.arn
-        sse_algorithm     = "aws:kms"
-      }
+  tags = module.label.tags
+}
+
+resource "aws_s3_bucket_versioning" "falco-test-infra-state_versioning" {
+  bucket = aws_s3_bucket.falco-test-infra-state.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "falco-test-infra-state_server_side_encryption_configuration" {
+  bucket = aws_s3_bucket.falco-test-infra-state.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.falco-test-infra-state.arn
+      sse_algorithm     = "aws:kms"
     }
   }
+}
 
-  versioning {
-    enabled = true
-  }
-
-  tags = module.label.tags
+resource "aws_s3_bucket_acl" "falco-test-infra-state_acl" {
+  bucket = aws_s3_bucket.falco-test-infra-state.id
+  acl    = "private"
 }
 
 resource "aws_kms_key" "falco-test-infra-state" {
