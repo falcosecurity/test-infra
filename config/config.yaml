@@ -184,7 +184,7 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - "ci/circleci: test"
+              - "build-and-test"
         falcoctl:
           branches:
             main:
