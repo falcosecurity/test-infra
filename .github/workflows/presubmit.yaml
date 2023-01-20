@@ -1,0 +1,29 @@
+name: PreSubmit
+on:
+  pull_request:
+
+jobs:
+  scan-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.19
+
+      - name: Install deps
+        run: |
+          apt update && apt install curl tar
+          curl -L "$(curl -Ls https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
+          tar -xf terrascan.tar.gz
+          install terrascan /usr/local/bin
+        
+      - name: Scan terrafrom code
+        run: |
+          terrascan scan -i terraform -d config/clusters -v \
+              --skip-rules 'AC_AWS_0214,AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'
