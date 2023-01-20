@@ -204,7 +204,11 @@ data "aws_iam_policy_document" "rules_s3_access" {
     sid    = "UploadRulesS3Access"
     effect = "Allow"
     actions = [
-      "s3:*"
+      "s3:PutObject",
+      "s3:GetObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:PutObjectAcl"
     ]
     resources = [
       "arn:aws:s3:::falco-distribution/rules/*",
