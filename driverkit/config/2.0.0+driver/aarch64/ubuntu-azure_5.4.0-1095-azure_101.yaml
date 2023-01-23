@@ -1,8 +1,0 @@
-kernelversion: 101
-kernelrelease: 5.4.0-1095-azure
-target: ubuntu-azure
-architecture: arm64
-output:
-  module: output/2.0.0+driver/aarch64/falco_ubuntu-azure_5.4.0-1095-azure_101.ko
-  probe: output/2.0.0+driver/aarch64/falco_ubuntu-azure_5.4.0-1095-azure_101.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-headers-5.4.0-1095-azure_5.4.0-1095.101_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-azure-headers-5.4.0-1095_5.4.0-1095.101_all.deb"]

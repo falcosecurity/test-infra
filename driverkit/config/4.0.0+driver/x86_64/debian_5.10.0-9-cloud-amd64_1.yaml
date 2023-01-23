@@ -1,6 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.10.0-9-cloud-amd64
-target: debian
-output:
-  module: output/4.0.0+driver/x86_64/falco_debian_5.10.0-9-cloud-amd64_1.ko
-  probe: output/4.0.0+driver/x86_64/falco_debian_5.10.0-9-cloud-amd64_1.o
