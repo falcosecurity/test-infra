@@ -50,9 +50,15 @@ generate:
 		)\
 	)
 
+cleanup:
+	$(foreach ARCH,$(TARGET_ARCHS),\
+		$(foreach VERSION,$(VERSIONS),\
+			rm -rf config/${VERSION}/${ARCH}; \
+		)\
+	)
+
 # clean old configurations before generating the new ones
-generate/auto:
-	rm -rf config/*
+generate/auto: cleanup
 	$(foreach ARCH,$(TARGET_ARCHS),\
 		utils/scrape_and_generate $(ARCH); \
 	)
