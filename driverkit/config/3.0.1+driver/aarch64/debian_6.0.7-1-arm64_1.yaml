@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 6.0.7-1-arm64
-target: debian
-architecture: arm64
-output:
-  module: output/3.0.1+driver/aarch64/falco_debian_6.0.7-1-arm64_1.ko
-  probe: output/3.0.1+driver/aarch64/falco_debian_6.0.7-1-arm64_1.o
-kernelurls: ["http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.0.0-3-rt-arm64_6.0.7-1_arm64.deb","http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.0.0-3-common-rt_6.0.7-1_all.deb","http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-kbuild-6.0_6.0.8-1_arm64.deb","http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.0.0-3-arm64_6.0.7-1_arm64.deb","http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.0.0-3-cloud-arm64_6.0.7-1_arm64.deb","http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.0.0-3-common_6.0.7-1_all.deb"]

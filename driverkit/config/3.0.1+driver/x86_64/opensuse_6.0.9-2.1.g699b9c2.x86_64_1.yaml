@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 6.0.9-2.1.g699b9c2.x86_64
-target: opensuse
-architecture: amd64
-output:
-  module: output/3.0.1+driver/x86_64/falco_opensuse_6.0.9-2.1.g699b9c2.x86_64_1.ko
-  probe: output/3.0.1+driver/x86_64/falco_opensuse_6.0.9-2.1.g699b9c2.x86_64_1.o
-kernelurls: ["https://download.opensuse.org/repositories/Kernel:/stable/standard/x86_64/kernel-default-devel-6.0.9-2.1.g699b9c2.x86_64.rpm","https://download.opensuse.org/repositories/Kernel:/stable/standard/noarch/kernel-devel-6.0.9-2.1.g699b9c2.noarch.rpm"]
