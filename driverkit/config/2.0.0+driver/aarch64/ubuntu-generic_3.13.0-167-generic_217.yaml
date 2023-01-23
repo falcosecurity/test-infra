@@ -1,8 +1,0 @@
-kernelversion: 217
-kernelrelease: 3.13.0-167-generic
-target: ubuntu-generic
-architecture: arm64
-output:
-  module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-167-generic_217.ko
-  probe: output/2.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-167-generic_217.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-167-generic_3.13.0-167.217_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-167_3.13.0-167.217_all.deb"]

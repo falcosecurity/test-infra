@@ -1,8 +1,0 @@
-kernelversion: 32~14.04.1
-kernelrelease: 4.2.0-27-lts-wily
-target: ubuntu-lts-wily
-architecture: arm64
-output:
-  module: output/2.0.0+driver/aarch64/falco_ubuntu-lts-wily_4.2.0-27-lts-wily_32~14.04.1.ko
-  probe: output/2.0.0+driver/aarch64/falco_ubuntu-lts-wily_4.2.0-27-lts-wily_32~14.04.1.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-wily/linux-headers-4.2.0-27_4.2.0-27.32~14.04.1_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-wily/linux-headers-4.2.0-27-generic_4.2.0-27.32~14.04.1_arm64.deb"]
