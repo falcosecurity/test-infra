@@ -1,6 +1,0 @@
-kernelversion: 44
-kernelrelease: 5.8.0-1042-aws
-target: ubuntu-aws
-output:
-  module: output/4.0.0+driver/x86_64/falco_ubuntu-aws_5.8.0-1042-aws_44.ko
-  probe: output/4.0.0+driver/x86_64/falco_ubuntu-aws_5.8.0-1042-aws_44.o

@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 4.18.0-372.9.1.el8.aarch64
-target: rockylinux
-architecture: arm64
-output:
-  module: output/4.0.0+driver/aarch64/falco_rockylinux_4.18.0-372.9.1.el8.aarch64_1.ko
-  probe: output/4.0.0+driver/aarch64/falco_rockylinux_4.18.0-372.9.1.el8.aarch64_1.o
-kernelurls: ["http://dl.rockylinux.org/pub/rocky/8.6/BaseOS/aarch64/os/Packages/k/kernel-devel-4.18.0-372.9.1.el8.aarch64.rpm"]
