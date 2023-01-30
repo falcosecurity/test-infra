@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_amazonlinux2_5.15.79-51.138.amzn2.aarch64_1.ko
   probe: output/2.0.0+driver/aarch64/falco_amazonlinux2_5.15.79-51.138.amzn2.aarch64_1.o
-kernelurls: ["http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.15/stable/aarch64/552cddb534a28aecc4713b55f967d4d657aed26d934ab70deeda91792494db91/../../../../../../blobstore/3a596163f8fd4ab61b2b21970c966bd4b52e57cab1bfb0a35b29f6740f41cb61/kernel-devel-5.15.79-51.138.amzn2.aarch64.rpm"]
+kernelurls: ["http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.15/stable/aarch64/13661fba1ff3c496803f61c7504c9f8ededa6db293f49b18891e833262f26550/../../../../../../blobstore/3a596163f8fd4ab61b2b21970c966bd4b52e57cab1bfb0a35b29f6740f41cb61/kernel-devel-5.15.79-51.138.amzn2.aarch64.rpm"]
