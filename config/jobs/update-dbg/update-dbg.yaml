@@ -4,6 +4,7 @@ postsubmits:
       decorate: true
       branches:
         - ^kernels$
+      run_if_changed: 'list.json$'  
       extra_refs:
       # Check out the falcosecurity/test-infra repo
       # This will be the working directory
