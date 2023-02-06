@@ -32,6 +32,7 @@ orgs:
       - fjogeleit
       - gnosek
       - hbrueckner
+      - incertum
       - Issif
       - jonahjon
       - Kaizhe
@@ -546,6 +547,7 @@ orgs:
           - LucaGuerra
           - Andreagit97
           - hbrueckner
+          - incertum
         privacy: closed
         repos:
           libs: maintain
