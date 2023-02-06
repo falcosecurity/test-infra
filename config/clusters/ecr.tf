@@ -49,6 +49,9 @@ resource "aws_ecr_repository" "update_deployment_files" {
 
 resource "aws_ecr_repository" "update_kernels" {
   name = "test-infra/update-kernels"
+
+  force_delete = true
+
   encryption_configuration {
     encryption_type = "KMS"
   }
