@@ -248,9 +248,7 @@ branch-protection:
               - "build-libs-linux-amd64 😁 (system_deps_w_chisels)"
               - "build-libs-linux-amd64 😁 (system_deps_minimal)"
               - "build-libs-linux-amd64-asan 🧐"
-              - "build-libs-arm64 🥶 (system_deps)"
               - "test-drivers-x86 😇 (bundled_deps)"
-              - "build-modern-bpf-arm64 🙃 (system_deps)"
               - "build-modern-bpf-s390x 😁 (system_deps)"
           branches:
             master:
