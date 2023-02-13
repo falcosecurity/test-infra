@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-aws_5.19.0-1012-aws_13.ko
   probe: output/2.0.0+driver/aarch64/falco_ubuntu-aws_5.19.0-1012-aws_13.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-5.19.0-1012-aws_5.19.0-1012.13_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-aws-headers-5.19.0-1012_5.19.0-1012.13_all.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-aws-headers-5.19.0-1012_5.19.0-1012.13_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-5.19.0-1012-aws_5.19.0-1012.13_arm64.deb"]
