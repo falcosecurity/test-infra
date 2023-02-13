@@ -148,13 +148,13 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2_*'
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
-        - amazonlinux
+        - amazonlinux2
         env:
         - name: AWS_REGION
           value: eu-west-1
