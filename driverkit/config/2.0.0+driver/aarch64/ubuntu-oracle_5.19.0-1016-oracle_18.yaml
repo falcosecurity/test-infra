@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-oracle_5.19.0-1016-oracle_18.ko
   probe: output/2.0.0+driver/aarch64/falco_ubuntu-oracle_5.19.0-1016-oracle_18.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-oracle-headers-5.19.0-1016_5.19.0-1016.18_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-headers-5.19.0-1016-oracle_5.19.0-1016.18_arm64.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-headers-5.19.0-1016-oracle_5.19.0-1016.18_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-oracle-headers-5.19.0-1016_5.19.0-1016.18_all.deb"]
