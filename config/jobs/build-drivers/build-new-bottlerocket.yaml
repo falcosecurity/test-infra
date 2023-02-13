@@ -1,19 +1,18 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: validate-new-drivers-bottlerocket-4-presubmit
+  - name: validate-new-drivers-bottlerocket-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?bottlerocket_4*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?bottlerocket*'
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
         - bottlerocket
-        - "4.*"
         env:
         - name: AWS_REGION
           value: eu-west-1
@@ -29,51 +28,21 @@ presubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
-  - name: validate-new-drivers-bottlerocket-5-presubmit
-    decorate: true
-    skip_report: false
-    agent: kubernetes
-    branches:
-      - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?bottlerocket_5*'
-    spec:
-      serviceAccountName: driver-kit
-      containers:
-      - command:
-        - /workspace/build-drivers.sh
-        - bottlerocket
-        - "5.*"
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        - name: DBG_MAKE_BUILD_TARGET
-          value: validate
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
-      nodeSelector:
-        Archtype: "x86"      
 postsubmits:
   falcosecurity/test-infra:
-  - name: build-new-drivers-bottlerocket-4-postsubmit
+  - name: build-new-drivers-bottlerocket-postsubmit
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/bottlerocket_4*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/bottlerocket*'
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
         - bottlerocket
-        - "4.*"
         env:
         - name: AWS_REGION
           value: eu-west-1
@@ -89,78 +58,19 @@ postsubmits:
             memory: 6Gi
       nodeSelector:
         Archtype: "x86"
-  - name: build-new-drivers-bottlerocket-4-postsubmit-arm
+  - name: build-new-drivers-bottlerocket-postsubmit-arm
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/bottlerocket_4*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/bottlerocket*'
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
         - bottlerocket
-        - "4.*"
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        - name: PUBLISH_S3
-          value: "true"
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
-      nodeSelector:
-        Archtype: "arm"
-  - name: build-new-drivers-bottlerocket-5-postsubmit
-    decorate: true
-    skip_report: false
-    agent: kubernetes
-    branches:
-      - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/bottlerocket_5*'
-    spec:
-      serviceAccountName: driver-kit
-      containers:
-      - command:
-        - /workspace/build-drivers.sh
-        - bottlerocket
-        - "5.*"
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        - name: PUBLISH_S3
-          value: "true"
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
-      nodeSelector:
-        Archtype: "x86"      
-  - name: build-new-drivers-bottlerocket-5-postsubmit-arm
-    decorate: true
-    skip_report: false
-    agent: kubernetes
-    branches:
-      - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/bottlerocket_5*'
-    spec:
-      serviceAccountName: driver-kit
-      containers:
-      - command:
-        - /workspace/build-drivers.sh
-        - bottlerocket
-        - "5.*"
         env:
         - name: AWS_REGION
           value: eu-west-1
