@@ -1,19 +1,19 @@
 presubmits:
-  falcosecurity/test-infra:
+  falcosecurity/evolution:
     - name: peribolos-pre-submit
       branches:
-        - ^master$
+        - ^main$
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: '^config/org.yaml$|^config/jobs/peribolos/.*'
+      run_if_changed: '^org/org.yaml$'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20230315-6d54c174f4
             command:
               - peribolos
             args:
-              - --config-path=config/org.yaml
+              - --config-path=org/org.yaml
               - --fix-org
               - --fix-org-members
               - --fix-repos
@@ -35,14 +35,14 @@ presubmits:
           Archtype: "x86"
 
 postsubmits:
-  falcosecurity/test-infra:
+  falcosecurity/evolution:
     - name: peribolos-post-submit
       branches:
-        - ^master$
+        - ^main$
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: '^config/org.yaml$|^config/jobs/peribolos/.*'
+      run_if_changed: '^org/org.yaml$'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20230315-6d54c174f4
@@ -50,7 +50,7 @@ postsubmits:
               - peribolos
             args:
               - --confirm
-              - --config-path=config/org.yaml
+              - --config-path=org/org.yaml
               - --fix-org
               - --fix-org-members
               - --fix-repos
@@ -80,8 +80,8 @@ periodics:
     always_run: true
     extra_refs:
       - org: falcosecurity
-        repo: test-infra
-        base_ref: master
+        repo: evolution
+        base_ref: main
     spec:
       containers:
         - image: gcr.io/k8s-prow/peribolos:v20230315-6d54c174f4
@@ -89,7 +89,7 @@ periodics:
             - peribolos
           args:
             - --confirm
-            - --config-path=config/org.yaml
+            - --config-path=org/org.yaml
             - --fix-org
             - --fix-org-members
             - --fix-repos
