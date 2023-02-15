@@ -128,6 +128,9 @@ repo_milestone:
     maintainers_id: 3832091
     maintainers_team: pdig-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/pdig
+  falcosecurity/falcoctl:
+    maintainers_team: falcoctl-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/falcoctl
 
 require_matching_label:
   - missing_label: needs-kind
