@@ -14,17 +14,17 @@ variable "eks_default_worker_group_instance_type" {
 }
 
 variable "eks_default_worker_group_asg_min_capacity" {
-  default     = 3
+  default     = 5
   description = "The Autoscaling Group size of the default EKS worker group"
 }
 
 variable "eks_default_worker_group_asg_desired_capacity" {
-  default     = 4
+  default     = 15
   description = "The Autoscaling Group size of the default EKS worker group"
 }
 
 variable "eks_default_worker_group_asg_max_capacity" {
-  default     = 10
+  default     = 25
   description = "The Autoscaling Group size of the default EKS worker group"
 }
 
@@ -39,12 +39,12 @@ variable "eks_arm_worker_group_asg_min_capacity" {
 }
 
 variable "eks_arm_worker_group_asg_desired_capacity" {
-  default     = 1
+  default     = 15
   description = "The Autoscaling Group size of the ARM EKS worker group"
 }
 
 variable "eks_arm_worker_group_asg_max_capacity" {
-  default     = 3
+  default     = 25
   description = "The Autoscaling Group size of the ARM EKS worker group"
 }
 
