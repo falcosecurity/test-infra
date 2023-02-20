@@ -56,21 +56,6 @@ local config = {
     {url: 'https://monitoring.prow.falco.org', labels: {slo: comps.monitoring}},
   ],
 
-  // Boskos endpoints to be monitored
-  boskosResourcetypes: [
-    {job: "k8s-prow-builds-new-boskos", type: "aws-account", friendly: "AWS account"},
-    {job: "k8s-prow-builds-new-boskos", type: "gce-project", friendly: "GCE project"},
-    {job: "k8s-infra-prow-builds-boskos", type: "gce-project", friendly: "GCE project (k8s-infra)"},
-    {job: "k8s-prow-builds-new-boskos", type: "gpu-project", friendly: "GPU project"},
-    {job: "k8s-infra-prow-builds-boskos", type: "gpu-project", friendly: "GPU project (k8s-infra)"},
-    {job: "k8s-prow-builds-new-boskos", type: "ingress-project", friendly: "Ingress project"},
-    {job: "k8s-prow-builds-new-boskos", type: "node-e2e-project", friendly: "Node e2e project"},
-    {job: "k8s-prow-builds-new-boskos", type: "scalability-project", friendly: "Scalability project"},
-    {job: "k8s-infra-prow-builds-boskos", type: "scalability-project", friendly: "Scalability project (k8s-infra)"},
-    {job: "k8s-prow-builds-new-boskos", type: "scalability-presubmit-project", friendly: "Scalability presubmit project"}
-    {job: "k8s-prow-builds-new-boskos", type: "scalability-presubmit-5k-project", friendly: "Scalability presubmit project (5k)"}
-  ],
-
   // How long we go during work hours without seeing a webhook before alerting.
   webhookMissingAlertInterval: '10m',
 
