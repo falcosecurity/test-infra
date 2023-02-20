@@ -10,8 +10,8 @@ local config = {
   instance: {
     name: "K8s Prow",
     botName: "k8s-ci-robot",
-    url: "https://prow.k8s.io",
-    monitoringURL: "https://monitoring.prow.k8s.io",
+    url: "https://prow.falco.org",
+    monitoringURL: "https://monitoring.prow.falco.org",
   },
 
   // SLO compliance tracking config
@@ -52,13 +52,8 @@ local config = {
   // Additional scraping endpoints
   probeTargets: [
   # ATTENTION: Keep this in sync with the list in ../../additional-scrape-configs_secret.yaml
-    {url: 'https://prow.k8s.io', labels: {slo: comps.deck}},
-    {url: 'https://monitoring.prow.k8s.io', labels: {slo: comps.monitoring}},
-    {url: 'https://testgrid.k8s.io', labels: {}},
-    {url: 'https://gubernator.k8s.io', labels: {}},
-    {url: 'https://gubernator.k8s.io/pr/fejta', labels: {}}, # Deep health check of someone's PR dashboard.
-    {url: 'https://storage.googleapis.com/k8s-gubernator/triage/index.html', labels: {}},
-    {url: 'https://storage.googleapis.com/test-infra-oncall/oncall.html', labels: {}},
+    {url: 'https://prow.falco.org', labels: {slo: comps.deck}},
+    {url: 'https://monitoring.prow.falco.org', labels: {slo: comps.monitoring}},
   ],
 
   // Boskos endpoints to be monitored

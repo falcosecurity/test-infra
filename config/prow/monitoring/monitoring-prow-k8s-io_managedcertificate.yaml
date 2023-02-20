@@ -3,8 +3,8 @@
 apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
-  name: monitoring-prow-k8s-io
+  name: monitoring-prow-falco-org
   namespace: prow-monitoring
 spec:
   domains:
-  - monitoring.prow.k8s.io
+  - monitoring.prow.falco.org

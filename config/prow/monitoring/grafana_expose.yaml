@@ -32,7 +32,7 @@ metadata:
   namespace: prow-monitoring
 spec:
   rules:
-  - host: monitoring.prow.k8s.io
+  - host: monitoring.prow.falco.org
     http:
       paths:
       - path: /*

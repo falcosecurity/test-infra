@@ -69,7 +69,7 @@ Developing a new dashboard can be achieved by
 
 ## Access components' Web page
 
-* For `grafana`, visit [monitoring.prow.k8s.io](https://monitoring.prow.k8s.io). Anonymous users are with read-only mode.
+* For `grafana`, visit [monitoring.prow.falco.org](https://monitoring.prow.falco.org). Anonymous users are with read-only mode.
 Use `adm` and [password](https://github.com/kubernetes/test-infra/blob/master/config/prow/cluster/monitoring/grafana_deployment.yaml#L39-L45) to become admin.
 
 If the Prow instance does not publicly expose `grafana` it can still be accessed by cluster admins via [port-forwarding](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/). Run
