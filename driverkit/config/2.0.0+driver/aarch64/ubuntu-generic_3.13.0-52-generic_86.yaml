@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-52-generic_86.ko
   probe: output/2.0.0+driver/aarch64/falco_ubuntu-generic_3.13.0-52-generic_86.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-52_3.13.0-52.86_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-52-generic_3.13.0-52.86_arm64.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-52-generic_3.13.0-52.86_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-52_3.13.0-52.86_all.deb"]

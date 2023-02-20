@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/4.0.0+driver/aarch64/falco_ubuntu-lts-wily_4.2.0-25-lts-wily_30~14.04.1.ko
   probe: output/4.0.0+driver/aarch64/falco_ubuntu-lts-wily_4.2.0-25-lts-wily_30~14.04.1.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-wily/linux-headers-4.2.0-25-generic_4.2.0-25.30~14.04.1_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-wily/linux-headers-4.2.0-25_4.2.0-25.30~14.04.1_all.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-wily/linux-headers-4.2.0-25_4.2.0-25.30~14.04.1_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-wily/linux-headers-4.2.0-25-generic_4.2.0-25.30~14.04.1_arm64.deb"]
