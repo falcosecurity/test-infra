@@ -29,6 +29,7 @@ approve:
       - falcosecurity/libscap
       - falcosecurity/libsinsp
       - falcosecurity/pdig
+      - falcosecurity/pigeon
       - falcosecurity/plugin-sdk-cpp
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugins
@@ -36,6 +37,7 @@ approve:
       - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
       - falcosecurity/test-infra
+      - falcosecurity/testing
     lgtm_acts_as_approve: true
     require_self_approval: false
     commandHelpLink: https://prow.falco.org/command-help
@@ -103,6 +105,7 @@ lgtm:
       - falcosecurity/libs
       - falcosecurity/libs-sdk-go
       - falcosecurity/pdig
+      - falcosecurity/pigeon
       - falcosecurity/plugins
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugin-sdk-cpp
@@ -110,6 +113,7 @@ lgtm:
       - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
       - falcosecurity/test-infra
+      - falcosecurity/testing
     review_acts_as_lgtm: true
     store_tree_hash: true
     trusted_team_for_sticky_lgtm: test-infra-maintainers
@@ -346,6 +350,22 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: syscalls-bumper
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: pigeon
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.    
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: testing
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -919,6 +939,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/pigeon:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip
   falcosecurity/plugins:
     plugins:
       - approve
@@ -1072,6 +1114,28 @@ plugins:
       - verify-owners # Validates OWNERS file changes in PRs.
       - welcome # welcomes new PR users
       - wip # Auto-hold PRs with WIP in title
+  falcosecurity/testing:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip
 
 external_plugins:
   falcosecurity/.github:
@@ -1178,6 +1242,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+  falcosecurity/pigeon:
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/plugins:
     - name: needs-rebase
       events:
@@ -1203,6 +1271,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/test-infra:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/testing:
     - name: needs-rebase
       events:
         - pull_request
