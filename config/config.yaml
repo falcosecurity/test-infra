@@ -275,6 +275,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        pigeon:
+          branches:
+            main:
+              protect: true
         plugins:
           branches:
             main:
@@ -305,6 +309,10 @@ branch-protection:
           required_status_checks:
             contexts:
               - "check-prow-config"
+        testing:
+          branches:
+            main:
+              protect: true
 
 log_level: debug
 
@@ -343,6 +351,7 @@ tide:
     falcosecurity/libs: rebase
     falcosecurity/libs-sdk-go: rebase
     falcosecurity/pdig: rebase
+    falcosecurity/pigeon: rebase
     falcosecurity/plugins: rebase
     falcosecurity/plugin-sdk-go: rebase
     falcosecurity/plugin-sdk-cpp: rebase
@@ -350,6 +359,7 @@ tide:
     falcosecurity/syscalls-bumper: rebase
     falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
+    falcosecurity/testing: rebase
   queries:
     - repos:
         - falcosecurity/.github
@@ -716,6 +726,20 @@ tide:
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
+        - falcosecurity/pigeon
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
         - falcosecurity/plugins
       labels:
         - approved
@@ -782,6 +806,19 @@ tide:
       reviewApprovedRequired: true  
     - repos:
         - falcosecurity/test-infra
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/testing
       labels:
         - approved
         - lgtm
