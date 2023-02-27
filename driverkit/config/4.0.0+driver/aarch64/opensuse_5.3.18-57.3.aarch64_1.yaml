@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/4.0.0+driver/aarch64/falco_opensuse_5.3.18-57.3.aarch64_1.ko
   probe: output/4.0.0+driver/aarch64/falco_opensuse_5.3.18-57.3.aarch64_1.o
-kernelurls: ["https://mirrors.edge.kernel.org/opensuse/distribution/leap/15.3/repo/oss/noarch/kernel-devel-5.3.18-57.3.noarch.rpm","http://download.opensuse.org/distribution/leap/./15.3/repo/oss/noarch/kernel-devel-5.3.18-57.3.noarch.rpm","https://mirrors.edge.kernel.org/opensuse/distribution/leap/15.3/repo/oss/aarch64/kernel-default-devel-5.3.18-57.3.aarch64.rpm","http://download.opensuse.org/distribution/leap/./15.3/repo/oss/aarch64/kernel-default-devel-5.3.18-57.3.aarch64.rpm"]
+kernelurls: ["https://mirrors.edge.kernel.org/opensuse/distribution/leap/15.3/repo/oss/aarch64/kernel-default-devel-5.3.18-57.3.aarch64.rpm","https://mirrors.edge.kernel.org/opensuse/distribution/leap/15.3/repo/oss/noarch/kernel-devel-5.3.18-57.3.noarch.rpm","http://download.opensuse.org/distribution/leap/./15.3/repo/oss/aarch64/kernel-default-devel-5.3.18-57.3.aarch64.rpm","http://download.opensuse.org/distribution/leap/./15.3/repo/oss/noarch/kernel-devel-5.3.18-57.3.noarch.rpm"]

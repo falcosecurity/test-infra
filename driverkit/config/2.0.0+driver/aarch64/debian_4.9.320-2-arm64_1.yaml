@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_debian_4.9.320-2-arm64_1.ko
   probe: output/2.0.0+driver/aarch64/falco_debian_4.9.320-2-arm64_1.o
-kernelurls: ["http://security.debian.org/pool/updates/main/l/linux/linux-headers-4.9.0-19-common_4.9.320-2_all.deb","http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-4.9_4.9.320-2_arm64.deb","http://security.debian.org/pool/updates/main/l/linux/linux-headers-4.9.0-19-arm64_4.9.320-2_arm64.deb"]
+kernelurls: ["http://security.debian.org/pool/updates/main/l/linux/linux-headers-4.9.0-19-common_4.9.320-2_all.deb","http://security.debian.org/pool/updates/main/l/linux/linux-headers-4.9.0-19-arm64_4.9.320-2_arm64.deb","http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-4.9_4.9.320-2_arm64.deb"]
