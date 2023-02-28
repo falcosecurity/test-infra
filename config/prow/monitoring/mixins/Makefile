@@ -14,12 +14,6 @@
 
 SHELL=/bin/bash -o pipefail
 
-include ../../../../../hack/Makefile.gcloud.mk
-
-PROJECT       ?= k8s-prow
-CLUSTER       ?= prow
-ZONE          ?= us-central1-f
-
 export PATH
 
 expose-gobin:
@@ -41,7 +35,7 @@ prow_prometheusrule.yaml: install clean-prometheus-out
 	@echo "Generating prow_prometheusrule.yaml ..."
 	jsonnet -J lib/ ./prometheus/prow_prometheusrule.jsonnet | gojsontoyaml > prometheus_out/$@
 
-apply-configmaps: get-cluster-credentials grafana-dashboards
+apply-configmaps: grafana-dashboards
 	@for input in $(shell ls dashboards_out); do \
 		if [[ ! $${input} =~ .*\.json ]]; then \
 			continue; \
@@ -51,7 +45,7 @@ apply-configmaps: get-cluster-credentials grafana-dashboards
 		kubectl create configmap -n prow-monitoring "$${dashboard_name}" --from-file="$${input}=dashboards_out/$${input}" --dry-run -o yaml | kubectl apply -f -; \
 	done
 
-apply-prow-prometheusrule: get-cluster-credentials prow_prometheusrule.yaml
+apply-prow-prometheusrule: prow_prometheusrule.yaml
 	kubectl apply -f prometheus_out/
 
 apply: apply-configmaps apply-prow-prometheusrule clean

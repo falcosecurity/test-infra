@@ -12,17 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include ../../../../hack/Makefile.gcloud.mk
-
-PROJECT       ?= k8s-prow
-CLUSTER       ?= prow
-ZONE          ?= us-central1-f
-
-apply-components: get-cluster-credentials
-	kubectl apply -f ./prometheus-operator-crds/
-	kubectl apply -f .
-
 apply: apply-components
 	$(MAKE) -C ./mixins apply
+
+apply-components:
+	kubectl apply -f ./prometheus-operator-crds/
+	kubectl apply -f .
 
 .PHONY: apply-components apply
