@@ -1,0 +1,42 @@
+name: Update Drivers Website
+
+on:
+  workflow_dispatch:
+  # Every two hours
+  schedule:
+    - cron: '0 */2 * * *' 
+
+jobs:
+  update-drivers-website:
+    runs-on: ubuntu-latest
+    env:
+      S3_DRIVERS_BUCKET: falco-distribution
+      S3_DRIVERS_KEY_PREFIX: driver
+      AWS_S3_REGION: eu-west-1
+
+    steps:
+      - name: Checkout test-infra
+        uses: actions/checkout@v3
+      
+      - name: Setup Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: '^1.19'
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: "arn:aws:iam::292999226676:role/terraform-20230120142903096000000002"
+          aws-region: ${{ env.AWS_S3_REGION }}
+
+      - name: Setup update-drivers-website helper
+        working-directory: images/update-drivers-website
+        run: go build -v -o /bin/update-drivers-website ./updateDriversWebsite.go
+
+      - name: Build updated json
+        run: update-drivers-website "/update-drivers-website"
+
+      - name:  Push updated files to s3 bucket
+        uses: ItsKarma/aws-cli@v1.70.0
+        with:
+          args: s3 cp "images/update-drivers-website" s3://${{ env.S3_DRIVERS_BUCKET}}/${{ env.S3_DRIVERS_KEY_PREFIX }}/site --recursive --include "*.json" --include "index.html" --acl public-read
