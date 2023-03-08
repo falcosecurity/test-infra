@@ -171,7 +171,7 @@ data "aws_iam_policy_document" "build_plugins_s3_access" {
   }
 }
 
-##### S3 for GitHub Actions upload
+##### Permissions for GitHub Actions
 
 # GHA OIDC Provider, required to integrate with any GHA workflow
 module "iam_github_oidc_provider" {
@@ -179,7 +179,8 @@ module "iam_github_oidc_provider" {
   version   = "5.10.0"
 }
 
-# Roles and IAM config
+# Rules repository
+
 module "rules_s3_role" {
   source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
@@ -214,6 +215,57 @@ data "aws_iam_policy_document" "rules_s3_access" {
       "arn:aws:s3:::falco-distribution/rules/*",
       "arn:aws:s3:::falco-distribution/rules",
     ]
+  }
+}
+
+# Falcosidekick repository
+
+module "falcosidekick_ecr_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  name    = "github_actions-falcosidekick-ecr"
+  version = "5.10.0"
+  create = true
+  subjects = [
+    "falcosecurity/falcosidekick:ref:refs/heads/master",
+    "falcosecurity/falcosidekick:ref:refs/tags/*"
+  ]
+  policies = {
+    falcosidekick_ecr_access = "${aws_iam_policy.falcosidekick_ecr_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falcosidekick_ecr_access" {
+  name_prefix = "github_actions-falcosidekick-ecr"
+  description = "GitHub actions ECR access policy for falcosidekick"
+  policy      = data.aws_iam_policy_document.falcosidekick_ecr_access.json
+}
+
+data "aws_iam_policy_document" "falcosidekick_ecr_access" {
+  statement {
+    sid    = "BuildFalcosidekickECRAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:BatchCheckLayerAvailability",
+      "ecr-public:GetRepositoryPolicy",
+      "ecr-public:DescribeRepositories",
+      "ecr-public:DescribeImages",
+      "ecr-public:InitiateLayerUpload",
+      "ecr-public:UploadLayerPart",
+      "ecr-public:CompleteLayerUpload",
+      "ecr-public:PutImage"
+    ]
+    resources = [
+      "arn:aws:ecr-public::292999226676:repository/falcosidekick"
+    ]
+  }
+  statement {
+    sid = "BuildFalcosidekickECRTokenAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:GetAuthorizationToken",
+      "sts:GetServiceBearerToken"
+    ]
+    resources = ["*"]
   }
 }
 
