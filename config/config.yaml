@@ -163,11 +163,13 @@ branch-protection:
             "release/0.34.0":
               protect: true
             "release/0.34.x":
-              protect: true              
+              protect: true
         falcosidekick:
           required_status_checks:
             contexts:
-              - "ci/circleci: build-image"
+              - "Run unit tests"
+              - "lint"
+              - "build-image"
           branches:
             master:
               protect: true
