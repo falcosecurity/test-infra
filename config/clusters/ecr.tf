@@ -60,3 +60,10 @@ resource "aws_ecr_repository" "update_rules_index" {
     encryption_type = "KMS"
   }
 }
+
+resource "aws_ecr_repository" "sync_ghrepos_secrets_vars" {
+  name = "test-infra/sync-ghrepos-secrets-vars"
+  encryption_configuration {
+    encryption_type = "KMS"
+  }
+}
