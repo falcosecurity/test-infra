@@ -4,8 +4,8 @@ ARG TARGETARCH
 
 ENV PUBLISH_S3="false"
 
-RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.11.1/driverkit_0.11.1_linux_$TARGETARCH.tar.gz \
-    && tar -xvf driverkit_0.11.1_linux_$TARGETARCH.tar.gz \
+RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.12.0/driverkit_0.12.0_linux_$TARGETARCH.tar.gz \
+    && tar -xvf driverkit_0.12.0_linux_$TARGETARCH.tar.gz \
     && chmod +x driverkit \
     && mv driverkit /bin/driverkit
 
