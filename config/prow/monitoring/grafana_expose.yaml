@@ -27,12 +27,12 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 3001}]'
   name: grafana
   namespace: prow-monitoring
 spec:
   rules:
-  - host: monitoring.prow.falco.org
+  - host: k8s-prowmoni-grafana-40c9b7b6f0-1965243181.eu-west-1.elb.amazonaws.com
     http:
       paths:
       - path: /*
@@ -41,5 +41,5 @@ spec:
           service:
             name: grafana
             port:
-              number: 80
+              name: http
 
