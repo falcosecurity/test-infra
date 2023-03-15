@@ -6,3 +6,4 @@ resource "aws_acm_certificate" "deck" {
     create_before_destroy = true
   }
 }
+
