@@ -33,6 +33,9 @@ spec:
         - --github-endpoint=http://ghproxy
         - --github-endpoint=https://api.github.com
         - --github-token-path=/etc/github/oauth
+        ports:
+        - name: metrics
+          containerPort: 9090
         resources:
           limits:
             cpu: 100m

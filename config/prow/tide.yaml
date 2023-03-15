@@ -8,8 +8,12 @@ spec:
   selector:
     app: tide
   ports:
-  - port: 80
+  - name: main
+    port: 80
     targetPort: 8888
+  - name: metrics
+    port: 9090
+    protocol: TCP
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -88,6 +92,8 @@ spec:
         ports:
           - name: http
             containerPort: 8888
+          - name: metrics
+            containerPort: 9090
         resources:
           limits:
             cpu: 100m

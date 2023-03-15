@@ -31,6 +31,9 @@ spec:
             - --job-config-path=/etc/job-config
             - --enable-controller=plank
             # - --kubeconfig=/etc/kubeconfig/config
+          ports:
+          - name: metrics
+            containerPort: 9090
           resources:
             limits:
               cpu: 100m

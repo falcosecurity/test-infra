@@ -81,6 +81,8 @@ spec:
         ports:
           - name: http
             containerPort: 8888
+          - name: metrics
+            containerPort: 9090
         resources:
           limits:
             cpu: 100m
@@ -145,5 +147,8 @@ spec:
   selector:
     app: hook
   ports:
-  - port: 8888
+  - name: main
+    port: 8888
+  - name: metrics
+    port: 9090
   type: NodePort
