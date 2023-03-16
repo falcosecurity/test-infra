@@ -137,7 +137,7 @@ spec:
             containerPort: 8080
           - name: metrics
             containerPort: 9090
-      resources:
+        resources:
           limits:
             cpu: 100m
             memory: 256M
