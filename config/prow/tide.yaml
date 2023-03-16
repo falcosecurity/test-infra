@@ -4,6 +4,8 @@ kind: Service
 metadata:
   namespace: default
   name: tide
+  labels:
+    app: tide
 spec:
   selector:
     app: tide

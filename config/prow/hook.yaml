@@ -143,6 +143,8 @@ kind: Service
 metadata:
   namespace: default
   name: hook
+  labels:
+    app: hook
 spec:
   selector:
     app: hook
