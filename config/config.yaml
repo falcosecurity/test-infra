@@ -314,6 +314,7 @@ branch-protection:
           required_status_checks:
             contexts:
               - "check-prow-config"
+              - "manifests-validation"
         testing:
           branches:
             main:
