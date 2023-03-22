@@ -4,17 +4,9 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 3001}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"alb.ingress.kubernetes.io/listen-ports":"[{\"HTTP\": 80}]","alb.ingress.kubernetes.io/scheme":"internet-facing","kubernetes.io/ingress.class":"alb"},"name":"grafana","namespace":"prow-monitoring"},"spec":{"rules":[{"host":"monitoring.prow.falco.org","http":{"paths":[{"backend":{"service":{"name":"grafana","port":{"number":80}}},"path":"/*","pathType":"ImplementationSpecific"}]}}]}}
     kubernetes.io/ingress.class: alb
-  creationTimestamp: "2023-03-15T14:37:38Z"
-  finalizers:
-  - ingress.k8s.aws/resources
-  generation: 5
   name: grafana
   namespace: prow-monitoring
-  resourceVersion: "512108190"
-  uid: 2d3667fb-c73a-4c88-995c-6047f534b470
 spec:
   rules:
   - host: k8s-prowmoni-grafana-40c9b7b6f0-1965243181.eu-west-1.elb.amazonaws.com
@@ -24,7 +16,7 @@ spec:
           service:
             name: grafana
             port:
-              number: 3001
+              name: http
         path: /*
         pathType: ImplementationSpecific
 status:
