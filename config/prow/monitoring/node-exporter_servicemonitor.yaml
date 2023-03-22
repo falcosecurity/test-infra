@@ -1,0 +1,23 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: node-exporter
+    serviceMonitorSelector: prometheus
+  name: node-exporter
+  namespace: prow-monitoring
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    targetPort: 9100
+  jobLabel: node-exporter
+  namespaceSelector:
+    matchNames:
+    - prow-monitoring
+  selector:
+    matchLabels:
+      app: node-exporter
+
