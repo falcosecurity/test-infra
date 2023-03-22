@@ -1,0 +1,26 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: node-exporter
+    app.kubernetes.io/version: 1.5.0
+    app: node-exporter
+  name: node-exporter
+  namespace: prow-monitoring
+spec:
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    bearerTokenSecret:
+      key: ""
+    honorLabels: true
+    interval: 2m
+    port: node-exporter
+    scheme: http
+    scrapeTimeout: 2m
+  jobLabel: app.kubernetes.io/name
+  namespaceSelector:
+    matchNames:
+    - prow-monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: node-exporter
