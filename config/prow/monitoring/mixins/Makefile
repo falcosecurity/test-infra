@@ -17,7 +17,7 @@ SHELL=/bin/bash -o pipefail
 export PATH
 
 expose-gobin:
-	$(eval PATH=${PATH}:${GOPATH}/bin)
+	$(eval PATH=${PATH}:$(shell go env GOPATH)/bin)
 
 grafana-dashboards: install clean-dashboard-out
 	@mkdir -p dashboards_out
