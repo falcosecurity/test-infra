@@ -15,6 +15,8 @@ function main() {
   launchConfig
   echo "Launching Prow microservices" 
   launchProw
+  echo "Launching Prow monitoring"
+  launchMonitoring
   echo "All done!"
 }
 
@@ -63,6 +65,10 @@ function launchConfig(){
 
 function launchProw(){
   kubectl apply -f config/prow/
+}
+
+function launchMonitoring(){
+  make -C config/prow/monitoring
 }
 
 function cleanup() {
