@@ -29,7 +29,7 @@ grafana-dashboards: install clean-dashboard-out
 		echo "Generating $${output} from $${input} ..."; \
 		jsonnet -J vendor/ -J lib/ "grafana_dashboards/$${input}" > "./dashboards_out/$${output}"; \
 	done
-	@cd vendor/node-mixin && make clean node_alerts.yaml node_rules.yaml dashboards_out
+	@make -C vendor/node-mixin/ clean node_alerts.yaml node_rules.yaml dashboards_out
 	@cp vendor/node-mixin/dashboards_out/* ./dashboards_out/
 
 prow_prometheusrule.yaml: install clean-prometheus-out
