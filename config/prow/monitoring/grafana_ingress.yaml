@@ -2,14 +2,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 3001}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-west-1:292999226676:certificate/87aa77e9-dceb-480b-8873-8532f02f5813"
     alb.ingress.kubernetes.io/scheme: internet-facing
     kubernetes.io/ingress.class: alb
   name: grafana
   namespace: prow-monitoring
 spec:
   rules:
-  - host: k8s-prowmoni-grafana-40c9b7b6f0-1965243181.eu-west-1.elb.amazonaws.com
+  - host: monitoring.prow.falco.org
     http:
       paths:
       - backend:
@@ -19,7 +20,3 @@ spec:
               name: http
         path: /*
         pathType: ImplementationSpecific
-status:
-  loadBalancer:
-    ingress:
-    - hostname: k8s-prowmoni-grafana-40c9b7b6f0-1965243181.eu-west-1.elb.amazonaws.com
