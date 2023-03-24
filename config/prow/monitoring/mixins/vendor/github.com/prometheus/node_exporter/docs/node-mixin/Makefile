@@ -16,6 +16,10 @@ dashboards_out: mixin.libsonnet config.libsonnet $(wildcard dashboards/*)
 	@mkdir -p dashboards_out
 	jsonnet -J ../../../../../../vendor -J lib -m dashboards_out dashboards.jsonnet
 
+prometheusrule.yaml: mixin.libsonnet config.libsonnet $(wildcard rules/*)
+	@echo "Generating prometheusrule.yaml ..."
+	jsonnet prometheusrule.jsonnet | gojsontoyaml > $@
+
 lint: node_alerts.yaml node_rules.yaml
 	find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
 		while read f; do \
@@ -29,4 +33,4 @@ jb_install:
 	jb install
 
 clean:
-	rm -rf dashboards_out node_alerts.yaml node_rules.yaml
+	rm -rf dashboards_out node_alerts.yaml node_rules.yaml prometheusrule.yaml
