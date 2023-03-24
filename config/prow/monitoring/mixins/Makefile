@@ -19,7 +19,7 @@ export PATH
 expose-gobin:
 	$(eval PATH=${PATH}:$(shell go env GOPATH)/bin)
 
-grafana-dashboards: install clean-dashboard-out
+grafana-dashboards: install clean-dashboard-out node-mixin
 	@mkdir -p dashboards_out
 	@for input in $(shell ls grafana_dashboards); do \
 		if [[ ! $${input} =~ .*\.jsonnet ]]; then \
@@ -29,13 +29,18 @@ grafana-dashboards: install clean-dashboard-out
 		echo "Generating $${output} from $${input} ..."; \
 		jsonnet -J vendor/ -J lib/ "grafana_dashboards/$${input}" > "./dashboards_out/$${output}"; \
 	done
-	@make -C vendor/node-mixin/ clean node_alerts.yaml node_rules.yaml dashboards_out
 	@cp vendor/node-mixin/dashboards_out/* ./dashboards_out/
+
+node-mixin:
+	@make -C vendor/node-mixin build
 
 prow_prometheusrule.yaml: install clean-prometheus-out
 	@mkdir -p prometheus_out
 	@echo "Generating prow_prometheusrule.yaml ..."
 	jsonnet -J lib/ ./prometheus/prow_prometheusrule.jsonnet | gojsontoyaml > prometheus_out/$@
+
+node_prometheusrule.yaml: install clean-prometheus-out node-mixin
+	@cp vendor/node-mixin/prometheusrule.yaml prometheus_out/$@
 
 apply-configmaps: grafana-dashboards
 	@for input in $(shell ls dashboards_out); do \
@@ -47,10 +52,10 @@ apply-configmaps: grafana-dashboards
 		kubectl create configmap -n prow-monitoring "$${dashboard_name}" --from-file="$${input}=dashboards_out/$${input}" --dry-run -o yaml | kubectl apply -f -; \
 	done
 
-apply-prow-prometheusrule: prow_prometheusrule.yaml
+apply-prometheusrules: prow_prometheusrule.yaml node_prometheusrule.yaml
 	kubectl apply -f prometheus_out/
 
-apply: apply-configmaps apply-prow-prometheusrule clean
+apply: apply-configmaps apply-prometheusrules clean
 
 clean-dashboard-out:
 	rm -rfv ./dashboards_out/*.json
@@ -71,4 +76,4 @@ install: expose-gobin
 	  go install github.com/brancz/gojsontoyaml@v0.1.0; \
 	fi
 
-.PHONY: expose-gobin grafana-dashboards prow_prometheusrule.yaml apply-configmaps apply-prow-prometheusrule apply clean-dashboard-out clean-prometheus-out clean install
+.PHONY: expose-gobin grafana-dashboards prow_prometheusrule.yaml apply-configmaps apply-prometheusrules apply clean-dashboard-out clean-prometheus-out clean install

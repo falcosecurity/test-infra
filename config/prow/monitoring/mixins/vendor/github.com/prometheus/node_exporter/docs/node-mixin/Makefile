@@ -1,6 +1,8 @@
 JSONNET_FMT := jsonnetfmt -n 2 --max-blank-lines 2 --string-style s --comment-style s
 
-all: fmt node_alerts.yaml node_rules.yaml dashboards_out lint
+all: fmt node_alerts.yaml node_rules.yaml prometheusrule.yaml dashboards_out lint
+
+build: clean node_alerts.yaml node_rules.yaml prometheusrule.yaml dashboards_out
 
 fmt:
 	find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
