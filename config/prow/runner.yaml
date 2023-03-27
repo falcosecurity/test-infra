@@ -1,0 +1,13 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: falco-runner-arm64
+spec:
+  replicas: 1
+  template:
+    spec:
+      dockerdWithinRunnerContainer: true
+      image: summerwind/actions-runner-dind
+      repository: falcosecurity/falco
+      nodeSelector:
+        Archtype: "arm"

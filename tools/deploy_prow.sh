@@ -17,6 +17,8 @@ function main() {
   launchProw
   echo "Launching Prow monitoring"
   launchMonitoring
+  echo "Launching Actions Runner Controller"
+  launchARC
   echo "All done!"
 }
 
@@ -69,6 +71,12 @@ function launchProw(){
 
 function launchMonitoring(){
   make -C config/prow/monitoring
+}
+
+function launchARC(){
+  kubectl apply -f https://github.com/actions/actions-runner-controller releases/download/v0.22.0/actions-runner-controller.yaml
+  kubectl create secret generic controller-manager -n actions-runner-system --from-literal=github_token=${PROW_OAUTH_TOKEN}
+  kubectl apply -f ./config/prow/runner.yaml
 }
 
 function cleanup() {
