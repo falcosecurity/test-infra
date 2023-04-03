@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_2*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_2.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -35,7 +35,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_3*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_3.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -64,7 +64,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_4*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_4.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -93,7 +93,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_5*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?centos_5.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -124,7 +124,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_2*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_2.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -153,7 +153,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_3*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_3.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -182,7 +182,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/centos_3*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/centos_3.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -211,7 +211,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_4*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_4.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -240,7 +240,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/centos_4*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/centos_4.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -269,7 +269,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_5*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/centos_5.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -298,7 +298,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/centos_5*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/centos_5.+'
     spec:
       serviceAccountName: driver-kit
       containers:
