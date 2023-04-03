@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?amazonlinux_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?amazonlinux_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -34,7 +34,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?amazonlinux2_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?amazonlinux2_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -64,7 +64,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -92,7 +92,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -120,7 +120,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -148,7 +148,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2_*'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
