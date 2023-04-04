@@ -6,7 +6,7 @@ presubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?bottlerocket.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?bottlerocket_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -36,7 +36,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/bottlerocket.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/bottlerocket_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -64,7 +64,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/bottlerocket.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/bottlerocket_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
