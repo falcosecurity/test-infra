@@ -37,11 +37,11 @@ jobs:
         run: mkdir /$RUNNER_TEMP/update-drivers-website
 
       - name: Setup update-drivers-website helper
-        working-directory: images/update-drivers-website
+        working-directory: tools/update-drivers-website
         run: go build -v -o update-drivers-website ./updateDriversWebsite.go
 
       - name: Build updated json
-        working-directory: images/update-drivers-website
+        working-directory: tools/update-drivers-website
         run: ./update-drivers-website "/$RUNNER_TEMP/update-drivers-website"
 
       - name: Push updated files to s3 bucket
