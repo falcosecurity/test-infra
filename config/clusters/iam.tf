@@ -223,6 +223,7 @@ data "aws_iam_policy_document" "rules_s3_access" {
 module "test-infra_s3_role" {
   source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
+  name = "github_actions-test-infra-s3"
   create = true
   subjects = [
     "falcosecurity/test-infra:ref:refs/heads/master"
