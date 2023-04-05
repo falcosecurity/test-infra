@@ -41,6 +41,4 @@ jobs:
         run: ./update-drivers-website "/$RUNNER_TEMP/update-drivers-website"
 
       - name: Push updated files to s3 bucket
-        uses: ItsKarma/aws-cli@v1.70.0
-        with:
-          args: s3 cp "/$RUNNER_TEMP/update-drivers-website" s3://${{ env.S3_DRIVERS_BUCKET}}/${{ env.S3_DRIVERS_KEY_PREFIX }}/site --recursive --include "*.json" --include "index.html" --acl public-read
+        run: aws s3 cp "/$RUNNER_TEMP/update-drivers-website" s3://${{ env.S3_DRIVERS_BUCKET}}/${{ env.S3_DRIVERS_KEY_PREFIX }}/site --recursive --include "*.json" --include "index.html" --acl public-read
