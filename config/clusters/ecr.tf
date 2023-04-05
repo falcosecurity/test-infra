@@ -54,16 +54,6 @@ resource "aws_ecr_repository" "update_dbg" {
   }
 }
 
-resource "aws_ecr_repository" "update_drivers_website" {
-  name = "test-infra/update-drivers-website"
-
-  force_delete = true
-
-  encryption_configuration {
-    encryption_type = "KMS"
-  }
-}
-
 resource "aws_ecr_repository" "update_rules_index" {
   name = "test-infra/update-rules-index"
   encryption_configuration {
