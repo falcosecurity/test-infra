@@ -22,13 +22,13 @@
 | app\_name | n/a | `any` | n/a | yes |
 | app\_namespace | n/a | `any` | n/a | yes |
 | app\_stage | n/a | `any` | n/a | yes |
-| eks\_arm\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `15` | no |
-| eks\_arm\_worker\_group\_asg\_max\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `25` | no |
-| eks\_arm\_worker\_group\_asg\_min\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `1` | no |
+| eks\_arm\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `1` | no |
+| eks\_arm\_worker\_group\_asg\_max\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `2` | no |
+| eks\_arm\_worker\_group\_asg\_min\_capacity | The Autoscaling Group size of the ARM EKS worker group | `number` | `0` | no |
 | eks\_default\_worker\_group\_additional\_userdata | Uerdata to append to the default userdata of the default EKS worker group | `number` | `1` | no |
-| eks\_default\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `15` | no |
-| eks\_default\_worker\_group\_asg\_max\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `25` | no |
-| eks\_default\_worker\_group\_asg\_min\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `5` | no |
+| eks\_default\_worker\_group\_asg\_desired\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `4` | no |
+| eks\_default\_worker\_group\_asg\_max\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `10` | no |
+| eks\_default\_worker\_group\_asg\_min\_capacity | The Autoscaling Group size of the default EKS worker group | `number` | `3` | no |
 | eks\_default\_worker\_group\_instance\_type | The instance type of the default EKS worker group | `string` | `"m5.large"` | no |
 | eks\_default\_worker\_group\_name | The name of the default EKS worker group | `string` | `"default-worker-group"` | no |
 | eks\_users | Additional IAM users to add to the aws-auth configmap. | <pre>list(object({<br>    userarn  = string<br>    username = string<br>    groups   = list(string)<br>  }))</pre> | <pre>[<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/jonah.jones",<br>    "username": "jonah.jones"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/fontanalorenz@gmail.com",<br>    "username": "fontanalorenz@gmail.com"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/leodidonato@gmail.com",<br>    "username": "leodidonato@gmail.com"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/leonardo.grasso",<br>    "username": "leonardo.grasso"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/massimiliano.giovagnoli",<br>    "username": "massimiliano.giovagnoli"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/spencer.krum",<br>    "username": "spencer.krum"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/thomas.labarussias",<br>    "username": "thomas.labarussias"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/circleci",<br>    "username": "circleci"<br>  },<br>  {<br>    "groups": [<br>      "system:masters"<br>    ],<br>    "userarn": "arn:aws:iam::292999226676:user/michele@zuccala.com",<br>    "username": "michele@zuccala.com"<br>  }<br>]</pre> | no |
