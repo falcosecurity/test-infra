@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-generic_4.15.0-36-generic_39.ko
   probe: output/2.0.0+driver/aarch64/falco_ubuntu-generic_4.15.0-36-generic_39.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-36-generic_4.15.0-36.39_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-36-snapdragon_4.15.0-36.39_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-36_4.15.0-36.39_all.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-36-snapdragon_4.15.0-36.39_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-36_4.15.0-36.39_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-36-generic_4.15.0-36.39_arm64.deb"]

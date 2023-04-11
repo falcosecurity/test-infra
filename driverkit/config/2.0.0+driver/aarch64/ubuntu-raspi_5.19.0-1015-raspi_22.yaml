@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/2.0.0+driver/aarch64/falco_ubuntu-raspi_5.19.0-1015-raspi_22.ko
   probe: output/2.0.0+driver/aarch64/falco_ubuntu-raspi_5.19.0-1015-raspi_22.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-raspi-headers-5.19.0-1015_5.19.0-1015.22_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-headers-5.19.0-1015-raspi_5.19.0-1015.22_arm64.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-headers-5.19.0-1015-raspi_5.19.0-1015.22_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-raspi-headers-5.19.0-1015_5.19.0-1015.22_arm64.deb"]
