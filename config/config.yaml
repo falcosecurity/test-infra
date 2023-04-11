@@ -289,6 +289,9 @@ branch-protection:
             main:
               protect: true
         plugin-sdk-go:
+          required_status_checks:
+            contexts:
+              - "run-tests"
           branches:
             master:
               protect: true
