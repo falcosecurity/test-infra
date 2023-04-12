@@ -8,5 +8,5 @@ vpc_cidr_block                                = "10.0.0.0/16"
 eks_default_worker_group_name                 = "prow-worker-group"
 eks_default_worker_group_instance_type        = "m5.large"
 eks_default_worker_group_asg_desired_capacity = 3
-eks_default_worker_group_asg_max_capacity     = 15
-eks_arm_worker_group_asg_max_capacity         = 15
+eks_default_worker_group_asg_max_capacity     = 20
+eks_arm_worker_group_asg_max_capacity         = 20
