@@ -23,9 +23,12 @@ presubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"
   - name: validate-new-drivers-amazonlinux2-presubmit
@@ -51,9 +54,12 @@ presubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this 50% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"
   - name: validate-new-drivers-amazonlinux2022-presubmit
@@ -79,9 +85,12 @@ presubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"      
 postsubmits:
@@ -109,9 +118,12 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-amazonlinux-postsubmit-arm
@@ -137,9 +149,12 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "arm"
   - name: build-new-drivers-amazonlinux2-postsubmit
@@ -165,9 +180,12 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-amazonlinux2-postsubmit-arm
@@ -193,9 +211,12 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "arm"
   - name: build-new-drivers-amazonlinux2022-postsubmit
@@ -221,9 +242,12 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-amazonlinux2022-postsubmit-arm
@@ -249,8 +273,11 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "arm"      

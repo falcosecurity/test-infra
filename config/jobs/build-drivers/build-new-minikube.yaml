@@ -23,9 +23,12 @@ presubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"
 postsubmits:
@@ -53,9 +56,12 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-minikube-postsubmit-arm
@@ -81,8 +87,11 @@ postsubmits:
         securityContext:
           privileged: true
         resources:
+          limits:
+            cpu: 1.0
+            memory: 4Gi
           requests:
-            cpu: 1500m #m5large is 2vpcu and 8gb ram so this 75% of a node
-            memory: 6Gi
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
+            memory: 2Gi
       nodeSelector:
         Archtype: "arm"
