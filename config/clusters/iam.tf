@@ -218,6 +218,45 @@ data "aws_iam_policy_document" "rules_s3_access" {
   }
 }
 
+# Plugins repository
+
+module "plugins_s3_role" {
+  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  version = "5.10.0"
+  name = "github_actions-plugins-s3"
+  create = true
+  subjects = [
+    "falcosecurity/plugins:ref:refs/heads/master"
+  ]
+  policies = {
+    plugins_s3_access = "${aws_iam_policy.plugins_s3_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "plugins_s3_access" {
+  name_prefix = "github_actions-plugins-s3"
+  description = "GitHub actions S3 access policy for plugins repo workflows"
+  policy      = data.aws_iam_policy_document.plugins_s3_access.json
+}
+
+data "aws_iam_policy_document" "plugins_s3_access" {
+  statement {
+    sid    = "UploadPluginsS3Access"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:PutObjectAcl"
+    ]
+    resources = [
+      "arn:aws:s3:::falco-distribution/driver/site/*",
+      "arn:aws:s3:::falco-distribution/driver/site",
+    ]
+  }
+}
+
 # Test-infra repository
 
 module "test-infra_s3_role" {
