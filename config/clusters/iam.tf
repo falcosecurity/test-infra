@@ -226,7 +226,8 @@ module "plugins_s3_role" {
   name = "github_actions-plugins-s3"
   create = true
   subjects = [
-    "falcosecurity/plugins:ref:refs/heads/master"
+    "falcosecurity/plugins:ref:refs/heads/master",
+    "falcosecurity/plugins:ref:refs/tags/*"
   ]
   policies = {
     plugins_s3_access = "${aws_iam_policy.plugins_s3_access.arn}"
@@ -251,8 +252,8 @@ data "aws_iam_policy_document" "plugins_s3_access" {
       "s3:PutObjectAcl"
     ]
     resources = [
-      "arn:aws:s3:::falco-distribution/driver/site/*",
-      "arn:aws:s3:::falco-distribution/driver/site",
+      "arn:aws:s3:::falco-distribution/plugins/*",
+      "arn:aws:s3:::falco-distribution/plugins/",
     ]
   }
 }
