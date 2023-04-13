@@ -58,7 +58,7 @@ presubmits:
             cpu: 1.0
             memory: 4Gi
           requests:
-            cpu: 750m #m5large is 2vpcu and 8gb ram so this 50% of a node
+            cpu: 750m #m5large is 2vpcu and 8gb ram so this 37.5% of a node
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
