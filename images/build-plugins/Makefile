@@ -9,24 +9,15 @@ DOCKER_PUSH_REPOSITORY = dkr.ecr.eu-west-1.amazonaws.com
 
 IMAGE := "$(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG)"
 
-ARCHS := "arm64,amd64"
+build-push: build-image push-image
 
-# To avoid using 'docker manifest' (that is experimental), 
-# allow buildx to manage push to registry for us.
-# buildx manages build and push in one step
-build-push: push-image
+build-image:
+	docker build --no-cache -t "$(IMG_SLUG)/$(IMG_NAME)" .
 
-create-builder:
-	# Workaround for buildx issue, see https://github.com/docker/buildx/issues/495#issuecomment-761562905
-	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-	docker buildx create --name pluginsbuilder --driver docker-container --use
-	docker buildx inspect --bootstrap
+push-image:
+	docker tag "$(IMG_SLUG)/$(IMG_NAME)" $(IMAGE)
+	docker push $(IMAGE)
 
-build-image: create-builder
-	docker buildx build --platform $(ARCHS) -o type=image,push="false" .
-
-push-image: create-builder
-	docker buildx build --push --platform $(ARCHS) -t "$(IMAGE)" .
-
-local-registry: create-builder
-	docker buildx build --push --platform $(ARCHS) -t "localhost:5000/$(IMG_NAME)" .
+local-registry:
+	docker tag "$(IMG_SLUG)/$(IMG_NAME)" localhost:5000/$(IMG_NAME)
+	docker push localhost:5000/$(IMG_NAME)
