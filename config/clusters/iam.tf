@@ -297,6 +297,84 @@ data "aws_iam_policy_document" "test-infra_s3_access" {
   }
 }
 
+# Falco repository (dev packages)
+
+module "falco_dev_s3_role" {
+  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  version = "5.10.0"
+  name = "github_actions-falco-dev-s3"
+  create = true
+  subjects = [
+    "falcosecurity/falco:ref:refs/heads/master"
+  ]
+  policies = {
+    falco_s3_access = "${aws_iam_policy.falco_dev_s3_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falco_dev_s3_access" {
+  name_prefix = "github_actions-falco-dev-s3"
+  description = "GitHub actions S3 access policy for falco repo dev workflows"
+  policy      = data.aws_iam_policy_document.falco_dev_s3_access.json
+}
+
+data "aws_iam_policy_document" "falco_dev_s3_access" {
+  statement {
+    sid    = "UploadFalcoDevS3Access"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:PutObjectAcl"
+    ]
+    resources = [
+      "arn:aws:s3:::falco-distribution/packages/*-dev/*",
+      "arn:aws:s3:::falco-distribution/packages/*-dev/",
+    ]
+  }
+}
+
+# Falco repository (releases)
+
+module "falco_s3_role" {
+  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  version = "5.10.0"
+  name = "github_actions-falco-s3"
+  create = true
+  subjects = [
+    "falcosecurity/falco:ref:refs/tags/*"
+  ]
+  policies = {
+    falco_s3_access = "${aws_iam_policy.falco_s3_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falco_s3_access" {
+  name_prefix = "github_actions-falco-s3"
+  description = "GitHub actions S3 access policy for falco repo workflows"
+  policy      = data.aws_iam_policy_document.falco_s3_access.json
+}
+
+data "aws_iam_policy_document" "falco_s3_access" {
+  statement {
+    sid    = "UploadFalcoS3Access"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:PutObjectAcl"
+    ]
+    resources = [
+      "arn:aws:s3:::falco-distribution/packages/*",
+      "arn:aws:s3:::falco-distribution/packages/",
+    ]
+  }
+}
+
 # Falcosidekick repository
 
 module "falcosidekick_ecr_role" {
