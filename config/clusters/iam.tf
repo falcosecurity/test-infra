@@ -139,38 +139,6 @@ data "aws_iam_policy_document" "driverkit_s3_access" {
   }
 }
 
-module "build_plugins_s3_role" {
-  source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version          = "4.1.0"
-  create_role      = true
-  role_name        = "${local.cluster_name}-build_plugins_s3_access"
-  provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
-  role_policy_arns = [aws_iam_policy.build_plugins_s3_access.arn]
-  oidc_fully_qualified_subjects = [
-    "system:serviceaccount:${local.k8s_test_service_account_namespace}:build-plugins",
-  ]
-}
-
-resource "aws_iam_policy" "build_plugins_s3_access" {
-  name_prefix = "${local.cluster_name}-build_plugins-s3"
-  description = "EKS s3 access policy for cluster ${module.eks.cluster_id}"
-  policy      = data.aws_iam_policy_document.build_plugins_s3_access.json
-}
-
-data "aws_iam_policy_document" "build_plugins_s3_access" {
-  statement {
-    sid    = "BuildPluginsS3Access"
-    effect = "Allow"
-    actions = [
-      "s3:*"
-    ]
-    resources = [
-      "arn:aws:s3:::falco-distribution/plugins/*",
-      "arn:aws:s3:::falco-distribution/plugins",
-    ]
-  }
-}
-
 ##### Permissions for GitHub Actions
 
 # GHA OIDC Provider, required to integrate with any GHA workflow
