@@ -286,7 +286,7 @@ branch-protection:
               - "build-and-test"
         plugins:
           branches:
-            main:
+            master:
               protect: true
         plugin-sdk-go:
           required_status_checks:
