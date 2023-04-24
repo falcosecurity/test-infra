@@ -1,1 +1,23 @@
-# TODO: To be filled
+# Example configuration
+# orgs:
+#   falcosecurity:
+#     actions:
+#       variables:
+#         orgVar1: "orgValue1"
+#       secrets:
+#         - orgSecret0
+#     repos:
+#       test-infra:
+#         actions:
+#           variables:
+#             repoVar1: "repoValue1"
+#             repoVar2: "repoValue2"
+#           secrets:
+#             - repoSecret0
+#       plugins:
+#         actions:
+#           variables:
+#             repoVar3: "repoValue3"
+#             repoVar4: "repoValue4"
+#           secrets:
+#             - repoSecret0

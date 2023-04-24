@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 IMG_SLUG := test-infra
-IMG_NAME := pigeon
+IMG_NAME := sync-ghrepos-secrets-vars
 IMG_TAG ?= latest
 
 ACCOUNT := 292999226676
