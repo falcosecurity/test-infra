@@ -1,18 +1,18 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: validiate-new-drivers-debian-presubmit
+  - name: validiate-new-drivers-almalinux-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?debian_.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?almalinux_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
-        - debian
+        - almalinux
         env:
         - name: AWS_REGION
           value: eu-west-1
@@ -33,19 +33,19 @@ presubmits:
         Archtype: "x86"
 postsubmits:
   falcosecurity/test-infra:
-  - name: build-new-drivers-debian-postsubmit
+  - name: build-new-drivers-almalinux-postsubmit
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/debian_.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/almalinux_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
-        - debian
+        - almalinux
         env:
         - name: AWS_REGION
           value: eu-west-1
@@ -64,19 +64,19 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
-  - name: build-new-drivers-debian-postsubmit-arm
+  - name: build-new-drivers-almalinux-postsubmit-arm
     decorate: true
     skip_report: false
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/debian_.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/almalinux_.+'
     spec:
       serviceAccountName: driver-kit
       containers:
       - command:
         - /workspace/build-drivers.sh
-        - debian
+        - almalinux
         env:
         - name: AWS_REGION
           value: eu-west-1
