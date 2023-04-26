@@ -343,6 +343,57 @@ data "aws_iam_policy_document" "falco_s3_access" {
   }
 }
 
+# Falco repository (ECR)
+
+module "falco_ecr_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  name    = "github_actions-falco-ecr"
+  version = "5.10.0"
+  create = true
+  subjects = [
+    "falco/falco:ref:refs/heads/master",
+    "falco/falco:ref:refs/tags/*"
+  ]
+  policies = {
+    falco_ecr_access = "${aws_iam_policy.falco_ecr_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falco_ecr_access" {
+  name_prefix = "github_actions-falco-ecr"
+  description = "GitHub actions ECR access policy for falco"
+  policy      = data.aws_iam_policy_document.falco_ecr_access.json
+}
+
+data "aws_iam_policy_document" "falco_ecr_access" {
+  statement {
+    sid    = "BuildFalcoECRAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:BatchCheckLayerAvailability",
+      "ecr-public:GetRepositoryPolicy",
+      "ecr-public:DescribeRepositories",
+      "ecr-public:DescribeImages",
+      "ecr-public:InitiateLayerUpload",
+      "ecr-public:UploadLayerPart",
+      "ecr-public:CompleteLayerUpload",
+      "ecr-public:PutImage"
+    ]
+    resources = [
+      "arn:aws:ecr-public::292999226676:repository/falco"
+    ]
+  }
+  statement {
+    sid = "BuildFalcoECRTokenAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:GetAuthorizationToken",
+      "sts:GetServiceBearerToken"
+    ]
+    resources = ["*"]
+  }
+}
+
 # Falcosidekick repository
 
 module "falcosidekick_ecr_role" {
