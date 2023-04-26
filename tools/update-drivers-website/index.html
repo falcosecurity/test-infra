@@ -39,7 +39,54 @@
             margin-bottom: 5px;
             display: inline;
         }
+        .bi-x-circle {
+            color: #383c3f; 
+        }
+        i:hover {
+            color: #0d6efd; 
+        }
+        .closebtn {
+            float: right;
+            margin-right: 5px;
+            font-size: 120%;
+        } 
     </style>
+    </head>
+    <body>
+    <div>
+        <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/falco/horizontal/color/falco-horizontal-color.png" height="55" alt="falco logo" style="padding: 10px;">
+        <span id="date" style="float: right; padding: 20px;"></span>
+    </div>
+    <div style="padding-left: 10px;">
+        Lib:
+        <select class="form-select w-25" id="lib" onchange="if (this.value) window.location.href=this.value"></select>
+    </div>
+    <div id="arch" style="padding-left: 10px;">
+        Arch:
+    </div>
+    <div id="kind" style="padding-left: 10px;">
+        Kind:
+    </div>
+    <div id="target" style="padding-left: 10px; padding-bottom: 15px;">
+        Target:
+    </div>
+    <table id="drivers" class="table table-striped table-condensed" style="padding-left: 10px;">
+        <thead>
+            <tr>
+                <th>Lib</th>
+                <th>Arch</th>
+                <th>Target</th>
+                <th>Kind</th> 
+                <th>Kernel</th> 
+                <th>Name</th>
+                <th>Size</th>
+                <th>Download</th>
+                <th>LastModified</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+    </table>
+    </body>
     <script>
         var url = new URL(window.location);
         var lib = url.searchParams.get('lib');
@@ -82,46 +129,11 @@
                 document.getElementById('lib').appendChild(element);
             });
         });
-    </script>
-    </head>
-    <body>
-    <div>
-        <img src="https://sysdig.com/wp-content/uploads/2018/10/Falco-horizontal-logo-teal_2x.png" height="55" alt="falco logo">
-    </div>
-    <div style="padding-left: 10px;">
-        Lib:
-        <select class="form-select w-25" id="lib" onchange="if (this.value) window.location.href=this.value"></select>
-    </div>
-    <div id="arch" style="padding-left: 10px;">
-        Arch:
-    </div>
-    <div id="kind" style="padding-left: 10px;">
-        Kind:
-    </div>
-    <div id="target" style="padding-left: 10px; padding-bottom: 15px;">
-        Target:
-    </div>
-    <table id="drivers" class="table table-striped table-condensed" style="padding-left: 10px;">
-        <thead>
-            <tr>
-                <th>Lib</th>
-                <th>Arch</th>
-                <th>Target</th>
-                <th>Kind</th> 
-                <th>Kernel</th> 
-                <th>Name</th>
-                <th>Size</th>
-                <th>Download</th>
-                <th>LastModified</th>
-                <th>Link</th>
-            </tr>
-        </thead>
-    </table>
-    </body>
-    <script>
+
         var url = new URL(window.location);
         $(document).ready(function() {
             $.getJSON('./'+encodeURIComponent(lib)+'.json', function(data) {
+                document.getElementById("date").textContent = "Last update: " + data['date'];
                 Object.entries(data['index']).forEach (([key, value]) => {
                     var searchPrms = new URLSearchParams(window.location.search);
                     searchPrms.delete('search');
@@ -218,6 +230,19 @@
                             }
                         },
                     ]
+                });
+                var element = document.createElement('span');
+                element.id = "clearsearch"
+                element.style = "margin-left: 5px; margin-bottom: 2px";
+                var icon = document.createElement('i');
+                icon.className = "bi bi-x-circle closebtn"
+                element.append(icon)
+                document.getElementById('drivers_filter').appendChild(element);
+                $('#clearsearch').on('click', function(event) {
+                    var url = new URL(window.location);
+                    url.searchParams.delete('search');
+                    window.history.pushState({}, '', url);
+                    $('#drivers').DataTable().search('').draw();
                 });
             });
         });

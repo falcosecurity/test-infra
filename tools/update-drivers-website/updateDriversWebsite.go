@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 const source = "https://falco-distribution.s3-eu-west-1.amazonaws.com/?list-type=2&prefix=driver"
@@ -45,6 +46,7 @@ type List struct {
 }
 
 type JSONFile struct {
+	Date    string    `json:"date"`
 	Index   List      `json:"index"`
 	Drivers []Content `json:"drivers"`
 }
@@ -68,6 +70,7 @@ func init() {
 func main() {
 	fetchXML("")
 	for i, j := range jsonFiles {
+		j.Date = time.Now().Format(time.RFC3339)
 		f, err := json.Marshal(j)
 		if err != nil {
 			log.Fatal(err)
@@ -81,6 +84,7 @@ func main() {
 	for _, i := range jsonFiles {
 		l = removeDuplicateStr(append(l, i.Index.Libs...))
 	}
+
 	f, err := json.Marshal(l)
 	if err != nil {
 		log.Fatal(err)
