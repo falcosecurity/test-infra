@@ -231,6 +231,9 @@
                         },
                     ]
                 });
+                searchbox = document.getElementsByClassName('form-control form-control-sm');
+                searchbox[0].placeholder = "tip: run 'uname -r' to know your kernel version";
+                searchbox[0].style = "width: 350px;"
                 var element = document.createElement('span');
                 element.id = "clearsearch"
                 element.style = "margin-left: 5px; margin-bottom: 2px";
