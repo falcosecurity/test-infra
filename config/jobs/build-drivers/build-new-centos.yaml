@@ -163,6 +163,9 @@ presubmits:
 postsubmits:
   falcosecurity/test-infra:
   - name: build-new-drivers-centos-2-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -195,6 +198,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-centos-3-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -227,6 +233,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-centos-3-postsubmit-arm
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -259,6 +268,9 @@ postsubmits:
       nodeSelector:
         Archtype: "arm"
   - name: build-new-drivers-centos-4-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -291,6 +303,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-centos-4-postsubmit-arm
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -323,6 +338,9 @@ postsubmits:
       nodeSelector:
         Archtype: "arm"
   - name: build-new-drivers-centos-5-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -355,6 +373,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"    
   - name: build-new-drivers-centos-5-postsubmit-arm
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -387,6 +408,9 @@ postsubmits:
       nodeSelector:
         Archtype: "arm"
   - name: build-new-drivers-centos-6-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -419,6 +443,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"  
   - name: build-new-drivers-centos-6-postsubmit-arm
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes

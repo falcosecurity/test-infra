@@ -96,6 +96,9 @@ presubmits:
 postsubmits:
   falcosecurity/test-infra:
   - name: build-new-drivers-amazonlinux-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -127,6 +130,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-amazonlinux-postsubmit-arm
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -158,6 +164,9 @@ postsubmits:
       nodeSelector:
         Archtype: "arm"
   - name: build-new-drivers-amazonlinux2-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -189,6 +198,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-amazonlinux2-postsubmit-arm
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -220,6 +232,9 @@ postsubmits:
       nodeSelector:
         Archtype: "arm"
   - name: build-new-drivers-amazonlinux2022-postsubmit
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -251,6 +266,9 @@ postsubmits:
       nodeSelector:
         Archtype: "x86"
   - name: build-new-drivers-amazonlinux2022-postsubmit-arm
+    annotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+    error_on_eviction: true
     decorate: true
     skip_report: false
     agent: kubernetes
