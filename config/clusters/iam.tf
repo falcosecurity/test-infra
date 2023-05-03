@@ -394,6 +394,41 @@ data "aws_iam_policy_document" "falco_ecr_access" {
   }
 }
 
+# Falco repository (CloudFront)
+
+module "falco_cloudfront_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  name    = "github_actions-falco-cloudfront"
+  version = "5.10.0"
+  create = true
+  subjects = [
+    "falco/falco:ref:refs/heads/master",
+    "falco/falco:ref:refs/tags/*"
+  ]
+  policies = {
+    falco_cloudfront_access = "${aws_iam_policy.falco_cloudfront_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falco_cloudfront_access" {
+  name_prefix = "github_actions-falco-cloudfront"
+  description = "GitHub actions CloudFront access policy for falco"
+  policy      = data.aws_iam_policy_document.falco_cloudfront_access.json
+}
+
+data "aws_iam_policy_document" "falco_cloudfront_access" {
+  statement {
+    sid    = "BuildFalcoCloudFrontAccess"
+    effect = "Allow"
+    actions = [
+      "cloudfront:CreateInvalidation"
+    ]
+    resources = [
+      "arn:aws:cloudfront::292999226676:distribution/E1CQNPFWRXLGQD"
+    ]
+  }
+}
+
 # Falcosidekick repository
 
 module "falcosidekick_ecr_role" {
