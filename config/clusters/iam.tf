@@ -371,8 +371,8 @@ module "falco_ecr_role" {
   version = "5.10.0"
   create = true
   subjects = [
-    "falco/falco:ref:refs/heads/master",
-    "falco/falco:ref:refs/tags/*"
+    "falcosecurity/falco:ref:refs/heads/master",
+    "falcosecurity/falco:ref:refs/tags/*"
   ]
   policies = {
     falco_ecr_access = "${aws_iam_policy.falco_ecr_access.arn}"
