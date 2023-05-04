@@ -9,7 +9,7 @@ postsubmits:
     run_if_changed: 'OWNERS$'
     spec:
       containers:
-      - image: gcr.io/maxgio92/peribolos-syncer:0.1.0
+      - image: gcr.io/maxgio92/peribolos-syncer:0.2.0
         args:
         - sync
         - github
@@ -20,7 +20,7 @@ postsubmits:
         - --peribolos-config-git-ref=master
         - --owners-repository=evolution
         - --owners-git-ref=main
-        - --owners-path=OWNERS
+        - --approvers-only=true
         - --git-author-name=poiana
         - --git-author-email="51138685+poiana@users.noreply.github.com"
         - --gpg-public-key=/tmp/gpg-pub/poiana.pub
