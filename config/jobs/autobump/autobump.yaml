@@ -8,13 +8,11 @@ periodics:
       base_ref: master
     spec:
       containers:
-      - image: gcr.io/k8s-prow/generic-autobumper:latest
+      - image: gcr.io/k8s-prow/generic-autobumper::v20230509-5e039b951c
         command:
         - generic-autobumper
         args:
         - --config=config/prow/autobump-config.yaml
-        - --labels-override=skip-review # This label is used by tide for identifying trusted PR
-        - --skip-if-no-oncall # Only apply `skip-review` label when oncall is active
         volumeMounts:
         - name: github
           mountPath: /etc/github-token
@@ -32,7 +30,7 @@ periodics:
       nodeSelector:
         Archtype: "x86"
     annotations:
-      description: runs autobumper to create/update a PR that bumps prow to the latest RC with label 'skip-review'
+      description: runs autobumper to create/update a PR that bumps prow to the latest RC without label 'skip-review'
 
 postsubmits:
   falcosecurity/test-infra:
