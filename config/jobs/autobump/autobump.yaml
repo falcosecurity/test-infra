@@ -1,6 +1,6 @@
 periodics:
   - cron: "05 15 * * 1"  # Run at 15:05 PST (15:05 UTC) Mon
-    name: ci-test-infra-autobump-prow-for-auto-deploy
+    name: ci-test-infra-autobump-prow
     decorate: true
     extra_refs:
     - org: falcosecurity
@@ -12,7 +12,7 @@ periodics:
         command:
         - generic-autobumper
         args:
-        - --config=config/prow/autobump-config.yaml
+        - --config=config/autobump-config/prow-autobump-config.yaml
         volumeMounts:
         - name: github
           mountPath: /etc/github-token
