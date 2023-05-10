@@ -1,0 +1,20 @@
+gitHubLogin: "poiana"
+gitHubToken: "/etc/github-token/oauth"
+gitName: "Falco Automation"
+gitEmail: "51138685+poiana@users.noreply.github.com"
+skipPullRequest: false
+selfAssign: true
+gitHubOrg: "falcosecurity"
+gitHubRepo: "test-infra"
+remoteName: "test-infra"
+upstreamURLBase: "https://raw.githubusercontent.com/falcosecurity/test-infra/master"
+targetVersion: "latest"
+includedConfigPaths:
+  - "."
+prefixes:
+  - name: "Prow"
+    prefix: "gcr.io/k8s-prow/"
+    refConfigFile: "config/prow/cluster/deck_deployment.yaml"
+    repo: "https://github.com/kubernetes/test-infra"
+    summarise: true
+    consistentImages: true
