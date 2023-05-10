@@ -31,26 +31,4 @@ periodics:
         Archtype: "x86"
     annotations:
       description: runs autobumper to create/update a PR that bumps prow to the latest RC without label 'skip-review'
-
-postsubmits:
-  falcosecurity/test-infra:
-  - name: post-test-infra-deploy-prow
-    run_if_changed: '^(config/prow/)'
-    decorate: true
-    branches:
-    - ^master$
-    max_concurrency: 1
-    spec:
-      serviceAccountName: deployer
-      containers:
-      - image: gcr.io/k8s-staging-test-infra/gcloud-in-go:v20230111-cd1b3caf9c
-        command:
-        - make
-        args:
-        - -C
-        - config/prow
-        - deploy-all
-      annotations:
-        description: deploys the configured version of prow by running prow/deploy.sh
-    nodeSelector:
-      Archtype: "x86"
+      
