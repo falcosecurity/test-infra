@@ -28,6 +28,7 @@ resource "aws_ecr_repository" "docker_dind" {
 
 resource "aws_ecr_repository" "autobump" {
   name = "test-infra/autobump"
+  force_delete = true
   encryption_configuration {
     encryption_type = "KMS"
   }
