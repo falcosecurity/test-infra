@@ -31,6 +31,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
 postsubmits:
   falcosecurity/test-infra:
   - name: build-new-drivers-fedora-postsubmit
@@ -67,6 +68,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-fedora-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -101,3 +103,4 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"

@@ -32,6 +32,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-ubuntu-aws-4-presubmit
     decorate: true
     skip_report: false
@@ -64,6 +65,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-ubuntu-aws-5-presubmit
     decorate: true
     skip_report: false
@@ -96,6 +98,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-ubuntu-aws-6-presubmit
     decorate: true
     skip_report: false
@@ -128,6 +131,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
 postsubmits:
   falcosecurity/test-infra:
   - name: build-new-drivers-ubuntu-aws-3-postsubmit
@@ -165,6 +169,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-aws-3-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -200,6 +205,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-aws-4-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -235,6 +241,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-aws-4-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -270,6 +277,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-aws-5-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -305,6 +313,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-aws-5-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -340,6 +349,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-aws-6-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -375,6 +385,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-aws-6-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -410,3 +421,4 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"

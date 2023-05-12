@@ -31,6 +31,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-amazonlinux2-presubmit
     decorate: true
     skip_report: false
@@ -62,6 +63,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-amazonlinux2022-presubmit
     decorate: true
     skip_report: false
@@ -93,6 +95,7 @@ presubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"      
+        Application: "jobs"
 postsubmits:
   falcosecurity/test-infra:
   - name: build-new-drivers-amazonlinux-postsubmit
@@ -129,6 +132,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -163,6 +167,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -197,6 +202,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -231,6 +237,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2022-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -265,6 +272,7 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2022-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -299,3 +307,4 @@ postsubmits:
             memory: 2Gi
       nodeSelector:
         Archtype: "arm"      
+        Application: "jobs"
