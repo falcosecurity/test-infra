@@ -29,8 +29,14 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-amazonlinux2-presubmit
     decorate: true
     skip_report: false
@@ -60,8 +66,14 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-amazonlinux2022-presubmit
     decorate: true
     skip_report: false
@@ -91,8 +103,14 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"      
+        Application: "jobs"
 postsubmits:
   falcosecurity/test-infra:
   - name: build-new-drivers-amazonlinux-postsubmit
@@ -127,8 +145,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -161,8 +185,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -195,8 +225,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -229,8 +265,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2022-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -263,8 +305,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-amazonlinux2022-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -297,5 +345,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"      
+        Application: "jobs"
