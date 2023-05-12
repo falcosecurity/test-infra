@@ -3,6 +3,8 @@ variable "eks_cluster_version" {
   description = "See https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
 }
 
+# Default Node Group.
+
 variable "eks_default_worker_group_name" {
   default     = "default-worker-group"
   description = "The name of the default EKS worker group"
@@ -14,7 +16,7 @@ variable "eks_default_worker_group_instance_type" {
 }
 
 variable "eks_default_worker_group_asg_min_capacity" {
-  default     = 3
+  default     = 1
   description = "The Autoscaling Group size of the default EKS worker group"
 }
 
@@ -30,20 +32,64 @@ variable "eks_default_worker_group_asg_max_capacity" {
 
 variable "eks_default_worker_group_additional_userdata" {
   default     = 1
-  description = "Uerdata to append to the default userdata of the default EKS worker group"
+  description = "Userdata to append to the default userdata of the default EKS worker group"
 }
 
-variable "eks_arm_worker_group_asg_min_capacity" {
+# Jobs on x86 Node Group.
+
+variable "eks_jobs_worker_group_name" {
+  default     = "jobs-worker-group"
+  description = "The name of the jobs EKS worker group"
+}
+
+variable "eks_jobs_worker_group_instance_type" {
+  default     = "m5.large"
+  description = "The instance type of the jobs EKS worker group"
+}
+
+variable "eks_jobs_worker_group_asg_min_capacity" {
+  default     = 1
+  description = "The Autoscaling Group size of the jobs EKS worker group"
+}
+
+variable "eks_jobs_worker_group_asg_desired_capacity" {
+  default     = 4
+  description = "The Autoscaling Group size of the jobs EKS worker group"
+}
+
+variable "eks_jobs_worker_group_asg_max_capacity" {
+  default     = 10
+  description = "The Autoscaling Group size of the jobs EKS worker group"
+}
+
+variable "eks_jobs_worker_group_additional_userdata" {
+  default     = 1
+  description = "Userdata to append to the default userdata of the jobs EKS worker group"
+}
+
+# Jobs on ARM64 Node Group.
+
+variable "eks_jobs_arm_worker_group_name" {
+  default     = "jobs-arm-worker-group"
+  description = "The name of the jobs EKS worker group"
+}
+
+variable "eks_jobs_arm_worker_group_instance_type" {
+  default     = "m6g.large"
+  description = "The instance type of the jobs ARM EKS worker group"
+}
+
+variable "eks_jobs_arm_worker_group_asg_min_capacity" {
   default     = 1
   description = "The Autoscaling Group size of the ARM EKS worker group"
 }
 
-variable "eks_arm_worker_group_asg_desired_capacity" {
+variable "eks_jobs_arm_worker_group_asg_desired_capacity" {
   default     = 1
   description = "The Autoscaling Group size of the ARM EKS worker group"
 }
 
-variable "eks_arm_worker_group_asg_max_capacity" {
+variable "eks_jobs_arm_worker_group_asg_max_capacity" {
   default     = 3
   description = "The Autoscaling Group size of the ARM EKS worker group"
 }
