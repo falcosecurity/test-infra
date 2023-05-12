@@ -29,6 +29,11 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
@@ -61,6 +66,11 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
@@ -93,6 +103,11 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"      
         Application: "jobs"
@@ -130,6 +145,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
@@ -165,6 +185,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
         Application: "jobs"
@@ -200,6 +225,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
@@ -235,6 +265,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
         Application: "jobs"
@@ -270,6 +305,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
@@ -305,6 +345,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"      
         Application: "jobs"
