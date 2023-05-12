@@ -30,8 +30,14 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-ubuntu-gke-4-presubmit
     decorate: true
     skip_report: false
@@ -62,8 +68,14 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-ubuntu-gke-5-presubmit
     decorate: true
     skip_report: false
@@ -94,8 +106,14 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: validate-new-drivers-ubuntu-gke-6-presubmit
     decorate: true
     skip_report: false
@@ -126,8 +144,14 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
 postsubmits:
   falcosecurity/test-infra:
   - name: build-new-drivers-ubuntu-gke-3-postsubmit
@@ -163,8 +187,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-gke-3-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -198,8 +228,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-gke-4-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -233,8 +269,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-gke-4-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -268,8 +310,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-gke-5-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -303,8 +351,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-gke-5-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -338,8 +392,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-gke-6-postsubmit
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -373,8 +433,14 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
+        Application: "jobs"
   - name: build-new-drivers-ubuntu-gke-6-postsubmit-arm
     annotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
@@ -408,5 +474,11 @@ postsubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
