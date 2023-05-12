@@ -29,8 +29,8 @@ module "eks" {
 
   #Managed Node Group
   node_groups = {
-    falco-ng = {
-      name_prefix        = null
+    default = {
+      name               = var.eks_default_worker_group_name
       desired_capacity   = var.eks_default_worker_group_asg_desired_capacity
       max_capacity       = var.eks_default_worker_group_asg_max_capacity
       min_capacity       = var.eks_default_worker_group_asg_min_capacity
@@ -40,25 +40,57 @@ module "eks" {
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
       k8s_labels = {
         Archtype    = "x86"
+        Application = "prow"
         Environment = "training"
         GithubRepo  = "terraform-aws-eks"
         GithubOrg   = "terraform-aws-modules"
       }
-      additional_tags = {
-        ExtraTag = "falco"
+    }
+
+    jobs = {
+      name             = var.eks_jobs_worker_group_name
+      desired_capacity = var.eks_jobs_worker_group_asg_desired_capacity
+      max_capacity     = var.eks_jobs_worker_group_asg_max_capacity
+      min_capacity     = var.eks_jobs_worker_group_asg_min_capacity
+
+      # This Node Group is available in a Single Availability Zone.
+      # This should avoid AutoScaling to conflict with cluster-autoscaler
+      # during intervention after AZ-rebalance.
+      # Read more here: https://github.com/kubernetes/autoscaler/issues/3693
+      # This is needed to guarantee QoS for long-running build jobs.
+      subnets = [module.vpc.private_subnets[0]]
+      kubelet_extra_args = join(" ", [
+        "--kube-reserved=emephemeral-storage=30Gi",
+        "--register-with-taints=${local.single_az_nodegroup_taints}",
+      ])
+
+      instance_types = [var.eks_jobs_worker_group_instance_type]
+      ami_type       = "AL2_x86_64"
+      version        = var.eks_cluster_version
+      k8s_labels = {
+        Archtype    = "x86"
+        Application = "jobs"
+        Environment = "training"
+        GithubRepo  = "terraform-aws-eks"
+        GithubOrg   = "terraform-aws-modules"
       }
     }
-    arm-ng = {
-      name_prefix        = null
-      desired_capacity   = var.eks_arm_worker_group_asg_desired_capacity
-      max_capacity       = var.eks_arm_worker_group_asg_max_capacity
-      min_capacity       = var.eks_arm_worker_group_asg_min_capacity
-      instance_types     = ["m6g.large"]
-      ami_type           = "AL2_ARM_64"
-      version            = var.eks_cluster_version
-      kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi --register-with-taints=${local.arm_nodegroup_taints}"
+
+    jobs_arm = {
+      name             = var.eks_jobs_arm_worker_group_name
+      desired_capacity = var.eks_jobs_arm_worker_group_asg_desired_capacity
+      max_capacity     = var.eks_jobs_arm_worker_group_asg_max_capacity
+      min_capacity     = var.eks_jobs_arm_worker_group_asg_min_capacity
+      instance_types   = [var.eks_jobs_arm_worker_group_instance_type]
+      ami_type         = "AL2_ARM_64"
+      version          = var.eks_cluster_version
+      kubelet_extra_args = join(" ", [
+        "--kube-reserved=emephemeral-storage=30Gi",
+        "--register-with-taints=${local.arm_nodegroup_taints}",
+      ])
       k8s_labels = {
         Archtype    = "arm"
+        Application = "jobs"
         Environment = "training"
         GithubRepo  = "terraform-aws-eks"
         GithubOrg   = "terraform-aws-modules"
@@ -71,7 +103,8 @@ module "eks" {
 }
 
 locals {
-  arm_nodegroup_taints = "Archtype=arm:NoSchedule"
+  arm_nodegroup_taints       = "Archtype=arm:NoSchedule"
+  single_az_nodegroup_taints = "Availability=SingleAZ:NoSchedule"
 }
 
 data "aws_eks_cluster" "cluster" {
