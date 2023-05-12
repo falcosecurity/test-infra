@@ -59,14 +59,13 @@ module "eks" {
       # Read more here: https://github.com/kubernetes/autoscaler/issues/3693
       # This is needed to guarantee QoS for long-running build jobs.
       subnets = [module.vpc.private_subnets[0]]
-      kubelet_extra_args = join(" ", [
-        "--kube-reserved=emephemeral-storage=30Gi",
-        "--register-with-taints=${local.single_az_nodegroup_taints}",
-      ])
+      taints  = [local.single_az_nodegroup_taint]
 
-      instance_types = [var.eks_jobs_worker_group_instance_type]
-      ami_type       = "AL2_x86_64"
-      version        = var.eks_cluster_version
+      instance_types     = [var.eks_jobs_worker_group_instance_type]
+      kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
+      ami_type           = "AL2_x86_64"
+      version            = var.eks_cluster_version
+
       k8s_labels = {
         Archtype    = "x86"
         Application = "jobs"
@@ -82,12 +81,13 @@ module "eks" {
       max_capacity     = var.eks_jobs_arm_worker_group_asg_max_capacity
       min_capacity     = var.eks_jobs_arm_worker_group_asg_min_capacity
       instance_types   = [var.eks_jobs_arm_worker_group_instance_type]
-      ami_type         = "AL2_ARM_64"
-      version          = var.eks_cluster_version
-      kubelet_extra_args = join(" ", [
-        "--kube-reserved=emephemeral-storage=30Gi",
-        "--register-with-taints=${local.arm_nodegroup_taints}",
-      ])
+
+      ami_type = "AL2_ARM_64"
+      taints   = [local.arm_nodegroup_taint]
+
+      version            = var.eks_cluster_version
+      kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
+
       k8s_labels = {
         Archtype    = "arm"
         Application = "jobs"
@@ -95,6 +95,7 @@ module "eks" {
         GithubRepo  = "terraform-aws-eks"
         GithubOrg   = "terraform-aws-modules"
       }
+
       additional_tags = {
         ExtraTag = "arm"
       }
@@ -103,8 +104,17 @@ module "eks" {
 }
 
 locals {
-  arm_nodegroup_taints       = "Archtype=arm:NoSchedule"
-  single_az_nodegroup_taints = "Availability=SingleAZ:NoSchedule"
+  arm_nodegroup_taint = {
+    key    = "Archtype"
+    value  = "arm"
+    effect = "NO_SCHEDULE",
+  }
+
+  single_az_nodegroup_taint = {
+    key    = "Availability"
+    value  = "SingleAZ"
+    effect = "NO_SCHEDULE"
+  }
 }
 
 data "aws_eks_cluster" "cluster" {
