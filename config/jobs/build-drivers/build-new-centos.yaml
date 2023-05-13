@@ -312,6 +312,10 @@ postsubmits:
         operator: "Equal"
         value: "arm"
         effect: "NoSchedule"
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
         Application: "jobs"
@@ -393,6 +397,10 @@ postsubmits:
       - key: "Archtype"
         operator: "Equal"
         value: "arm"
+        effect: "NoSchedule"
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
         effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
@@ -476,6 +484,10 @@ postsubmits:
         operator: "Equal"
         value: "arm"
         effect: "NoSchedule"
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
         Application: "jobs"
@@ -557,6 +569,10 @@ postsubmits:
       - key: "Archtype"
         operator: "Equal"
         value: "arm"
+        effect: "NoSchedule"
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
         effect: "NoSchedule"
       nodeSelector:
         Archtype: "arm"
