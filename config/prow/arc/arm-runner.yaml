@@ -11,3 +11,13 @@ spec:
       repository: falcosecurity/falco
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
+      tolerations:
+      - key: "Archtype"
+        operator: "Equal"
+        value: "arm"
+        effect: "NoSchedule"
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
