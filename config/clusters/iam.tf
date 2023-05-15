@@ -273,7 +273,8 @@ module "falco_dev_s3_role" {
   name = "github_actions-falco-dev-s3"
   create = true
   subjects = [
-    "falcosecurity/falco:ref:refs/heads/master"
+    "falcosecurity/falco:ref:refs/heads/master",
+    "falcosecurity/falco:ref:refs/tags/*"
   ]
   policies = {
     falco_s3_access = "${aws_iam_policy.falco_dev_s3_access.arn}"
