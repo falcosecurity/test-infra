@@ -11,3 +11,4 @@ spec:
       repository: falcosecurity/falco
       nodeSelector:
         Archtype: "arm"
+        Application: "jobs"
