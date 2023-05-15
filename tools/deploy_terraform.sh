@@ -24,7 +24,7 @@ function terraform-install() {
     echo "Version: $(terraform version)" && \
     return 0
 
-  local terraform_version=$(grep required_version config/clusters/terraform_versions.tf | cut -d '=' -f2 | tr -d '"' | tr -d ' ')
+  local terraform_version=$(grep required_version config/clusters/terraform_versions.tf | cut -d '=' -f3 | tr -d '"' | tr -d ' ')
   local terraform_url="https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip"
   local install_path="/usr/local/bin/"
   local tmpdir=$(mktemp -d)
