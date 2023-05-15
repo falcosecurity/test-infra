@@ -1,5 +1,5 @@
 periodics:
-  - cron: "05 15 * * 1"  # Run at 15:05 PST (15:05 UTC) Mon
+  - cron: "05 15 * * 2"  # Run at 15:05 PST (15:05 UTC) Mon
     name: ci-test-infra-autobump-prow
     decorate: true
     extra_refs:
@@ -17,16 +17,10 @@ periodics:
         - name: github
           mountPath: /etc/github-token
           readOnly: true
-        - name: ssh
-          mountPath: /root/.ssh
       volumes:
       - name: github
         secret:
           secretName: oauth-token
-      - name: ssh
-        secret:
-          secretName: poiana-ssh-keys
-          defaultMode: 0400
       nodeSelector:
         Archtype: "x86"
     annotations:
