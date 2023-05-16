@@ -2,7 +2,7 @@ kernelversion: 1
 kernelrelease: 3.10.0-1160.66.1.el7.x86_64
 target: ol
 architecture: amd64
-output:
+output: 
   module: output/5.0.0+driver/x86_64/falco_ol_3.10.0-1160.66.1.el7.x86_64_1.ko
   probe: output/5.0.0+driver/x86_64/falco_ol_3.10.0-1160.66.1.el7.x86_64_1.o
 kernelurls: ["http://yum.oracle.com/repo/OracleLinux/OL7/latest/x86_64/getPackage/kernel-devel-3.10.0-1160.66.1.el7.x86_64.rpm"]

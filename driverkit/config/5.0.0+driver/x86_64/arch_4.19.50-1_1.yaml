@@ -2,7 +2,7 @@ kernelversion: 1
 kernelrelease: 4.19.50-1
 target: arch
 architecture: amd64
-output:
+output: 
   module: output/5.0.0+driver/x86_64/falco_arch_4.19.50-1_1.ko
   probe: output/5.0.0+driver/x86_64/falco_arch_4.19.50-1_1.o
 kernelurls: ["https://archive.archlinux.org/packages/l/linux-lts-headers/linux-lts-headers-4.19.50-1-x86_64.pkg.tar.xz"]
