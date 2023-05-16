@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: validiate-new-drivers-fedora-presubmit
+  - name: validate-new-drivers-fedora-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
