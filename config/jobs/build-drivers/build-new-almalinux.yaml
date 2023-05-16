@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: validiate-new-drivers-almalinux-presubmit
+  - name: validate-new-drivers-almalinux-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
