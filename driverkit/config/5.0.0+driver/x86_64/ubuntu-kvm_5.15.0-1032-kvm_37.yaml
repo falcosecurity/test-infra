@@ -2,7 +2,7 @@ kernelversion: 37
 kernelrelease: 5.15.0-1032-kvm
 target: ubuntu-kvm
 architecture: amd64
-output:
+output: 
   module: output/5.0.0+driver/x86_64/falco_ubuntu-kvm_5.15.0-1032-kvm_37.ko
   probe: output/5.0.0+driver/x86_64/falco_ubuntu-kvm_5.15.0-1032-kvm_37.o
 kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux-kvm/linux-kvm-headers-5.15.0-1032_5.15.0-1032.37_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-kvm/linux-headers-5.15.0-1032-kvm_5.15.0-1032.37_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux-kvm/linux-headers-5.15.0-1032-kvm_5.15.0-1032.37_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-kvm/linux-kvm-headers-5.15.0-1032_5.15.0-1032.37_all.deb"]

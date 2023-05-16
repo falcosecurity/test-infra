@@ -2,7 +2,7 @@ kernelversion: 193
 kernelrelease: 4.4.0-165-generic
 target: ubuntu-generic
 architecture: arm64
-output:
+output: 
   module: output/5.0.0+driver/aarch64/falco_ubuntu-generic_4.4.0-165-generic_193.ko
   probe: output/5.0.0+driver/aarch64/falco_ubuntu-generic_4.4.0-165-generic_193.o
 kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-165-generic_4.4.0-165.193_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-165_4.4.0-165.193_all.deb"]
