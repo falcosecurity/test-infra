@@ -1,0 +1,7 @@
+kernelversion: *
+kernelrelease: *
+target: debian
+architecture: arm64
+output:
+  module: output/3.0.1+driver/aarch64/falco_debian_6.0.0-0.deb11.2-cloud-amd64_1.ko
+  probe: output/3.0.1+driver/aarch64/falco_debian_6.0.0-0.deb11.2-cloud-amd64_1.o
