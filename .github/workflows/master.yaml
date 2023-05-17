@@ -7,6 +7,9 @@ on:
 
 jobs:
   deploy-terraform:
+    permissions:
+      id-token: write
+      contents: read
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout test-infra ⤵️
@@ -28,11 +31,11 @@ jobs:
     steps:
       - name: Checkout test-infra ⤵️
         uses: actions/checkout@v3
-
-      - name: Install deps ⛓️
-        run: |
-          sudo apt update && sudo apt install -y which
        
       - name: Deploy prow
+        env:
+          PROW_HMAC_TOKEN: ${{ secrets.PROW_HMAC_TOKEN }}
+          PROW_OAUTH_TOKEN: ${{ secrets.PROW_OAUTH_TOKEN }}
+          PROW_SERVICE_ACCOUNT_JSON: ${{ secrets.PROW_SERVICE_ACCOUNT_JSON }}
         run: |
           ./tools/deploy_prow.sh 
