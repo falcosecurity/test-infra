@@ -44,21 +44,21 @@ jobs:
             ./tools/deploy_prow.sh
 workflows:
   version: 2
-  build:
-    jobs:
-      - "test-infra/scan/terraform":
-          context: test-infra
-      - "test-infra/deploy/terraform":
-          requires:
-            - test-infra/scan/terraform
-          context: test-infra
-          filters:
-            branches:
-              only: master
-      - "test-infra/deploy/prow":
-          requires:
-            - test-infra/deploy/terraform
-          context: test-infra
-          filters:
-            branches:
-              only: master
+  # build:
+  #   jobs:
+      # - "test-infra/scan/terraform":
+      #     context: test-infra
+      # - "test-infra/deploy/terraform":
+      #     requires:
+      #       - test-infra/scan/terraform
+      #     context: test-infra
+      #     filters:
+      #       branches:
+      #         only: master
+      # - "test-infra/deploy/prow":
+      #     requires:
+      #       - test-infra/deploy/terraform
+      #     context: test-infra
+      #     filters:
+      #       branches:
+      #         only: master
