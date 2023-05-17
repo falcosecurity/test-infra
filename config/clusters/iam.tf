@@ -228,6 +228,38 @@ data "aws_iam_policy_document" "plugins_s3_access" {
 
 # Test-infra repository
 
+module "test-infra_cluster_role" {
+  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  version = "5.10.0"
+  name = "github_actions-test-infra-cluster"
+  create = true
+  subjects = [
+    "falcosecurity/test-infra:ref:refs/heads/master"
+  ]
+  policies = {
+    test-infra_cluster_access = "${aws_iam_policy.test-infra_cluster_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "test-infra_cluster_access" {
+  name_prefix = "github_actions-test-infra-cluster"
+  description = "GitHub actions cluster access policy for test-infra master terraform/prow deploy"
+  policy      = data.aws_iam_policy_document.test-infra_cluster_access.json
+}
+
+data "aws_iam_policy_document" "test-infra_cluster_access" {
+  statement {
+    sid    = "DeployTestInfraClusterAccess"
+    effect = "Allow"
+    actions = [
+      "*"
+    ]
+    resources = [
+      "*"
+    ]
+  }
+}
+
 module "test-infra_s3_role" {
   source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
