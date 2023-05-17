@@ -31,7 +31,6 @@ jobs:
 
       - name: Install deps
         run: |
-          apt update && apt install curl tar
           curl -L "$(curl -Ls https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
           tar -xf terrascan.tar.gz
           install terrascan /usr/local/bin

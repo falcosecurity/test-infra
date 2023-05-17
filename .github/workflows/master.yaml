@@ -1,0 +1,38 @@
+name: Master CI - deploys terraform and prow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-terraform:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout test-infra ⤵️
+        uses: actions/checkout@v3
+      
+      - name: Configure AWS credentials 🔧⚙️
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: "arn:aws:iam::292999226676:role/github_actions-test-infra-cluster"
+          aws-region: eu-west-1
+          
+      - name: Deploy terraform
+        run: |
+          ./tools/deploy_terraform.sh
+          
+  deploy-prow:
+    runs-on: ubuntu-22.04
+    needs: deploy-terraform
+    steps:
+      - name: Checkout test-infra ⤵️
+        uses: actions/checkout@v3
+
+      - name: Install deps ⛓️
+        run: |
+          sudo apt update && sudo apt install -y which
+       
+      - name: Deploy prow
+        run: |
+          ./tools/deploy_prow.sh 
