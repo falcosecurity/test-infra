@@ -140,6 +140,11 @@ presubmits:
           requests:
             cpu: 750m #m5large is 2vpcu and 8gb ram so this is 37.5% of a node
             memory: 2Gi
+      tolerations:
+      - key: "Availability"
+        operator: "Equal"
+        value: "SingleAZ"
+        effect: "NoSchedule"
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
