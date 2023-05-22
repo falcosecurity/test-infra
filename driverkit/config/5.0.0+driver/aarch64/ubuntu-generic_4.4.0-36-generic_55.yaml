@@ -2,7 +2,7 @@ kernelversion: 55
 kernelrelease: 4.4.0-36-generic
 target: ubuntu-generic
 architecture: arm64
-output: 
+output:
   module: output/5.0.0+driver/aarch64/falco_ubuntu-generic_4.4.0-36-generic_55.ko
   probe: output/5.0.0+driver/aarch64/falco_ubuntu-generic_4.4.0-36-generic_55.o
 kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-36-generic_4.4.0-36.55_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-36_4.4.0-36.55_all.deb"]
