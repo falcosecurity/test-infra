@@ -88,7 +88,8 @@ module "eks" {
       # during intervention after AZ-rebalance.
       # Read more here: https://github.com/kubernetes/autoscaler/issues/3693
       # This is needed to guarantee QoS for long-running build jobs.
-      subnets = [module.vpc.private_subnets[0]]
+      # TODO: refactor the subnets assignment.
+      subnets = length(var.vpc_private_subnets_cidr_blocks) > 1 ? [module.vpc.private_subnets[1]] : [module.vpc.private_subnets[0]]
 
       instance_types = [var.eks_jobs_arm_worker_group_instance_type]
       ami_type       = "AL2_ARM_64"
