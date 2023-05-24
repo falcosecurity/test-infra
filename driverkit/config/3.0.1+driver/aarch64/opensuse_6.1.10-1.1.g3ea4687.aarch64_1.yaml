@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 6.1.10-1.1.g3ea4687.aarch64
+target: opensuse
+architecture: arm64
+output:
+  module: output/3.0.1+driver/aarch64/falco_opensuse_6.1.10-1.1.g3ea4687.aarch64_1.ko
+  probe: output/3.0.1+driver/aarch64/falco_opensuse_6.1.10-1.1.g3ea4687.aarch64_1.o
+kernelurls: ["https://download.opensuse.org/repositories/Kernel:/ALP-current-RT/ARM/noarch/kernel-devel-6.1.10-1.1.g3ea4687.noarch.rpm","https://download.opensuse.org/repositories/Kernel:/ALP-current-RT/ARM/aarch64/kernel-default-devel-6.1.10-1.1.g3ea4687.aarch64.rpm"]
