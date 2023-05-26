@@ -29,6 +29,7 @@ approve:
       - falcosecurity/libscap
       - falcosecurity/libsinsp
       - falcosecurity/pdig
+      - falcosecurity/peribolos-syncer
       - falcosecurity/pigeon
       - falcosecurity/plugin-sdk-cpp
       - falcosecurity/plugin-sdk-go
@@ -105,6 +106,7 @@ lgtm:
       - falcosecurity/libs
       - falcosecurity/libs-sdk-go
       - falcosecurity/pdig
+      - falcosecurity/peribolos-syncer
       - falcosecurity/pigeon
       - falcosecurity/plugins
       - falcosecurity/plugin-sdk-go
@@ -350,6 +352,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: syscalls-bumper
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: peribolos-syncer
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -939,6 +949,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/peribolos-syncer:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip
   falcosecurity/pigeon:
     plugins:
       - approve
@@ -1239,6 +1271,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/pdig:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/peribolos-syncer:
     - name: needs-rebase
       events:
         - pull_request
