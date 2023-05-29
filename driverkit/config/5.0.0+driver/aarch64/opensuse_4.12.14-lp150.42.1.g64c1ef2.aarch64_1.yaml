@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/5.0.0+driver/aarch64/falco_opensuse_4.12.14-lp150.42.1.g64c1ef2.aarch64_1.ko
   probe: output/5.0.0+driver/aarch64/falco_opensuse_4.12.14-lp150.42.1.g64c1ef2.aarch64_1.o
-kernelurls: ["https://download.opensuse.org/repositories/Kernel:/openSUSE-15.0%3A/Submit/ports/aarch64/kernel-default-devel-4.12.14-lp150.42.1.g64c1ef2.aarch64.rpm","https://download.opensuse.org/repositories/Kernel:/openSUSE-15.0%3A/Submit/ports/noarch/kernel-devel-4.12.14-lp150.42.1.g64c1ef2.noarch.rpm"]
+kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./openSUSE-15.0:/Submit/ports/aarch64/kernel-default-devel-4.12.14-lp150.42.1.g64c1ef2.aarch64.rpm","https://download.opensuse.org/repositories/Kernel:/./openSUSE-15.0:/Submit/ports/noarch/kernel-devel-4.12.14-lp150.42.1.g64c1ef2.noarch.rpm"]
