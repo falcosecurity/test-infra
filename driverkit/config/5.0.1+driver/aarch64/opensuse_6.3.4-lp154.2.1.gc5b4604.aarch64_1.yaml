@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 6.3.4-lp154.2.1.gc5b4604.aarch64
+target: opensuse
+architecture: arm64
+output:
+  module: output/5.0.1+driver/aarch64/falco_opensuse_6.3.4-lp154.2.1.gc5b4604.aarch64_1.ko
+  probe: output/5.0.1+driver/aarch64/falco_opensuse_6.3.4-lp154.2.1.gc5b4604.aarch64_1.o
+kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./stable:/Backport/standard/aarch64/kernel-default-devel-6.3.4-lp154.2.1.gc5b4604.aarch64.rpm","https://download.opensuse.org/repositories/Kernel:/./stable:/Backport/standard/noarch/kernel-devel-6.3.4-lp154.2.1.gc5b4604.noarch.rpm"]
