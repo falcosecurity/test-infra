@@ -6,6 +6,8 @@ DRY_RUN="${DRY_RUN:-false}"
 TMPDIR="$(mktemp -d)"
 ARCH="$1"
 LIST_URL="https://raw.githubusercontent.com/falcosecurity/kernel-crawler/kernels/${ARCH}/list.json"
+LASTRUN_URL="https://raw.githubusercontent.com/falcosecurity/kernel-crawler/kernels/last_run_distro.txt"
+LASTRUN_DISTRO="*"
 
 function pretty_echo() {
 	echo
@@ -13,11 +15,26 @@ function pretty_echo() {
 }
 
 function get_kernel_releases() {
-	curl -sL -o $TMPDIR/sample.json $LIST_URL
+	curl -sL -o $TMPDIR/list.json $LIST_URL
+}
+
+function get_last_run_distro() {
+	curl -sL -o $TMPDIR/last_run_distro.txt $LASTRUN_URL
+	LASTRUN_DISTRO="$(cat $TMPDIR/last_run_distro.txt)"
+}
+
+function cleanup_existing_configs() {
+	lowercase_distro=$(echo "${LASTRUN_DISTRO}" | tr '[:upper:]' '[:lower:]')
+	pretty_echo "Cleaning up configs for ${LASTRUN_DISTRO}"
+	rm -rf config/*/${ARCH}/${lowercase_distro}_*; \
 }
 
 function generate_from_kernel_releases() {
-	for distro_family in $(jq -cr '. | keys[]' $TMPDIR/sample.json); do
+	for distro_family in $(jq -cr '. | keys[]' $TMPDIR/list.json); do
+		if [ "$LASTRUN_DISTRO" != "*" ] && [ "$LASTRUN_DISTRO" != "$distro_family" ]; then
+			# Skip unneeded distros
+			continue
+		fi
 		while read -r release
 		do
 			read -r version
@@ -36,7 +53,7 @@ function generate_from_kernel_releases() {
 				-e TARGET_HEADERS="${kernelurls}" \
 				-e TARGET_KERNEL_DEFCONFIG="$TMPDIR/kernelconfigdata" \
 				generate >/dev/null
-		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target, .headers, .kernelconfigdata)" $TMPDIR/sample.json)
+		done < <(jq -cr ".${distro_family}[] | (.kernelrelease, .kernelversion, .target, .headers, .kernelconfigdata)" $TMPDIR/list.json)
 	done
 }
 
@@ -56,7 +73,9 @@ function check_program {
 
 function main() {
 	check_program "jq"
+	get_last_run_distro
 	get_kernel_releases
+	test $DRY_RUN == "true" || cleanup_existing_configs
 	generate_from_kernel_releases
 	cleanup
 }
