@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/4.0.0+driver/aarch64/falco_ubuntu-xilinx-zynqmp_5.4.0-1021-xilinx-zynqmp_25.ko
   probe: output/4.0.0+driver/aarch64/falco_ubuntu-xilinx-zynqmp_5.4.0-1021-xilinx-zynqmp_25.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-xilinx-zynqmp/linux-headers-5.4.0-1021-xilinx-zynqmp_5.4.0-1021.25_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-xilinx-zynqmp/linux-xilinx-zynqmp-headers-5.4.0-1021_5.4.0-1021.25_all.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-xilinx-zynqmp/linux-xilinx-zynqmp-headers-5.4.0-1021_5.4.0-1021.25_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-xilinx-zynqmp/linux-headers-5.4.0-1021-xilinx-zynqmp_5.4.0-1021.25_arm64.deb"]
