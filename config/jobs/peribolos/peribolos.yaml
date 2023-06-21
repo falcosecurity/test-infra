@@ -6,14 +6,14 @@ presubmits:
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: '^org/org.yaml$'
+      run_if_changed: '^org.yaml$'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20230315-6d54c174f4
             command:
               - peribolos
             args:
-              - --config-path=org/org.yaml
+              - --config-path=org.yaml
               - --fix-org
               - --fix-org-members
               - --fix-repos
@@ -42,7 +42,7 @@ postsubmits:
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: '^org/org.yaml$'
+      run_if_changed: '^org.yaml$'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20230315-6d54c174f4
@@ -50,7 +50,7 @@ postsubmits:
               - peribolos
             args:
               - --confirm
-              - --config-path=org/org.yaml
+              - --config-path=org.yaml
               - --fix-org
               - --fix-org-members
               - --fix-repos
@@ -89,7 +89,7 @@ periodics:
             - peribolos
           args:
             - --confirm
-            - --config-path=org/org.yaml
+            - --config-path=org.yaml
             - --fix-org
             - --fix-org-members
             - --fix-repos
