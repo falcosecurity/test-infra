@@ -1,5 +1,5 @@
 periodics:
-  - cron: "05 15 * * 2"  # Run at 15:05 PST (15:05 UTC) Mon
+  - cron: "05 15 * * 1"  # Run at 15:05 PST (15:05 UTC) Mon
     name: ci-test-infra-autobump-prow
     decorate: true
     extra_refs:
@@ -8,7 +8,7 @@ periodics:
       base_ref: master
     spec:
       containers:
-      - image: gcr.io/k8s-prow/generic-autobumper:v20230509-5e039b951c
+      - image: gcr.io/k8s-prow/generic-autobumper:latest
         command:
         - generic-autobumper
         args:
