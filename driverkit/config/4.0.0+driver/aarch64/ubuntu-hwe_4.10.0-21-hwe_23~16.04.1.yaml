@@ -1,0 +1,8 @@
+kernelversion: 23~16.04.1
+kernelrelease: 4.10.0-21-hwe
+target: ubuntu-hwe
+architecture: arm64
+output:
+  module: output/4.0.0+driver/aarch64/falco_ubuntu-hwe_4.10.0-21-hwe_23~16.04.1.ko
+  probe: output/4.0.0+driver/aarch64/falco_ubuntu-hwe_4.10.0-21-hwe_23~16.04.1.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe-edge/linux-headers-4.10.0-21-generic_4.10.0-21.23~16.04.1_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe-edge/linux-headers-4.10.0-21_4.10.0-21.23~16.04.1_all.deb"]
