@@ -1,5 +1,5 @@
 periodics:
-  - cron: "05 15 * * 1"  # Run at 15:05 PST (15:05 UTC) Mon
+  - cron: "05 15 * * 4"  # Run at 15:05 PST (15:05 UTC) Thu
     name: ci-test-infra-autobump-prow
     decorate: true
     extra_refs:
@@ -13,6 +13,7 @@ periodics:
         - generic-autobumper
         args:
         - --config=config/autobump-config/prow-autobump-config.yaml
+        - --signoff
         volumeMounts:
         - name: github
           mountPath: /etc/github-token

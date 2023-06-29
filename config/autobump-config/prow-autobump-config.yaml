@@ -4,7 +4,6 @@ gitName: "Falco Automation"
 gitEmail: "51138685+poiana@users.noreply.github.com"
 skipPullRequest: false
 selfAssign: true
-signoff: true
 gitHubOrg: "falcosecurity"
 gitHubRepo: "test-infra"
 remoteName: "test-infra"
