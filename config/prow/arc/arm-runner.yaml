@@ -3,7 +3,7 @@ kind: RunnerDeployment
 metadata:
   name: falco-runner-arm64
 spec:
-  replicas: 1
+  replicas: 5
   template:
     spec:
       dockerdWithinRunnerContainer: true
