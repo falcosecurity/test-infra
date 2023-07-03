@@ -76,7 +76,7 @@ presubmits:
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
-  - name: valdiate-new-drivers-ubuntu-generic-5-presubmit
+  - name: validate-new-drivers-ubuntu-generic-5-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
@@ -114,7 +114,7 @@ presubmits:
       nodeSelector:
         Archtype: "x86"
         Application: "jobs"
-  - name: valdiate-new-drivers-ubuntu-generic-6-presubmit
+  - name: validate-new-drivers-ubuntu-generic-6-presubmit
     decorate: true
     skip_report: false
     agent: kubernetes
