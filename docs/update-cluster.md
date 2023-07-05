@@ -64,7 +64,7 @@
 
 ## Prow resources
 
-- Some resources get updated by the weekly job https://prow.falco.org/job-history/s3/falco-prow-logs/logs/ci-prow-autobump
+- Some resources get updated by the weekly job https://prow.falco.org/job-history/s3/falco-prow-logs/logs/ci-test-infra-autobump-prow
 - One's that are not udated and must be done manually
 - - [Check config](../config/prow/check-config.yaml)
 - - [Prowjob CRD](../config/prow/prowjob_custromresourcedefinition.yaml)
