@@ -26,14 +26,6 @@ resource "aws_ecr_repository" "docker_dind" {
   }
 }
 
-resource "aws_ecr_repository" "autobump" {
-  name = "test-infra/autobump"
-  force_delete = true
-  encryption_configuration {
-    encryption_type = "KMS"
-  }
-}
-
 resource "aws_ecr_repository" "build_plugins" {
   name = "test-infra/build-plugins"
   encryption_configuration {

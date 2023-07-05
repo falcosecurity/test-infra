@@ -41,11 +41,6 @@ resource "aws_ecr_repository_policy" "docker_dind" {
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
-resource "aws_ecr_repository_policy" "autobump" {
-  repository = aws_ecr_repository.autobump.name
-  policy     = data.aws_iam_policy_document.ecr_standard.json
-}
-
 resource "aws_ecr_repository_policy" "build_plugins" {
   repository = aws_ecr_repository.build_plugins.name
   policy     = data.aws_iam_policy_document.ecr_standard.json
