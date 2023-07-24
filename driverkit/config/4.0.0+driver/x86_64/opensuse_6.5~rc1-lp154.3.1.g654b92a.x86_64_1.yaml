@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 6.5~rc1-lp154.3.1.g654b92a.x86_64
-target: opensuse
-architecture: amd64
-output:
-  module: output/4.0.0+driver/x86_64/falco_opensuse_6.5~rc1-lp154.3.1.g654b92a.x86_64_1.ko
-  probe: output/4.0.0+driver/x86_64/falco_opensuse_6.5~rc1-lp154.3.1.g654b92a.x86_64_1.o
-kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./HEAD:/Backport/standard/x86_64/kernel-default-devel-6.5~rc1-lp154.3.1.g654b92a.x86_64.rpm","https://download.opensuse.org/repositories/Kernel:/./HEAD:/Backport/standard/noarch/kernel-devel-6.5~rc1-lp154.3.1.g654b92a.noarch.rpm"]
