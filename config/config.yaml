@@ -246,6 +246,13 @@ branch-protection:
               protect: true
             kernels:
               protect: true
+        kernel-testing:
+          required_status_checks:
+            contexts:
+              - "Ansible Lint"
+          branches:
+            main:
+              protect: true      
         kilt:
           branches:
             master:
@@ -369,6 +376,7 @@ tide:
     falcosecurity/falco-website: rebase
     falcosecurity/flycheck-falco-rules: rebase
     falcosecurity/kernel-crawler: rebase
+    falcosecurity/kernel-testing: rebase
     falcosecurity/kilt: rebase
     falcosecurity/libs: rebase
     falcosecurity/libs-sdk-go: rebase
@@ -693,6 +701,20 @@ tide:
         - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/kernel-testing
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true  
     - repos:
         - falcosecurity/kilt
       labels:

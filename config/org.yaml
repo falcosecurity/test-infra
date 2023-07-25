@@ -213,6 +213,14 @@ orgs:
         description: A tool to crawl Linux kernel versions
         has_projects: false
         has_wiki: false
+      kernel-testing:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Ansible playbooks to provision firecracker VMs and run Falco kernel tests
+        has_projects: true
+        has_wiki: false  
       kernel-module:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -574,6 +582,16 @@ orgs:
         privacy: closed
         repos:
           kernel-crawler: maintain
+      kernel-testing-maintainers:
+        description: maintainers of falcosecurity/kernel-testing
+        maintainers:
+          - alacuku
+          - Andreagit97
+          - FedeDP
+        members: []
+        privacy: closed
+        repos:
+          kernel-testing: maintain    
       kilt-maintainers:
         description: maintainers of falcosecurity/kilt
         members:
@@ -638,6 +656,7 @@ orgs:
           falcosidekick-ui: admin
           flycheck-falco-rules: admin
           kernel-crawler: admin
+          kernel-testing: admin
           kilt: admin
           libs: admin
           libs-sdk-go: admin
