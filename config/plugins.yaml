@@ -22,6 +22,7 @@ approve:
       - falcosecurity/falcosidekick-ui
       - falcosecurity/flycheck-falco-rules
       - falcosecurity/kernel-crawler
+      - falcosecurity/kernel-testing
       - falcosecurity/kernel-module
       - falcosecurity/kilt
       - falcosecurity/libs
@@ -102,6 +103,7 @@ lgtm:
       - falcosecurity/falco-website
       - falcosecurity/flycheck-falco-rules
       - falcosecurity/kernel-crawler
+      - falcosecurity/kernel-testing
       - falcosecurity/kilt
       - falcosecurity/libs
       - falcosecurity/libs-sdk-go
@@ -376,6 +378,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: testing
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: kernel-testing
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -859,6 +869,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/kernel-testing:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip    
   falcosecurity/kilt:
     plugins:
       - approve
@@ -1259,6 +1291,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+  falcosecurity/kernel-testing:
+    - name: needs-rebase
+      events:
+        - pull_request      
   falcosecurity/kilt:
     - name: needs-rebase
       events:
