@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 6.4.7-2.1.g5da2543.x86_64
+target: opensuse
+architecture: amd64
+output:
+  module: output/5.0.1+driver/x86_64/falco_opensuse_6.4.7-2.1.g5da2543.x86_64_1.ko
+  probe: output/5.0.1+driver/x86_64/falco_opensuse_6.4.7-2.1.g5da2543.x86_64_1.o
+kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./stable/standard/x86_64/kernel-default-devel-6.4.7-2.1.g5da2543.x86_64.rpm","https://download.opensuse.org/repositories/Kernel:/./stable/standard/noarch/kernel-devel-6.4.7-2.1.g5da2543.noarch.rpm"]
