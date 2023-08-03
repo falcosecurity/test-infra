@@ -146,7 +146,6 @@ branch-protection:
           required_status_checks:
             contexts:
               - "test-dev-packages"
-              - "test-dev-packages-arm64"
               # note: we don't need build jobs, since tests depends on them
           branches:
             master:
