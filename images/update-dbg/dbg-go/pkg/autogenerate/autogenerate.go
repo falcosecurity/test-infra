@@ -9,6 +9,7 @@ import (
 	logger "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 )
@@ -104,6 +105,12 @@ func Run(opts Options) error {
 					driverVersion,
 					opts.Architecture,
 					kernelEntryConfName)
+
+				// Make sure folder exists
+				err = os.MkdirAll(filepath.Dir(configPath), os.ModePerm)
+				if err != nil {
+					return err
+				}
 				fW, err := os.OpenFile(configPath, os.O_CREATE|os.O_RDWR, os.ModePerm)
 				if err != nil {
 					return err
