@@ -7,6 +7,7 @@ import (
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/utils"
 	"github.com/ompluscator/dynamic-struct"
 	logger "github.com/sirupsen/logrus"
+	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v3"
 	"os"
 	"path/filepath"
@@ -67,58 +68,63 @@ func Run(opts Options) error {
 	}
 	logger.WithField("cmd", "autogenerate").Debug("unmarshaled json")
 
+	var errGrp errgroup.Group
+
 	reader := dynamicstruct.NewReader(dynamicInstance)
 	for _, f := range reader.GetAllFields() {
 		logger.WithField("cmd", "autogenerate").Infof("generating configs for %s\n", f.Name())
 		kernelEntries := f.Interface().([]KernelEntry)
-		for _, kernelEntry := range kernelEntries {
-			driverkitYaml := DriverkitYaml{
-				KernelVersion:    kernelEntry.KernelVersion,
-				KernelRelease:    kernelEntry.KernelRelease,
-				Target:           kernelEntry.Target,
-				Architecture:     utils.ToDebArch(opts.Architecture),
-				KernelUrls:       kernelEntry.Headers,
-				KernelConfigData: kernelEntry.KernelConfigData,
+		errGrp.Go(func() error {
+			for _, kernelEntry := range kernelEntries {
+				driverkitYaml := DriverkitYaml{
+					KernelVersion:    kernelEntry.KernelVersion,
+					KernelRelease:    kernelEntry.KernelRelease,
+					Target:           kernelEntry.Target,
+					Architecture:     utils.ToDebArch(opts.Architecture),
+					KernelUrls:       kernelEntry.Headers,
+					KernelConfigData: kernelEntry.KernelConfigData,
+				}
+
+				kernelEntryConfName := kernelEntry.toConfigName()
+
+				for _, driverVersion := range opts.DriverVersion {
+					outputPath := fmt.Sprintf(outputPathFmt,
+						driverVersion,
+						opts.Architecture,
+						opts.DriverName,
+						kernelEntry.Target,
+						kernelEntry.KernelRelease,
+						kernelEntry.KernelVersion)
+					driverkitYaml.Output = DriverkitYamlOutputs{
+						Module: outputPath + ".ko",
+						Probe:  outputPath + ".o",
+					}
+					yamlData, pvtErr := yaml.Marshal(&driverkitYaml)
+					if pvtErr != nil {
+						return pvtErr
+					}
+
+					configPath := fmt.Sprintf(configPathFmt,
+						opts.RepoRoot,
+						driverVersion,
+						opts.Architecture,
+						kernelEntryConfName)
+
+					// Make sure folder exists
+					pvtErr = os.MkdirAll(filepath.Dir(configPath), os.ModePerm)
+					if pvtErr != nil {
+						return pvtErr
+					}
+					fW, pvtErr := os.OpenFile(configPath, os.O_CREATE|os.O_RDWR, os.ModePerm)
+					if pvtErr != nil {
+						return pvtErr
+					}
+					_, _ = fW.Write(yamlData)
+					_ = fW.Close()
+				}
 			}
-
-			kernelEntryConfName := kernelEntry.toConfigName()
-
-			for _, driverVersion := range opts.DriverVersion {
-				outputPath := fmt.Sprintf(outputPathFmt,
-					driverVersion,
-					opts.Architecture,
-					opts.DriverName,
-					kernelEntry.Target,
-					kernelEntry.KernelRelease,
-					kernelEntry.KernelVersion)
-				driverkitYaml.Output = DriverkitYamlOutputs{
-					Module: outputPath + ".ko",
-					Probe:  outputPath + ".o",
-				}
-				yamlData, err := yaml.Marshal(&driverkitYaml)
-				if err != nil {
-					return err
-				}
-
-				configPath := fmt.Sprintf(configPathFmt,
-					opts.RepoRoot,
-					driverVersion,
-					opts.Architecture,
-					kernelEntryConfName)
-
-				// Make sure folder exists
-				err = os.MkdirAll(filepath.Dir(configPath), os.ModePerm)
-				if err != nil {
-					return err
-				}
-				fW, err := os.OpenFile(configPath, os.O_CREATE|os.O_RDWR, os.ModePerm)
-				if err != nil {
-					return err
-				}
-				_, _ = fW.Write(yamlData)
-				_ = fW.Close()
-			}
-		}
+			return nil
+		})
 	}
-	return nil
+	return errGrp.Wait()
 }
