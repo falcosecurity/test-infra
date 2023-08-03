@@ -7,6 +7,10 @@ import (
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"io/fs"
+	"log"
+	"path/filepath"
+	"runtime"
 )
 
 var (
@@ -20,22 +24,39 @@ var (
 	}
 )
 
+func mustLoadDriverVersions(opts *autogenerate.Options) {
+	configPath := opts.RepoRoot + "/driverkit/config/"
+	opts.DriverVersion = make([]string, 0)
+	err := filepath.WalkDir(configPath, func(path string, d fs.DirEntry, err error) error {
+		if d.IsDir() {
+			opts.DriverVersion = append(opts.DriverVersion, d.Name())
+		}
+		return nil
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func execute(c *cobra.Command, args []string) error {
 	options := autogenerate.Options{
-		Options:       root.Options{DryRun: viper.GetBool("dry-run")},
+		Options:       root.Options{DryRun: viper.GetBool("dry-run"), RepoRoot: viper.GetString("repo-root")},
 		Architecture:  viper.GetString("architecture"),
 		DriverVersion: viper.GetStringSlice("driver-version"),
-		OutputRoot:    viper.GetString("output-dir"),
+		DriverName:    viper.GetString("driver-name"),
 	}
 	if !utils.IsArchSupported(options.Architecture) {
 		return fmt.Errorf("arch %s is not supported", options.Architecture)
+	}
+	if len(options.DriverVersion) == 0 {
+		mustLoadDriverVersions(&options)
 	}
 	return autogenerate.Run(options)
 }
 
 func init() {
 	flags := Cmd.Flags()
-	flags.StringP("architecture", "a", "x86_64", "architecture to run against.")
-	flags.String("output-dir", "config/", "output root path.")
+	flags.StringP("architecture", "a", utils.FromDebArch(runtime.GOARCH), "architecture to run against.")
 	flags.StringSlice("driver-version", nil, "driver versions to generate configs against.")
+	flags.String("driver-name", "falco", "driver name to be used")
 }

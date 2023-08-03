@@ -1,12 +1,15 @@
 package autogenerate
 
-import "github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/root"
+import (
+	"fmt"
+	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/root"
+)
 
 type Options struct {
 	root.Options
 	Architecture  string
 	DriverVersion []string
-	OutputRoot    string
+	DriverName    string
 }
 
 type KernelEntry struct {
@@ -17,22 +20,8 @@ type KernelEntry struct {
 	KernelConfigData []byte   `json:"kernelconfigdata"`
 }
 
-// Please add new supporteed build-new-drivers structures here,
-// so that the utility starts building configs for them.
-// Fields must have the same name used in kernel-crawler json keys.
-type KernelList struct {
-	AlmaLinux       []KernelEntry `json:"AlmaLinux"`
-	AmazonLinux     []KernelEntry `json:"Amazonlinux"`
-	AmazonLinux2    []KernelEntry `json:"Amazonlinux2"`
-	AmazonLinux2022 []KernelEntry `json:"Amazonlinux2022"`
-	AmazonLinux2023 []KernelEntry `json:"Amazonlinux2023"`
-	BottleRocket    []KernelEntry `json:"BottleRocket"`
-	CentOS          []KernelEntry `json:"CentOS"`
-	Debian          []KernelEntry `json:"Debian"`
-	Fedora          []KernelEntry `json:"Fedora"`
-	Minikube        []KernelEntry `json:"Minikube"`
-	Talos           []KernelEntry `json:"Talos"`
-	Ubuntu          []KernelEntry `json:"Ubuntu"`
+func (ke *KernelEntry) toConfigName() string {
+	return fmt.Sprintf("%s_%s_%s.yaml", ke.Target, ke.KernelRelease, ke.KernelVersion)
 }
 
 type DriverkitYamlOutputs struct {

@@ -5,11 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/utils"
+	"github.com/ompluscator/dynamic-struct"
 	"gopkg.in/yaml.v3"
-	"io/fs"
 	"os"
-	"path/filepath"
-	"reflect"
 	"strings"
 	"text/template"
 )
@@ -39,53 +37,33 @@ func Run(opts Options) error {
 	}
 	lastDistro := strings.TrimSuffix(string(lastDistroBytes), "\n")
 
-	// load output dirs
-	outputDirs := make([]string, 0)
-	err = filepath.WalkDir(opts.OutputRoot, func(path string, d fs.DirEntry, err error) error {
-		if !d.Type().IsDir() {
-			// Skip non-dir entries
-			return nil
-		}
-		if opts.DriverVersion == nil || len(opts.DriverVersion) == 0 {
-			// no filter; use all directories
-			outputDirs = append(outputDirs, path)
-			return nil
-		}
-		for _, driverVer := range opts.DriverVersion {
-			// Filter, match!
-			if d.Name() == driverVer {
-				outputDirs = append(outputDirs, path)
-				break
-			}
-		}
-		return nil
-	})
-	if err != nil {
-		return err
-	}
-
 	// Fetch kernel list json
 	jsonData, err := utils.GetURL(url)
-	//jsonData, err := os.ReadFile("/home/federico/Scaricati/kernels.json")
 	if err != nil {
 		return err
 	}
+
+	// Generate a dynamic struct with all needed distros
+	// NOTE: we might need a single distro when `lastDistro` is != "*";
+	// else, we will add all supportedDistros found in constants.go
+	instanceBuilder := dynamicstruct.NewStruct()
+	for _, distro := range supportedDistros {
+		if lastDistro == "*" || distro == lastDistro {
+			tag := fmt.Sprintf(`json:"%s"`, distro)
+			instanceBuilder.AddField(distro, []KernelEntry{}, tag)
+		}
+	}
+	dynamicInstance := instanceBuilder.Build().New()
 
 	// Unmarshal the big json
-	var kernelList KernelList
-	err = json.Unmarshal(jsonData, &kernelList)
+	err = json.Unmarshal(jsonData, &dynamicInstance)
 	if err != nil {
 		return err
 	}
 
-	v := reflect.ValueOf(kernelList)
-	typeOfS := v.Type()
-
-	for i := 0; i < v.NumField(); i++ {
-		if lastDistro != "*" && typeOfS.Field(i).Name != lastDistro {
-			continue
-		}
-		kernelEntries := v.Field(i).Interface().([]KernelEntry)
+	reader := dynamicstruct.NewReader(dynamicInstance)
+	for _, f := range reader.GetAllFields() {
+		kernelEntries := f.Interface().([]KernelEntry)
 		for _, kernelEntry := range kernelEntries {
 			driverkitYaml := DriverkitYaml{
 				KernelVersion:    kernelEntry.KernelVersion,
@@ -96,19 +74,31 @@ func Run(opts Options) error {
 				KernelConfigData: kernelEntry.KernelConfigData,
 			}
 
-			for _, oDir := range outputDirs {
-				// FIXME! use correct path (inside folder) https://github.com/falcosecurity/test-infra/blob/master/driverkit/utils/generate#L93
-				fW, err := os.OpenFile(oDir, os.O_CREATE|os.O_RDWR, os.ModePerm)
+			kernelEntryConfName := kernelEntry.toConfigName()
+
+			for _, driverVersion := range opts.DriverVersion {
+				outputPath := fmt.Sprintf(outputPathFmt,
+					driverVersion,
+					opts.Architecture,
+					opts.DriverName,
+					kernelEntry.Target,
+					kernelEntry.KernelRelease,
+					kernelEntry.KernelVersion)
+				driverkitYaml.Output = DriverkitYamlOutputs{
+					Module: outputPath + ".ko",
+					Probe:  outputPath + ".o",
+				}
+				yamlData, err := yaml.Marshal(&driverkitYaml)
 				if err != nil {
 					return err
 				}
-				driverkitYaml.Output = DriverkitYamlOutputs{
-					// FIXME: oDir is wrong here... see https://github.com/falcosecurity/test-infra/blob/master/driverkit/utils/generate#L93
-					Module: fmt.Sprintf(outputPathFmt+".ko", oDir, kernelEntry.Target, kernelEntry.KernelRelease+"_"+kernelEntry.KernelVersion),
-					Probe:  fmt.Sprintf(outputPathFmt+".o", oDir, kernelEntry.Target, kernelEntry.KernelRelease+"_"+kernelEntry.KernelVersion),
-				}
 
-				yamlData, err := yaml.Marshal(&driverkitYaml)
+				configPath := fmt.Sprintf(configPathFmt,
+					opts.RepoRoot,
+					driverVersion,
+					opts.Architecture,
+					kernelEntryConfName)
+				fW, err := os.OpenFile(configPath, os.O_CREATE|os.O_RDWR, os.ModePerm)
 				if err != nil {
 					return err
 				}
