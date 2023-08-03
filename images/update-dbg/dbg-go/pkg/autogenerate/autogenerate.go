@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/utils"
 	"github.com/ompluscator/dynamic-struct"
+	logger "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 	"os"
 	"strings"
@@ -29,6 +30,7 @@ func Run(opts Options) error {
 	if err != nil {
 		return err
 	}
+	logger.WithField("cmd", "autogenerate").Debug("templated json url: ", url)
 
 	// Fetch last distro kernel-crawler was last ran against
 	lastDistroBytes, err := utils.GetURL(urlLastDistro)
@@ -36,12 +38,14 @@ func Run(opts Options) error {
 		return err
 	}
 	lastDistro := strings.TrimSuffix(string(lastDistroBytes), "\n")
+	logger.WithField("cmd", "autogenerate").Debug("loaded last-distro: ", lastDistro)
 
 	// Fetch kernel list json
 	jsonData, err := utils.GetURL(url)
 	if err != nil {
 		return err
 	}
+	logger.WithField("cmd", "autogenerate").Debug("fetched json")
 
 	// Generate a dynamic struct with all needed distros
 	// NOTE: we might need a single distro when `lastDistro` is != "*";
@@ -60,9 +64,11 @@ func Run(opts Options) error {
 	if err != nil {
 		return err
 	}
+	logger.WithField("cmd", "autogenerate").Debug("unmarshaled json")
 
 	reader := dynamicstruct.NewReader(dynamicInstance)
 	for _, f := range reader.GetAllFields() {
+		logger.WithField("cmd", "autogenerate").Infof("generating configs for %s\n", f.Name())
 		kernelEntries := f.Interface().([]KernelEntry)
 		for _, kernelEntry := range kernelEntries {
 			driverkitYaml := DriverkitYaml{

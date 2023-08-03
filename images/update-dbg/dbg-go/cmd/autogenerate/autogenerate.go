@@ -18,9 +18,6 @@ var (
 		Use:   "autogenerate",
 		Short: "Fetch updated kernel-crawler lists and generate new dbg configs",
 		RunE:  execute,
-		PreRunE: func(cmd *cobra.Command, args []string) error {
-			return viper.BindPFlags(cmd.Flags())
-		},
 	}
 )
 

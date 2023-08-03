@@ -29,6 +29,7 @@ type DriverkitYamlOutputs struct {
 	Probe  string `yaml:"probe"`
 }
 
+// TODO: this should be included from driverkit pkg
 type DriverkitYaml struct {
 	KernelVersion    string               `yaml:"kernelversion"`
 	KernelRelease    string               `yaml:"kernelrelease"`
