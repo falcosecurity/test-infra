@@ -10,6 +10,7 @@ type Options struct {
 	Architecture  string
 	DriverVersion []string
 	DriverName    string
+	Cleanup       bool
 }
 
 type KernelEntry struct {
