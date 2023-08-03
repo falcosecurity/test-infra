@@ -1,10 +1,10 @@
 FROM golang:1.20 AS gobuilder
 
 RUN git clone https://github.com/kubernetes/test-infra
-RUN cd test-infra/robots/pr-creator && go build -v -o pr-creator ./main.go
+RUN cd test-infra/robots/pr-creator && CGO_ENABLED=0 go build -v -o pr-creator ./main.go
 
 ADD dbg-go dbg-go
-RUN cd dbg-go && go build .
+RUN cd dbg-go && CGO_ENABLED=0 go build .
 
 FROM debian:buster
 
