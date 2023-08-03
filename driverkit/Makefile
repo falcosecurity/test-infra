@@ -25,8 +25,6 @@ TARGET_ARCH ?= *
 # If TARGET_ARCH value is "*" then we consider all the the supported archs in ALL_ARCHS,
 # otherwise we just keep the one passed as parameter.
 TARGET_ARCHS := $(if $(call eq,$(TARGET_ARCH),*),$(ALL_ARCHS),$(TARGET_ARCH))
-TARGET_HEADERS ?=
-TARGET_KERNEL_DEFCONFIG ?=
 S3_DRIVERS_BUCKET ?= "falco-distribution"
 S3_DRIVERS_KEY_PREFIX ?= "driver"
 DRIVERKIT_BACKEND ?= docker
@@ -42,19 +40,6 @@ specific_target: $(patsubst config_%,%,$(subst /,_,$(wildcard config/${TARGET_VE
 prepare: $(addprefix prepare_,$(VERSIONS))
 publish: publish_s3 # alias publish_s3; bintray is no more supported
 publish_s3: $(addprefix publish_s3_,$(VERSIONS))
-
-generate:
-	$(foreach ARCH,$(TARGET_ARCHS),\
-		$(foreach VERSION,$(VERSIONS),\
-			utils/generate -a '$(ARCH)' -k '${TARGET_KERNEL}' -r '${TARGET_KERNEL_RELEASE}' -t '${TARGET_KERNEL_VERSION}' -d '${TARGET_DISTRO}' -h '${TARGET_HEADERS}' -v '${VERSION}' -c '${TARGET_KERNEL_DEFCONFIG}'; \
-		)\
-	)
-
-# clean old configurations before generating the new ones
-generate/auto:
-	$(foreach ARCH,$(TARGET_ARCHS),\
-		utils/scrape_and_generate $(ARCH); \
-	)
 
 cleanup: cleanup_s3 # alias cleanup_s3; bintray is no more supported
 cleanup_s3:
