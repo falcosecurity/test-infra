@@ -145,9 +145,8 @@ branch-protection:
             required_approving_review_count: 2
           required_status_checks:
             contexts:
-              - "ci/circleci: tests-driver-loader-integration"
-              - "ci/circleci: tests-integration"
-              - "ci/circleci: tests-integration-arm64"
+              - "test-dev-packages"
+              - "test-dev-packages-arm64"
               # note: we don't need build jobs, since tests depends on them
           branches:
             master:
