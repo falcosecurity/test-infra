@@ -1,9 +1,12 @@
-FROM golang:1.21 AS pullrequestcreator
+FROM golang:1.18 AS gobuilder
 
 RUN git clone https://github.com/kubernetes/test-infra
 RUN cd test-infra/robots/pr-creator && go build -v -o pr-creator ./main.go
 
-FROM golang:1.21-bookworm
+ADD dbg-go dbg-go
+RUN cd dbg-go && go build .
+
+FROM debian:buster
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -14,7 +17,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     && apt-get clean
 
-COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
+COPY --from=gobuilder /go/test-infra/robots/pr-creator/pr-creator /bin
+COPY --from=gobuilder /go/dbg-go/dbg-go /bin
+
 COPY entrypoint.sh /
 
 RUN chmod +x /entrypoint.sh

@@ -33,7 +33,8 @@ export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 # Update the DBG from crawling results.
 # $2: chart name
 generate_driverkit_configs() {
-    make -C driverkit generate/auto
+    dbg-go autogenerate -a x86_64
+    dbg-go autogenerate -a aarch64
     return $?
 }
 
@@ -121,6 +122,7 @@ main() {
     check_program "git"
     check_program "curl"
     check_program "pr-creator"
+    check_program "dbg-go"
 
     # Settings
     ensure_git_config "${BOT_NAME}" "${BOT_MAIL}"
