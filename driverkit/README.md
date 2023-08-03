@@ -13,7 +13,6 @@ make
 ### Available make targets
 
 - `all`: build all the Falco drivers (all the versions), for every supported distro, and every supported kernel release
-- `generate`: generate Driverkit config files for building drivers for specific arch, kernel and target for all Falco lib versions
 - `validate`: validate Driverkit config files for building drivers for specific arch, kernel and target for all Falco lib versions
 - `specific_target`: build the filtered driver versions
 - `clean`: remove everything in the `output/` directory (except it, and its `.gitignore` file)
@@ -48,14 +47,6 @@ These are the available filters as environment variables:
 - `TARGET_KERNEL`: a specific Linux kernel release and kernel version, separated by underscore ('_'). Specifying it will override `TARGET_KERNEL_RELEASE` and `TARGET_KERNEL_VERSION`.
 
 Notice all the filters are optional (except for `generate` where they are mandatory).
-
-##### Available generate-specific variables
-
-These are the available used as environment variables:
-
-- all of the above filter variables
-- `TARGET_KERNEL_DEFCONFIG`: a path to a file that contains the base64 encoded defconfig for the kernel. Optional.
-- `TARGET_HEADERS`: a list of headers for the current kernel. Optional.
 
 ##### Examples
 
