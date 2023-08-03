@@ -4,6 +4,7 @@ import (
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/cmd/autogenerate"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"log"
 )
 
 var (
@@ -22,6 +23,11 @@ var (
 func init() {
 	flags := rootCmd.PersistentFlags()
 	flags.Bool("dry-run", false, "enable dry-run mode.")
+	flags.String("repo-root", "", "test-infra repository root path")
+
+	if err := rootCmd.MarkPersistentFlagRequired("repo-root"); err != nil {
+		log.Fatal(err)
+	}
 
 	// Subcommands
 	rootCmd.AddCommand(autogenerate.Cmd)

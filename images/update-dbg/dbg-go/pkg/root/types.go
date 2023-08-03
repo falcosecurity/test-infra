@@ -1,5 +1,6 @@
 package root
 
 type Options struct {
-	DryRun bool
+	DryRun   bool
+	RepoRoot string
 }
