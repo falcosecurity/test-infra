@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"log"
+	"os"
 )
 
 var (
@@ -25,10 +26,14 @@ var (
 
 // NewRootCmd instantiates the root command.
 func init() {
+	cwd, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
 	flags := rootCmd.PersistentFlags()
 	flags.Bool("dry-run", false, "enable dry-run mode.")
 	flags.StringP("log-level", "l", logger.InfoLevel.String(), "set log verbosity.")
-	flags.String("repo-root", "", "test-infra repository root path.")
+	flags.String("repo-root", cwd, "test-infra repository root path.")
 
 	if err := rootCmd.MarkPersistentFlagRequired("repo-root"); err != nil {
 		log.Fatal(err)
