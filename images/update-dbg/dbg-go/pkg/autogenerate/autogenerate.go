@@ -28,6 +28,12 @@ func initTemplate(opts Options) (string, error) {
 }
 
 func Run(opts Options) error {
+	if opts.Cleanup {
+		if err := cleanupExisting(opts); err != nil {
+			return err
+		}
+	}
+
 	url, err := initTemplate(opts)
 	if err != nil {
 		return err

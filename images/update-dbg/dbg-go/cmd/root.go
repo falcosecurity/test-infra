@@ -35,10 +35,6 @@ func init() {
 	flags.StringP("log-level", "l", logger.InfoLevel.String(), "set log verbosity.")
 	flags.String("repo-root", cwd, "test-infra repository root path.")
 
-	if err := rootCmd.MarkPersistentFlagRequired("repo-root"); err != nil {
-		log.Fatal(err)
-	}
-
 	// Subcommands
 	rootCmd.AddCommand(autogenerate.Cmd)
 }
