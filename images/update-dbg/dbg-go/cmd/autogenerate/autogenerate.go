@@ -7,9 +7,8 @@ import (
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"io/fs"
 	"log"
-	"path/filepath"
+	"os"
 	"runtime"
 )
 
@@ -24,14 +23,14 @@ var (
 func mustLoadDriverVersions(opts *autogenerate.Options) {
 	configPath := opts.RepoRoot + "/driverkit/config/"
 	opts.DriverVersion = make([]string, 0)
-	err := filepath.WalkDir(configPath, func(path string, d fs.DirEntry, err error) error {
-		if d.IsDir() {
-			opts.DriverVersion = append(opts.DriverVersion, d.Name())
-		}
-		return nil
-	})
+	entries, err := os.ReadDir(configPath)
 	if err != nil {
 		log.Fatal(err)
+	}
+	for _, e := range entries {
+		if e.IsDir() {
+			opts.DriverVersion = append(opts.DriverVersion, e.Name())
+		}
 	}
 }
 
