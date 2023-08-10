@@ -175,11 +175,6 @@ branch-protection:
             master:
               protect: true
         falcosidekick-ui:
-          required_status_checks:
-            contexts:
-              - "ci/circleci: lint"
-              - "ci/circleci: test"
-              - "ci/circleci: build-image"
           branches:
             master:
               protect: true
