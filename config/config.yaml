@@ -175,6 +175,10 @@ branch-protection:
             master:
               protect: true
         falcosidekick-ui:
+          required_status_checks:
+            contexts:
+              - "lint"
+              - "build-image"
           branches:
             master:
               protect: true
