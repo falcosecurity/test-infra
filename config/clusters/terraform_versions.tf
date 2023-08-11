@@ -23,5 +23,15 @@ terraform {
     null = {
       version = "> 2.1"
     }
+
+    github = {
+      source  = "integrations/github"
+      version = ">=5.18.0"
+    }
+
+    flux = {
+      source  = "fluxcd/flux"
+      version = ">=1.0.1"
+    }
   }
 }

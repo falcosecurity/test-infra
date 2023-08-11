@@ -13,3 +13,8 @@ eks_default_worker_group_asg_desired_capacity = 3
 eks_default_worker_group_asg_max_capacity  = 10
 eks_jobs_worker_group_asg_max_capacity     = 20
 eks_jobs_arm_worker_group_asg_max_capacity = 20
+
+gitops_github_org               = "falcosecurity"
+gitops_github_repository        = "test-infra"
+gitops_github_repository_branch = "master"
+
