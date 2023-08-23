@@ -79,6 +79,10 @@ func Run(opts Options) error {
 	reader := dynamicstruct.NewReader(dynamicInstance)
 	for _, f := range reader.GetAllFields() {
 		logger.WithField("cmd", "autogenerate").Infof("generating configs for %s\n", f.Name())
+		if opts.DryRun {
+			logger.WithField("cmd", "autogenerate").Info("skipping because of dry-run.")
+			continue
+		}
 		kernelEntries := f.Interface().([]KernelEntry)
 		errGrp.Go(func() error {
 			for _, kernelEntry := range kernelEntries {
