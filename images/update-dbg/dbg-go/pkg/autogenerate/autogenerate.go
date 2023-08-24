@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/root"
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/utils"
 	"github.com/ompluscator/dynamic-struct"
 	logger "github.com/sirupsen/logrus"
@@ -28,12 +29,6 @@ func initTemplate(opts Options) (string, error) {
 }
 
 func Run(opts Options) error {
-	if opts.Cleanup {
-		if err := cleanupExisting(opts); err != nil {
-			return err
-		}
-	}
-
 	url, err := initTemplate(opts)
 	if err != nil {
 		return err
@@ -49,7 +44,8 @@ func Run(opts Options) error {
 	logger.WithField("cmd", "autogenerate").Debug("loaded last-distro: ", lastDistro)
 
 	// Fetch kernel list json
-	jsonData, err := utils.GetURL(url)
+	//jsonData, err := utils.GetURL(url)
+	jsonData, err := os.ReadFile("/home/federico/Scaricati/list.json")
 	if err != nil {
 		return err
 	}
@@ -114,7 +110,7 @@ func Run(opts Options) error {
 						return pvtErr
 					}
 
-					configPath := fmt.Sprintf(configPathFmt,
+					configPath := fmt.Sprintf(root.ConfigPathFmt,
 						opts.RepoRoot,
 						driverVersion,
 						opts.Architecture,

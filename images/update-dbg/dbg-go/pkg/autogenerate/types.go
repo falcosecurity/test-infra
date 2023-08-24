@@ -7,10 +7,7 @@ import (
 
 type Options struct {
 	root.Options
-	Architecture  string
-	DriverVersion []string
-	DriverName    string
-	Cleanup       bool
+	DriverName string
 }
 
 type KernelEntry struct {
