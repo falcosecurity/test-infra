@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/cmd/autogenerate"
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/cmd/cleanup"
+	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/cmd/validate"
 	"github.com/falcosecurity/test-infra/images/update-dbg/dbg-go/pkg/utils"
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -34,7 +35,7 @@ var (
 					return err
 				}
 			}
-			return initLogger()
+			return initLogger(cmd.Name())
 		},
 	}
 )
@@ -76,15 +77,33 @@ func init() {
 	// Subcommands
 	rootCmd.AddCommand(autogenerate.Cmd)
 	rootCmd.AddCommand(cleanup.Cmd)
+	rootCmd.AddCommand(validate.Cmd)
 }
 
-func initLogger() error {
+type customLogger struct {
+	cmdField  string
+	formatter logger.Formatter
+}
+
+func (l customLogger) Format(entry *logger.Entry) ([]byte, error) {
+	entry.Data["cmd"] = l.cmdField
+	return l.formatter.Format(entry)
+}
+
+func initLogger(subcmd string) error {
 	logLevel := viper.GetString("log-level")
 	lvl, err := logger.ParseLevel(logLevel)
 	if err != nil {
 		return err
 	}
 	logger.SetLevel(lvl)
+
+	// Set our custom formatter that adds the field [ "cmd": $currentCmd ]
+	logger.SetFormatter(customLogger{
+		cmdField:  subcmd,
+		formatter: logger.StandardLogger().Formatter,
+	})
+
 	return nil
 }
 

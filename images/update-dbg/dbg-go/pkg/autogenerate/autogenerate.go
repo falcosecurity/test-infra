@@ -33,7 +33,7 @@ func Run(opts Options) error {
 	if err != nil {
 		return err
 	}
-	logger.WithField("cmd", "autogenerate").Debug("templated json url: ", url)
+	logger.Debug("templated json url: ", url)
 
 	// Fetch last distro kernel-crawler was last ran against
 	lastDistroBytes, err := utils.GetURL(urlLastDistro)
@@ -41,15 +41,14 @@ func Run(opts Options) error {
 		return err
 	}
 	lastDistro := strings.TrimSuffix(string(lastDistroBytes), "\n")
-	logger.WithField("cmd", "autogenerate").Debug("loaded last-distro: ", lastDistro)
+	logger.Debug("loaded last-distro: ", lastDistro)
 
 	// Fetch kernel list json
-	//jsonData, err := utils.GetURL(url)
-	jsonData, err := os.ReadFile("/home/federico/Scaricati/list.json")
+	jsonData, err := utils.GetURL(url)
 	if err != nil {
 		return err
 	}
-	logger.WithField("cmd", "autogenerate").Debug("fetched json")
+	logger.Debug("fetched json")
 
 	// Generate a dynamic struct with all needed distros
 	// NOTE: we might need a single distro when `lastDistro` is != "*";
@@ -68,18 +67,19 @@ func Run(opts Options) error {
 	if err != nil {
 		return err
 	}
-	logger.WithField("cmd", "autogenerate").Debug("unmarshaled json")
+	logger.Debug("unmarshaled json")
 
 	var errGrp errgroup.Group
 
 	reader := dynamicstruct.NewReader(dynamicInstance)
 	for _, f := range reader.GetAllFields() {
-		logger.WithField("cmd", "autogenerate").Infof("generating configs for %s\n", f.Name())
+		logger.Infof("generating configs for %s\n", f.Name())
 		if opts.DryRun {
-			logger.WithField("cmd", "autogenerate").Info("skipping because of dry-run.")
+			logger.Info("skipping because of dry-run.")
 			continue
 		}
 		kernelEntries := f.Interface().([]KernelEntry)
+		// A goroutine for each distro
 		errGrp.Go(func() error {
 			for _, kernelEntry := range kernelEntries {
 				driverkitYaml := DriverkitYaml{
@@ -88,13 +88,13 @@ func Run(opts Options) error {
 					Target:           kernelEntry.Target,
 					Architecture:     utils.ToDebArch(opts.Architecture),
 					KernelUrls:       kernelEntry.Headers,
-					KernelConfigData: kernelEntry.KernelConfigData,
+					KernelConfigData: string(kernelEntry.KernelConfigData),
 				}
 
-				kernelEntryConfName := kernelEntry.toConfigName()
+				kernelEntryConfName := kernelEntry.ToConfigName()
 
 				for _, driverVersion := range opts.DriverVersion {
-					outputPath := fmt.Sprintf(outputPathFmt,
+					outputPath := fmt.Sprintf(OutputPathFmt,
 						driverVersion,
 						opts.Architecture,
 						opts.DriverName,
