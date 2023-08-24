@@ -33,8 +33,10 @@ export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 # Update the DBG from crawling results.
 # $2: chart name
 generate_driverkit_configs() {
-    dbg-go autogenerate -a x86_64 --cleanup-existing
-    dbg-go autogenerate -a aarch64 --cleanup-existing
+    dbg-go cleanup -a x86_64
+    dbg-go autogenerate -a x86_64
+    dbg-go cleanup -a aarch64
+    dbg-go autogenerate -a aarch64
     return $?
 }
 
