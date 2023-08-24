@@ -8,16 +8,16 @@ import (
 )
 
 func Run(opts Options) error {
-	logger.WithField("cmd", "cleanup").Info("cleaning up existing config files")
+	logger.Info("cleaning up existing config files")
 	for _, driverVersion := range opts.DriverVersion {
 		configPath := fmt.Sprintf(root.ConfigPathFmt,
 			opts.RepoRoot,
 			driverVersion,
 			opts.Architecture,
 			"")
-		logger.WithField("cmd", "cleanup").Infof("removing folder: %s", configPath)
+		logger.Infof("removing folder: %s", configPath)
 		if opts.DryRun {
-			logger.WithField("cmd", "cleanup").Info("skipping because of dry-run.")
+			logger.Info("skipping because of dry-run.")
 			continue
 		}
 		err := os.RemoveAll(configPath)
