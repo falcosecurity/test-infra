@@ -192,6 +192,14 @@ orgs:
         description: Administrative tooling for Falco
         has_projects: true
         has_wiki: false
+      falco-playground:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Web-application used to validate Falco rules and test against scap file
+        has_projects: true
+        has_wiki: false    
       falcosidekick:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -541,6 +549,16 @@ orgs:
         privacy: closed
         repos:
           falcoctl: maintain
+      falco-playground-maintainers:
+        description: maintainers of falcosecurity/falco-playground
+        maintainers:
+          - rohith-raju
+          - jasondellaluce
+          - leogr
+        members: []
+        privacy: closed
+        repos:
+          falco-playground: maintain     
       falcosidekick-maintainers:
         description: maintainers of falcosecurity/falcosidekick
         maintainers:
@@ -653,6 +671,7 @@ orgs:
           falco-exporter: admin
           falco-website: admin
           falcoctl: admin
+          falco-playground: admin
           falcosidekick: admin
           falcosidekick-ui: admin
           flycheck-falco-rules: admin

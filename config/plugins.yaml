@@ -18,6 +18,7 @@ approve:
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/falcoctl
+      - falcosecurity/falco-playground
       - falcosecurity/falcosidekick
       - falcosecurity/falcosidekick-ui
       - falcosecurity/flycheck-falco-rules
@@ -101,6 +102,7 @@ lgtm:
       - falcosecurity/falco-aws-terraform
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
+      - falcosecurity/falco-playground
       - falcosecurity/flycheck-falco-rules
       - falcosecurity/kernel-crawler
       - falcosecurity/kernel-testing
@@ -391,6 +393,14 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this issue.
       Please specify it either using `/kind <group>` or manually from the side menu.    
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-playground
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.        
 
 retitle:
   allow_closed_issues: true
@@ -803,6 +813,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/falco-playground:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip        
   falcosecurity/falco-website:
     plugins:
       - approve
@@ -1279,6 +1311,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+  falcosecurity/falco-playground:
+    - name: needs-rebase
+      events:
+        - pull_request        
   falcosecurity/falco-website:
     - name: needs-rebase
       events:

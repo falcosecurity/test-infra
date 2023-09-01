@@ -205,7 +205,11 @@ branch-protection:
                 required_approving_review_count: 0
           required_status_checks:
             contexts:
-              - "test"      
+              - "test"
+        falco-playground:
+          branches:
+            main:
+              protect: true
         falco-website:
           branches:
             master:
@@ -373,6 +377,7 @@ tide:
     falcosecurity/falco-aws-terraform: rebase
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
+    falcosecurity/falco-playground: rebase
     falcosecurity/falco-website: rebase
     falcosecurity/flycheck-falco-rules: rebase
     falcosecurity/kernel-crawler: rebase
@@ -674,6 +679,20 @@ tide:
         - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-playground
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true    
     - repos:
         - falcosecurity/flycheck-falco-rules
       labels:
