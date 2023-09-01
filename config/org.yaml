@@ -48,11 +48,11 @@ orgs:
       - mfdii
       - mmat11
       - Molter73
+      - rohith-raju
       - terylt
       - vjjmiras
       - zuc
-      - rohith-raju
-
+      
     repos:
       .github:
         allow_merge_commit: false
