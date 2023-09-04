@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/4.0.0+driver/aarch64/falco_debian_6.1.38-4-cloud-arm64_1.ko
   probe: output/4.0.0+driver/aarch64/falco_debian_6.1.38-4-cloud-arm64_1.o
-kernelurls: ["http://security.debian.org/pool/updates/main/l/linux/linux-headers-6.1.0-11-cloud-arm64_6.1.38-4_arm64.deb","http://security.debian.org/pool/updates/main/l/linux/linux-headers-6.1.0-11-common_6.1.38-4_all.deb","http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-6.1_6.1.38-4_arm64.deb"]
+kernelurls: ["http://security.debian.org/pool/updates/main/l/linux/linux-headers-6.1.0-11-common_6.1.38-4_all.deb","http://security.debian.org/pool/updates/main/l/linux/linux-headers-6.1.0-11-cloud-arm64_6.1.38-4_arm64.deb","http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-6.1_6.1.38-4_arm64.deb"]
