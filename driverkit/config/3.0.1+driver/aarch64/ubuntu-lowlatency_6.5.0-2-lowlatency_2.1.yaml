@@ -1,0 +1,8 @@
+kernelversion: 2.1
+kernelrelease: 6.5.0-2-lowlatency
+target: ubuntu-lowlatency
+architecture: arm64
+output:
+  module: output/3.0.1+driver/aarch64/falco_ubuntu-lowlatency_6.5.0-2-lowlatency_2.1.ko
+  probe: output/3.0.1+driver/aarch64/falco_ubuntu-lowlatency_6.5.0-2-lowlatency_2.1.o
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lowlatency/linux-lowlatency-headers-6.5.0-2_6.5.0-2.2.1_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lowlatency/linux-headers-6.5.0-2-lowlatency-64k_6.5.0-2.2.1_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lowlatency/linux-headers-6.5.0-2-lowlatency_6.5.0-2.2.1_arm64.deb"]

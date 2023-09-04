@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 6.5.0-lp154.2.1.g2844291.aarch64
-target: opensuse
-architecture: arm64
-output:
-  module: output/3.0.1+driver/aarch64/falco_opensuse_6.5.0-lp154.2.1.g2844291.aarch64_1.ko
-  probe: output/3.0.1+driver/aarch64/falco_opensuse_6.5.0-lp154.2.1.g2844291.aarch64_1.o
-kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./HEAD:/Backport/standard/noarch/kernel-devel-6.5.0-lp154.2.1.g2844291.noarch.rpm","https://download.opensuse.org/repositories/Kernel:/./HEAD:/Backport/standard/aarch64/kernel-default-devel-6.5.0-lp154.2.1.g2844291.aarch64.rpm"]
