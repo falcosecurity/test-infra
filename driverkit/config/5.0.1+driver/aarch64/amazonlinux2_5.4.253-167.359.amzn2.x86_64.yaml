@@ -1,0 +1,7 @@
+kernelversion: *
+kernelrelease: *
+target: amazonlinux2
+architecture: arm64
+output:
+  module: output/5.0.1+driver/aarch64/falco_amazonlinux2_5.4.253-167.359.amzn2.x86_64.ko
+  probe: output/5.0.1+driver/aarch64/falco_amazonlinux2_5.4.253-167.359.amzn2.x86_64.o
