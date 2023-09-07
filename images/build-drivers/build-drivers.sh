@@ -20,7 +20,6 @@ DBG_FILTERS['--target-kernelversion']="${3}"
 
 DBG_MAKE_BUILD_OPTIONS=""
 DBG_MAKE_BUILD_TARGET="${DBG_MAKE_BUILD_TARGET:-"build"}" # build or validate
-DBG_MAKE_PUBLISH_TARGET="publish_s3"
 
 PUBLISH_S3="${PUBLISH_S3:-false}"
 ENSURE_DOCKER="${ENSURE_DOCKER:-true}"
@@ -62,11 +61,9 @@ function build() {
 	done
 	
 	pretty_echo "Running DBG build..."
-	# when building, ignore errors (just report them back to output/failing.log)
 	if [[ "$DBG_MAKE_BUILD_TARGET" -eq "build" ]]; then
-		touch output/failing.log 
-		# TODO: support output redir in dbg-go
-		DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --ignore-errors"
+		# when building, ignore errors (just report them back to driverkit/output/failing.log)
+		DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --ignore-errors --skip-existing --redirect-errors=driverkit/output/failing.log"
 	fi
 	dbg-go configs $DBG_MAKE_BUILD_TARGET $DBG_MAKE_BUILD_OPTIONS
 	
