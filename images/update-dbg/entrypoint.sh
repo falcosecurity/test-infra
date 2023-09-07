@@ -32,10 +32,10 @@ export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 # Update the DBG from crawling results.
 generate_driverkit_configs() {
-    dbg-go configs cleanup -a x86_64
-    dbg-go configs generate -a x86_64 --auto
-    dbg-go configs cleanup -a aarch64
-    dbg-go configs generate -a aarch64 --auto
+    dbg-go configs cleanup -a amd64
+    dbg-go configs generate -a amd64 --auto
+    dbg-go configs cleanup -a arm64
+    dbg-go configs generate -a arm64 --auto
 }
 
 # Sets git user configs, otherwise errors out.
