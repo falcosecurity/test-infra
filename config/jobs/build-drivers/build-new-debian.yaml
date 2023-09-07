@@ -14,8 +14,6 @@ presubmits:
         - /workspace/build-drivers.sh
         - debian
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: DBG_MAKE_BUILD_TARGET
           value: validate
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -56,8 +54,6 @@ postsubmits:
         - /workspace/build-drivers.sh
         - debian
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -96,8 +92,6 @@ postsubmits:
         - /workspace/build-drivers.sh
         - debian
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest

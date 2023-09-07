@@ -15,8 +15,6 @@ presubmits:
         - centos
         - "2.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: DBG_MAKE_BUILD_TARGET
           value: validate
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -53,8 +51,6 @@ presubmits:
         - centos
         - "3.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: DBG_MAKE_BUILD_TARGET
           value: validate
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -91,8 +87,6 @@ presubmits:
         - centos
         - "4.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: DBG_MAKE_BUILD_TARGET
           value: validate
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -129,8 +123,6 @@ presubmits:
         - centos
         - "5.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: DBG_MAKE_BUILD_TARGET
           value: validate
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -167,8 +159,6 @@ presubmits:
         - centos
         - "6.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: DBG_MAKE_BUILD_TARGET
           value: validate
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -210,8 +200,6 @@ postsubmits:
         - centos
         - "2.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -251,8 +239,6 @@ postsubmits:
         - centos
         - "3.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -292,8 +278,6 @@ postsubmits:
         - centos
         - "3.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -337,8 +321,6 @@ postsubmits:
         - centos
         - "4.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -378,8 +360,6 @@ postsubmits:
         - centos
         - "4.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -423,8 +403,6 @@ postsubmits:
         - centos
         - "5.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -464,8 +442,6 @@ postsubmits:
         - centos
         - "5.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -509,8 +485,6 @@ postsubmits:
         - centos
         - "6.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
@@ -550,8 +524,6 @@ postsubmits:
         - centos
         - "6.*"
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: PUBLISH_S3
           value: "true"
         image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
