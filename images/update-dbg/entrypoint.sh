@@ -31,13 +31,11 @@ export GIT_AUTHOR_NAME=${BOT_NAME}
 export GIT_AUTHOR_EMAIL=${BOT_MAIL}
 
 # Update the DBG from crawling results.
-# $2: chart name
 generate_driverkit_configs() {
-    dbg-go cleanup -a x86_64
-    dbg-go autogenerate -a x86_64
-    dbg-go cleanup -a aarch64
-    dbg-go autogenerate -a aarch64
-    return $?
+    dbg-go configs cleanup -a x86_64
+    dbg-go configs generate -a x86_64 --auto
+    dbg-go configs cleanup -a aarch64
+    dbg-go configs generate -a aarch64 --auto
 }
 
 # Sets git user configs, otherwise errors out.

@@ -1,10 +1,7 @@
-FROM golang:1.20 AS gobuilder
+FROM golang:1.20 AS pullrequestcreator
 
 RUN git clone https://github.com/kubernetes/test-infra
 RUN cd test-infra/robots/pr-creator && CGO_ENABLED=0 go build -v -o pr-creator ./main.go
-
-ADD dbg-go dbg-go
-RUN cd dbg-go && CGO_ENABLED=0 go build .
 
 FROM debian:buster
 
@@ -13,13 +10,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     gnupg2 \
     curl \
-    make \
-    jq \
+    wget \
     && apt-get clean
 
-COPY --from=gobuilder /go/test-infra/robots/pr-creator/pr-creator /bin
-COPY --from=gobuilder /go/dbg-go/dbg-go /bin
+RUN wget -q https://github.com/FedeDP/dbg-go/releases/download/v0.4.0/dbg-go_0.4.0_linux_amd64.tar.gz \
+    && tar -xvf dbg-go_0.4.0_linux_amd64.tar.gz \
+    && chmod +x dbg-go \
+    && mv dbg-go /bin/dbg-go
 
+COPY --from=pullrequestcreator /go/test-infra/robots/pr-creator/pr-creator /bin
 COPY entrypoint.sh /
 
 RUN chmod +x /entrypoint.sh
