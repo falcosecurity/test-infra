@@ -9,24 +9,21 @@ set -o errexit
 #
 # Environment variables:
 # PUBLISH_S3: whether to publish built drivers to S3
-# DBG_WORKDIR: the absolute path from where to run DBG
 # ENSURE_DOCKER: whether to ensure Docker daemon running
 # DBG_MAKE_BUILD_TARGET: specify the makefile target
 
 # Needed Bash >= 4.0
 declare -A DBG_FILTERS
-DBG_FILTERS['TARGET_DISTRO']="${1}"
-DBG_FILTERS['TARGET_KERNEL']="${2}"
-DBG_FILTERS['TARGET_VERSION']="${3}"
-DBG_FILTERS['TARGET_ARCH']="${4:-$(uname -m)}"
+DBG_FILTERS['--target-distro']="${1}"
+DBG_FILTERS['--target-kernelrelease']="${2}"
+DBG_FILTERS['--target-kernelversion']="${3}"
+
 DBG_MAKE_BUILD_OPTIONS=""
-DBG_MAKE_BUILD_TARGET="${DBG_MAKE_BUILD_TARGET:-"specific_target"}"
+DBG_MAKE_BUILD_TARGET="${DBG_MAKE_BUILD_TARGET:-"build"}" # build or validate
 DBG_MAKE_PUBLISH_TARGET="publish_s3"
-DBG_WORKDIR="${DBG_WORKDIR:-/home/prow/go/src/github.com/falcosecurity/test-infra/driverkit}"
 
+PUBLISH_S3="${PUBLISH_S3:-false}"
 ENSURE_DOCKER="${ENSURE_DOCKER:-true}"
-
-make="$(command -v make)"
 
 function pretty_echo() {
 	echo "******************************************************"
@@ -59,29 +56,27 @@ function start_docker() {
 }
 
 function build() {
-	PUBLISH_S3="${PUBLISH_S3:-false}"
-	export PULL_PULL_SHA=$PULL_PULL_SHA
-	
 	for filter_key in "${!DBG_FILTERS[@]}"; do
 		test -z "${DBG_FILTERS[$filter_key]}" \
-			|| DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} -e ${filter_key}=${DBG_FILTERS[$filter_key]}"
+			|| DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} ${filter_key}=${DBG_FILTERS[$filter_key]}"
 	done
-
-	pretty_echo "Testing building Drivers for PR hash $PULL_PULL_SHA"
 	
-	cd $DBG_WORKDIR
-	touch output/failing.log
-	DBG_COMMIT=$(git log -1 --format=format:%H --full-diff -- ./)
-
-	pretty_echo "Found current driverkit version DBG_COMMIT $DBG_COMMIT. Running DBG build..."
-	$make $DBG_MAKE_BUILD_OPTIONS $DBG_MAKE_BUILD_TARGET
+	pretty_echo "Running DBG build..."
+	# when building, ignore errors (just report them back to output/failing.log)
+	if [[ "$DBG_MAKE_BUILD_TARGET" -eq "build" ]]; then
+		touch output/failing.log 
+		# TODO: support output redir in dbg-go
+		DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --ignore-errors"
+	fi
+	dbg-go configs $DBG_MAKE_BUILD_TARGET $DBG_MAKE_BUILD_OPTIONS
 	
 	pretty_echo "DBG build complete"
 }
 
 function publish() {
 	pretty_echo "Running DBG publishing..."
-	$make $DBG_MAKE_PUBLISH_TARGET
+	dbg-go drivers publish -a amd64
+	dbg-go drivers publish -a arm64
 	pretty_echo "DBG publishing complete"
 }
 

@@ -4,10 +4,10 @@ ARG TARGETARCH
 
 ENV PUBLISH_S3="false"
 
-RUN wget -q https://github.com/falcosecurity/driverkit/releases/download/v0.14.0/driverkit_0.14.0_linux_$TARGETARCH.tar.gz \
-    && tar -xvf driverkit_0.14.0_linux_$TARGETARCH.tar.gz \
-    && chmod +x driverkit \
-    && mv driverkit /bin/driverkit
+RUN wget -q https://github.com/FedeDP/dbg-go/releases/download/v0.4.0/dbg-go_0.4.0_linux_$TARGETARCH.tar.gz \
+    && tar -xvf dbg-go_0.4.0_linux_$TARGETARCH.tar.gz \
+    && chmod +x dbg-go \
+    && mv dbg-go /bin/dbg-go
 
 COPY build-drivers.sh /workspace/build-drivers.sh
 
