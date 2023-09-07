@@ -73,8 +73,7 @@ function build() {
 function publish() {
 	pretty_echo "Running DBG publishing..."
 	# TODO: pass aws-profile parameter
-	dbg-go drivers publish -a amd64
-	dbg-go drivers publish -a arm64
+	dbg-go drivers publish
 	pretty_echo "DBG publishing complete"
 }
 
