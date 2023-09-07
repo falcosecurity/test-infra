@@ -66,3 +66,14 @@ dbg-go drivers publish
 ```
 
 to publish the results after the build finishes.
+
+### Q: How can I add support for prebuilt drivers for new distro?
+
+A: Assuming that both kernel-crawler and driverkit already supports your distro, it is just a matter of:  
+* adding the prow config for the new distro, under `test-infra/config/jobs/build-drivers/` folder; you can just copy eg: the `debian` one and then update any `debian` occurrence with your desired distro name. Please follow same name used by `driverkit` for the distro.  
+* update the `SupportedDistros` map in `dbg-go` tool: https://github.com/FedeDP/dbg-go/blob/main/pkg/root/distro.go
+* ask for a new release of `dbg-go` tool
+* bump `dbg-go` tool on both test-infra `update-dbg` and `build-drivers` images
+
+If instead one between kernel-crawler or driverkit does not support the distro, you must first implement it there.  
+For more informations, please see https://falco.org/blog/falco-prebuilt-drivers-new-distro/.
