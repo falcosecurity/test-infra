@@ -12,8 +12,6 @@ presubmits:
         - /workspace/build-drivers.sh
         - amazonlinux
         env:
-        - name: AWS_REGION
-          value: eu-west-1
         - name: DBG_MAKE_BUILD_TARGET
           value: validate
         image: localhost:5000/build-drivers
@@ -31,9 +29,6 @@ presubmits:
       - command:
         - /workspace/build-drivers.sh
         - amazonlinux2
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
         image: localhost:5000/build-drivers
         imagePullPolicy: Always
         securityContext:
