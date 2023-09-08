@@ -54,7 +54,7 @@ function start_docker() {
 	echo "Done setting up docker in docker."
 }
 
-function build() {
+function build_and_publish() {
 	for filter_key in "${!DBG_FILTERS[@]}"; do
 		test -z "${DBG_FILTERS[$filter_key]}" \
 			|| DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} ${filter_key}=${DBG_FILTERS[$filter_key]}"
@@ -64,23 +64,17 @@ function build() {
 	if [[ "$DBG_MAKE_BUILD_TARGET" -eq "build" ]]; then
 		# when building, ignore errors (just report them back to driverkit/output/failing.log)
 		DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --ignore-errors --skip-existing --redirect-errors=driverkit/output/failing.log"
+		# If requested, publish too!
+		test "${PUBLISH_S3}" == "true" && DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --publish"
 	fi
 	dbg-go configs $DBG_MAKE_BUILD_TARGET $DBG_MAKE_BUILD_OPTIONS
 	
 	pretty_echo "DBG build complete"
 }
 
-function publish() {
-	pretty_echo "Running DBG publishing..."
-	# TODO: pass aws-profile parameter
-	dbg-go drivers publish
-	pretty_echo "DBG publishing complete"
-}
-
 function main() {
 	test "${ENSURE_DOCKER}" == "true" && start_docker
-	build
-	test "${PUBLISH_S3}" == "true" && publish
+	build_and_publish
 	exit 0
 }
 
