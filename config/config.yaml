@@ -270,6 +270,8 @@ branch-protection:
               - "build-libs-linux-amd64 😁 (system_deps_minimal)"
               - "build-libs-linux-amd64-asan 🧐"
               - "test-drivers-x86 😇 (bundled_deps)"
+              - "test-libs-static (bundled_deps)"
+              - "test-scap-x86 😆 (bundled_deps)"
           branches:
             master:
               protect: true
