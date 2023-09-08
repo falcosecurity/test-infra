@@ -403,7 +403,9 @@ data "aws_iam_policy_document" "falco_ecr_access" {
     resources = [
       "arn:aws:ecr-public::292999226676:repository/falco",
       "arn:aws:ecr-public::292999226676:repository/falco-driver-loader",
-      "arn:aws:ecr-public::292999226676:repository/falco-no-driver"
+      "arn:aws:ecr-public::292999226676:repository/falco-no-driver",
+      "arn:aws:ecr-public::292999226676:repository/falco-driver-loader-legacy",
+      "arn:aws:ecr-public::292999226676:repository/falco-distroless"
     ]
   }
   statement {
