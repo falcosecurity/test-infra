@@ -44,57 +44,6 @@ data "http" "falco_readme" {
   url = "https://raw.githubusercontent.com/falcosecurity/falco/master/README.md"
 }
 
-resource "aws_ecrpublic_repository" "falco" {
-  provider = aws.us
-
-  repository_name = "falco"
-
-  catalog_data {
-    description       = "Container Native Runtime Security for Cloud Native Platforms"
-    about_text        = substr(data.http.falco_readme.body, 0, 10240)
-    architectures     = ["x86-64", "ARM 64"]
-    operating_systems = ["Linux"]
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "aws_ecrpublic_repository" "falco_driver_loader" {
-  provider = aws.us
-
-  repository_name = "falco-driver-loader"
-
-  catalog_data {
-    description       = "Container Native Runtime Security for Cloud Native Platforms"
-    about_text        = substr(data.http.falco_readme.body, 0, 10240)
-    architectures     = ["x86-64", "ARM 64"]
-    operating_systems = ["Linux"]
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "aws_ecrpublic_repository" "falco_no_driver" {
-  provider = aws.us
-
-  repository_name = "falco-no-driver"
-
-  catalog_data {
-    description       = "Container Native Runtime Security for Cloud Native Platforms"
-    about_text        = substr(data.http.falco_readme.body, 0, 10240)
-    architectures     = ["x86-64", "ARM 64"]
-    operating_systems = ["Linux"]
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 resource "aws_ecrpublic_repository" "falco_distroless" {
   provider = aws.us
 
