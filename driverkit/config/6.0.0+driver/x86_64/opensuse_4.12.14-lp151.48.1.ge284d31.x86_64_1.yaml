@@ -5,4 +5,4 @@ architecture: amd64
 output:
   module: output/6.0.0+driver/x86_64/falco_opensuse_4.12.14-lp151.48.1.ge284d31.x86_64_1.ko
   probe: output/6.0.0+driver/x86_64/falco_opensuse_4.12.14-lp151.48.1.ge284d31.x86_64_1.o
-kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./openSUSE-15.1:/Submit/standard/x86_64/kernel-default-devel-4.12.14-lp151.48.1.ge284d31.x86_64.rpm","https://download.opensuse.org/repositories/Kernel:/./openSUSE-15.1:/Submit/standard/noarch/kernel-devel-4.12.14-lp151.48.1.ge284d31.noarch.rpm"]
+kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./openSUSE-15.1:/Submit/standard/noarch/kernel-devel-4.12.14-lp151.48.1.ge284d31.noarch.rpm","https://download.opensuse.org/repositories/Kernel:/./openSUSE-15.1:/Submit/standard/x86_64/kernel-default-devel-4.12.14-lp151.48.1.ge284d31.x86_64.rpm"]
