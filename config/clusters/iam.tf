@@ -470,6 +470,57 @@ data "aws_iam_policy_document" "falcosidekick_ecr_access" {
   }
 }
 
+# Falcosidekick-UI repository
+
+module "falcosidekick_ui_ecr_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  name    = "github_actions-falcosidekick-ui-ecr"
+  version = "5.10.0"
+  create = true
+  subjects = [
+    "falcosecurity/falcosidekick-ui:ref:refs/heads/master",
+    "falcosecurity/falcosidekick-ui:ref:refs/tags/*"
+  ]
+  policies = {
+    falcosidekick_ui_ecr_access = "${aws_iam_policy.falcosidekick_ui_ecr_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falcosidekick_ui_ecr_access" {
+  name_prefix = "github_actions-falcosidekick-ui-ecr"
+  description = "GitHub actions ECR access policy for falcosidekick-ui"
+  policy      = data.aws_iam_policy_document.falcosidekick_ui_ecr_access.json
+}
+
+data "aws_iam_policy_document" "falcosidekick_ui_ecr_access" {
+  statement {
+    sid    = "BuildFalcosidekickUIECRAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:BatchCheckLayerAvailability",
+      "ecr-public:GetRepositoryPolicy",
+      "ecr-public:DescribeRepositories",
+      "ecr-public:DescribeImages",
+      "ecr-public:InitiateLayerUpload",
+      "ecr-public:UploadLayerPart",
+      "ecr-public:CompleteLayerUpload",
+      "ecr-public:PutImage"
+    ]
+    resources = [
+      "arn:aws:ecr-public::292999226676:repository/falcosidekick-ui"
+    ]
+  }
+  statement {
+    sid = "BuildFalcosidekickUIECRTokenAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:GetAuthorizationToken",
+      "sts:GetServiceBearerToken"
+    ]
+    resources = ["*"]
+  }
+}
+
 ##### AWS LoadBalancer Controller
 
 module "load_balancer_controller" {
