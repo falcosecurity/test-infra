@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 6.5.3-3.1.gba6631b.aarch64
+target: opensuse
+architecture: arm64
+output:
+  module: output/5.0.1+driver/aarch64/falco_opensuse_6.5.3-3.1.gba6631b.aarch64_1.ko
+  probe: output/5.0.1+driver/aarch64/falco_opensuse_6.5.3-3.1.gba6631b.aarch64_1.o
+kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./stable/ARM/aarch64/kernel-default-devel-6.5.3-3.1.gba6631b.aarch64.rpm","https://download.opensuse.org/repositories/Kernel:/./stable/ARM/noarch/kernel-devel-6.5.3-3.1.gba6631b.noarch.rpm"]
