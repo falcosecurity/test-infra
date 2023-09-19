@@ -1,13 +1,13 @@
-FROM golang:1.18 AS pullrequestcreator
+FROM golang:1.21 AS pullrequestcreator
 
 RUN git clone https://github.com/kubernetes/test-infra
 RUN cd test-infra/robots/pr-creator && env GO111MODULE=on go build -v -o pr-creator ./main.go
 
-FROM golang:1.18 AS maintainersgenerator
+FROM golang:1.21 AS maintainersgenerator
 
 RUN wget -qO- "https://api.github.com/repos/leodido/maintainers-generator/releases/latest" | grep -Po '"browser_download_url": "\K.*?(?=")' | xargs wget -qO- | tar -xvz
 
-FROM golang:1.18-buster
+FROM golang:1.21-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
