@@ -2,7 +2,7 @@ kernelversion: 1
 kernelrelease: 5.15.59-2
 target: arch
 architecture: amd64
-output:
+output: 
   module: output/6.0.1+driver/x86_64/falco_arch_5.15.59-2_1.ko
   probe: output/6.0.1+driver/x86_64/falco_arch_5.15.59-2_1.o
 kernelurls: ["https://archive.archlinux.org/packages/l/linux-lts-headers/linux-lts-headers-5.15.59-2-x86_64.pkg.tar.zst"]
