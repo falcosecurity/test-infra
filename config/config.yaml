@@ -165,6 +165,8 @@ branch-protection:
               protect: true
             "release/0.35.x":
               protect: true
+            "release/0.36.x":
+              protect: true
         falcosidekick:
           required_status_checks:
             contexts:
