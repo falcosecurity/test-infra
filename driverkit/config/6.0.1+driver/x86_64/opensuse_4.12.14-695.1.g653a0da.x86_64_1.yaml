@@ -1,0 +1,8 @@
+kernelversion: 1
+kernelrelease: 4.12.14-695.1.g653a0da.x86_64
+target: opensuse
+architecture: amd64
+output:
+  module: output/6.0.1+driver/x86_64/falco_opensuse_4.12.14-695.1.g653a0da.x86_64_1.ko
+  probe: output/6.0.1+driver/x86_64/falco_opensuse_4.12.14-695.1.g653a0da.x86_64_1.o
+kernelurls: ["https://download.opensuse.org/repositories/Kernel:/./SLE12-SP5/standard/noarch/kernel-devel-4.12.14-695.1.g653a0da.noarch.rpm","https://download.opensuse.org/repositories/Kernel:/./SLE12-SP5/standard/x86_64/kernel-default-devel-4.12.14-695.1.g653a0da.x86_64.rpm"]
