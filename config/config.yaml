@@ -117,6 +117,9 @@ branch-protection:
             main:
               protect: true
         dbg-go:
+          branches:
+            main:
+              protect: true
           required_status_checks:
             contexts:
               - "build-and-test"
