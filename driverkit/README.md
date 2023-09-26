@@ -4,11 +4,11 @@ This folder contains the configuration files for the driverkit build grid.
 
 ## Usage
 
-The falcosecurity `dbg` heavily relies on [`dbg-go`](https://github.com/FedeDP/dbg-go) tool.  
+The falcosecurity `dbg` heavily relies on [`dbg-go`](https://github.com/falcosecurity/dbg-go) tool.  
 It is a golang tool used to interact with both driverkit configs, and s3 drivers.  
 
 It allows to:
-* generate configs (both a single config or auto generation from [kernel-crawler](https://github.com/FedeDP/dbg-go) output)
+* generate configs (both a single config or auto generation from [kernel-crawler](https://github.com/falcosecurity/dbg-go) output)
 * cleanup configs
 * validate configs
 * fetch stats about configs
@@ -20,7 +20,7 @@ Moreover, one can also:
 * fetch stats about s3 drivers
 
 The tool has a good README with some examples.  
-Please make sure to download dbg-go binary for your architecture from the latest release: https://github.com/FedeDP/dbg-go/releases.  
+Please make sure to download dbg-go binary for your architecture from the latest release: https://github.com/falcosecurity/dbg-go/releases.  
 
 ## FAQ
 
@@ -71,7 +71,7 @@ to publish the results after the build finishes.
 
 A: Assuming that both kernel-crawler and driverkit already supports your distro, it is just a matter of:  
 * adding the prow config for the new distro, under `test-infra/config/jobs/build-drivers/` folder; you can just copy eg: the `debian` one and then update any `debian` occurrence with your desired distro name. Please follow same name used by `driverkit` for the distro.  
-* update the `SupportedDistros` map in `dbg-go` tool: https://github.com/FedeDP/dbg-go/blob/main/pkg/root/distro.go
+* update the `SupportedDistros` map in `dbg-go` tool: https://github.com/falcosecurity/dbg-go/blob/main/pkg/root/distro.go
 * ask for a new release of `dbg-go` tool
 * bump `dbg-go` tool on both test-infra `update-dbg` and `build-drivers` images
 
