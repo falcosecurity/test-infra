@@ -113,6 +113,12 @@ orgs:
         description: Community sandbox to test-drive ideas/projects/code
         has_projects: true
         has_wiki: false
+      dbg-go:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        description: "A go tool to work with falcosecurity drivers build grid"
+        has_projects: true  
       deploy-kubernetes:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -442,6 +448,16 @@ orgs:
           - Andreagit97
           - incertum
         privacy: closed
+      dbg-go-maintainers:
+        description: maintainers of falcosecurity/dbg-go
+        maintainers:
+          - leogr
+        members:
+          - FedeDP
+          - maxgio92
+        privacy: closed
+        repos:
+          dbg-go: maintain  
       deploy-kubernetes-maintainers:
         description: maintainers of falcosecurity/deploy-kubernetes
         maintainers:
@@ -663,6 +679,7 @@ orgs:
           client-rs: admin
           community: admin
           contrib: admin
+          dbg-go: admin
           deploy-kubernetes: admin
           driverkit: admin
           event-generator: admin

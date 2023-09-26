@@ -116,6 +116,10 @@ branch-protection:
           branches:
             main:
               protect: true
+        dbg-go:
+          required_status_checks:
+            contexts:
+              - "build-and-test"
         deploy-kubernetes:
           branches:
             main:
@@ -375,6 +379,7 @@ tide:
     falcosecurity/client-rs: rebase
     falcosecurity/community: rebase
     falcosecurity/contrib: rebase
+    falcosecurity/dbg-go: rebase
     falcosecurity/deploy-kubernetes: rebase
     falcosecurity/driverkit: rebase
     falcosecurity/evolution: rebase
@@ -539,6 +544,19 @@ tide:
         - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/dbg-go
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true  
     - repos:
         - falcosecurity/deploy-kubernetes
       labels:
