@@ -8,6 +8,7 @@ approve:
       - falcosecurity/client-rs
       - falcosecurity/community
       - falcosecurity/contrib
+      - falcosecurity/dbg-go
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
       - falcosecurity/ebpf-probe
@@ -92,6 +93,7 @@ lgtm:
       - falcosecurity/community
       - falcosecurity/contrib
       - falcosecurity/evolution
+      - falcosecurity/dbg-go
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
       - falcosecurity/event-generator
@@ -193,6 +195,14 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this PR.
       Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: dbg-go
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.    
   - missing_label: needs-kind
     org: falcosecurity
     repo: deploy-kubernetes
@@ -610,6 +620,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/dbg-go:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip    
   falcosecurity/deploy-kubernetes:
     plugins:
       - approve
@@ -1267,6 +1299,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+  falcosecurity/dbg-go:
+    - name: needs-rebase
+      events:
+        - pull_request      
   falcosecurity/deploy-kubernetes:
     - name: needs-rebase
       events:
