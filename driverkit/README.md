@@ -67,6 +67,10 @@ dbg-go drivers publish
 
 to publish the results after the build finishes.
 
+### Q: How can I bump driverkit version?
+
+A: Driverkit is used by dbg-go as a GO package; therefore, it needs to be bumped in that repository, following: https://github.com/falcosecurity/dbg-go#bumping-driverkit.
+
 ### Q: How can I add support for prebuilt drivers for new distro?
 
 A: Assuming that both kernel-crawler and driverkit already supports your distro, it is just a matter of:  
