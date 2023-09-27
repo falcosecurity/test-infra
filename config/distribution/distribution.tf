@@ -66,6 +66,16 @@ resource "aws_s3_bucket_object" "distribution_index" {
   content_type = "text/html; charset=utf-8"
 }
 
+# source: https://github.com/rufuspollock/s3-bucket-listing
+resource "aws_s3_bucket_object" "distribution_list_js" {
+  bucket       = aws_s3_bucket.distribution_bucket.id
+  key          = "s3-list.js"
+  acl          = "public-read"
+  source       = "files/s3-list.js"
+  etag         = filemd5("files/s3-list.js")
+  content_type = "text/javascript; charset=utf-8"
+}
+
 resource "aws_s3_bucket" "logging_bucket" {
   bucket = var.logging_bucket_name
   #acl    = "private"
