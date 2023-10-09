@@ -1,8 +1,0 @@
-kernelversion: 1
-kernelrelease: 5.14.21-150500.55.19.1.aarch64
-target: opensuse
-architecture: arm64
-output:
-  module: output/4.0.0+driver/aarch64/falco_opensuse_5.14.21-150500.55.19.1.aarch64_1.ko
-  probe: output/4.0.0+driver/aarch64/falco_opensuse_5.14.21-150500.55.19.1.aarch64_1.o
-kernelurls: ["http://download.opensuse.org/distribution/leap/./15.6/repo/oss/aarch64/kernel-default-devel-5.14.21-150500.55.19.1.aarch64.rpm","http://download.opensuse.org/distribution/leap/./15.6/repo/oss/noarch/kernel-devel-5.14.21-150500.55.19.1.noarch.rpm"]
