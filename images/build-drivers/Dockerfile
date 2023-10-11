@@ -4,8 +4,8 @@ ARG TARGETARCH
 
 ENV PUBLISH_S3="false"
 
-RUN wget -q https://github.com/falcosecurity/dbg-go/releases/download/v0.11.0/dbg-go_0.11.0_linux_$TARGETARCH.tar.gz \
-    && tar -xvf dbg-go_0.11.0_linux_$TARGETARCH.tar.gz \
+RUN wget -q https://github.com/falcosecurity/dbg-go/releases/download/v0.11.1/dbg-go_0.11.1_linux_$TARGETARCH.tar.gz \
+    && tar -xvf dbg-go_0.11.1_linux_$TARGETARCH.tar.gz \
     && chmod +x dbg-go \
     && mv dbg-go /bin/dbg-go
 
