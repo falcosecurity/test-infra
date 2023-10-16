@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/6.0.1+driver/aarch64/falco_centos_6.5.6-1.el9.elrepo.aarch64_1.ko
   probe: output/6.0.1+driver/aarch64/falco_centos_6.5.6-1.el9.elrepo.aarch64_1.o
-kernelurls: ["http://mirrors.coreix.net/elrepo/kernel/el9/aarch64/RPMS/kernel-ml-devel-6.5.6-1.el9.elrepo.aarch64.rpm"]
+kernelurls: ["http://linux-mirrors.fnal.gov/linux/elrepo/kernel/el9/aarch64/RPMS/kernel-ml-devel-6.5.6-1.el9.elrepo.aarch64.rpm"]

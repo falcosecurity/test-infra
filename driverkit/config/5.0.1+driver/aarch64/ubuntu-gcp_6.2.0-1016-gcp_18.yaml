@@ -5,4 +5,4 @@ architecture: arm64
 output:
   module: output/5.0.1+driver/aarch64/falco_ubuntu-gcp_6.2.0-1016-gcp_18.ko
   probe: output/5.0.1+driver/aarch64/falco_ubuntu-gcp_6.2.0-1016-gcp_18.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp/linux-headers-6.2.0-1016-gcp_6.2.0-1016.18_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp/linux-gcp-headers-6.2.0-1016_6.2.0-1016.18_arm64.deb"]
+kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp/linux-gcp-headers-6.2.0-1016_6.2.0-1016.18_arm64.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp/linux-headers-6.2.0-1016-gcp_6.2.0-1016.18_arm64.deb"]
