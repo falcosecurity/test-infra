@@ -81,7 +81,7 @@ branch-protection:
         charts:
           required_status_checks:
             contexts:
-              - "Test Charts / test"
+              - "Test Charts / test (pull_request)"
           branches:
             master:
               protect: true
