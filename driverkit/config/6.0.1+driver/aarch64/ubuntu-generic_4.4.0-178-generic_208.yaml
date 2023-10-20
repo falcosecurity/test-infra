@@ -1,8 +1,10 @@
-kernelversion: 208
+kernelversion: "208"
 kernelrelease: 4.4.0-178-generic
 target: ubuntu-generic
 architecture: arm64
 output:
-  module: output/6.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-178-generic_208.ko
-  probe: output/6.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-178-generic_208.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-178_4.4.0-178.208_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-178-generic_4.4.0-178.208_arm64.deb"]
+    module: output/6.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-178-generic_208.ko
+    probe: ""
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-178_4.4.0-178.208_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-178-generic_4.4.0-178.208_arm64.deb

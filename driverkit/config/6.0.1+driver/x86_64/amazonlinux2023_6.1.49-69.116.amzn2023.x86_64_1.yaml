@@ -1,8 +1,9 @@
-kernelversion: 1
+kernelversion: "1"
 kernelrelease: 6.1.49-69.116.amzn2023.x86_64
 target: amazonlinux2023
 architecture: amd64
 output:
-  module: output/6.0.1+driver/x86_64/falco_amazonlinux2023_6.1.49-69.116.amzn2023.x86_64_1.ko
-  probe: output/6.0.1+driver/x86_64/falco_amazonlinux2023_6.1.49-69.116.amzn2023.x86_64_1.o
-kernelurls: ["https://cdn.amazonlinux.com/al2023/core/guids/00e8eeb5d368daa7fc0a264c6abf5dd913b8cd02e747c511cba3a69d9c860582/x86_64/../../../../blobstore/29c36e59db5ecb0cb08b66928042cd9ce6d3e82963eaa7875e66a2ff263a53e8/kernel-devel-6.1.49-69.116.amzn2023.x86_64.rpm"]
+    module: output/6.0.1+driver/x86_64/falco_amazonlinux2023_6.1.49-69.116.amzn2023.x86_64_1.ko
+    probe: output/6.0.1+driver/x86_64/falco_amazonlinux2023_6.1.49-69.116.amzn2023.x86_64_1.o
+kernelurls:
+    - https://cdn.amazonlinux.com/al2023/core/guids/de782702808a58accef629214a00e7072579216276505398dd25de9a3b0294bc/x86_64/../../../../blobstore/29c36e59db5ecb0cb08b66928042cd9ce6d3e82963eaa7875e66a2ff263a53e8/kernel-devel-6.1.49-69.116.amzn2023.x86_64.rpm
