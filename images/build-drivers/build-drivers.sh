@@ -61,7 +61,7 @@ function build_and_publish() {
 	done
 	
 	pretty_echo "Running DBG build with target $DBG_MAKE_BUILD_TARGET..."
-	if [[ "$DBG_MAKE_BUILD_TARGET" == "build" ]]; then
+	if [[ "$DBG_MAKE_BUILD_TARGET" = "build" ]]; then
 		# when building, ignore errors (just report them back to driverkit/output/failing.log)
 		DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --ignore-errors --skip-existing --redirect-errors=driverkit/output/failing.log"
 		# If requested, publish too!
