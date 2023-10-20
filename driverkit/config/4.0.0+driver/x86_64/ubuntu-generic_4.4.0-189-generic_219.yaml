@@ -1,8 +1,14 @@
-kernelversion: 219
+kernelversion: "219"
 kernelrelease: 4.4.0-189-generic
 target: ubuntu-generic
 architecture: amd64
 output:
-  module: output/4.0.0+driver/x86_64/falco_ubuntu-generic_4.4.0-189-generic_219.ko
-  probe: output/4.0.0+driver/x86_64/falco_ubuntu-generic_4.4.0-189-generic_219.o
-kernelurls: ["http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189_4.4.0-189.219_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189_4.4.0-189.219_all.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-generic_4.4.0-189.219_amd64.deb","http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-lowlatency_4.4.0-189.219_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-lowlatency_4.4.0-189.219_amd64.deb","http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-generic_4.4.0-189.219_amd64.deb"]
+    module: output/4.0.0+driver/x86_64/falco_ubuntu-generic_4.4.0-189-generic_219.ko
+    probe: ""
+kernelurls:
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189_4.4.0-189.219_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189_4.4.0-189.219_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-generic_4.4.0-189.219_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-generic_4.4.0-189.219_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-lowlatency_4.4.0-189.219_amd64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-189-lowlatency_4.4.0-189.219_amd64.deb

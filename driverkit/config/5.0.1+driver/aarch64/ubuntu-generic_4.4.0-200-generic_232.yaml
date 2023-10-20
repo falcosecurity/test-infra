@@ -1,8 +1,10 @@
-kernelversion: 232
+kernelversion: "232"
 kernelrelease: 4.4.0-200-generic
 target: ubuntu-generic
 architecture: arm64
 output:
-  module: output/5.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-200-generic_232.ko
-  probe: output/5.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-200-generic_232.o
-kernelurls: ["http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-200_4.4.0-200.232_all.deb","http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-200-generic_4.4.0-200.232_arm64.deb"]
+    module: output/5.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-200-generic_232.ko
+    probe: ""
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-200_4.4.0-200.232_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-200-generic_4.4.0-200.232_arm64.deb

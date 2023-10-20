@@ -1,8 +1,9 @@
-kernelversion: 1
+kernelversion: "1"
 kernelrelease: 6.5.6-1-rt-amd64
 target: debian
 architecture: amd64
 output:
-  module: output/5.0.1+driver/x86_64/falco_debian_6.5.6-1-rt-amd64_1.ko
-  probe: output/5.0.1+driver/x86_64/falco_debian_6.5.6-1-rt-amd64_1.o
-kernelurls: ["http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-kbuild-6.5.0-2_6.5.6-1_amd64.deb"]
+    module: output/5.0.1+driver/x86_64/falco_debian_6.5.6-1-rt-amd64_1.ko
+    probe: output/5.0.1+driver/x86_64/falco_debian_6.5.6-1-rt-amd64_1.o
+kernelurls:
+    - http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-kbuild-6.5.0-2_6.5.6-1_amd64.deb
