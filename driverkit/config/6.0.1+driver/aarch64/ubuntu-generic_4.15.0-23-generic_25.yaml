@@ -7,5 +7,5 @@ output:
     probe: ""
 kernelurls:
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-23-generic_4.15.0-23.25_arm64.deb
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-23_4.15.0-23.25_all.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-23-snapdragon_4.15.0-23.25_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-23_4.15.0-23.25_all.deb
