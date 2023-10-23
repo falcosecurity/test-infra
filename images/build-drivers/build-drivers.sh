@@ -55,26 +55,36 @@ function start_docker() {
 }
 
 function build_and_publish() {
+	test "${ENSURE_DOCKER}" == "true" && start_docker
+
 	for filter_key in "${!DBG_FILTERS[@]}"; do
 		test -z "${DBG_FILTERS[$filter_key]}" \
 			|| DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} ${filter_key}=${DBG_FILTERS[$filter_key]}"
 	done
-	
-	pretty_echo "Running DBG build with target $DBG_MAKE_BUILD_TARGET..."
-	if [[ "$DBG_MAKE_BUILD_TARGET" = "build" ]]; then
-		# when building, ignore errors (just report them back to driverkit/output/failing.log)
-		DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --ignore-errors --skip-existing --redirect-errors=driverkit/output/failing.log"
-		# If requested, publish too!
-		test "${PUBLISH_S3}" == "true" && DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --publish"
-	fi
-	dbg-go configs $DBG_MAKE_BUILD_TARGET $DBG_MAKE_BUILD_OPTIONS
-	
-	pretty_echo "DBG build complete"
+
+	# when building, ignore errors (just report them back to driverkit/output/failing.log)
+	DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --ignore-errors --skip-existing --redirect-errors=driverkit/output/failing.log"
+	# If requested, publish too!
+	test "${PUBLISH_S3}" == "true" && DBG_MAKE_BUILD_OPTIONS="${DBG_MAKE_BUILD_OPTIONS} --publish"
+	dbg-go configs build $DBG_MAKE_BUILD_OPTIONS
+
+	pretty_echo "dbg-go build complete"
+}
+
+function validate() {
+	dbg-go configs validate --architecture arm64
+	dbg-go configs validate
+
+	pretty_echo "dbg-go validation complete"
 }
 
 function main() {
-	test "${ENSURE_DOCKER}" == "true" && start_docker
-	build_and_publish
+	pretty_echo "Running dbg-go with target $DBG_MAKE_BUILD_TARGET..."
+	if [[ "$DBG_MAKE_BUILD_TARGET" = "build" ]]; then
+		build_and_publish
+	else
+		validate
+	fi
 	exit 0
 }
 
