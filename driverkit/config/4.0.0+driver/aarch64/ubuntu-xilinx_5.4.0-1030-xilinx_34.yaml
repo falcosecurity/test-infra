@@ -6,5 +6,5 @@ output:
     module: output/4.0.0+driver/aarch64/falco_ubuntu-xilinx_5.4.0-1030-xilinx_34.ko
     probe: output/4.0.0+driver/aarch64/falco_ubuntu-xilinx_5.4.0-1030-xilinx_34.o
 kernelurls:
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-xilinx-zynqmp/linux-xilinx-zynqmp-headers-5.4.0-1030_5.4.0-1030.34_all.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-xilinx-zynqmp/linux-headers-5.4.0-1030-xilinx-zynqmp_5.4.0-1030.34_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-xilinx-zynqmp/linux-xilinx-zynqmp-headers-5.4.0-1030_5.4.0-1030.34_all.deb
