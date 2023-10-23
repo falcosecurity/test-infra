@@ -73,7 +73,7 @@ function build_and_publish() {
 
 function validate() {
 	dbg-go configs validate --architecture arm64
-	dbg-go configs validate
+	dbg-go configs validate --architecture amd64
 
 	pretty_echo "dbg-go validation complete"
 }
