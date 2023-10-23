@@ -6,7 +6,7 @@ output:
     module: output/4.0.0+driver/x86_64/falco_ubuntu-gcp_6.2.0-1017-gcp_19.ko
     probe: output/4.0.0+driver/x86_64/falco_ubuntu-gcp_6.2.0-1017-gcp_19.o
 kernelurls:
-    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-gcp/linux-gcp-headers-6.2.0-1017_6.2.0-1017.19_amd64.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-gcp/linux-headers-6.2.0-1017-gcp_6.2.0-1017.19_amd64.deb
-    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-gcp/linux-headers-6.2.0-1017-gcp_6.2.0-1017.19_amd64.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-gcp/linux-gcp-headers-6.2.0-1017_6.2.0-1017.19_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-gcp/linux-gcp-headers-6.2.0-1017_6.2.0-1017.19_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-gcp/linux-headers-6.2.0-1017-gcp_6.2.0-1017.19_amd64.deb
