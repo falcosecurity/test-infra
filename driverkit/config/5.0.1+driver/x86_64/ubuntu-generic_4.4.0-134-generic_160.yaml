@@ -8,7 +8,7 @@ output:
 kernelurls:
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134-generic_4.4.0-134.160_amd64.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134-generic_4.4.0-134.160_amd64.deb
-    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134_4.4.0-134.160_all.deb
-    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134-lowlatency_4.4.0-134.160_amd64.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134-lowlatency_4.4.0-134.160_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134_4.4.0-134.160_all.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134_4.4.0-134.160_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-4.4.0-134-lowlatency_4.4.0-134.160_amd64.deb

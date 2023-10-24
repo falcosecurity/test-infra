@@ -6,5 +6,5 @@ output:
     module: output/6.0.1+driver/aarch64/falco_ubuntu-snapdragon_4.15.0-1094-snapdragon_103.ko
     probe: ""
 kernelurls:
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-snapdragon/linux-snapdragon-headers-4.15.0-1094_4.15.0-1094.103_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-snapdragon/linux-headers-4.15.0-1094-snapdragon_4.15.0-1094.103_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-snapdragon/linux-snapdragon-headers-4.15.0-1094_4.15.0-1094.103_arm64.deb
