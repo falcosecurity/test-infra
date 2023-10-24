@@ -6,5 +6,5 @@ output:
     module: output/6.0.1+driver/aarch64/falco_ubuntu-generic_4.4.0-70-generic_91.ko
     probe: ""
 kernelurls:
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-70-generic_4.4.0-70.91_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-70_4.4.0-70.91_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.4.0-70-generic_4.4.0-70.91_arm64.deb

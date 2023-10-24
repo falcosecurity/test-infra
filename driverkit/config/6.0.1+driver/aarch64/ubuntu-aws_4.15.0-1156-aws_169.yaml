@@ -6,5 +6,5 @@ output:
     module: output/6.0.1+driver/aarch64/falco_ubuntu-aws_4.15.0-1156-aws_169.ko
     probe: ""
 kernelurls:
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-4.15.0-1156-aws_4.15.0-1156.169_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-aws-headers-4.15.0-1156_4.15.0-1156.169_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-4.15.0-1156-aws_4.15.0-1156.169_arm64.deb
