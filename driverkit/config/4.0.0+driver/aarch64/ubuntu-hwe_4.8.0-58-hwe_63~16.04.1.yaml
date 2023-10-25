@@ -6,5 +6,5 @@ output:
     module: output/4.0.0+driver/aarch64/falco_ubuntu-hwe_4.8.0-58-hwe_63~16.04.1.ko
     probe: ""
 kernelurls:
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe/linux-headers-4.8.0-58_4.8.0-58.63~16.04.1_all.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe/linux-headers-4.8.0-58-generic_4.8.0-58.63~16.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe/linux-headers-4.8.0-58_4.8.0-58.63~16.04.1_all.deb
