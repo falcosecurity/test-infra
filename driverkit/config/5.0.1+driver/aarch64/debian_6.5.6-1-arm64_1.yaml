@@ -6,6 +6,6 @@ output:
     module: output/5.0.1+driver/aarch64/falco_debian_6.5.6-1-arm64_1.ko
     probe: output/5.0.1+driver/aarch64/falco_debian_6.5.6-1-arm64_1.o
 kernelurls:
-    - http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.5.0-2-common_6.5.6-1_all.deb
     - http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.5.0-2-arm64_6.5.6-1_arm64.deb
+    - http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-headers-6.5.0-2-common_6.5.6-1_all.deb
     - http://mirrors.edge.kernel.org/debian/pool/main/l/linux/linux-kbuild-6.5.0-2_6.5.6-1_arm64.deb
