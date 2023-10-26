@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 6.1.37-2.ph5
+target: photon
+architecture: arm64
+output:
+    module: output/6.0.1+driver/aarch64/falco_photon_6.1.37-2.ph5_1.ko
+    probe: output/6.0.1+driver/aarch64/falco_photon_6.1.37-2.ph5_1.o
+kernelurls:
+    - https://packages.vmware.com/photon/5.0/photon_5.0_aarch64/aarch64/linux-devel-6.1.37-2.ph5.aarch64.rpm
