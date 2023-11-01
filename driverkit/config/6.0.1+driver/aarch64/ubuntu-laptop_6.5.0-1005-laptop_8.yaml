@@ -1,0 +1,10 @@
+kernelversion: "8"
+kernelrelease: 6.5.0-1005-laptop
+target: ubuntu-laptop
+architecture: arm64
+output:
+    module: output/6.0.1+driver/aarch64/falco_ubuntu-laptop_6.5.0-1005-laptop_8.ko
+    probe: output/6.0.1+driver/aarch64/falco_ubuntu-laptop_6.5.0-1005-laptop_8.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-laptop/linux-headers-6.5.0-1005-laptop_6.5.0-1005.8_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-laptop/linux-laptop-headers-6.5.0-1005_6.5.0-1005.8_all.deb
