@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 6.5.6-300.fc39.aarch64
+target: fedora
+architecture: arm64
+output:
+    module: output/6.0.1+driver/aarch64/falco_fedora_6.5.6-300.fc39.aarch64_1.ko
+    probe: output/6.0.1+driver/aarch64/falco_fedora_6.5.6-300.fc39.aarch64_1.o
+kernelurls:
+    - https://mirrors.kernel.org/fedora/releases/39/Everything/aarch64/os/Packages/k/kernel-devel-6.5.6-300.fc39.aarch64.rpm
