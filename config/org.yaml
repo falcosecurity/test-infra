@@ -221,6 +221,14 @@ orgs:
         description: A simple WebUI with latest events from Falco
         has_projects: true
         has_wiki: false
+      k8s-metacollector::
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Fetches the metadata from kubernetes API server and dispatches them to Falco instances
+        has_projects: true
+        has_wiki: false  
       kernel-crawler:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -607,6 +615,17 @@ orgs:
         privacy: closed
         repos:
           .github: maintain
+      k8s-metacollector-maintainers:
+        description: maintainers of falcosecurity/k8s-metacollector
+        maintainers:
+          - alacuku
+          - andreagit97
+          - leogr
+          - Issif
+        members: []
+        privacy: closed
+        repos:
+          k8s-metacollector: maintain
       kernel-crawler-maintainers:
         description: maintainers of falcosecurity/kernel-crawler
         maintainers:
@@ -695,6 +714,7 @@ orgs:
           falcosidekick: admin
           falcosidekick-ui: admin
           flycheck-falco-rules: admin
+          k8s-metacollector: admin
           kernel-crawler: admin
           kernel-testing: admin
           kilt: admin

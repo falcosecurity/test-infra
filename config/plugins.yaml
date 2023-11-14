@@ -23,6 +23,7 @@ approve:
       - falcosecurity/falcosidekick
       - falcosecurity/falcosidekick-ui
       - falcosecurity/flycheck-falco-rules
+      - falcosecurity/k8s-metacollector
       - falcosecurity/kernel-crawler
       - falcosecurity/kernel-testing
       - falcosecurity/kernel-module
@@ -299,6 +300,14 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this issue.
       Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: k8s-metacollector
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu. 
   - missing_label: needs-kind
     org: falcosecurity
     repo: kernel-crawler
@@ -911,6 +920,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/k8s-metacollector:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip 
   falcosecurity/kernel-crawler:
     plugins:
       - approve
@@ -1356,6 +1387,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/flycheck-falco-rules:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/k8s-metacollector:
     - name: needs-rebase
       events:
         - pull_request
