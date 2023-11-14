@@ -242,6 +242,10 @@ branch-protection:
           branches:
             main:
               protect: true
+        k8s-metacollector:
+          branches:
+            main:
+              protect: true
         kernel-crawler:
           required_status_checks:
             contexts:
@@ -386,6 +390,7 @@ tide:
     falcosecurity/falco-playground: rebase
     falcosecurity/falco-website: rebase
     falcosecurity/flycheck-falco-rules: rebase
+    falcosecurity/k8s-metacollector: rebase
     falcosecurity/kernel-crawler: rebase
     falcosecurity/kernel-testing: rebase
     falcosecurity/kilt: rebase
@@ -724,6 +729,19 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/k8s-metacollector
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
