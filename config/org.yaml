@@ -221,7 +221,7 @@ orgs:
         description: A simple WebUI with latest events from Falco
         has_projects: true
         has_wiki: false
-      k8s-metacollector::
+      k8s-metacollector:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
