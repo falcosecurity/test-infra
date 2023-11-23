@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 6.5.12-100.fc37.x86_64
+target: fedora
+architecture: amd64
+output:
+    module: output/6.0.1+driver/x86_64/falco_fedora_6.5.12-100.fc37.x86_64_1.ko
+    probe: output/6.0.1+driver/x86_64/falco_fedora_6.5.12-100.fc37.x86_64_1.o
+kernelurls:
+    - https://mirrors.kernel.org/fedora/updates/37/Everything/x86_64/Packages/k/kernel-devel-6.5.12-100.fc37.x86_64.rpm
