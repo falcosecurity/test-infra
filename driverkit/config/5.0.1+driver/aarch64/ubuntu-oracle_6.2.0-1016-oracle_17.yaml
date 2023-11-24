@@ -1,0 +1,10 @@
+kernelversion: "17"
+kernelrelease: 6.2.0-1016-oracle
+target: ubuntu-oracle
+architecture: arm64
+output:
+    module: output/5.0.1+driver/aarch64/falco_ubuntu-oracle_6.2.0-1016-oracle_17.ko
+    probe: output/5.0.1+driver/aarch64/falco_ubuntu-oracle_6.2.0-1016-oracle_17.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-headers-6.2.0-1016-oracle_6.2.0-1016.17_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-oracle-headers-6.2.0-1016_6.2.0-1016.17_all.deb
