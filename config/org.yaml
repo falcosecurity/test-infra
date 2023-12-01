@@ -551,6 +551,7 @@ orgs:
           - Issif
           - jasondellaluce
           - vjjmiras
+          - LucaGuerra
         privacy: closed
         repos:
           falco-website: maintain
