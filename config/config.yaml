@@ -273,10 +273,16 @@ branch-protection:
               - "build-libs-linux-amd64 😁 (bundled_deps)"
               - "build-libs-linux-amd64 😁 (system_deps_w_chisels)"
               - "build-libs-linux-amd64 😁 (system_deps_minimal)"
+              - "build-libs-linux-arm64 😁 (system_deps)"
+              - "build-libs-linux-arm64 😁 (bundled_deps)"
+              - "build-libs-linux-arm64 😁 (system_deps_w_chisels)"
+              - "build-libs-linux-arm64 😁 (system_deps_minimal)"
               - "build-libs-linux-amd64-asan 🧐"
-              - "test-drivers-x86 😇 (bundled_deps)"
+              - "test-drivers-amd64 😇 (bundled_deps)"
+              - "test-drivers-arm64 😇 (bundled_deps)"
               - "test-libs-static (bundled_deps)"
-              - "test-scap-x86 😆 (bundled_deps)"
+              - "test-scap-amd64 😆 (bundled_deps)"
+              - "test-scap-arm64 😆 (bundled_deps)"
           branches:
             master:
               protect: true
