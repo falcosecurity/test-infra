@@ -255,6 +255,7 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
+        archived: true
         description: Kilt is a project that defines how to inject foreign apps into containers
         has_projects: true
         has_wiki: false
