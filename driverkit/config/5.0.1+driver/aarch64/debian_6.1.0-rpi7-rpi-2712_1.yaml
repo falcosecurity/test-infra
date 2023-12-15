@@ -1,0 +1,7 @@
+kernelversion: "1"
+kernelrelease: 6.1.0-rpi7-rpi-2712
+target: debian
+architecture: arm64
+output:
+    module: output/5.0.1+driver/aarch64/falco_debian_6.1.0-rpi7-rpi-2712_1.ko
+    probe: output/5.0.1+driver/aarch64/falco_debian_6.1.0-rpi7-rpi-2712_1.o
