@@ -5,3 +5,5 @@ architecture: arm64
 output:
     module: output/4.0.0+driver/aarch64/falco_debian_6.1.0-rpi7-rpi-2712_1.ko
     probe: output/4.0.0+driver/aarch64/falco_debian_6.1.0-rpi7-rpi-2712_1.o
+kernelurls:
+  - http://archive.raspberrypi.com/debian/pool/main/l/linux/linux-image-6.1.0-rpi7-rpi-2712_6.1.63-1+rpt1_arm64.deb
