@@ -1,0 +1,10 @@
+kernelversion: 99~14.04.1
+kernelrelease: 3.16.0-77-lts
+target: ubuntu-lts
+architecture: arm64
+output:
+    module: output/6.0.1+driver/aarch64/falco_ubuntu-lts_3.16.0-77-lts_99~14.04.1.ko
+    probe: ""
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-utopic/linux-headers-3.16.0-77-generic_3.16.0-77.99~14.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lts-utopic/linux-headers-3.16.0-77_3.16.0-77.99~14.04.1_all.deb
