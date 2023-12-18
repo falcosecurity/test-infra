@@ -1,10 +1,10 @@
 kernelversion: "1"
-kernelrelease: 1:6.1.58-1+rpt2-rpi-arm64
+kernelrelease: 6.1.58-1+rpt2-rpi-arm64
 target: debian
 architecture: arm64
 output:
-    module: ""
-    probe: ""
+    module: output/4.0.0+driver/aarch64/falco_debian_6.1.58-1+rpt2-rpi-arm64_1.ko
+    probe: output/4.0.0+driver/aarch64/falco_debian_6.1.58-1+rpt2-rpi-arm64_1.o
 kernelurls:
     - http://archive.raspberrypi.com/debian/pool/main/l/linux/linux-headers-6.1.0-rpi6-common-rpi_6.1.58-1+rpt2_all.deb
     - http://archive.raspberrypi.com/debian/pool/main/l/linux/linux-headers-6.1.0-rpi6-rpi-2712_6.1.58-1+rpt2_arm64.deb
