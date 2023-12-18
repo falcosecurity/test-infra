@@ -122,8 +122,9 @@ branch-protection:
         driverkit:
           required_status_checks:
             contexts:
-              - "ci/circleci: build-test"
-              - "ci/circleci: build-test-arm64"
+              - "build-test-dev (amd64) / build-test"
+              - "build-test-dev (arm64) / build-test"
+              - "Enforce go.mod tidiness"
           branches:
             master:
               protect: true
