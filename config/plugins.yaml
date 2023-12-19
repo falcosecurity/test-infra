@@ -6,6 +6,7 @@ approve:
       - falcosecurity/client-go
       - falcosecurity/client-py
       - falcosecurity/client-rs
+      - falcosecurity/cncf-green-review-testing
       - falcosecurity/community
       - falcosecurity/contrib
       - falcosecurity/dbg-go
@@ -91,6 +92,7 @@ lgtm:
       - falcosecurity/client-go
       - falcosecurity/client-py
       - falcosecurity/client-rs
+      - falcosecurity/cncf-green-review-testing
       - falcosecurity/community
       - falcosecurity/contrib
       - falcosecurity/evolution
@@ -178,6 +180,14 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this PR.
       Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: cncf-green-review-testing
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu. 
   - missing_label: needs-kind
     org: falcosecurity
     repo: community
@@ -566,6 +576,28 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/cncf-green-review-testing:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - verify-owners
+      - welcome
+      - wip    
   falcosecurity/community:
     plugins:
       - approve
@@ -1322,6 +1354,10 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
+  falcosecurity/cncf-green-review-testing:
+    - name: needs-rebase
+      events:
+        - pull_request 
   falcosecurity/community:
     - name: needs-rebase
       events:

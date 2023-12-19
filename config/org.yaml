@@ -98,6 +98,14 @@ orgs:
         archived: true
         description: The rust language implementation of the Falco client
         has_projects: true
+      cncf-green-review-testing:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Falco configurations intended for testing with the CNCF Green Reviews Working Group
+        has_projects: true
+        has_wiki: false  
       community:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -417,6 +425,17 @@ orgs:
         privacy: closed
         repos:
           client-rs: maintain
+      cncf-green-review-testing-maintainers:
+        description: maintainers of falcosecurity/cncf-green-review-testing
+        maintainers:
+          - incertum
+          - leogr
+          - LucaGuerra
+          - maxgio92
+        members: []
+        privacy: closed
+        repos:
+          cncf-green-review-testing: maintain 
       community-maintainers:
         description: maintainers of falcosecurity/community
         maintainers:
@@ -700,6 +719,7 @@ orgs:
           client-go: admin
           client-py: admin
           client-rs: admin
+          cncf-green-review-testing: admin
           community: admin
           contrib: admin
           dbg-go: admin
