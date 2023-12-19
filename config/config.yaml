@@ -100,6 +100,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        cncf-green-review-testing:
+          branches:
+            main:
+              protect: true
         community:
           branches:
             main:
@@ -381,6 +385,7 @@ tide:
     falcosecurity/client-go: rebase
     falcosecurity/client-py: rebase
     falcosecurity/client-rs: rebase
+    falcosecurity/cncf-green-review-testing: rebase
     falcosecurity/community: rebase
     falcosecurity/contrib: rebase
     falcosecurity/dbg-go: rebase
@@ -523,6 +528,20 @@ tide:
         - do-not-merge/release-note-label-needed
         - needs-rebase
       reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/cncf-green-review-testing
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true 
     - repos:
         - falcosecurity/community
       labels:
