@@ -139,7 +139,7 @@ branch-protection:
         event-generator:
           required_status_checks:
             contexts:
-              - "build-and-test"
+              - "build-and-test-amd64"
               - "build-and-test-arm64"
           branches:
             main:
