@@ -9,7 +9,7 @@ postsubmits:
     run_if_changed: 'OWNERS$'
     spec:
       containers:
-      - image: gcr.io/maxgio92/peribolos-syncer:0.2.0
+      - image: ghcr.io/falcosecurity/peribolos-syncer:0.2.0
         args:
         - sync
         - github
