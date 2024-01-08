@@ -6,7 +6,7 @@ postsubmits:
   falcosecurity/charts:
   - name: peribolos-syncer-post-submit
     branches:
-    - ^main$
+    - ^master$
     decorate: true
     max_concurrency: 1
     skip_report: false
@@ -23,7 +23,7 @@ postsubmits:
         - --peribolos-config-repository=test-infra
         - --peribolos-config-git-ref=master
         - --owners-repository=charts
-        - --owners-git-ref=main
+        - --owners-git-ref=master
         - --approvers-only=true
         - --git-author-name=poiana
         - --git-author-email="51138685+poiana@users.noreply.github.com"
