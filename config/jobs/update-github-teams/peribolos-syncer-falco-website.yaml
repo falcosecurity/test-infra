@@ -23,7 +23,7 @@ postsubmits:
         - --peribolos-config-repository=test-infra
         - --peribolos-config-git-ref=master
         - --owners-repository=falco-website
-        - --owners-git-ref=main
+        - --owners-git-ref=master
         - --approvers-only=true
         - --git-author-name=poiana
         - --git-author-email="51138685+poiana@users.noreply.github.com"
