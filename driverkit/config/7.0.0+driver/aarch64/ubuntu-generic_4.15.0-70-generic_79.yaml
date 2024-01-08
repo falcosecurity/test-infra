@@ -1,0 +1,10 @@
+kernelversion: "79"
+kernelrelease: 4.15.0-70-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/7.0.0+driver/aarch64/falco_ubuntu-generic_4.15.0-70-generic_79.ko
+    probe: ""
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-70-generic_4.15.0-70.79_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-70_4.15.0-70.79_all.deb
