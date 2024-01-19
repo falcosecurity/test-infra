@@ -6,4 +6,4 @@ output:
     module: output/7.0.0+driver/aarch64/falco_amazonlinux2023_6.1.21-1.45.amzn2023.aarch64_1.ko
     probe: output/7.0.0+driver/aarch64/falco_amazonlinux2023_6.1.21-1.45.amzn2023.aarch64_1.o
 kernelurls:
-    - https://cdn.amazonlinux.com/al2023/core/guids/8f5098a368baae8fc9d160c812bde9270bf82532e1552dedfc94f590b8a04145/aarch64/../../../../blobstore/ccc93d2a94c5f42d85c1f9fe7967c213ca7df714592be7c98589fd094e3f3e15/kernel-devel-6.1.21-1.45.amzn2023.aarch64.rpm
+    - https://cdn.amazonlinux.com/al2023/core/guids/b9c5cfef947c23f59b04b6a4ffd514e6c9875eaf572f4b6da78d09bc5fe32dc4/aarch64/../../../../blobstore/ccc93d2a94c5f42d85c1f9fe7967c213ca7df714592be7c98589fd094e3f3e15/kernel-devel-6.1.21-1.45.amzn2023.aarch64.rpm
