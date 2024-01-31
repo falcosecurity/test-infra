@@ -1,6 +1,6 @@
 kernelversion: 1_1.30.0
 kernelrelease: 5.10.57
-target: minikube 
+target: minikube
 architecture: amd64
 output:
     module: output/7.0.0+driver/x86_64/falco_minikube_5.10.57_1_1.30.0.ko
