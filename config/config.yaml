@@ -150,7 +150,8 @@ branch-protection:
           required_status_checks:
             contexts:
               - "test-dev-packages / test-packages"
-              - "test-dev-packages (static) / test-packages"
+              # The musl static package is currently disabled so we do not need to require testing
+              # - "test-dev-packages (static) / test-packages"
               # note: we don't need build jobs, since tests depends on them
           branches:
             master:
