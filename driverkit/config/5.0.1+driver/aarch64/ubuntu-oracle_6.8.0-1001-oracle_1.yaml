@@ -1,0 +1,10 @@
+kernelversion: "1"
+kernelrelease: 6.8.0-1001-oracle
+target: ubuntu-oracle
+architecture: arm64
+output:
+    module: output/5.0.1+driver/aarch64/falco_ubuntu-oracle_6.8.0-1001-oracle_1.ko
+    probe: output/5.0.1+driver/aarch64/falco_ubuntu-oracle_6.8.0-1001-oracle_1.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-headers-6.8.0-1001-oracle_6.8.0-1001.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-oracle-headers-6.8.0-1001_6.8.0-1001.1_all.deb
