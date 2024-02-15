@@ -287,7 +287,6 @@ branch-protection:
               - "build-libs-linux-arm64 😁 (bundled_deps)"
               - "build-libs-linux-arm64 😁 (system_deps_w_chisels)"
               - "build-libs-linux-arm64 😁 (system_deps_minimal)"
-              - "build-libs-linux-amd64-asan 🧐"
               - "test-drivers-amd64 😇 (bundled_deps)"
               - "test-drivers-arm64 😇 (bundled_deps)"
               - "test-libs-static (bundled_deps)"
