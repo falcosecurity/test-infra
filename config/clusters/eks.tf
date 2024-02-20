@@ -7,6 +7,7 @@ module "eks" {
   subnets                   = module.vpc.private_subnets
   write_kubeconfig          = true
   map_users                 = var.eks_users
+  map_roles                 = var.eks_roles
   enable_irsa               = true
   cluster_enabled_log_types = ["audit"]
 

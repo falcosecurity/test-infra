@@ -150,3 +150,19 @@ variable "eks_users" {
     }
   ]
 }
+variable "eks_roles" {
+  description = "Additional IAM roles to add to the aws-auth configmap."
+  type = list(object({
+    rolearn = string
+    username = string
+    groups = list(string)
+  }))
+
+  default = [
+    {
+      rolearn  = "arn:aws:iam::292999226676:role/github_actions-test-infra-cluster"
+      username = "githubactions-test-infra-cluster"
+      groups   = ["system:masters"]
+    },
+  ]
+}
