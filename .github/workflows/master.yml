@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy-terraform:
+  deploy-terraform-prow:
     permissions:
       id-token: write
       contents: read
@@ -28,17 +28,10 @@ jobs:
         run: |
           ./tools/deploy_terraform.sh
           
-  deploy-prow:
-    runs-on: ubuntu-22.04
-    needs: deploy-terraform
-    steps:
-      - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v4
-       
       - name: Deploy prow
         env:
           PROW_HMAC_TOKEN: ${{ secrets.PROW_HMAC_TOKEN }}
           PROW_OAUTH_TOKEN: ${{ secrets.PROW_OAUTH_TOKEN }}
           PROW_SERVICE_ACCOUNT_JSON: ${{ secrets.PROW_SERVICE_ACCOUNT_JSON }}
         run: |
-          ./tools/deploy_prow.sh 
+          ./tools/deploy_prow.sh
