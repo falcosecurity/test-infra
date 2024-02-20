@@ -553,6 +553,57 @@ data "aws_iam_policy_document" "falcosidekick_ui_ecr_access" {
   }
 }
 
+# Falcoctl repository
+
+module "falcoctl_ecr_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  name    = "github_actions-falcoctl-ecr"
+  version = "5.10.0"
+  create = true
+  subjects = [
+    "falcosecurity/falcoctl:ref:refs/heads/main",
+    "falcosecurity/falcoctl:ref:refs/tags/*"
+  ]
+  policies = {
+    falcoctl_ecr_access = "${aws_iam_policy.falcoctl_ecr_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falcoctl_ecr_access" {
+  name_prefix = "github_actions-falcoctl-ecr"
+  description = "GitHub actions ECR access policy for falcoctl"
+  policy      = data.aws_iam_policy_document.falcoctl_ecr_access.json
+}
+
+data "aws_iam_policy_document" "falcoctl_ecr_access" {
+  statement {
+    sid    = "BuildFalcoctlECRAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:BatchCheckLayerAvailability",
+      "ecr-public:GetRepositoryPolicy",
+      "ecr-public:DescribeRepositories",
+      "ecr-public:DescribeImages",
+      "ecr-public:InitiateLayerUpload",
+      "ecr-public:UploadLayerPart",
+      "ecr-public:CompleteLayerUpload",
+      "ecr-public:PutImage"
+    ]
+    resources = [
+      "arn:aws:ecr-public::292999226676:repository/falcoctl"
+    ]
+  }
+  statement {
+    sid = "BuildFalcoctlECRTokenAccess"
+    effect = "Allow"
+    actions = [
+      "ecr-public:GetAuthorizationToken",
+      "sts:GetServiceBearerToken"
+    ]
+    resources = ["*"]
+  }
+}
+
 ##### AWS LoadBalancer Controller
 
 module "load_balancer_controller" {
