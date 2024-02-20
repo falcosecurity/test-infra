@@ -33,7 +33,7 @@ jobs:
     needs: deploy-terraform
     steps:
       - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
        
       - name: Deploy prow
         env:
