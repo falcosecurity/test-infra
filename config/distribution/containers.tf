@@ -129,3 +129,23 @@ resource "aws_ecrpublic_repository" "falco_driver_loader_legacy" {
   }
 }
 
+data "http" "falcoctl_readme" {
+  url = "https://raw.githubusercontent.com/falcosecurity/falcoctl/main/README.md"
+}
+
+resource "aws_ecrpublic_repository" "falcoctl" {
+  provider = aws.us
+
+  repository_name = "falcoctl"
+
+  catalog_data {
+    description       = "Administrative tooling for Falco"
+    about_text        = substr(data.http.falcoctl_readme.body, 0, 10240)
+    architectures     = ["x86-64", "ARM 64"]
+    operating_systems = ["Linux"]
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
