@@ -140,7 +140,7 @@ resource "aws_ecrpublic_repository" "falcoctl" {
 
   catalog_data {
     description       = "Administrative tooling for Falco"
-    about_text        = substr(data.http.falcoctl_readme.body, 0, 10240)
+    about_text        = substr(data.http.falcoctl_readme.body, 0, 10200)
     architectures     = ["x86-64", "ARM 64"]
     operating_systems = ["Linux"]
   }
