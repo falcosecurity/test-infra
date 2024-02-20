@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Kubeval ⛓️
         uses: lra/setup-kubeval@v1.0.1
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Go
         uses: actions/setup-go@v1
