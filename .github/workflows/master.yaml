@@ -2,8 +2,7 @@ name: Master CI - deploys terraform and prow
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
   deploy-terraform:
@@ -13,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Configure AWS credentials 🔧⚙️
         uses: aws-actions/configure-aws-credentials@v2
