@@ -4,6 +4,11 @@ on:
   pull_request:
     branches: [master]
 
+# Checks if any concurrent jobs under the same pull request or branch are being executed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   manifests-validation:
     runs-on: ubuntu-latest
