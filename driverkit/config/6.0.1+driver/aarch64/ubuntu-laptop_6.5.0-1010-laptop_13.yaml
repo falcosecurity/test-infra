@@ -1,0 +1,10 @@
+kernelversion: "13"
+kernelrelease: 6.5.0-1010-laptop
+target: ubuntu-laptop
+architecture: arm64
+output:
+    module: output/6.0.1+driver/aarch64/falco_ubuntu-laptop_6.5.0-1010-laptop_13.ko
+    probe: output/6.0.1+driver/aarch64/falco_ubuntu-laptop_6.5.0-1010-laptop_13.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-laptop/linux-headers-6.5.0-1010-laptop_6.5.0-1010.13_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-laptop/linux-laptop-headers-6.5.0-1010_6.5.0-1010.13_all.deb
