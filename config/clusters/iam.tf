@@ -604,6 +604,55 @@ data "aws_iam_policy_document" "falcoctl_ecr_access" {
   }
 }
 
+# falco-playground repository
+
+module "falco_playground_s3_role" {
+  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  version = "5.10.0"
+  name = "github_actions-falco-playground-s3"
+  create = true
+  subjects = [
+    "falcosecurity/falco-playground:ref:refs/tags/*"
+  ]
+  policies = {
+    falco_playground_s3_access = "${aws_iam_policy.falco_playground_s3_access.arn}"
+  }
+}
+
+resource "aws_iam_policy" "falco_playground_s3_access" {
+  name_prefix = "github_actions-falco-playground-s3"
+  description = "GitHub actions S3 access policy for falco-playground repo workflows"
+  policy      = data.aws_iam_policy_document.falco_playground_s3_access.json
+}
+
+data "aws_iam_policy_document" "falco_playground_s3_access" {
+  statement {
+    sid    = "UploadFalcoPlaygroundS3Access"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:PutObjectAcl"
+    ]
+    resources = [
+      "arn:aws:s3:::falco-playground/*",
+      "arn:aws:s3:::falco-playground/",
+    ]
+  }
+  statement {
+    sid    = "BuildFalcoPlaygroundCloudFrontAccess"
+    effect = "Allow"
+    actions = [
+      "cloudfront:CreateInvalidation"
+    ]
+    resources = [
+      "arn:aws:cloudfront::292999226676:distribution/E3CTNHYRFR6C3"
+    ]
+  }
+}
+
 ##### AWS LoadBalancer Controller
 
 module "load_balancer_controller" {
