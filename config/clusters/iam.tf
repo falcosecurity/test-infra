@@ -627,7 +627,7 @@ resource "aws_iam_policy" "falco_playground_s3_access" {
 
 data "aws_iam_policy_document" "falco_playground_s3_access" {
   statement {
-    sid    = "UploadFalcoPlaygroundS3Access"
+    sid    = "UploadFalcoPlaygroundS3ContentAccess"
     effect = "Allow"
     actions = [
       "s3:PutObject",
@@ -639,6 +639,16 @@ data "aws_iam_policy_document" "falco_playground_s3_access" {
     resources = [
       "arn:aws:s3:::falco-playground/*",
       "arn:aws:s3:::falco-playground/",
+    ]
+  }
+  statement {
+    sid = "UploadFalcoPlaygroundS3BucketAccess"
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:s3:::falco-playground",
     ]
   }
   statement {
