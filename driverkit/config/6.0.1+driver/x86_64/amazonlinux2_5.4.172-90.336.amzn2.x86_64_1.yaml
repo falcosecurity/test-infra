@@ -6,4 +6,4 @@ output:
     module: output/6.0.1+driver/x86_64/falco_amazonlinux2_5.4.172-90.336.amzn2.x86_64_1.ko
     probe: output/6.0.1+driver/x86_64/falco_amazonlinux2_5.4.172-90.336.amzn2.x86_64_1.o
 kernelurls:
-    - http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.4/stable/x86_64/17909f22bfcd0e5c8003f945c447a47a411526e7d5d222cbb5c342556bc69d94/../../../../../../blobstore/d1cc3d5c7ea361e2e81ff6650516cbcabf075169e869abfcc052a2461bd4f2e4/kernel-devel-5.4.172-90.336.amzn2.x86_64.rpm
+    - http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.4/stable/x86_64/892e1c4fda615a3f9483008732859fa0e14ce3d3b271801eb6354567799c8669/../../../../../../blobstore/d1cc3d5c7ea361e2e81ff6650516cbcabf075169e869abfcc052a2461bd4f2e4/kernel-devel-5.4.172-90.336.amzn2.x86_64.rpm
