@@ -13,3 +13,17 @@ eks_default_worker_group_asg_desired_capacity = 3
 eks_default_worker_group_asg_max_capacity  = 10
 eks_jobs_worker_group_asg_max_capacity     = 20
 eks_jobs_arm_worker_group_asg_max_capacity = 20
+
+eks_roles = [
+  {
+    rolearn  = "arn:aws:iam::292999226676:role/github_actions-test-infra-cluster"
+    username = "githubactions-test-infra-cluster"
+    groups   = ["system:masters"]
+  },
+  {
+    rolearn  = "arn:aws:iam::292999226676:role/github_actions-test-infra-reader"
+    username = "githubactions-test-infra-reader"
+    groups   = ["aws-config-readers"]
+  },
+]
+
