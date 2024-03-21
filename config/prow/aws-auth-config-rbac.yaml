@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: aws-auth-config-reader
+  namespace: kube-system
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: ["aws-auth"]
+  verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: aws-auth-config-reader
+  namespace: kube-system
+subjects:
+- kind: Group
+  name: aws-config-readers
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: aws-auth-config-reader
+  apiGroup: rbac.authorization.k8s.io
