@@ -7,6 +7,10 @@ on:
     paths:
     - 'config/clusters/**'
 
+concurrency:
+  group: master-CI
+  cancel-in-progress: false
+
 defaults:
   run:
     working-directory: config/clusters
