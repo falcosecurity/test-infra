@@ -266,10 +266,31 @@ module "test-infra_reader" {
   name    = "github_actions-test-infra-reader"
   create  = true
   subjects = [
-    "falcosecurity/test-infra:ref:refs/heads/*"
+    "falcosecurity/test-infra:ref:*"
   ]
   policies = {
     test-infra_read_access = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+    test-infra_state_lock  = "${aws_iam_policy.test-infra_state_lock.arn}"
+  }
+}
+
+resource "aws_iam_policy" "test-infra_state_lock" {
+  name_prefix = "github_actions-test-infra-cluster"
+  description = "Access policy for test-infra Terraform remote state lock"
+  policy      = data.aws_iam_policy_document.test-infra_state_lock.json
+}
+
+data "aws_iam_policy_document" "test-infra_state_lock" {
+  statement {
+    sid    = "DeployTestInfraClusterAccess"
+    effect = "Allow"
+    actions = [
+      "dynamodb:PutItem",
+      "dynamodb:DeleteItem"
+    ]
+    resources = [
+      "arn:aws:dynamodb:::table/${var.state_dynamodb_table_name}"
+    ]
   }
 }
 
