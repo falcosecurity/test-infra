@@ -143,16 +143,16 @@ data "aws_iam_policy_document" "driverkit_s3_access" {
 
 # GHA OIDC Provider, required to integrate with any GHA workflow
 module "iam_github_oidc_provider" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-provider"
-  version   = "5.10.0"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-provider"
+  version = "5.10.0"
 }
 
 # Rules repository
 
 module "rules_s3_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
-  create = true
+  create  = true
   subjects = [
     "falcosecurity/rules:ref:refs/heads/main",
     "falcosecurity/rules:ref:refs/tags/*"
@@ -189,10 +189,10 @@ data "aws_iam_policy_document" "rules_s3_access" {
 # Plugins repository
 
 module "plugins_s3_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
-  name = "github_actions-plugins-s3"
-  create = true
+  name    = "github_actions-plugins-s3"
+  create  = true
   subjects = [
     "falcosecurity/plugins:ref:refs/heads/master",
     "falcosecurity/plugins:ref:refs/tags/*"
@@ -229,10 +229,10 @@ data "aws_iam_policy_document" "plugins_s3_access" {
 # Test-infra repository
 
 module "test-infra_cluster_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
-  name = "github_actions-test-infra-cluster"
-  create = true
+  name    = "github_actions-test-infra-cluster"
+  create  = true
   subjects = [
     "falcosecurity/test-infra:ref:refs/heads/master"
   ]
@@ -260,11 +260,24 @@ data "aws_iam_policy_document" "test-infra_cluster_access" {
   }
 }
 
-module "test-infra_s3_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+module "test-infra_reader" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
-  name = "github_actions-test-infra-s3"
-  create = true
+  name    = "github_actions-test-infra-reader"
+  create  = true
+  subjects = [
+    "falcosecurity/test-infra:ref:refs/heads/*"
+  ]
+  policies = {
+    test-infra_read_access = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+  }
+}
+
+module "test-infra_s3_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  version = "5.10.0"
+  name    = "github_actions-test-infra-s3"
+  create  = true
   subjects = [
     "falcosecurity/test-infra:ref:refs/heads/master"
   ]
@@ -300,10 +313,10 @@ data "aws_iam_policy_document" "test-infra_s3_access" {
 # Falco repository (dev packages)
 
 module "falco_dev_s3_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
-  name = "github_actions-falco-dev-s3"
-  create = true
+  name    = "github_actions-falco-dev-s3"
+  create  = true
   subjects = [
     "falcosecurity/falco:ref:refs/heads/master",
     "falcosecurity/falco:ref:refs/tags/*"
@@ -350,10 +363,10 @@ data "aws_iam_policy_document" "falco_dev_s3_access" {
 # Falco repository (releases)
 
 module "falco_s3_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
-  name = "github_actions-falco-s3"
-  create = true
+  name    = "github_actions-falco-s3"
+  create  = true
   subjects = [
     "falcosecurity/falco:ref:refs/tags/*"
   ]
@@ -402,7 +415,7 @@ module "falco_ecr_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   name    = "github_actions-falco-ecr"
   version = "5.10.0"
-  create = true
+  create  = true
   subjects = [
     "falcosecurity/falco:ref:refs/heads/master",
     "falcosecurity/falco:ref:refs/tags/*"
@@ -441,7 +454,7 @@ data "aws_iam_policy_document" "falco_ecr_access" {
     ]
   }
   statement {
-    sid = "BuildFalcoECRTokenAccess"
+    sid    = "BuildFalcoECRTokenAccess"
     effect = "Allow"
     actions = [
       "ecr-public:GetAuthorizationToken",
@@ -457,7 +470,7 @@ module "falcosidekick_ecr_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   name    = "github_actions-falcosidekick-ecr"
   version = "5.10.0"
-  create = true
+  create  = true
   subjects = [
     "falcosecurity/falcosidekick:ref:refs/heads/master",
     "falcosecurity/falcosidekick:ref:refs/tags/*"
@@ -492,7 +505,7 @@ data "aws_iam_policy_document" "falcosidekick_ecr_access" {
     ]
   }
   statement {
-    sid = "BuildFalcosidekickECRTokenAccess"
+    sid    = "BuildFalcosidekickECRTokenAccess"
     effect = "Allow"
     actions = [
       "ecr-public:GetAuthorizationToken",
@@ -508,7 +521,7 @@ module "falcosidekick_ui_ecr_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   name    = "github_actions-falcosidekick-ui-ecr"
   version = "5.10.0"
-  create = true
+  create  = true
   subjects = [
     "falcosecurity/falcosidekick-ui:ref:refs/heads/master",
     "falcosecurity/falcosidekick-ui:ref:refs/tags/*"
@@ -543,7 +556,7 @@ data "aws_iam_policy_document" "falcosidekick_ui_ecr_access" {
     ]
   }
   statement {
-    sid = "BuildFalcosidekickUIECRTokenAccess"
+    sid    = "BuildFalcosidekickUIECRTokenAccess"
     effect = "Allow"
     actions = [
       "ecr-public:GetAuthorizationToken",
@@ -559,7 +572,7 @@ module "falcoctl_ecr_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   name    = "github_actions-falcoctl-ecr"
   version = "5.10.0"
-  create = true
+  create  = true
   subjects = [
     "falcosecurity/falcoctl:ref:refs/heads/main",
     "falcosecurity/falcoctl:ref:refs/tags/*"
@@ -594,7 +607,7 @@ data "aws_iam_policy_document" "falcoctl_ecr_access" {
     ]
   }
   statement {
-    sid = "BuildFalcoctlECRTokenAccess"
+    sid    = "BuildFalcoctlECRTokenAccess"
     effect = "Allow"
     actions = [
       "ecr-public:GetAuthorizationToken",
@@ -607,10 +620,10 @@ data "aws_iam_policy_document" "falcoctl_ecr_access" {
 # falco-playground repository
 
 module "falco_playground_s3_role" {
-  source    = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
+  source  = "terraform-aws-modules/iam/aws//modules/iam-github-oidc-role"
   version = "5.10.0"
-  name = "github_actions-falco-playground-s3"
-  create = true
+  name    = "github_actions-falco-playground-s3"
+  create  = true
   subjects = [
     "falcosecurity/falco-playground:ref:refs/tags/*"
   ]
@@ -642,7 +655,7 @@ data "aws_iam_policy_document" "falco_playground_s3_access" {
     ]
   }
   statement {
-    sid = "UploadFalcoPlaygroundS3BucketAccess"
+    sid    = "UploadFalcoPlaygroundS3BucketAccess"
     effect = "Allow"
     actions = [
       "s3:ListBucket"
