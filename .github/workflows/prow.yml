@@ -1,4 +1,4 @@
-name: Master CI - deploys terraform and prow
+name: Deploy Prow
 
 on:
   push:
@@ -23,10 +23,6 @@ jobs:
         with:
           role-to-assume: "arn:aws:iam::292999226676:role/github_actions-test-infra-cluster"
           aws-region: eu-west-1
-          
-      - name: Deploy terraform
-        run: |
-          ./tools/deploy_terraform.sh
           
       - name: Deploy prow
         env:
