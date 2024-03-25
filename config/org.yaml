@@ -49,6 +49,7 @@ orgs:
       - mmat11
       - Molter73
       - rohith-raju
+      - sboschman
       - terylt
       - therealbobo
       - vjjmiras
@@ -810,6 +811,7 @@ orgs:
         members:
           - jasondellaluce
           - ahmedameenaim
+          - sboschman
         privacy: closed
         repos:
           plugins: maintain
