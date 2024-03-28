@@ -194,7 +194,7 @@ module "plugins_s3_role" {
   name    = "github_actions-plugins-s3"
   create  = true
   subjects = [
-    "falcosecurity/plugins:ref:refs/heads/master",
+    "falcosecurity/plugins:ref:refs/heads/main",
     "falcosecurity/plugins:ref:refs/tags/*"
   ]
   policies = {
