@@ -5,7 +5,7 @@ postsubmits:
       skip_report: false
       agent: kubernetes
       branches:
-        - ^master$
+        - ^main$
       run_if_changed: "^registry.yaml"
       spec:
         containers:
