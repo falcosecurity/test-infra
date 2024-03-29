@@ -266,7 +266,7 @@ module "test-infra_reader" {
   name    = "github_actions-test-infra-reader"
   create  = true
   subjects = [
-    "falcosecurity/test-infra:ref:*"
+    "falcosecurity/test-infra:pull_request"
   ]
   policies = {
     test-infra_read_access = "arn:aws:iam::aws:policy/ReadOnlyAccess"
