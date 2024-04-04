@@ -21,7 +21,7 @@ spec:
       serviceAccountName: "prow-controller-manager"
       containers:
         - name: prow-controller-manager
-          image: gcr.io/k8s-prow/prow-controller-manager:v20230315-6d54c174f4
+          image: gcr.io/k8s-prow/prow-controller-manager:v20240403-f1101a8b4e
           env:
           - name: AWS_REGION
             value: eu-west-1
