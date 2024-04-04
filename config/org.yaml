@@ -399,6 +399,7 @@ orgs:
         members:
           - cpanato
           - Issif
+          - alacuku
         privacy: closed
         repos:
           charts: maintain
@@ -477,6 +478,7 @@ orgs:
           - LucaGuerra
           - Andreagit97
           - incertum
+          - alacuku
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
@@ -594,6 +596,7 @@ orgs:
           - maxgio92
           - fededp
           - cpanato
+          - alacuku
         privacy: closed
         repos:
           falcoctl: maintain
