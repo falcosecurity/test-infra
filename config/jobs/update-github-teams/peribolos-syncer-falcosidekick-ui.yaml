@@ -6,7 +6,7 @@ postsubmits:
   falcosecurity/falcosidekick-ui:
   - name: peribolos-syncer-post-submit
     branches:
-    - ^main$
+    - ^master$
     decorate: true
     max_concurrency: 1
     skip_report: false
