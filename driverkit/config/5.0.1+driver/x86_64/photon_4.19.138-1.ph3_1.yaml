@@ -6,4 +6,4 @@ output:
     module: output/5.0.1+driver/x86_64/falco_photon_4.19.138-1.ph3_1.ko
     probe: output/5.0.1+driver/x86_64/falco_photon_4.19.138-1.ph3_1.o
 kernelurls:
-    - https://packages.vmware.com/photon/3.0/photon_updates_3.0_x86_64/x86_64/linux-rt-devel-4.19.138-1.ph3.x86_64.rpm
+    - https://packages.vmware.com/photon/3.0/photon_updates_3.0_x86_64/x86_64/linux-devel-4.19.138-1.ph3.x86_64.rpm
