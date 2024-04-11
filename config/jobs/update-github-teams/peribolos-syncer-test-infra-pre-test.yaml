@@ -9,6 +9,8 @@ presubmits:
     spec:
       containers:
       - image: ghcr.io/falcosecurity/peribolos-syncer:0.2.0
+        command:
+        - peribolos-syncer
         args:
         - sync
         - github
