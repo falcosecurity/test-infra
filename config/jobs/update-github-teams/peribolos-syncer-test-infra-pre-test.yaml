@@ -1,6 +1,6 @@
 presubmits:
   falcosecurity/test-infra:
-  - name: peribolos-syncer-post-submit
+  - name: peribolos-syncer-pre-submit-test
     branches:
     - ^master$
     decorate: true
