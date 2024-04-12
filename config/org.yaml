@@ -1,60 +1,56 @@
 orgs:
   falcosecurity:
-    name: Falco
-    description: Falco is Container Native Runtime Security
-
+    admins:
+    - caniszczyk
+    - ldegio
+    - leogr
+    - mstemm
+    - poiana
+    - thelinuxfoundation
+    - jasondellaluce
+    - LucaGuerra
     default_repository_permission: read
+    description: Falco is Container Native Runtime Security
     has_organization_projects: true
     has_repository_projects: true
-    members_can_create_repositories: false
-
-    admins:
-      - caniszczyk
-      - ldegio
-      - leogr
-      - mstemm
-      - poiana
-      - thelinuxfoundation
-      - jasondellaluce
-      - LucaGuerra
-
     members:
-      - admiral0
-      - ahmedameenaim
-      - alacuku
-      - Andreagit97
-      - araujof
-      - bencer
-      - cpanato
-      - cappellinsamuele
-      - darryk10
-      - dwindsor
-      - ewilderj
-      - EXONER4TED
-      - FedeDP
-      - fjogeleit
-      - gnosek
-      - hbrueckner
-      - incertum
-      - Issif
-      - jonahjon
-      - Kaizhe
-      - krisnova
-      - leodido
-      - loresuso
-      - Lowaiz
-      - markyjackson-taulia
-      - maxgio92
-      - mfdii
-      - mmat11
-      - Molter73
-      - rohith-raju
-      - sboschman
-      - terylt
-      - therealbobo
-      - vjjmiras
-      - zuc
-      
+    - admiral0
+    - ahmedameenaim
+    - alacuku
+    - Andreagit97
+    - araujof
+    - bencer
+    - cpanato
+    - cappellinsamuele
+    - darryk10
+    - dwindsor
+    - ewilderj
+    - EXONER4TED
+    - FedeDP
+    - fjogeleit
+    - gnosek
+    - hbrueckner
+    - incertum
+    - Issif
+    - jonahjon
+    - Kaizhe
+    - krisnova
+    - leodido
+    - loresuso
+    - Lowaiz
+    - markyjackson-taulia
+    - maxgio92
+    - mfdii
+    - mmat11
+    - Molter73
+    - rohith-raju
+    - sboschman
+    - terylt
+    - therealbobo
+    - vjjmiras
+    - zuc
+    members_can_create_repositories: false
+    name: Falco
     repos:
       .github:
         allow_merge_commit: false
@@ -104,9 +100,10 @@ orgs:
         allow_rebase_merge: true
         allow_squash_merge: false
         default_branch: main
-        description: Falco configurations intended for testing with the CNCF Green Reviews Working Group
+        description: Falco configurations intended for testing with the CNCF Green
+          Reviews Working Group
         has_projects: true
-        has_wiki: false  
+        has_wiki: false
       community:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -127,8 +124,8 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
-        description: "A go tool to work with falcosecurity drivers build grid"
-        has_projects: true  
+        description: A go tool to work with falcosecurity drivers build grid
+        has_projects: true
       deploy-kubernetes:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -141,7 +138,7 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
-        description: "Kit for building Falco drivers: kernel modules or eBPF probes"
+        description: 'Kit for building Falco drivers: kernel modules or eBPF probes'
         has_projects: true
       ebpf-probe:
         allow_merge_commit: false
@@ -154,8 +151,7 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
-        description:
-          Generate a variety of suspect actions that are detected by Falco
+        description: Generate a variety of suspect actions that are detected by Falco
           rulesets
         has_projects: true
       evolution:
@@ -178,8 +174,8 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
-        description: Terraform Module for Falco AWS Resources
         default_branch: main
+        description: Terraform Module for Falco AWS Resources
         has_projects: true
       falco-exporter:
         allow_merge_commit: false
@@ -187,6 +183,15 @@ orgs:
         allow_squash_merge: false
         description: Prometheus Metrics Exporter for Falco output events
         has_projects: true
+      falco-playground:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Web-application used to validate Falco rules and test against
+          scap file
+        has_projects: true
+        has_wiki: false
       falco-website:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -194,13 +199,6 @@ orgs:
         description: Source code of the official Falco website
         has_projects: true
         homepage: https://falco.org
-      flycheck-falco-rules:
-        allow_merge_commit: false
-        allow_rebase_merge: true
-        allow_squash_merge: false
-        description: Falco Rules Syntax Checker for Emacs, Using Flycheck
-        default_branch: main
-        has_projects: true
       falcoctl:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -208,14 +206,6 @@ orgs:
         description: Administrative tooling for Falco
         has_projects: true
         has_wiki: false
-      falco-playground:
-        allow_merge_commit: false
-        allow_rebase_merge: true
-        allow_squash_merge: false
-        default_branch: main
-        description: Web-application used to validate Falco rules and test against scap file
-        has_projects: true
-        has_wiki: false    
       falcosidekick:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -230,14 +220,22 @@ orgs:
         description: A simple WebUI with latest events from Falco
         has_projects: true
         has_wiki: false
+      flycheck-falco-rules:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Falco Rules Syntax Checker for Emacs, Using Flycheck
+        has_projects: true
       k8s-metacollector:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
         default_branch: main
-        description: Fetches the metadata from kubernetes API server and dispatches them to Falco instances
+        description: Fetches the metadata from kubernetes API server and dispatches
+          them to Falco instances
         has_projects: true
-        has_wiki: false  
+        has_wiki: false
       kernel-crawler:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -246,34 +244,35 @@ orgs:
         description: A tool to crawl Linux kernel versions
         has_projects: false
         has_wiki: false
-      kernel-testing:
-        allow_merge_commit: false
-        allow_rebase_merge: true
-        allow_squash_merge: false
-        default_branch: main
-        description: Ansible playbooks to provision firecracker VMs and run Falco kernel tests
-        has_projects: true
-        has_wiki: false  
       kernel-module:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
         archived: true
         has_projects: true
+      kernel-testing:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Ansible playbooks to provision firecracker VMs and run Falco
+          kernel tests
+        has_projects: true
+        has_wiki: false
       kilt:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
         archived: true
-        description: Kilt is a project that defines how to inject foreign apps into containers
+        description: Kilt is a project that defines how to inject foreign apps into
+          containers
         has_projects: true
         has_wiki: false
       libs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
-        description:
-          libsinsp, libscap, the kernel module driver, and the eBPF driver
+        description: libsinsp, libscap, the kernel module driver, and the eBPF driver
           sources
         has_projects: true
         has_wiki: false
@@ -296,7 +295,7 @@ orgs:
         allow_rebase_merge: true
         allow_squash_merge: false
         archived: true
-        description: "System inspection library "
+        description: 'System inspection library '
         has_projects: true
       pdig:
         allow_merge_commit: false
@@ -311,7 +310,8 @@ orgs:
         allow_rebase_merge: true
         allow_squash_merge: false
         default_branch: main
-        description: Tool to synchronize Peribolos configuration with GitHub people sources of truth.
+        description: Tool to synchronize Peribolos configuration with GitHub people
+          sources of truth.
         has_projects: true
         has_wiki: false
       pigeon:
@@ -332,8 +332,8 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
-        description: Falco plugins SDK for Go
         default_branch: main
+        description: Falco plugins SDK for Go
         has_projects: true
       plugins:
         allow_merge_commit: false
@@ -379,343 +379,338 @@ orgs:
         description: All-purpose test suite for Falco and its ecosystem
         has_projects: true
         has_wiki: false
-
     teams:
       admins:
         description: admins of the org
         maintainers:
-          - caniszczyk
-          - ldegio
-          - leogr
-          - thelinuxfoundation
-          - mstemm
+        - caniszczyk
+        - ldegio
+        - leogr
+        - thelinuxfoundation
+        - mstemm
         privacy: closed
         repos:
           advocacy: admin
       charts-maintainers:
         description: maintainers of falcosecurity/charts
         maintainers:
-          - leogr
+        - leogr
         members:
-          - cpanato
-          - Issif
-          - alacuku
+        - cpanato
+        - Issif
+        - alacuku
         privacy: closed
         repos:
           charts: maintain
       client-go-maintainers:
         description: maintainers of falcosecurity/client-go
         maintainers:
-          - leogr
+        - leogr
         members:
-          - leodido
+        - leodido
         privacy: closed
         repos:
           client-go: maintain
       client-py-maintainers:
         description: maintainers of falcosecurity/client-py
         members:
-          - leodido
-          - mmat11
+        - leodido
+        - mmat11
         privacy: closed
         repos:
           client-py: maintain
       client-rs-maintainers:
         description: maintainers of falcosecurity/client-rs
         members:
-          - leodido
+        - leodido
         privacy: closed
         repos:
           client-rs: maintain
       cncf-green-review-testing-maintainers:
         description: maintainers of falcosecurity/cncf-green-review-testing
         maintainers:
-          - incertum
-          - leogr
-          - LucaGuerra
-          - maxgio92
-        members: []
+        - incertum
+        - leogr
+        - LucaGuerra
+        - maxgio92
         privacy: closed
         repos:
-          cncf-green-review-testing: maintain 
+          cncf-green-review-testing: maintain
       community-maintainers:
         description: maintainers of falcosecurity/community
         maintainers:
-          - leogr
+        - leogr
         members:
-          - Issif
-          - araujof
-          - maxgio92
-          - terylt
-          - Andreagit97
+        - Issif
+        - araujof
+        - maxgio92
+        - terylt
+        - Andreagit97
         privacy: closed
         repos:
           community: maintain
       contrib-maintainers:
         description: maintainers of falcosecurity/contrib
         maintainers:
-          - leogr
+        - leogr
         members:
-          - maxgio92
-          - jasondellaluce
+        - maxgio92
+        - jasondellaluce
         privacy: closed
         repos:
           contrib: maintain
       core-maintainers:
         description: Core maintainers of The Falco Project
         maintainers:
-          - leogr
-          - mstemm
+        - leogr
+        - mstemm
         members:
-          - gnosek
-          - cpanato
-          - Issif
-          - FedeDP
-          - maxgio92
-          - zuc
-          - jasondellaluce
-          - Molter73
-          - LucaGuerra
-          - Andreagit97
-          - incertum
-          - alacuku
+        - gnosek
+        - cpanato
+        - Issif
+        - FedeDP
+        - maxgio92
+        - zuc
+        - jasondellaluce
+        - Molter73
+        - LucaGuerra
+        - Andreagit97
+        - incertum
+        - alacuku
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
         maintainers:
-          - leogr
+        - leogr
         members:
-          - FedeDP
-          - maxgio92
+        - FedeDP
+        - maxgio92
         privacy: closed
         repos:
-          dbg-go: maintain  
+          dbg-go: maintain
       deploy-kubernetes-maintainers:
         description: maintainers of falcosecurity/deploy-kubernetes
         maintainers:
-          - leogr
+        - leogr
         members:
-          - maxgio92
-          - zuc
-          - jasondellaluce
+        - maxgio92
+        - zuc
+        - jasondellaluce
         privacy: closed
         repos:
           deploy-kubernetes: maintain
       driverkit-maintainers:
         description: maintainers of falcosecurity/driverkit
         members:
-          - leodido
-          - dwindsor
-          - FedeDP
-          - EXONER4TED
-          - Lowaiz
+        - leodido
+        - dwindsor
+        - FedeDP
+        - EXONER4TED
+        - Lowaiz
         privacy: closed
         repos:
           driverkit: maintain
       event-generator-maintainers:
         description: maintainers of falcosecurity/event-generator
         maintainers:
-          - leogr
+        - leogr
         members:
-          - FedeDP
+        - FedeDP
         privacy: closed
         repos:
           event-generator: maintain
       evolution-maintainers:
         description: maintainers of falcosecurity/evolution
         maintainers:
-          - leogr
+        - leogr
         members:
-          - maxgio92
-          - jasondellaluce
+        - maxgio92
+        - jasondellaluce
+        - leogr
         privacy: closed
         repos:
           evolution: maintain
       falco-aws-terraform-maintainers:
         description: maintainers of falcosecurity/falco-aws-terraform
         maintainers:
-          - ldegio
-          - leogr
-          - mstemm
+        - ldegio
+        - leogr
+        - mstemm
         members:
-          - zuc
-          - jasondellaluce
+        - zuc
+        - jasondellaluce
         privacy: closed
         repos:
           falco-aws-terraform: maintain
       falco-exporter-maintainers:
         description: maintainers of falcosecurity/falco-exporter
         maintainers:
-          - leogr
+        - leogr
         members:
-          - jasondellaluce
+        - jasondellaluce
         privacy: closed
         repos:
           falco-exporter: maintain
       falco-maintainers:
         description: maintainers of falcosecurity/falco
         maintainers:
-          - leogr
-          - mstemm
+        - leogr
+        - mstemm
         members:
-          - FedeDP
-          - jasondellaluce
-          - Andreagit97
-          - incertum
-          - LucaGuerra
+        - FedeDP
+        - jasondellaluce
+        - Andreagit97
+        - incertum
+        - LucaGuerra
         privacy: closed
         repos:
           falco: maintain
-      falco-website-maintainers:
-        description: maintainers of falcosecurity/falco-website
-        maintainers:
-          - leogr
-        members:
-          - Issif
-          - jasondellaluce
-          - vjjmiras
-          - LucaGuerra
-        privacy: closed
-        repos:
-          falco-website: maintain
-      flycheck-falco-rules-maintainers:
-        description: maintainers of falcosecurity/flycheck-falco-rules
-        maintainers:
-          - mstemm
-          - ewilderj
-        members:
-        privacy: closed
-        repos:
-          flycheck-falco-rules: maintain
-      falcoctl-maintainers:
-        description: maintainers of falcosecurity/falcoctl
-        maintainers:
-          - leogr
-        members:
-          - zuc
-          - maxgio92
-          - fededp
-          - cpanato
-          - alacuku
-        privacy: closed
-        repos:
-          falcoctl: maintain
       falco-playground-maintainers:
         description: maintainers of falcosecurity/falco-playground
         maintainers:
-          - rohith-raju
-          - jasondellaluce
-          - leogr
-        members: []
+        - rohith-raju
+        - jasondellaluce
+        - leogr
         privacy: closed
         repos:
-          falco-playground: maintain     
+          falco-playground: maintain
+      falco-website-maintainers:
+        description: maintainers of falcosecurity/falco-website
+        maintainers:
+        - leogr
+        members:
+        - Issif
+        - jasondellaluce
+        - vjjmiras
+        - LucaGuerra
+        privacy: closed
+        repos:
+          falco-website: maintain
+      falcoctl-maintainers:
+        description: maintainers of falcosecurity/falcoctl
+        maintainers:
+        - leogr
+        members:
+        - zuc
+        - maxgio92
+        - fededp
+        - cpanato
+        - alacuku
+        privacy: closed
+        repos:
+          falcoctl: maintain
       falcosidekick-maintainers:
         description: maintainers of falcosecurity/falcosidekick
         maintainers:
-          - leogr
+        - leogr
         members:
-          - cpanato
-          - Issif
-          - fjogeleit
+        - cpanato
+        - Issif
+        - fjogeleit
         privacy: closed
         repos:
           falcosidekick: maintain
       falcosidekick-ui-maintainers:
         description: maintainers of falcosecurity/falcosidekick-ui
         members:
-          - cpanato
-          - Issif
-          - fjogeleit
+        - cpanato
+        - Issif
+        - fjogeleit
         privacy: closed
         repos:
           falcosidekick-ui: maintain
+      flycheck-falco-rules-maintainers:
+        description: maintainers of falcosecurity/flycheck-falco-rules
+        maintainers:
+        - mstemm
+        - ewilderj
+        privacy: closed
+        repos:
+          flycheck-falco-rules: maintain
       github-maintainers:
         description: maintainers of falcosecurity/.github
         maintainers:
-          - leogr
+        - leogr
         members:
-          - maxgio92
-          - jasondellaluce
+        - maxgio92
+        - jasondellaluce
         privacy: closed
         repos:
           .github: maintain
       k8s-metacollector-maintainers:
         description: maintainers of falcosecurity/k8s-metacollector
         maintainers:
-          - alacuku
-          - andreagit97
-          - leogr
-          - Issif
-        members: []
+        - alacuku
+        - andreagit97
+        - leogr
+        - Issif
         privacy: closed
         repos:
           k8s-metacollector: maintain
       kernel-crawler-maintainers:
         description: maintainers of falcosecurity/kernel-crawler
         maintainers:
-          - leogr
+        - leogr
         members:
-          - FedeDP
-          - maxgio92
-          - zuc
-          - EXONER4TED
+        - FedeDP
+        - maxgio92
+        - zuc
+        - EXONER4TED
         privacy: closed
         repos:
           kernel-crawler: maintain
       kernel-testing-maintainers:
         description: maintainers of falcosecurity/kernel-testing
         maintainers:
-          - alacuku
-          - Andreagit97
-          - FedeDP
-          - therealbobo
-        members: []
+        - alacuku
+        - Andreagit97
+        - FedeDP
+        - therealbobo
         privacy: closed
         repos:
-          kernel-testing: maintain    
+          kernel-testing: maintain
       kilt-maintainers:
         description: maintainers of falcosecurity/kilt
         members:
-          - gnosek
-          - leodido
-          - admiral0
+        - gnosek
+        - leodido
+        - admiral0
         privacy: closed
         repos:
           kilt: maintain
       libs-maintainers:
         description: maintainers of falcosecurity/libs
         maintainers:
-          - leogr
-          - mstemm
-          - jasondellaluce
+        - leogr
+        - mstemm
+        - jasondellaluce
         members:
-          - gnosek
-          - FedeDP
-          - Molter73
-          - LucaGuerra
-          - Andreagit97
-          - hbrueckner
-          - incertum
+        - gnosek
+        - FedeDP
+        - Molter73
+        - LucaGuerra
+        - Andreagit97
+        - hbrueckner
+        - incertum
         privacy: closed
         repos:
           libs: maintain
       libs-sdk-go-maintainers:
         description: maintainers of falcosecurity/libs-sdk-go
         maintainers:
-          - leogr
+        - leogr
         members:
-          - araujof
-          - jasondellaluce
-          - terylt
-          - Andreagit97
+        - araujof
+        - jasondellaluce
+        - terylt
+        - Andreagit97
         privacy: closed
         repos:
           libs-sdk-go: maintain
       machine_users:
         description: bots
         maintainers:
-          - poiana
+        - poiana
         privacy: closed
         repos:
           .github: admin
@@ -734,9 +729,9 @@ orgs:
           falco: admin
           falco-aws-terraform: admin
           falco-exporter: admin
+          falco-playground: admin
           falco-website: admin
           falcoctl: admin
-          falco-playground: admin
           falcosidekick: admin
           falcosidekick-ui: admin
           flycheck-falco-rules: admin
@@ -758,110 +753,109 @@ orgs:
       pdig-maintainers:
         description: maintainers of falcosecurity/pdig
         maintainers:
-          - ldegio
+        - ldegio
         members:
-          - gnosek
-          - leodido
+        - gnosek
+        - leodido
         privacy: closed
         repos:
           pdig: maintain
       peribolos-syncer-maintainers:
         description: maintainers of falcosecurity/perperibolos-syncer
         maintainers:
-          - maxgio92
-          - leogr
-          - FedeDP
-        members: []
+        - maxgio92
+        - leogr
+        - FedeDP
         privacy: closed
         repos:
           peribolos-syncer: maintain
       pigeon-maintainers:
         description: maintainers of falcosecurity/pigeon
         maintainers:
-          - jasondellaluce
+        - jasondellaluce
         members:
-          - cappellinsamuele
-          - fededp
+        - cappellinsamuele
+        - fededp
         privacy: closed
         repos:
           pigeon: maintain
       plugin-sdk-cpp-maintainers:
         description: maintainers of falcosecurity/plugin-sdk-cpp
         maintainers:
-          - ldegio
-          - leogr
-          - mstemm
+        - ldegio
+        - leogr
+        - mstemm
         members:
-          - leodido
-          - FedeDP
+        - leodido
+        - FedeDP
         privacy: closed
         repos:
           plugin-sdk-cpp: maintain
       plugin-sdk-go-maintainers:
         description: maintainers of falcosecurity/plugin-sdk-go
         maintainers:
-          - leogr
+        - leogr
         members:
-          - jasondellaluce
+        - jasondellaluce
         privacy: closed
         repos:
           plugin-sdk-go: maintain
       plugins-maintainers:
         description: maintainers of falcosecurity/plugins
         maintainers:
-          - leogr
-          - mstemm
+        - leogr
+        - mstemm
         members:
-          - jasondellaluce
-          - ahmedameenaim
-          - sboschman
+        - jasondellaluce
+        - ahmedameenaim
+        - sboschman
         privacy: closed
         repos:
           plugins: maintain
       rules-maintainers:
         description: maintainers of falcosecurity/rules
         maintainers:
-          - leogr
-          - LucaGuerra
+        - leogr
+        - LucaGuerra
         members:
-          - fededp
-          - jasondellaluce
-          - andreagit97
-          - mstemm
-          - incertum
+        - fededp
+        - jasondellaluce
+        - andreagit97
+        - mstemm
+        - incertum
         privacy: closed
         repos:
           rules: maintain
       syscalls-bumper-maintainers:
         description: maintainers of falcosecurity/syscalls-bumper
         maintainers:
-          - leogr
+        - leogr
         members:
-          - FedeDP
-          - Andreagit97
+        - FedeDP
+        - Andreagit97
         privacy: closed
         repos:
           syscalls-bumper: maintain
       test-infra-maintainers:
         description: maintainers of falcosecurity/test-infra
         maintainers:
-          - leogr
+        - leogr
         members:
-          - maxgio92
-          - zuc
-          - jonahjon
-          - fededp
+        - maxgio92
+        - zuc
+        - jonahjon
+        - fededp
         privacy: closed
         repos:
           test-infra: maintain
       testing-maintainers:
         description: maintainers of falcosecurity/testing
         maintainers:
-          - jasondellaluce
-          - leogr
+        - jasondellaluce
+        - leogr
         members:
-          - andreagit97
-          - lucaguerra
+        - andreagit97
+        - lucaguerra
         privacy: closed
         repos:
           testing: maintain
