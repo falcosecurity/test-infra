@@ -1,6 +1,6 @@
 postsubmits:
   falcosecurity/libs:
-  - name: peribolos-syncer-post-submit
+  - name: peribolos-syncer-libs-post
     branches:
     - ^master$
     decorate: true
@@ -9,7 +9,7 @@ postsubmits:
     run_if_changed: 'OWNERS$'
     spec:
       containers:
-      - image: ghcr.io/falcosecurity/peribolos-syncer:0.2.0
+      - image: ghcr.io/falcosecurity/peribolos-syncer:0.2.1
         args:
         - sync
         - github
