@@ -8,18 +8,18 @@ presubmits:
     run_if_changed: 'OWNERS$'
     spec:
       containers:
-      - image: ghcr.io/falcosecurity/peribolos-syncer:0.2.0
+      - image: ghcr.io/falcosecurity/peribolos-syncer:0.2.1
         command:
         - peribolos-syncer
         args:
         - sync
         - github
         - --org=falcosecurity
-        - --team=evolution-maintainers
+        - --team=test-infra-maintainers
         - --peribolos-config-path=config/org.yaml
         - --peribolos-config-repository=test-infra
         - --peribolos-config-git-ref=master
-        - --owners-repository=evolution
+        - --owners-repository=test-infra
         - --owners-git-ref=main
         - --approvers-only=true
         - --git-author-name=poiana
