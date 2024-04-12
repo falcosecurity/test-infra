@@ -281,12 +281,10 @@ branch-protection:
             contexts:
               - "build-libs-linux-amd64 😁 (system_deps)"
               - "build-libs-linux-amd64 😁 (bundled_deps)"
-              - "build-libs-linux-amd64 😁 (system_deps_w_chisels)"
               - "build-libs-linux-amd64 😁 (system_deps_minimal)"
               - "build-libs-linux-amd64 😁 (sanitizers)"
               - "build-libs-linux-arm64 😁 (system_deps)"
               - "build-libs-linux-arm64 😁 (bundled_deps)"
-              - "build-libs-linux-arm64 😁 (system_deps_w_chisels)"
               - "build-libs-linux-arm64 😁 (system_deps_minimal)"
               - "build-libs-linux-arm64 😁 (sanitizers)"
               - "test-drivers-amd64 😇 (bundled_deps)"
