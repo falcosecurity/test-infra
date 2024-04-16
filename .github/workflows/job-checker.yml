@@ -1,0 +1,35 @@
+name: Prow Jobs Checker
+
+on:
+  pull_request:
+    branches: [master]
+    paths: ['config/jobs/**']
+
+# Checks if any concurrent jobs under the same pull request or branch are being executed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}-job-checker
+  cancel-in-progress: true
+
+jobs:
+  jobs-checker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout test-infra ⤵️
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: 'tools/prow-jobs-checker/go.mod'
+        
+      - name: build prow jobs checker
+        working-directory: ./tools/prow-jobs-checker
+        run: |
+          go build
+        
+      - name: prow jobs validation 🔍
+        run: |
+          ./tools/prow-jobs-checker/prow-jobs-checker --verbose
+
+   
