@@ -1,13 +1,12 @@
 # Run branchprotector on both post-submit events on test-infra AND as a cron job for health checks.
 
-postsubmit:
+postsubmits:
   falcosecurity/test-infra:
     - name: branchprotector-post-submit
       branches:
         - ^master$
       decorate: true
       max_concurrency: 1
-      skip_report: false
       run_if_changed: '^config/config.yaml$'
       spec:
         containers:
@@ -41,7 +40,6 @@ periodics:
         base_ref: master
     decorate: true
     max_concurrency: 1
-    skip_report: false
     spec:
       containers:
         - image: gcr.io/k8s-prow/branchprotector:v20230315-6d54c174f4
