@@ -77,8 +77,6 @@ periodics:
     interval: 24h
     decorate: true
     max_concurrency: 1
-    skip_report: false
-    always_run: true
     extra_refs:
       - org: falcosecurity
         repo: test-infra
