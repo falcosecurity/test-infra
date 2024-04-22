@@ -465,6 +465,7 @@ plugins:
       - lgtm
       - require-matching-label
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -485,6 +486,7 @@ plugins:
       - lgtm
       - require-matching-label
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -506,6 +508,7 @@ plugins:
       - mergecommitblocker
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -529,6 +532,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -551,6 +555,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -573,6 +578,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -595,6 +601,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip    
@@ -616,6 +623,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -637,6 +645,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -658,6 +667,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -680,6 +690,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip    
@@ -701,6 +712,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -723,6 +735,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -745,6 +758,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -769,6 +783,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -792,6 +807,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -815,6 +831,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -860,6 +877,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -883,6 +901,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -905,6 +924,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip        
@@ -926,6 +946,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -971,6 +992,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip 
@@ -1015,6 +1037,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip    
@@ -1037,6 +1060,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1083,6 +1107,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1105,6 +1130,7 @@ plugins:
       - milestone
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1127,6 +1153,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1149,6 +1176,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1282,6 +1310,7 @@ plugins:
       - lifecycle
       - lgtm
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1325,6 +1354,7 @@ plugins:
       - require-matching-label
       - retitle
       - size
+      - trigger
       - verify-owners
       - welcome
       - wip
