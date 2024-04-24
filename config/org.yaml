@@ -17,6 +17,7 @@ orgs:
       - thelinuxfoundation
       - jasondellaluce
       - LucaGuerra
+      - FedeDP
 
     members:
       - admiral0
@@ -31,7 +32,6 @@ orgs:
       - dwindsor
       - ewilderj
       - EXONER4TED
-      - FedeDP
       - fjogeleit
       - gnosek
       - hbrueckner
