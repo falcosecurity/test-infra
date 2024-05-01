@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 5.4.274-187.369.amzn2.aarch64
+target: amazonlinux2
+architecture: arm64
+output:
+    module: output/6.0.1+driver/aarch64/falco_amazonlinux2_5.4.274-187.369.amzn2.aarch64_1.ko
+    probe: output/6.0.1+driver/aarch64/falco_amazonlinux2_5.4.274-187.369.amzn2.aarch64_1.o
+kernelurls:
+    - http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.4/stable/aarch64/92e682cac9d5a73f02f64392084358a112932f5453abb47ddb68ee85f26964a6/../../../../../../blobstore/f576914480b16a39fea6c7165848360069261a4cf79e1166cf85b99e127816c7/kernel-devel-5.4.274-187.369.amzn2.aarch64.rpm
