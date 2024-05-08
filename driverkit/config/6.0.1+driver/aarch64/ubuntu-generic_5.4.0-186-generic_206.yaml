@@ -1,0 +1,10 @@
+kernelversion: "206"
+kernelrelease: 5.4.0-186-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/6.0.1+driver/aarch64/falco_ubuntu-generic_5.4.0-186-generic_206.ko
+    probe: output/6.0.1+driver/aarch64/falco_ubuntu-generic_5.4.0-186-generic_206.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.4.0-186-generic_5.4.0-186.206_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.4.0-186_5.4.0-186.206_all.deb
