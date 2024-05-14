@@ -7,7 +7,7 @@ import (
 	"github.com/lmittmann/tint"
 	"log/slog"
 	"os"
-	"sigs.k8s.io/prow/prow/config"
+	"sigs.k8s.io/prow/pkg/config"
 	"strconv"
 	"strings"
 	"time"
