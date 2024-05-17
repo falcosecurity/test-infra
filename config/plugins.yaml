@@ -943,6 +943,7 @@ plugins:
       - label
       - lifecycle
       - lgtm
+      - milestone
       - require-matching-label
       - retitle
       - size
