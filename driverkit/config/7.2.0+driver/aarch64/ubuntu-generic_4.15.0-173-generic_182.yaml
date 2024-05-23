@@ -1,0 +1,10 @@
+kernelversion: "182"
+kernelrelease: 4.15.0-173-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/7.2.0+driver/aarch64/falco_ubuntu-generic_4.15.0-173-generic_182.ko
+    probe: ""
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-173-generic_4.15.0-173.182_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-173_4.15.0-173.182_all.deb
