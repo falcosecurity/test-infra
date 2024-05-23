@@ -1,0 +1,11 @@
+kernelversion: "47"
+kernelrelease: 4.15.0-44-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/7.2.0+driver/aarch64/falco_ubuntu-generic_4.15.0-44-generic_47.ko
+    probe: ""
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-44-generic_4.15.0-44.47_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-44-snapdragon_4.15.0-44.47_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-4.15.0-44_4.15.0-44.47_all.deb
