@@ -1,0 +1,11 @@
+kernelversion: "41"
+kernelrelease: 6.5.0-41-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/7.0.0+driver/aarch64/falco_ubuntu-generic_6.5.0-41-generic_41.ko
+    probe: output/7.0.0+driver/aarch64/falco_ubuntu-generic_6.5.0-41-generic_41.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.5.0-41-generic-64k_6.5.0-41.41_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.5.0-41-generic_6.5.0-41.41_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.5.0-41_6.5.0-41.41_all.deb
