@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 6.1.91-99.172.amzn2023.aarch64
+target: amazonlinux2023
+architecture: arm64
+output:
+    module: output/7.0.0+driver/aarch64/falco_amazonlinux2023_6.1.91-99.172.amzn2023.aarch64_1.ko
+    probe: output/7.0.0+driver/aarch64/falco_amazonlinux2023_6.1.91-99.172.amzn2023.aarch64_1.o
+kernelurls:
+    - https://cdn.amazonlinux.com/al2023/core/guids/29e042e57da524044e2bd960687dcd22969b1e47080a1c79f2e5864e9f08a4fb/aarch64/../../../../blobstore/4effea33f17c8244e4bb91ee48b8628222ad3e84262ef9372f1e3a380e702b4e/kernel-devel-6.1.91-99.172.amzn2023.aarch64.rpm
