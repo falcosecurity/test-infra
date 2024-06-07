@@ -143,6 +143,8 @@ branch-protection:
               - "build-and-test-arm64"
           branches:
             main:
+              protect: true            
+            gsoc2024:
               protect: true
         falco:
           required_pull_request_reviews:
