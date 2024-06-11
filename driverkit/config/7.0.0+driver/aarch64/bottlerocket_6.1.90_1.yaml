@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 6.1.90
+target: bottlerocket
+architecture: arm64
+output:
+    module: output/7.0.0+driver/aarch64/falco_bottlerocket_6.1.90_1.ko
+    probe: output/7.0.0+driver/aarch64/falco_bottlerocket_6.1.90_1.o
+kernelurls:
+    - https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.90.tar.xz
