@@ -518,6 +518,7 @@ orgs:
           - leogr
         members:
           - FedeDP
+          - alacuku
         privacy: closed
         repos:
           event-generator: maintain
