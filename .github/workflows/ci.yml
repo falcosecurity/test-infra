@@ -17,11 +17,14 @@ jobs:
       - name: Checkout test-infra ⤵️
         uses: actions/checkout@v4
 
-      - name: Setup Kubeval ⛓️
-        uses: lra/setup-kubeval@v1.0.1
+      - name: Download kubeconform ⛓️
+        run: |
+          wget https://github.com/yannh/kubeconform/releases/download/v0.6.6/kubeconform-linux-amd64.tar.gz
+          tar -xvf kubeconform-linux-amd64.tar.gz
+          chmod +x kubeconform
         
       - name: yaml config validation 🔍
-        run: kubeval --directories config/prow --ignore-missing-schemas
+        run: ./kubeconform -ignore-filename-pattern ".json" -ignore-missing-schemas -verbose config/prow/
         
   scan-terraform:
     runs-on: ubuntu-latest
