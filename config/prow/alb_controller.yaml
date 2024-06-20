@@ -186,7 +186,7 @@ status:
   conditions: []
   storedVersions: []
 ---
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   annotations:
@@ -220,6 +220,8 @@ webhooks:
         resources:
           - pods
     sideEffects: None
+    admissionReviewVersions:
+      - v1
   - clientConfig:
       caBundle: Cg==
       service:
@@ -239,6 +241,8 @@ webhooks:
         resources:
           - targetgroupbindings
     sideEffects: None
+    admissionReviewVersions:
+      - v1beta1
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -547,7 +551,7 @@ metadata:
 spec:
   selfSigned: {}
 ---
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   annotations:
@@ -576,3 +580,5 @@ webhooks:
         resources:
           - targetgroupbindings
     sideEffects: None
+    admissionReviewVersions:
+      - v1beta1
