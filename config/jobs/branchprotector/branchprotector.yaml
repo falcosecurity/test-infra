@@ -10,7 +10,7 @@ postsubmits:
       run_if_changed: '^config/config.yaml$'
       spec:
         containers:
-          - image: gcr.io/k8s-prow/branchprotector:v20230315-6d54c174f4
+          - image: gcr.io/k8s-prow/branchprotector:v20240403-f1101a8b4e
             command:
               - branchprotector
             args:
@@ -42,7 +42,7 @@ periodics:
     max_concurrency: 1
     spec:
       containers:
-        - image: gcr.io/k8s-prow/branchprotector:v20230315-6d54c174f4
+        - image: gcr.io/k8s-prow/branchprotector:v20240403-f1101a8b4e
           command:
             - branchprotector
           args:
