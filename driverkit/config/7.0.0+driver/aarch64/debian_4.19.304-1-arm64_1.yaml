@@ -8,4 +8,4 @@ output:
 kernelurls:
     - http://security.debian.org/pool/updates/main/l/linux/linux-headers-4.19.0-26-arm64_4.19.304-1_arm64.deb
     - http://security.debian.org/pool/updates/main/l/linux/linux-headers-4.19.0-26-common_4.19.304-1_all.deb
-    - http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-4.19_4.19.304-1_arm64.deb
+    - http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-4.19_4.19.316-1_arm64.deb
