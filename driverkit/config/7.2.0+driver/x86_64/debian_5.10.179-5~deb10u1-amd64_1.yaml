@@ -8,4 +8,4 @@ output:
 kernelurls:
     - http://security.debian.org/pool/updates/main/l/linux-5.10/linux-headers-5.10.0-0.deb10.24-amd64_5.10.179-5~deb10u1_amd64.deb
     - http://security.debian.org/pool/updates/main/l/linux-5.10/linux-headers-5.10.0-0.deb10.24-common_5.10.179-5~deb10u1_all.deb
-    - http://security.debian.org/pool/updates/main/l/linux-5.10/linux-kbuild-5.10_5.10.216-1~deb10u1_amd64.deb
+    - http://security.debian.org/pool/updates/main/l/linux-5.10/linux-kbuild-5.10_5.10.218-1~deb10u1_amd64.deb
