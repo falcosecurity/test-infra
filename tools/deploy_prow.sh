@@ -75,6 +75,11 @@ function launchConfig(){
   launchProwConfig
 }
 
+function launchProwjobCRD(){
+  # Apply the prow CRD.
+  kubectl apply --server-side=true -f config/prow/prowjob-crd/prowjob_custromresourcedefinition.yaml
+}
+
 function launchProw(){
   kubectl apply -f config/prow/
 }
