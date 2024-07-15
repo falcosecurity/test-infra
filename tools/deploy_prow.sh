@@ -36,10 +36,11 @@ function updateKubeConfig() {
   aws eks --region ${ZONE} update-kubeconfig --name ${CLUSTER}-test-infra
 }
 
-function launchInfraConfig() {
-  #ALB Ingress and ebs CSI driver
-  kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/arm64/?ref=release-0.9"
+function launchEBSCSIDriver() {
+  kubectl apply -f "config/prow/ebs-csi-driver/ebs-csi-controller.yaml"
+}
 
+function launchMetricsServer() {
   # Metrics Server
   local metrics_server_version="v0.4.4"
   kubectl apply -f "https://github.com/kubernetes-sigs/metrics-server/releases/download/${metrics_server_version}/components.yaml"
@@ -71,7 +72,8 @@ function launchProwConfig() {
 }
 
 function launchConfig(){
-  launchInfraConfig
+  launchEBSCSIDriver
+  launchMetricsServer
   launchProwConfig
 }
 
