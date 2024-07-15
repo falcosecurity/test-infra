@@ -15,7 +15,6 @@ approve:
       - falcosecurity/ebpf-probe
       - falcosecurity/event-generator
       - falcosecurity/evolution
-      - falcosecurity/falco
       - falcosecurity/falco-aws-terraform
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
@@ -29,7 +28,6 @@ approve:
       - falcosecurity/kernel-testing
       - falcosecurity/kernel-module
       - falcosecurity/kilt
-      - falcosecurity/libs
       - falcosecurity/libs-sdk-go
       - falcosecurity/libscap
       - falcosecurity/libsinsp
