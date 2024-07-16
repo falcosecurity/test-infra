@@ -566,7 +566,7 @@ metadata:
     app.kubernetes.io/component: controller
     app.kubernetes.io/name: aws-load-balancer-controller
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/alb_ingress_controller
+    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/falco-prow-test-infra-loadbalancer-controller
   name: aws-load-balancer-controller
   namespace: kube-system
 ---
