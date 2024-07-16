@@ -13,6 +13,8 @@ spec:
       labels:
         app: pod-identity-webhook
     spec:
+      nodeSelector:
+        Archtype: "x86"
       serviceAccountName: pod-identity-webhook
       containers:
       - name: pod-identity-webhook

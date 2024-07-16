@@ -660,6 +660,7 @@ spec:
               name: socket-dir
       nodeSelector:
         kubernetes.io/os: linux
+        Archtype: "x86"
       priorityClassName: system-cluster-critical
       securityContext:
         fsGroup: 1000

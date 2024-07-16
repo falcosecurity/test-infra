@@ -810,6 +810,8 @@ spec:
         app.kubernetes.io/component: controller
         app.kubernetes.io/name: aws-load-balancer-controller
     spec:
+      nodeSelector:
+        Archtype: "x86"
       containers:
         - args:
             - --cluster-name=falco-prow-test-infra
