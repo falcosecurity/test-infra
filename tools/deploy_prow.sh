@@ -40,6 +40,13 @@ function launchEBSCSIDriver() {
   kubectl apply -f "config/prow/ebs-csi-driver/ebs-csi-controller.yaml"
 }
 
+function launchPodIdentityWebhook() {
+  # Create the namespace.
+  kubectl apply -f "config/prow/pod-identity-webhook/namespace.yaml"
+  # Apply the other manifests.
+  kubectl apply -f "config/prow/pod-identity-webhook/"
+}
+
 function launchMetricsServer() {
   # Metrics Server
   local metrics_server_version="v0.4.4"
@@ -74,6 +81,7 @@ function launchProwConfig() {
 function launchConfig(){
   launchEBSCSIDriver
   launchMetricsServer
+  launchPodIdentityWebhook
   launchProwConfig
 }
 
