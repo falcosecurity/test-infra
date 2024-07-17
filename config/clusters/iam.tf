@@ -31,6 +31,25 @@ resource "aws_iam_policy" "ebs_controller_policy" {
   policy      = data.aws_iam_policy_document.ebs_controller_policy_doc.json
 }
 
+##### Cluster-autoscaler
+
+module "cluster_autoscaler" {
+  source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version          = "4.1.0"
+  create_role      = true
+  role_name        = "${local.cluster_name}-cluster-autoscaler"
+  provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
+  role_policy_arns = [aws_iam_policy.cluster_autoscaler_policy.arn]
+  oidc_fully_qualified_subjects = [
+    "system:serviceaccount:kube-system:cluster-autoscaler",
+  ]
+}
+
+resource "aws_iam_policy" "cluster_autoscaler_policy" {
+  name_prefix = "${local.cluster_name}-cluster-autoscaler"
+  policy      = data.aws_iam_policy_document.cluster_autoscaler_policy_doc.json
+}
+
 data "aws_iam_policy_document" "cluster_autoscaler_policy_doc" {
   statement {
     effect    = "Allow"
@@ -58,11 +77,6 @@ data "aws_iam_policy_document" "cluster_autoscaler_policy_doc" {
       "autoscaling:TerminateInstanceInAutoScalingGroup",
     ]
   }
-}
-
-resource "aws_iam_policy" "cluster_autoscaler_policy" {
-  name_prefix = "${local.cluster_name}-cluster-autoscaler"
-  policy      = data.aws_iam_policy_document.cluster_autoscaler_policy_doc.json
 }
 
 ##### S3 for Prow uploads
