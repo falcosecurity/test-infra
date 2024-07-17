@@ -785,6 +785,7 @@ data "aws_iam_policy_document" "loadbalancer_controller" {
       "elasticloadbalancing:DescribeTargetGroupAttributes",
       "elasticloadbalancing:DescribeTargetHealth",
       "elasticloadbalancing:DescribeTags",
+      "elasticloadbalancing:DescribeTrustStores",
     ]
   }
 
@@ -915,7 +916,6 @@ data "aws_iam_policy_document" "loadbalancer_controller" {
   }
 
   statement {
-    sid    = ""
     effect = "Allow"
 
     resources = [
@@ -943,7 +943,6 @@ data "aws_iam_policy_document" "loadbalancer_controller" {
   }
 
   statement {
-    sid    = ""
     effect = "Allow"
 
     resources = [
@@ -960,7 +959,28 @@ data "aws_iam_policy_document" "loadbalancer_controller" {
   }
 
   statement {
-    sid    = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "elasticloadbalancing:ModifyLoadBalancerAttributes",
+      "elasticloadbalancing:SetIpAddressType",
+      "elasticloadbalancing:SetSecurityGroups",
+      "elasticloadbalancing:SetSubnets",
+      "elasticloadbalancing:DeleteLoadBalancer",
+      "elasticloadbalancing:ModifyTargetGroup",
+      "elasticloadbalancing:ModifyTargetGroupAttributes",
+      "elasticloadbalancing:DeleteTargetGroup",
+    ]
+
+    condition {
+      test     = "Null"
+      variable = "aws:ResourceTag/elbv2.k8s.aws/cluster"
+      values   = ["false"]
+    }
+  }
+
+  statement {
     effect = "Allow"
 
     resources = [
@@ -984,28 +1004,6 @@ data "aws_iam_policy_document" "loadbalancer_controller" {
     condition {
       test     = "Null"
       variable = "aws:RequestTag/elbv2.k8s.aws/cluster"
-      values   = ["false"]
-    }
-  }
-
-  statement {
-    effect    = "Allow"
-    resources = ["*"]
-
-    actions = [
-      "elasticloadbalancing:ModifyLoadBalancerAttributes",
-      "elasticloadbalancing:SetIpAddressType",
-      "elasticloadbalancing:SetSecurityGroups",
-      "elasticloadbalancing:SetSubnets",
-      "elasticloadbalancing:DeleteLoadBalancer",
-      "elasticloadbalancing:ModifyTargetGroup",
-      "elasticloadbalancing:ModifyTargetGroupAttributes",
-      "elasticloadbalancing:DeleteTargetGroup",
-    ]
-
-    condition {
-      test     = "Null"
-      variable = "aws:ResourceTag/elbv2.k8s.aws/cluster"
       values   = ["false"]
     }
   }
