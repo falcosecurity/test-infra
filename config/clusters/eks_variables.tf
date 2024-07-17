@@ -1,5 +1,5 @@
 variable "eks_cluster_version" {
-  default     = "1.27"
+  default     = "1.28"
   description = "See https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
 }
 
