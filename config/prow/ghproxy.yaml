@@ -65,7 +65,6 @@ spec:
         args:
         - --cache-dir=/cache
         - --cache-sizeGB=99
-        - --push-gateway=pushgateway
         - --serve-metrics=true
         ports:
         - name: main
