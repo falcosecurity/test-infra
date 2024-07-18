@@ -4,6 +4,8 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/name: aws-ebs-csi-driver
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/falco-prow-test-infra-ebs-csi-controller
   name: ebs-csi-controller-sa
   namespace: kube-system
 ---
