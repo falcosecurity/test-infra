@@ -212,6 +212,11 @@ spec:
       port: 8080
       targetPort: 8080
 
+    - name: "metrics"
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+
   selector:
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: kube-state-metrics
@@ -270,6 +275,8 @@ spec:
           ports:
             - containerPort: 8080
               name: "http"
+            - containerPort: 8081
+              name: "metrics"
           livenessProbe:
             failureThreshold: 3
             httpGet:
