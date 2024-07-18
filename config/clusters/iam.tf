@@ -2,33 +2,149 @@ data "aws_canonical_user_id" "current_user" {}
 
 data "aws_caller_identity" "current" {}
 
-data "aws_iam_policy_document" "ebs_controller_policy_doc" {
-  statement {
-    effect    = "Allow"
-    resources = ["*"]
-    actions = [
-      "ec2:AttachVolume",
-      "ec2:CreateSnapshot",
-      "ec2:CreateTags",
-      "ec2:CreateVolume",
-      "ec2:DeleteSnapshot",
-      "ec2:DeleteTags",
-      "ec2:DeleteVolume",
-      "ec2:DescribeInstances",
-      "ec2:DescribeSnapshots",
-      "ec2:DescribeTags",
-      "ec2:DescribeVolumes",
-      "ec2:DetachVolume",
-      "ec2:ModifyVolume",
-      "ec2:DescribeAvailabilityZones",
-      "ec2:DescribeVolumesModifications"
-    ]
-  }
+##### EBS CSI controller
+
+module "ebs_csi_controller" {
+  source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version          = "4.1.0"
+  create_role      = true
+  role_name        = "${local.cluster_name}-ebs-csi-controller"
+  provider_url     = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
+  role_policy_arns = [aws_iam_policy.ebs_controller_policy.arn]
+  oidc_fully_qualified_subjects = [
+    "system:serviceaccount:kube-system:ebs-csi-controller-sa",
+  ]
 }
 
 resource "aws_iam_policy" "ebs_controller_policy" {
   name_prefix = "${local.cluster_name}-ebs-csi-driver"
   policy      = data.aws_iam_policy_document.ebs_controller_policy_doc.json
+}
+
+data "aws_iam_policy_document" "ebs_controller_policy_doc" {
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "ec2:CreateSnapshot",
+      "ec2:AttachVolume",
+      "ec2:DetachVolume",
+      "ec2:ModifyVolume",
+      "ec2:DescribeAvailabilityZones",
+      "ec2:DescribeInstances",
+      "ec2:DescribeSnapshots",
+      "ec2:DescribeTags",
+      "ec2:DescribeVolumes",
+      "ec2:DescribeVolumesModifications",
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:ec2:*:*:volume/*",
+      "arn:aws:ec2:*:*:snapshot/*",
+    ]
+
+    actions = ["ec2:CreateTags"]
+  }
+
+  statement {
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:ec2:*:*:volume/*",
+      "arn:aws:ec2:*:*:snapshot/*",
+    ]
+
+    actions = ["ec2:DeleteTags"]
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["ec2:CreateVolume"]
+
+    condition {
+      test     = "StringLike"
+      variable = "aws:RequestTag/ebs.csi.aws.com/cluster"
+      values   = ["true"]
+    }
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["ec2:CreateVolume"]
+
+    condition {
+      test     = "StringLike"
+      variable = "aws:RequestTag/CSIVolumeName"
+      values   = ["*"]
+    }
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["ec2:DeleteVolume"]
+
+    condition {
+      test     = "StringLike"
+      variable = "ec2:ResourceTag/ebs.csi.aws.com/cluster"
+      values   = ["true"]
+    }
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["ec2:DeleteVolume"]
+
+    condition {
+      test     = "StringLike"
+      variable = "ec2:ResourceTag/CSIVolumeName"
+      values   = ["*"]
+    }
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["ec2:DeleteVolume"]
+
+    condition {
+      test     = "StringLike"
+      variable = "ec2:ResourceTag/kubernetes.io/created-for/pvc/name"
+      values   = ["*"]
+    }
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["ec2:DeleteSnapshot"]
+
+    condition {
+      test     = "StringLike"
+      variable = "ec2:ResourceTag/CSIVolumeSnapshotName"
+      values   = ["*"]
+    }
+  }
+
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+    actions   = ["ec2:DeleteSnapshot"]
+
+    condition {
+      test     = "StringLike"
+      variable = "ec2:ResourceTag/ebs.csi.aws.com/cluster"
+      values   = ["true"]
+    }
+  }
 }
 
 ##### Cluster-autoscaler
