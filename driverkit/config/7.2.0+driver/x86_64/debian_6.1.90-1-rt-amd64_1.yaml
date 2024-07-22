@@ -8,4 +8,4 @@ output:
 kernelurls:
     - http://security.debian.org/pool/updates/main/l/linux/linux-headers-6.1.0-21-common-rt_6.1.90-1_all.deb
     - http://security.debian.org/pool/updates/main/l/linux/linux-headers-6.1.0-21-rt-amd64_6.1.90-1_amd64.deb
-    - http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-6.1_6.1.90-1_amd64.deb
+    - http://security.debian.org/pool/updates/main/l/linux/linux-kbuild-6.1_6.1.99-1_amd64.deb
