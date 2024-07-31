@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     && apt-get clean
 
-RUN wget -q https://github.com/falcosecurity/dbg-go/releases/download/v0.13.0/dbg-go_0.13.0_linux_amd64.tar.gz \
-    && tar -xvf dbg-go_0.13.0_linux_amd64.tar.gz \
+RUN wget -q https://github.com/falcosecurity/dbg-go/releases/download/v0.14.0/dbg-go_0.14.0_linux_amd64.tar.gz \
+    && tar -xvf dbg-go_0.14.0_linux_amd64.tar.gz \
     && chmod +x dbg-go \
     && mv dbg-go /bin/dbg-go
 
