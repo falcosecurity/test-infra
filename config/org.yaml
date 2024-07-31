@@ -480,6 +480,7 @@ orgs:
           - Andreagit97
           - incertum
           - alacuku
+          - loresuso
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
@@ -600,6 +601,7 @@ orgs:
           - fededp
           - cpanato
           - alacuku
+          - loresuso
         privacy: closed
         repos:
           falcoctl: maintain
