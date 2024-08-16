@@ -6,4 +6,4 @@ output:
     module: output/7.2.0+driver/aarch64/falco_amazonlinux2_4.14.311-233.529.amzn2.aarch64_1.ko
     probe: ""
 kernelurls:
-    - http://amazonlinux.us-east-1.amazonaws.com/2/core/2.0/aarch64/f0459b3295cdf51899bdde8773f452fd32f9418e4558eb4104437e335c4a9bd4/../../../../../blobstore/fa7005919051bf9e91a53551ac7d623916d3fae2eead892f239271602b07fe1c/kernel-devel-4.14.311-233.529.amzn2.aarch64.rpm
+    - http://amazonlinux.us-east-1.amazonaws.com/2/core/2.0/aarch64/0ae32a9fbf66f40744df804adf453e188be11f907a1e0f7aea52355f6fb9251d/../../../../../blobstore/fa7005919051bf9e91a53551ac7d623916d3fae2eead892f239271602b07fe1c/kernel-devel-4.14.311-233.529.amzn2.aarch64.rpm
