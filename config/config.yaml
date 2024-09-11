@@ -298,6 +298,7 @@ branch-protection:
               - "test-libs-static (bundled_deps)"
               - "test-scap-amd64 😆 (bundled_deps)"
               - "test-scap-arm64 😆 (bundled_deps)"
+              - "format code 🐲"
           branches:
             master:
               protect: true
