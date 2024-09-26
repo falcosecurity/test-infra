@@ -227,6 +227,10 @@ branch-protection:
           branches:
             main:
               protect: true
+        falco-talon:
+          branches:
+            main:
+              protect: true
         falco-website:
           branches:
             master:
@@ -429,6 +433,7 @@ tide:
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-playground: rebase
+    falcosecurity/falco-talon: rebase
     falcosecurity/falco-website: rebase
     falcosecurity/flycheck-falco-rules: rebase
     falcosecurity/k8s-metacollector: rebase
@@ -772,6 +777,20 @@ tide:
         - do-not-merge/release-note-label-needed
         - needs-rebase
       reviewApprovedRequired: true    
+    - repos:
+        - falcosecurity/falco-talon
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true 
     - repos:
         - falcosecurity/flycheck-falco-rules
       labels:

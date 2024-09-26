@@ -20,6 +20,7 @@ approve:
       - falcosecurity/falco-website
       - falcosecurity/falcoctl
       - falcosecurity/falco-playground
+      - falcosecurity/falco-talon
       - falcosecurity/falcosidekick
       - falcosecurity/falcosidekick-ui
       - falcosecurity/flycheck-falco-rules
@@ -106,6 +107,7 @@ lgtm:
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/falco-playground
+      - falcosecurity/falco-talon
       - falcosecurity/flycheck-falco-rules
       - falcosecurity/kernel-crawler
       - falcosecurity/kernel-testing
@@ -185,7 +187,7 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu. 
+      Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
     repo: community
@@ -211,7 +213,7 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.    
+      Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
     repo: deploy-kubernetes
@@ -315,7 +317,7 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu. 
+      Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
     repo: kernel-crawler
@@ -403,7 +405,7 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu.    
+      Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
     repo: testing
@@ -419,7 +421,7 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu.    
+      Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco-playground
@@ -427,7 +429,15 @@ require_matching_label:
     regexp: ^kind/
     missing_comment: |
       There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu.        
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-talon
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
 
 retitle:
   allow_closed_issues: true
@@ -602,7 +612,7 @@ plugins:
       - trigger
       - verify-owners
       - welcome
-      - wip    
+      - wip
   falcosecurity/community:
     plugins:
       - approve
@@ -691,7 +701,7 @@ plugins:
       - trigger
       - verify-owners
       - welcome
-      - wip    
+      - wip
   falcosecurity/deploy-kubernetes:
     plugins:
       - approve
@@ -925,7 +935,30 @@ plugins:
       - trigger
       - verify-owners
       - welcome
-      - wip        
+      - wip
+  falcosecurity/falco-talon:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
   falcosecurity/falco-website:
     plugins:
       - approve
@@ -994,7 +1027,7 @@ plugins:
       - trigger
       - verify-owners
       - welcome
-      - wip 
+      - wip
   falcosecurity/kernel-crawler:
     plugins:
       - approve
@@ -1039,7 +1072,7 @@ plugins:
       - trigger
       - verify-owners
       - welcome
-      - wip    
+      - wip
   falcosecurity/kilt:
     plugins:
       - approve
@@ -1293,7 +1326,7 @@ plugins:
       - trigger
       - verify-owners
       - welcome
-      - wip    
+      - wip
   falcosecurity/template-repository:
     plugins:
       - approve
@@ -1386,7 +1419,7 @@ external_plugins:
   falcosecurity/cncf-green-review-testing:
     - name: needs-rebase
       events:
-        - pull_request 
+        - pull_request
   falcosecurity/community:
     - name: needs-rebase
       events:
@@ -1398,7 +1431,7 @@ external_plugins:
   falcosecurity/dbg-go:
     - name: needs-rebase
       events:
-        - pull_request      
+        - pull_request
   falcosecurity/deploy-kubernetes:
     - name: needs-rebase
       events:
@@ -1442,7 +1475,11 @@ external_plugins:
   falcosecurity/falco-playground:
     - name: needs-rebase
       events:
-        - pull_request        
+        - pull_request
+  falcosecurity/falco-talon:
+    - name: needs-rebase
+      events:
+        - pull_request
   falcosecurity/falco-website:
     - name: needs-rebase
       events:
@@ -1462,7 +1499,7 @@ external_plugins:
   falcosecurity/kernel-testing:
     - name: needs-rebase
       events:
-        - pull_request      
+        - pull_request
   falcosecurity/kilt:
     - name: needs-rebase
       events:
@@ -1506,7 +1543,7 @@ external_plugins:
   falcosecurity/syscalls-bumper:
     - name: needs-rebase
       events:
-        - pull_request      
+        - pull_request
   falcosecurity/template-repository:
     - name: needs-rebase
       events:
