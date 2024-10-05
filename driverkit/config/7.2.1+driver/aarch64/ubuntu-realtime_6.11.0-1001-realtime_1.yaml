@@ -1,0 +1,10 @@
+kernelversion: "1"
+kernelrelease: 6.11.0-1001-realtime
+target: ubuntu-realtime
+architecture: arm64
+output:
+    module: output/7.2.1+driver/aarch64/falco_ubuntu-realtime_6.11.0-1001-realtime_1.ko
+    probe: output/7.2.1+driver/aarch64/falco_ubuntu-realtime_6.11.0-1001-realtime_1.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-realtime/linux-headers-6.11.0-1001-realtime_6.11.0-1001.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-realtime/linux-realtime-headers-6.11.0-1001_6.11.0-1001.1_all.deb
