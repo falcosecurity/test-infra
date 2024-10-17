@@ -57,7 +57,7 @@ orgs:
       - therealbobo
       - vjjmiras
       - zuc
-      
+
     repos:
       .github:
         allow_merge_commit: false
@@ -109,7 +109,7 @@ orgs:
         default_branch: main
         description: Falco configurations intended for testing with the CNCF Green Reviews Working Group
         has_projects: true
-        has_wiki: false  
+        has_wiki: false
       community:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -131,7 +131,7 @@ orgs:
         allow_rebase_merge: true
         allow_squash_merge: false
         description: "A go tool to work with falcosecurity drivers build grid"
-        has_projects: true  
+        has_projects: true
       deploy-kubernetes:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -226,7 +226,7 @@ orgs:
         default_branch: main
         description: Response Engine for managing threats in your Kubernetes
         has_projects: true
-        has_wiki: false    
+        has_wiki: false
       falcosidekick:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -248,7 +248,7 @@ orgs:
         default_branch: main
         description: Fetches the metadata from kubernetes API server and dispatches them to Falco instances
         has_projects: true
-        has_wiki: false  
+        has_wiki: false
       kernel-crawler:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -264,7 +264,7 @@ orgs:
         default_branch: main
         description: Ansible playbooks to provision firecracker VMs and run Falco kernel tests
         has_projects: true
-        has_wiki: false  
+        has_wiki: false
       kernel-module:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -344,6 +344,13 @@ orgs:
         allow_rebase_merge: true
         allow_squash_merge: false
         description: Falco plugins SDK for Go
+        default_branch: main
+        has_projects: true
+      plugin-sdk-rs:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        description: Falco plugins SDK for Rust
         default_branch: main
         has_projects: true
       plugins:
@@ -448,7 +455,7 @@ orgs:
         members: []
         privacy: closed
         repos:
-          cncf-green-review-testing: maintain 
+          cncf-green-review-testing: maintain
       community-maintainers:
         description: maintainers of falcosecurity/community
         maintainers:
@@ -501,7 +508,7 @@ orgs:
           - maxgio92
         privacy: closed
         repos:
-          dbg-go: maintain  
+          dbg-go: maintain
       deploy-kubernetes-maintainers:
         description: maintainers of falcosecurity/deploy-kubernetes
         maintainers:
@@ -635,7 +642,7 @@ orgs:
         members: []
         privacy: closed
         repos:
-          falco-talon: maintain         
+          falco-talon: maintain
       falcosidekick-maintainers:
         description: maintainers of falcosecurity/falcosidekick
         maintainers:
@@ -699,7 +706,7 @@ orgs:
         members: []
         privacy: closed
         repos:
-          kernel-testing: maintain    
+          kernel-testing: maintain
       kilt-maintainers:
         description: maintainers of falcosecurity/kilt
         members:
@@ -832,6 +839,16 @@ orgs:
         privacy: closed
         repos:
           plugin-sdk-go: maintain
+      plugin-sdk-rs-maintainers:
+        description: maintainers of falcosecurity/plugin-sdk-rs
+        maintainers:
+          - gnosek
+          - andreagit97
+        members:
+          - mrgian
+        privacy: closed
+        repos:
+          plugin-sdk-rs: maintain
       plugins-maintainers:
         description: maintainers of falcosecurity/plugins
         maintainers:

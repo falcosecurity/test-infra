@@ -143,7 +143,7 @@ branch-protection:
               - "build-and-test-arm64"
           branches:
             main:
-              protect: true            
+              protect: true
             gsoc2024:
               protect: true
         falco:
@@ -285,7 +285,7 @@ branch-protection:
               - "Ansible Lint"
           branches:
             main:
-              protect: true      
+              protect: true
         kilt:
           branches:
             master:
@@ -321,7 +321,7 @@ branch-protection:
             "release/0.10.0":
               protect: true
             "release/0.10.x":
-              protect: true  
+              protect: true
             "release/0.11.x":
               protect: true
             "release/0.12.x":
@@ -372,6 +372,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        plugin-sdk-rs:
+          branches:
+            main:
+              protect: true
         rules:
           branches:
             main:
@@ -386,7 +390,7 @@ branch-protection:
               - "build syscalls-bumper"
           branches:
             main:
-              protect: true 
+              protect: true
         test-infra:
           branches:
             master:
@@ -448,6 +452,7 @@ tide:
     falcosecurity/plugins: rebase
     falcosecurity/plugin-sdk-go: rebase
     falcosecurity/plugin-sdk-cpp: rebase
+    falcosecurity/plugin-sdk-rs: rebase
     falcosecurity/rules: rebase
     falcosecurity/syscalls-bumper: rebase
     falcosecurity/template-repository: rebase
@@ -575,7 +580,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
-      reviewApprovedRequired: true 
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/community
       labels:
@@ -614,7 +619,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
-      reviewApprovedRequired: true  
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/deploy-kubernetes
       labels:
@@ -776,7 +781,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
-      reviewApprovedRequired: true    
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-talon
       labels:
@@ -790,7 +795,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
-      reviewApprovedRequired: true 
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/flycheck-falco-rules
       labels:
@@ -844,7 +849,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
-      reviewApprovedRequired: true  
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/kilt
       labels:
@@ -969,7 +974,21 @@ tide:
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
-      - falcosecurity/rules
+        - falcosecurity/plugin-sdk-rs
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/rules
       labels:
         - approved
         - lgtm
@@ -992,7 +1011,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
-      reviewApprovedRequired: true  
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/test-infra
       labels:
