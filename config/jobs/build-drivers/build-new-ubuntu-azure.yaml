@@ -9,7 +9,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_3.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #x86_64/ubuntu-azure_3.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -48,7 +48,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_3.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #aarch64/ubuntu-azure_3.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -91,7 +91,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_4.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #x86_64/ubuntu-azure_4.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -130,7 +130,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_4.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #aarch64/ubuntu-azure_4.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -173,7 +173,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_5.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #x86_64/ubuntu-azure_5.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -212,7 +212,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_5.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #aarch64/ubuntu-azure_5.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -255,7 +255,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_6.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #x86_64/ubuntu-azure_6.+'
     spec:
       serviceAccountName: driver-kit
       containers:
@@ -294,7 +294,7 @@ postsubmits:
     agent: kubernetes
     branches:
       - ^master$
-    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_6.+'
+    run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/' #aarch64/ubuntu-azure_6.+'
     spec:
       serviceAccountName: driver-kit
       containers:
