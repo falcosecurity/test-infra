@@ -6,4 +6,4 @@ output:
     module: output/7.2.0+driver/aarch64/falco_centos_6.11.3-1.el9.elrepo.aarch64_1.ko
     probe: output/7.2.0+driver/aarch64/falco_centos_6.11.3-1.el9.elrepo.aarch64_1.o
 kernelurls:
-    - http://elrepo.org/linux/kernel/el9/aarch64/RPMS/kernel-ml-devel-6.11.3-1.el9.elrepo.aarch64.rpm
+    - http://linux-mirrors.fnal.gov/linux/elrepo/kernel/el9/aarch64/RPMS/kernel-ml-devel-6.11.3-1.el9.elrepo.aarch64.rpm
