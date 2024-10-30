@@ -152,7 +152,8 @@ branch-protection:
           required_status_checks:
             contexts:
               - "test-dev-packages / test-packages"
-              - "test-dev-packages-arm64 / test-packages"
+              # arm64 tests are disabled until our new runners are stable
+              # - "test-dev-packages-arm64 / test-packages"
               # The musl static package is currently disabled so we do not need to require testing
               # - "test-dev-packages (static) / test-packages"
               - "format code 🐲"
