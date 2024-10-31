@@ -43,3 +43,26 @@ helm upgrade --install argocd argo/argo-cd \
   --set applicationSet.replicas=2
 
 echo "ArgoCD deployment completed with Helm."
+
+echo
+
+echo "Configuring app of apps:"
+# Install the application that installs all the other applications.
+cat <<EOF | kubectl apply -f -
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: applications
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: config/applications
+    repoURL: https://github.com/falcosecurity/test-infra.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+EOF

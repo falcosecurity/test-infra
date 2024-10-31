@@ -1,0 +1,94 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 65.3.2
+    helm:
+      releaseName: kube-prometheus-stack
+      values: |
+        prometheus:
+          prometheusSpec:   
+            storageSpec: 
+             volumeClaimTemplate:
+               spec:
+                 storageClassName: ebs-ssd-retain
+                 accessModes: ["ReadWriteOnce"]
+                 resources:
+                   requests:
+                     storage: 100Gi
+        
+        grafana:
+          sidecar:
+           dashboards:
+            annotations:
+              k8s-sidecar-target-directory: "mixins"
+            provider:
+              foldersFromFilesStructure: true
+              allowUiUpdates: true
+          grafana.ini:
+            auth.basic:
+              enabled: true
+            auth.anonymous:
+              enabled: true
+              org_role: Viewer
+            auth:
+              disable_login_form: false
+            security:
+              disable_gravatar: true
+            metrics:
+              enabled: true
+          service:
+            type: NodePort
+          ingress:
+            enabled: true
+            annotations:
+              alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+              alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-west-1:292999226676:certificate/87aa77e9-dceb-480b-8873-8532f02f5813"
+              alb.ingress.kubernetes.io/scheme: internet-facing
+              kubernetes.io/ingress.class: alb
+            path: "/*"
+            pathType: ImplementationSpecific
+          adminPassword: ""
+          serviceMonitor:
+            enabled: true
+            labels:
+              release: kube-prometheus-stack
+        
+        nodeExporter:
+          operatingSystems:
+            aix:
+              enabled: false
+            darwin:
+              enabled: false
+        
+        kubeProxy:
+          enabled: false
+        
+        kubeEtcd:
+          enabled: false
+        
+        kubeControllerManager:
+          enabled: false
+        
+        kubeScheduler:
+          enabled: false
+        
+        coreDns:
+          enabled: false
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
