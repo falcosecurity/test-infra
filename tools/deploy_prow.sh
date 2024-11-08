@@ -34,10 +34,6 @@ function updateKubeConfig() {
   aws eks --region ${ZONE} update-kubeconfig --name ${CLUSTER}-test-infra
 }
 
-function launchEBSCSIDriver() {
-  kubectl apply -f "config/prow/ebs-csi-driver/ebs-csi-controller.yaml"
-}
-
 function launchPodIdentityWebhook() {
   # Create the namespace.
   kubectl apply -f "config/prow/pod-identity-webhook/namespace.yaml"
@@ -77,7 +73,6 @@ function launchProwConfig() {
 }
 
 function launchConfig(){
-  launchEBSCSIDriver
   launchMetricsServer
   launchPodIdentityWebhook
   launchProwConfig
