@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-ebs-csi-driver
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: aws-ebs-csi-driver
+    repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+    targetRevision: 2.36.0
+    helm:
+      releaseName: aws-ebs-csi-driver
+      values: |
+        controller:
+          serviceAccount:
+            annotations:
+              eks.amazonaws.com/role-arn: arn:aws:iam::292999226676:role/falco-prow-test-infra-ebs-csi-controller
+          nodeSelector:
+            Archtype: "x86"
+        storageClasses:
+          - name: ebs-ssd-retain
+            annotations:
+              storageclass.kubernetes.io/is-default-class: "true"
+            labels:
+              app.kubernetes.io/name: aws-ebs-csi-driver
+            reclaimPolicy: Retain
+            volumeBindingMode: WaitForFirstConsumer
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
