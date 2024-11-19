@@ -177,6 +177,14 @@ orgs:
         has_projects: true
         has_wiki: false
         homepage: https://falco.org
+      falco-actions:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Run Falco in a GitHub Actions to detect suspicious behavior in your CI/CD
+        has_projects: true
+        has_wiki: false
       falco-aws-terraform:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -551,6 +559,17 @@ orgs:
         privacy: closed
         repos:
           evolution: maintain
+      falco-actions-maintainers:
+        description: maintainers of falcosecurity/falco-actions
+        maintainers:
+          - darryk10
+          - loresuso
+          - leogr
+          - cpanato
+        members: []
+        privacy: closed
+        repos:
+          falco-actions: maintain
       falco-aws-terraform-maintainers:
         description: maintainers of falcosecurity/falco-aws-terraform
         maintainers:
@@ -765,6 +784,7 @@ orgs:
           event-generator: admin
           evolution: admin
           falco: admin
+          falco-actions: admin
           falco-aws-terraform: admin
           falco-exporter: admin
           falco-website: admin
@@ -784,6 +804,7 @@ orgs:
           pigeon: admin
           plugin-sdk-cpp: admin
           plugin-sdk-go: admin
+          plugin-sdk-rs: admin
           plugins: admin
           syscalls-bumper: admin
           test-infra: admin
