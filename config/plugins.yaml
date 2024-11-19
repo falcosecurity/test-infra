@@ -15,6 +15,7 @@ approve:
       - falcosecurity/ebpf-probe
       - falcosecurity/event-generator
       - falcosecurity/evolution
+      - falcosecurity/falco-actions
       - falcosecurity/falco-aws-terraform
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
@@ -104,6 +105,7 @@ lgtm:
       - falcosecurity/falcoctl
       - falcosecurity/falcosidekick
       - falcosecurity/falcosidekick-ui
+      - falcosecurity/falco-actions
       - falcosecurity/falco-aws-terraform
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
@@ -443,6 +445,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco-talon
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-actions
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -846,6 +856,29 @@ plugins:
       - lifecycle
       - lgtm
       - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-actions:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
       - require-matching-label
       - retitle
       - size
@@ -1491,6 +1524,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falcosidekick-ui:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-actions:
     - name: needs-rebase
       events:
         - pull_request
