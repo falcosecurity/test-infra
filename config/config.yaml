@@ -200,6 +200,13 @@ branch-protection:
           branches:
             master:
               protect: true
+        falco-talon:
+          required_status_checks:
+            contexts:
+              - "lint"
+          branches:
+            main:
+              protect: true
         falco-aws-terraform:
           branches:
             main:
