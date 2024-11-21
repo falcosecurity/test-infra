@@ -15,7 +15,8 @@ spec:
       releaseName: kube-prometheus-stack
       values: |
         prometheus:
-          prometheusSpec:   
+          prometheusSpec:
+            retention: 180d
             storageSpec: 
              volumeClaimTemplate:
                spec:
