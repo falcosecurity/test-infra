@@ -132,6 +132,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        elftoolchain:
+          branches:
+            main:
+              protect: true
         evolution:
           branches:
             main:
@@ -446,6 +450,7 @@ tide:
     falcosecurity/dbg-go: rebase
     falcosecurity/deploy-kubernetes: rebase
     falcosecurity/driverkit: rebase
+    falcosecurity/elftoolchain: rebase
     falcosecurity/evolution: rebase
     falcosecurity/event-generator: rebase
     falcosecurity/falco: rebase
@@ -655,6 +660,19 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/driverkit
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/elftoolchain
       labels:
         - approved
         - lgtm
