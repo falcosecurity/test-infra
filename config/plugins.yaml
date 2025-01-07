@@ -13,6 +13,7 @@ approve:
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
       - falcosecurity/ebpf-probe
+      - falcosecurity/elftoolchain
       - falcosecurity/event-generator
       - falcosecurity/evolution
       - falcosecurity/falco-actions
@@ -100,6 +101,7 @@ lgtm:
       - falcosecurity/dbg-go
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
+      - falcosecurity/elftoolchain
       - falcosecurity/event-generator
       - falcosecurity/falco
       - falcosecurity/falcoctl
@@ -745,6 +747,29 @@ plugins:
       - welcome
       - wip
   falcosecurity/driverkit:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/elftoolchain:
     plugins:
       - approve
       - assign
@@ -1504,6 +1529,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/driverkit:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/elftoolchain:
     - name: needs-rebase
       events:
         - pull_request

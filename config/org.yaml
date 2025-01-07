@@ -153,6 +153,12 @@ orgs:
         archived: true
         description: eBPF probe for syscall events
         has_projects: true
+      elftoolchain:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        description: "Local version of https://sourceforge.net/projects/elftoolchain/"
+        has_projects: true
       event-generator:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -539,6 +545,23 @@ orgs:
         privacy: closed
         repos:
           driverkit: maintain
+      elftoolchain-maintainers:
+        description: maintainers of falcosecurity/elftoolchain
+        maintainers:
+          - leogr
+          - mstemm
+          - jasondellaluce
+        members:
+          - gnosek
+          - FedeDP
+          - Molter73
+          - LucaGuerra
+          - Andreagit97
+          - hbrueckner
+          - incertum
+        privacy: closed
+        repos:
+          elftoolchain: maintain
       event-generator-maintainers:
         description: maintainers of falcosecurity/event-generator
         maintainers:
@@ -781,6 +804,7 @@ orgs:
           dbg-go: admin
           deploy-kubernetes: admin
           driverkit: admin
+          elftoolchain: admin
           event-generator: admin
           evolution: admin
           falco: admin
