@@ -392,7 +392,7 @@ branch-protection:
               protect: true
         plugin-sdk-cpp:
           branches:
-            master:
+            main:
               protect: true
         plugin-sdk-rs:
           branches:
