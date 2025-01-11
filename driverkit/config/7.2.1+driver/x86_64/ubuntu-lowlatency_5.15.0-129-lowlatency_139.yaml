@@ -6,6 +6,8 @@ output:
     module: output/7.2.1+driver/x86_64/falco_ubuntu-lowlatency_5.15.0-129-lowlatency_139.ko
     probe: output/7.2.1+driver/x86_64/falco_ubuntu-lowlatency_5.15.0-129-lowlatency_139.o
 kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-lowlatency/linux-headers-5.15.0-129-lowlatency_5.15.0-129.139_amd64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-lowlatency/linux-lowlatency-headers-5.15.0-129_5.15.0-129.139_all.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-lowlatency/linux-headers-5.15.0-129-lowlatency_5.15.0-129.139_amd64.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-lowlatency/linux-lowlatency-headers-5.15.0-129_5.15.0-129.139_all.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-lowlatency/linux-headers-5.15.0-129-lowlatency_5.15.0-129.139_amd64.deb
