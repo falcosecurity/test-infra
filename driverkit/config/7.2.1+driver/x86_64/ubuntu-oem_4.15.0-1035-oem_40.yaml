@@ -6,6 +6,8 @@ output:
     module: output/7.2.1+driver/x86_64/falco_ubuntu-oem_4.15.0-1035-oem_40.ko
     probe: output/7.2.1+driver/x86_64/falco_ubuntu-oem_4.15.0-1035-oem_40.o
 kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oem/linux-headers-4.15.0-1035-oem_4.15.0-1035.40_amd64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oem/linux-oem-headers-4.15.0-1035_4.15.0-1035.40_all.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oem/linux-headers-4.15.0-1035-oem_4.15.0-1035.40_amd64.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oem/linux-oem-headers-4.15.0-1035_4.15.0-1035.40_all.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-oem/linux-headers-4.15.0-1035-oem_4.15.0-1035.40_amd64.deb

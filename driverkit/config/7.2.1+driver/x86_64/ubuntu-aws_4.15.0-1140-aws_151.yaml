@@ -6,6 +6,8 @@ output:
     module: output/7.2.1+driver/x86_64/falco_ubuntu-aws_4.15.0-1140-aws_151.ko
     probe: output/7.2.1+driver/x86_64/falco_ubuntu-aws_4.15.0-1140-aws_151.o
 kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-aws-headers-4.15.0-1140_4.15.0-1140.151_all.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-headers-4.15.0-1140-aws_4.15.0-1140.151_amd64.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-aws-headers-4.15.0-1140_4.15.0-1140.151_all.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-headers-4.15.0-1140-aws_4.15.0-1140.151_amd64.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-aws-headers-4.15.0-1140_4.15.0-1140.151_all.deb
