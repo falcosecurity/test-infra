@@ -233,6 +233,14 @@ orgs:
         description: Web-application used to validate Falco rules and test against scap file
         has_projects: true
         has_wiki: false
+      falco-rustlings:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Small exercises to get you used to writing Falco plugins in Rust 🦀
+        has_projects: true
+        has_wiki: false
       falco-talon:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -674,8 +682,19 @@ orgs:
         privacy: closed
         repos:
           falco-playground: maintain
+      falco-rustlings-maintainers:
+        description: maintainers of falcosecurity/falco-rustlings
+        maintainers:
+          - LucaGuerra
+          - deepskyblue86
+          - gnosek
+          - rabbitstack
+        members: []
+        privacy: closed
+        repos:
+          falco-rustlings: maintain
       falco-talon-maintainers:
-        description: maintainers of falcosecurity/falco-talon-maintainers
+        description: maintainers of falcosecurity/falco-talon
         maintainers:
           - Issif
           - IgorEulalio

@@ -22,6 +22,7 @@ approve:
       - falcosecurity/falco-website
       - falcosecurity/falcoctl
       - falcosecurity/falco-playground
+      - falcosecurity/falco-rustlings
       - falcosecurity/falco-talon
       - falcosecurity/falcosidekick
       - falcosecurity/falcosidekick-ui
@@ -112,6 +113,7 @@ lgtm:
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/falco-playground
+      - falcosecurity/falco-rustlings
       - falcosecurity/falco-talon
       - falcosecurity/flycheck-falco-rules
       - falcosecurity/kernel-crawler
@@ -154,7 +156,7 @@ repo_milestone:
     maintainers_friendly_name: maintainers of falcosecurity/falcoctl
   falcosecurity/plugin-sdk-cpp:
     maintainers_team: plugin-sdk-cpp-maintainers
-    maintainers_friendly_name: maintainers of falcosecurity/plugin-sdk-cpp  
+    maintainers_friendly_name: maintainers of falcosecurity/plugin-sdk-cpp
 
 require_matching_label:
   - missing_label: needs-kind
@@ -442,6 +444,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco-playground
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-rustlings
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -985,6 +995,29 @@ plugins:
       - welcome
       - wip
   falcosecurity/falco-playground:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-rustlings:
     plugins:
       - approve
       - assign
@@ -1577,6 +1610,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falco-playground:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-rustlings:
     - name: needs-rebase
       events:
         - pull_request

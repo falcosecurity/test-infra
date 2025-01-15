@@ -247,6 +247,10 @@ branch-protection:
           branches:
             main:
               protect: true
+        falco-rustlings:
+          branches:
+            main:
+              protect: true
         falco-talon:
           branches:
             main:
@@ -461,6 +465,7 @@ tide:
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-actions: rebase
     falcosecurity/falco-playground: rebase
+    falcosecurity/falco-rustlings: rebase
     falcosecurity/falco-talon: rebase
     falcosecurity/falco-website: rebase
     falcosecurity/flycheck-falco-rules: rebase
@@ -821,6 +826,20 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-playground
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-rustlings
       labels:
         - approved
         - lgtm
