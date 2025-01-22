@@ -818,8 +818,6 @@ orgs:
           .github: admin
           charts: admin
           client-go: admin
-          client-py: admin
-          client-rs: admin
           cncf-green-review-testing: admin
           community: admin
           contrib: admin
@@ -833,25 +831,26 @@ orgs:
           falco-actions: admin
           falco-aws-terraform: admin
           falco-exporter: admin
+          falco-playground: admin
+          falco-rustlings: admin
+          falco-talon: admin
           falco-website: admin
           falcoctl: admin
-          falco-playground: admin
           falcosidekick: admin
           falcosidekick-ui: admin
           flycheck-falco-rules: admin
           k8s-metacollector: admin
           kernel-crawler: admin
           kernel-testing: admin
-          kilt: admin
           libs: admin
           libs-sdk-go: admin
-          pdig: admin
           peribolos-syncer: admin
           pigeon: admin
           plugin-sdk-cpp: admin
           plugin-sdk-go: admin
           plugin-sdk-rs: admin
           plugins: admin
+          rules: admin
           syscalls-bumper: admin
           test-infra: admin
           testing: admin
