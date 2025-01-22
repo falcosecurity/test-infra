@@ -331,14 +331,6 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
-    repo: kernel-crawler
-    issues: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
     repo: kilt
     issues: true
     regexp: ^kind/
@@ -428,6 +420,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: testing
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: kernel-crawler
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -1147,6 +1147,7 @@ plugins:
       - label
       - lifecycle
       - lgtm
+      - mergecommitblocker
       - require-matching-label
       - retitle
       - size

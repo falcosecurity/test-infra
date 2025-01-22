@@ -752,11 +752,11 @@ orgs:
         description: maintainers of falcosecurity/kernel-crawler
         maintainers:
           - leogr
-        members:
           - FedeDP
           - maxgio92
           - zuc
           - EXONER4TED
+        members: []
         privacy: closed
         repos:
           kernel-crawler: maintain
