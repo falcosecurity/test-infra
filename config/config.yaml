@@ -1073,6 +1073,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+      reviewApprovedRequired: true
     - repos:
         - falcosecurity/syscalls-bumper
       labels:
