@@ -391,6 +391,11 @@ branch-protection:
           branches:
             main:
               protect: true
+          required_status_checks:
+            contexts:
+              - "build-plugins / build-packages-x86_64"
+              - "build-plugins / build-packages-aarch64"
+              - "get-changed-plugins / get-values"
         plugin-sdk-go:
           required_status_checks:
             contexts:
