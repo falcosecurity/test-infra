@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 6.1.127-135.201.amzn2023.x86_64
+target: amazonlinux2023
+architecture: amd64
+output:
+    module: output/8.0.0+driver/x86_64/falco_amazonlinux2023_6.1.127-135.201.amzn2023.x86_64_1.ko
+    probe: output/8.0.0+driver/x86_64/falco_amazonlinux2023_6.1.127-135.201.amzn2023.x86_64_1.o
+kernelurls:
+    - https://cdn.amazonlinux.com/al2023/core/guids/212cf4b362fcf62e39c8b55bd608e30ea08e9bdc5fe16fc0559e4c63419ba2c4/x86_64/../../../../blobstore/c36d564af5573164df2f8cfcce18db0e996ae0dc89742a0ae5c32c33946fe11e/kernel-devel-6.1.127-135.201.amzn2023.x86_64.rpm
