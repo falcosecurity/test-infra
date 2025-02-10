@@ -235,6 +235,8 @@ branch-protection:
           required_status_checks:
             contexts:
               - "test"
+              - "Integration Pipeline"
+              - "Linting"
         falco-actions:
           branches:
             main:
