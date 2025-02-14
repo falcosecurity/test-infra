@@ -82,6 +82,9 @@ branch-protection:
           required_status_checks:
             contexts:
               - "test"
+              - "readme"
+              - "linkChecker"
+              - "go-unit-tests"
           branches:
             master:
               protect: true
