@@ -160,7 +160,7 @@ branch-protection:
             contexts:
               - "test-dev-packages / test-packages"
               - "test-dev-packages-arm64 / test-packages"
-              - "test-dev-packages (static) / test-packages"
+              # - "test-dev-packages (static) / test-packages"
               - "format code 🐲"
               # note: we don't need build jobs, since tests depends on them
           branches:
@@ -333,12 +333,10 @@ branch-protection:
             contexts:
               - "build-libs-linux-amd64 😁 (system_deps)"
               - "build-libs-linux-amd64 😁 (bundled_deps)"
-              - "build-libs-linux-amd64 😁 (system_deps_minimal)"
               - "build-libs-linux-amd64 😁 (sanitizers)"
               - "build-libs-linux-amd64 😁 (zig)"
               - "build-libs-linux-arm64 😁 (system_deps)"
               - "build-libs-linux-arm64 😁 (bundled_deps)"
-              - "build-libs-linux-arm64 😁 (system_deps_minimal)"
               - "build-libs-linux-arm64 😁 (sanitizers)"
               - "build-libs-linux-arm64 😁 (zig)"
               - "test-drivers-amd64 😇 (bundled_deps)"
