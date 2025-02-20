@@ -148,6 +148,8 @@ branch-protection:
             contexts:
               - "build-and-test-amd64"
               - "build-and-test-arm64"
+              - "Enforce go.mod tidiness"
+              - "Lint golang files"
           branches:
             main:
               protect: true
