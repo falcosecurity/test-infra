@@ -1,0 +1,10 @@
+kernelversion: "30"
+kernelrelease: 6.8.0-1025-azure
+target: ubuntu-azure
+architecture: arm64
+output:
+    module: output/7.2.1+driver/aarch64/falco_ubuntu-azure_6.8.0-1025-azure_30.ko
+    probe: output/7.2.1+driver/aarch64/falco_ubuntu-azure_6.8.0-1025-azure_30.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-azure-headers-6.8.0-1025_6.8.0-1025.30_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-headers-6.8.0-1025-azure_6.8.0-1025.30_arm64.deb
