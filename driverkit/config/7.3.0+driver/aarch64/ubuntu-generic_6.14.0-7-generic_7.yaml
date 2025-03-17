@@ -6,6 +6,5 @@ output:
     module: output/7.3.0+driver/aarch64/falco_ubuntu-generic_6.14.0-7-generic_7.ko
     probe: output/7.3.0+driver/aarch64/falco_ubuntu-generic_6.14.0-7-generic_7.o
 kernelurls:
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.14.0-7-generic-64k_6.14.0-7.7_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.14.0-7-generic_6.14.0-7.7_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.14.0-7_6.14.0-7.7_all.deb
