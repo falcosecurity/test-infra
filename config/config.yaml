@@ -209,6 +209,10 @@ branch-protection:
           branches:
             master:
               protect: true
+        falco-operator:
+          branches:
+            main:
+              protect: true
         falco-talon:
           required_status_checks:
             contexts:
@@ -483,6 +487,7 @@ tide:
     falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-actions: rebase
+    falcosecurity/falco-operator: rebase
     falcosecurity/falco-playground: rebase
     falcosecurity/falco-rustlings: rebase
     falcosecurity/falco-talon: rebase
@@ -841,6 +846,20 @@ tide:
         - do-not-merge/hold
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/operator
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
         - needs-rebase
       reviewApprovedRequired: true
     - repos:

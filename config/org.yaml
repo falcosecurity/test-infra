@@ -229,6 +229,14 @@ orgs:
         description: Administrative tooling for Falco
         has_projects: true
         has_wiki: false
+      falco-operator:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Kubernetes Operator for Falco
+        has_projects: true
+        has_wiki: false
       falco-playground:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -676,6 +684,15 @@ orgs:
         privacy: closed
         repos:
           falcoctl: maintain
+      falco-operator-maintainers:
+        description: maintainers of falcosecurity/falco-operator
+        maintainers:
+          - alacuku
+          - leogr
+        members: []
+        privacy: closed
+        repos:
+          falco-operator: maintain
       falco-playground-maintainers:
         description: maintainers of falcosecurity/falco-playground
         maintainers:
