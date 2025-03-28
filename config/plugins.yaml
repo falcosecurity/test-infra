@@ -21,6 +21,7 @@ approve:
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/falcoctl
+      - falcosecurity/falco-operator
       - falcosecurity/falco-playground
       - falcosecurity/falco-rustlings
       - falcosecurity/falco-talon
@@ -112,6 +113,7 @@ lgtm:
       - falcosecurity/falco-aws-terraform
       - falcosecurity/falco-exporter
       - falcosecurity/falco-website
+      - falcosecurity/falco-operator
       - falcosecurity/falco-playground
       - falcosecurity/falco-rustlings
       - falcosecurity/falco-talon
@@ -436,6 +438,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: kernel-testing
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-operator
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -987,6 +997,29 @@ plugins:
       - lifecycle
       - lgtm
       - milestone
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-operator:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
       - require-matching-label
       - retitle
       - size
@@ -1607,6 +1640,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/falcoctl:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-operator:
     - name: needs-rebase
       events:
         - pull_request
