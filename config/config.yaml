@@ -849,7 +849,7 @@ tide:
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
-        - falcosecurity/operator
+        - falcosecurity/falco-operator
       labels:
         - approved
         - lgtm
