@@ -215,9 +215,9 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - "Tests"
-              - "Lint"
-              - "E2E Tests"
+              - "tests-e2e"
+              - "Lint golang files"
+              - "Unit"
         falco-talon:
           required_status_checks:
             contexts:
