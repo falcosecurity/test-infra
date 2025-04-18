@@ -14,6 +14,9 @@ spec:
     helm:
       releaseName: falco
       values: |
+        image:
+          tag: "master"
+          pullPolicy: Always
         tolerations:
           - key: "Availability"
             operator: "Equal"
@@ -40,6 +43,7 @@ spec:
         collectors:
           kubernetes:
             enabled: true
+            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/k8smeta:main"
         k8s-metacollector:
           serviceMonitor:
             create: true
@@ -62,9 +66,9 @@ spec:
           config:
             artifact:
               install:
-                refs: [falco-rules:3, k8saudit-rules:0.7]
+                refs: [falco-rules:3, ghcr.io/falcosecurity/plugins/plugin/container:main]
               follow:
-                refs: [falco-rules:3, k8saudit-rules:0.7]
+                refs: [falco-rules:3]
         services:
           - name: k8saudit-webhook
             type: NodePort
@@ -74,6 +78,9 @@ spec:
                 protocol: TCP
         tty: true
         falco:
+          libs_logger:
+            enabled: true
+            severity: info
           rules_files:
             - /etc/falco/falco_rules.yaml
             - /etc/falco/k8s_audit_rules.yaml
@@ -89,7 +96,12 @@ spec:
             - name: json
               library_path: libjson.so
               init_config: ""
-          load_plugins: [k8saudit, json]
+            - name: container
+              library_path: libcontainer.so
+              init_config:
+                label_max_len: 100
+                with_size: false
+          load_plugins: [container]
           append_output:
             - match:
                 source: syscall
