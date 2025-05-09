@@ -66,7 +66,7 @@ spec:
           config:
             artifact:
               install:
-                refs: [falco-rules:3, ghcr.io/falcosecurity/plugins/plugin/container:0.2.1]
+                refs: [falco-rules:3, ghcr.io/falcosecurity/plugins/plugin/container:0.2.2]
               follow:
                 refs: [falco-rules:3]
         services:
