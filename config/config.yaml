@@ -386,7 +386,9 @@ branch-protection:
             "release/0.19.x":
               protect: true
             "release/0.20.x":
-              protect: true  
+              protect: true
+            "release/0.21.x":
+              protect: true
         libs-sdk-go:
           branches:
             main:
