@@ -103,11 +103,7 @@ spec:
                 with_size: false
           load_plugins: [container]
           append_output:
-            - match:
-                source: syscall
-              extra_output: >-
-                pod-uid=%k8smeta.pod.uid, pod-name=%k8smeta.pod.name,
-                namespace-name=%k8smeta.ns.name
+            - suggested_output: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: falco
