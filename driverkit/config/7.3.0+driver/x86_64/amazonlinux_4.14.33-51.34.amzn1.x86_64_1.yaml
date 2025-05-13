@@ -6,4 +6,4 @@ output:
     module: output/7.3.0+driver/x86_64/falco_amazonlinux_4.14.33-51.34.amzn1.x86_64_1.ko
     probe: output/7.3.0+driver/x86_64/falco_amazonlinux_4.14.33-51.34.amzn1.x86_64_1.o
 kernelurls:
-    - http://packages.us-east-1.amazonaws.com/2018.03/updates/790dba10dad8/x86_64/Packages/kernel-devel-4.14.33-51.34.amzn1.x86_64.rpm
+    - http://packages.us-east-1.amazonaws.com/2018.03/updates/511ef71212b9/x86_64/Packages/kernel-devel-4.14.33-51.34.amzn1.x86_64.rpm
