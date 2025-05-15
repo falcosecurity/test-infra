@@ -931,6 +931,7 @@ orgs:
           - andreagit97
         members:
           - mrgian
+          - ekoops
         privacy: closed
         repos:
           plugin-sdk-rs: maintain
@@ -944,6 +945,7 @@ orgs:
           - ahmedameenaim
           - sboschman
           - LucaGuerra
+          - ekoops
         privacy: closed
         repos:
           plugins: maintain
