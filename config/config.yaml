@@ -192,6 +192,8 @@ branch-protection:
               protect: true
             "release/0.40.x":
               protect: true
+            "release/0.41.x":
+              protect: true
         falcosidekick:
           required_status_checks:
             contexts:
