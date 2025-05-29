@@ -10,13 +10,10 @@ spec:
   source:
     chart: falco
     repoURL: https://falcosecurity.github.io/charts
-    targetRevision: 4.20.0
+    targetRevision: 4.22.0
     helm:
       releaseName: falco
       values: |
-        image:
-          tag: "master"
-          pullPolicy: Always
         tolerations:
           - key: "Availability"
             operator: "Equal"
@@ -43,7 +40,6 @@ spec:
         collectors:
           kubernetes:
             enabled: true
-            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.3.0-rc1"
         k8s-metacollector:
           serviceMonitor:
             create: true
@@ -55,27 +51,6 @@ spec:
               configMaps:
                 collector:
                   folder: "falcosecurity"
-        falcoctl:
-          artifact:
-            install:
-              # -- Enable the init container.
-              enabled: true
-            follow:
-              # -- Enable the sidecar container.
-              enabled: true
-          config:
-            artifact:
-              install:
-                refs: [falco-rules:3, ghcr.io/falcosecurity/plugins/plugin/container:0.2.2]
-              follow:
-                refs: [falco-rules:3]
-        services:
-          - name: k8saudit-webhook
-            type: NodePort
-            ports:
-              - port: 9765 # See plugin open_params
-                nodePort: 30007
-                protocol: TCP
         tty: true
         falco:
           libs_logger:
@@ -85,25 +60,6 @@ spec:
             - /etc/falco/falco_rules.yaml
             - /etc/falco/k8s_audit_rules.yaml
             - /etc/falco/rules.d
-          plugins:
-            - name: k8saudit
-              library_path: libk8saudit.so
-              init_config:
-                ""
-                # maxEventBytes: 1048576
-                # sslCertificate: /etc/falco/falco.pem
-              open_params: "http://:9765/k8s-audit"
-            - name: json
-              library_path: libjson.so
-              init_config: ""
-            - name: container
-              library_path: libcontainer.so
-              init_config:
-                label_max_len: 100
-                with_size: false
-          load_plugins: [container]
-          append_output:
-            - suggested_output: true
   destination:
     server: "https://kubernetes.default.svc"
     namespace: falco
