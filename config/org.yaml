@@ -813,6 +813,7 @@ orgs:
           - Andreagit97
           - hbrueckner
           - incertum
+          - ekoops
         privacy: closed
         repos:
           libs: maintain
