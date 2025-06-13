@@ -482,7 +482,6 @@ orgs:
       cncf-green-review-testing-maintainers:
         description: maintainers of falcosecurity/cncf-green-review-testing
         maintainers:
-          - incertum
           - leogr
           - LucaGuerra
           - maxgio92
@@ -529,7 +528,6 @@ orgs:
           - Molter73
           - LucaGuerra
           - Andreagit97
-          - incertum
           - alacuku
           - loresuso
         privacy: closed
@@ -578,7 +576,6 @@ orgs:
           - LucaGuerra
           - Andreagit97
           - hbrueckner
-          - incertum
         privacy: closed
         repos:
           elftoolchain: maintain
@@ -643,7 +640,6 @@ orgs:
           - FedeDP
           - jasondellaluce
           - Andreagit97
-          - incertum
           - LucaGuerra
           - sgaist
         privacy: closed
@@ -812,7 +808,6 @@ orgs:
           - LucaGuerra
           - Andreagit97
           - hbrueckner
-          - incertum
           - ekoops
         privacy: closed
         repos:
@@ -960,7 +955,6 @@ orgs:
           - jasondellaluce
           - andreagit97
           - mstemm
-          - incertum
           - darryk10
         privacy: closed
         repos:
