@@ -532,6 +532,8 @@ orgs:
           - incertum
           - alacuku
           - loresuso
+          - sgaist
+          - ekoops
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
