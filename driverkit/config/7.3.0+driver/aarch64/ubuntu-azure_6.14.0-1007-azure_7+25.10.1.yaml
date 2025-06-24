@@ -1,0 +1,10 @@
+kernelversion: 7+25.10.1
+kernelrelease: 6.14.0-1007-azure
+target: ubuntu-azure
+architecture: arm64
+output:
+    module: output/7.3.0+driver/aarch64/falco_ubuntu-azure_6.14.0-1007-azure_7+25.10.1.ko
+    probe: output/7.3.0+driver/aarch64/falco_ubuntu-azure_6.14.0-1007-azure_7+25.10.1.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-azure-headers-6.14.0-1007_6.14.0-1007.7+25.10.1_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-headers-6.14.0-1007-azure_6.14.0-1007.7+25.10.1_arm64.deb
