@@ -6,4 +6,4 @@ output:
     module: output/8.1.0+driver/x86_64/falco_centos_6.15.2-1.el8.elrepo.x86_64_1.ko
     probe: output/8.1.0+driver/x86_64/falco_centos_6.15.2-1.el8.elrepo.x86_64_1.o
 kernelurls:
-    - http://elrepo.org/linux/kernel/el8/x86_64/RPMS/kernel-ml-devel-6.15.2-1.el8.elrepo.x86_64.rpm
+    - http://mirrors.coreix.net/elrepo/kernel/el8/x86_64/RPMS/kernel-ml-devel-6.15.2-1.el8.elrepo.x86_64.rpm
