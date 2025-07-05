@@ -6,4 +6,4 @@ output:
     module: output/7.3.0+driver/x86_64/falco_centos_3.10.0-693.el7.x86_64_1.ko
     probe: ""
 kernelurls:
-    - http://archive.kernel.org/centos/7.4.1708/os/x86_64/Packages/kernel-devel-3.10.0-693.el7.x86_64.rpm
+    - http://vault.centos.org/centos/7.4.1708/os/x86_64/Packages/kernel-devel-3.10.0-693.el7.x86_64.rpm
