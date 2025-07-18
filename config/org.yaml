@@ -453,6 +453,7 @@ orgs:
           - cpanato
           - Issif
           - alacuku
+          - ekoops
         privacy: closed
         repos:
           charts: maintain
