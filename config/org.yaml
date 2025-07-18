@@ -206,6 +206,7 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
+        archived: true
         description: Prometheus Metrics Exporter for Falco output events
         has_projects: true
       falco-website:
