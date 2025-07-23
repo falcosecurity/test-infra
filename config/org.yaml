@@ -658,6 +658,7 @@ orgs:
           - jasondellaluce
           - vjjmiras
           - LucaGuerra
+          - ekoops
         privacy: closed
         repos:
           falco-website: maintain
@@ -960,6 +961,7 @@ orgs:
           - andreagit97
           - mstemm
           - darryk10
+          - ekoops
         privacy: closed
         repos:
           rules: maintain
