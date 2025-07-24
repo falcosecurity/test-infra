@@ -60,9 +60,6 @@ spec:
             - /etc/falco/falco_rules.yaml
             - /etc/falco/k8s_audit_rules.yaml
             - /etc/falco/rules.d
-        image:
-          tag: master
-          pullPolicy: Always
   destination:
     server: "https://kubernetes.default.svc"
     namespace: falco
