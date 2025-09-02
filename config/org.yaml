@@ -985,6 +985,7 @@ orgs:
           - zuc
           - jonahjon
           - fededp
+          - ekoops
         privacy: closed
         repos:
           test-infra: maintain
