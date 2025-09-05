@@ -536,6 +536,7 @@ orgs:
           - loresuso
           - sgaist
           - ekoops
+          - deepskyblue86
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
@@ -818,6 +819,7 @@ orgs:
           - ekoops
           - geraldcombs
           - irozzo-1A
+          - deepskyblue86
         privacy: closed
         repos:
           libs: maintain
