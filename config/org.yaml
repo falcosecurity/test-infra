@@ -537,6 +537,7 @@ orgs:
           - sgaist
           - ekoops
           - deepskyblue86
+          - geraldcombs
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
