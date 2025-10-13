@@ -10,10 +10,12 @@ spec:
   source:
     chart: falco
     repoURL: https://falcosecurity.github.io/charts
-    targetRevision: 6.2.1
+    targetRevision: 6.4.0
     helm:
       releaseName: falco
       values: |
+        image:
+          tag: "master"
         tolerations:
           - key: "Availability"
             operator: "Equal"
@@ -38,7 +40,10 @@ spec:
               falco:
                 folder: "falcosecurity"
         collectors:
+          containerEngine:
+            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.4.0-rc1"
           kubernetes:
+            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.4.0-rc1"
             enabled: true
         k8s-metacollector:
           serviceMonitor:
@@ -51,6 +56,15 @@ spec:
               configMaps:
                 collector:
                   folder: "falcosecurity"
+        falcoctl:
+          image:
+            tag: "0.11.4"
+          config:
+            artifact:
+              install:
+                refs: [falco-rules:5.0.0-rc1]
+              follow:
+                refs: [falco-rules:5.0.0-rc1]
         tty: true
         falco:
           libs_logger:
