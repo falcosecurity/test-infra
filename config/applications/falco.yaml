@@ -41,7 +41,6 @@ spec:
                 folder: "falcosecurity"
         collectors:
           containerEngine:
-            enabled: false
             pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.4.0-rc1"
           kubernetes:
             pluginRef: "ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.4.0-rc1"
