@@ -15,7 +15,7 @@ spec:
       releaseName: falco
       values: |
         image:
-          tag: "master"
+          tag: "0.42.0-rc1"
         tolerations:
           - key: "Availability"
             operator: "Equal"
