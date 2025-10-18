@@ -1,0 +1,9 @@
+kernelversion: "1"
+kernelrelease: 6.16.12-100.fc41.aarch64
+target: fedora
+architecture: arm64
+output:
+    module: output/8.1.0+driver/aarch64/falco_fedora_6.16.12-100.fc41.aarch64_1.ko
+    probe: output/8.1.0+driver/aarch64/falco_fedora_6.16.12-100.fc41.aarch64_1.o
+kernelurls:
+    - https://mirrors.kernel.org/fedora/updates/41/Everything/aarch64/Packages/k/kernel-devel-6.16.12-100.fc41.aarch64.rpm
