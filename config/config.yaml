@@ -311,8 +311,10 @@ branch-protection:
             v0.38:
               protect: true
             v0.39:
-              protect: true            
+              protect: true
             v0.40:
+              protect: true
+            v0.41:
               protect: true
           required_status_checks:
             contexts:
