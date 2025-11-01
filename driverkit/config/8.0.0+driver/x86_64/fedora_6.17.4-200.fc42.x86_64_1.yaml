@@ -1,9 +1,0 @@
-kernelversion: "1"
-kernelrelease: 6.17.4-200.fc42.x86_64
-target: fedora
-architecture: amd64
-output:
-    module: output/8.0.0+driver/x86_64/falco_fedora_6.17.4-200.fc42.x86_64_1.ko
-    probe: output/8.0.0+driver/x86_64/falco_fedora_6.17.4-200.fc42.x86_64_1.o
-kernelurls:
-    - https://mirrors.kernel.org/fedora/updates/42/Everything/x86_64/Packages/k/kernel-devel-6.17.4-200.fc42.x86_64.rpm
