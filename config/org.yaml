@@ -957,6 +957,7 @@ orgs:
           - sboschman
           - LucaGuerra
           - ekoops
+          - irozzo-1A
         privacy: closed
         repos:
           plugins: maintain
