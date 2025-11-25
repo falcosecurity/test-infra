@@ -1,9 +1,9 @@
-FROM golang:1.21 AS pullrequestcreator
+FROM golang:1.24 AS pullrequestcreator
 
 RUN git clone https://github.com/kubernetes/test-infra
 RUN cd test-infra/robots/pr-creator && env GO111MODULE=on go build -v -o pr-creator ./main.go
 
-FROM golang:1.21 AS maintainersgenerator
+FROM golang:1.24 AS maintainersgenerator
 
 RUN wget -qO- "https://api.github.com/repos/leodido/maintainers-generator/releases/latest" | grep -Po '"browser_download_url": "\K.*?(?=")' | xargs wget -qO- | tar -xvz
 
