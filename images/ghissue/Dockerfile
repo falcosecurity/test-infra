@@ -1,4 +1,4 @@
-FROM golang:1.16.5-alpine
+FROM golang:1.24-alpine
 
 ENV GH_ORG=falcosecurity
 ENV GH_REPO=test-infra
