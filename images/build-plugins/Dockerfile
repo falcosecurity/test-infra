@@ -1,9 +1,9 @@
-FROM golang:1.23-bullseye AS pullrequestcreator
+FROM golang:1.24-bullseye AS pullrequestcreator
 
 RUN git clone https://github.com/kubernetes/test-infra
 RUN cd test-infra/robots/pr-creator && env GO111MODULE=on go build -v -o pr-creator ./main.go
 
-FROM golang:1.23-bullseye
+FROM golang:1.24-bullseye
 
 LABEL usage="docker run -i -t -v /path/to/source:/workspace test-infra/build-plugins"
 
