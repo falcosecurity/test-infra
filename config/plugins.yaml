@@ -57,7 +57,6 @@ approve:
     lgtm_acts_as_approve: true
     require_self_approval: false
     commandHelpLink: https://prow.falco.org/command-help
-    ignore_review_state: true
 
 blunderbuss:
   max_request_count: 2
