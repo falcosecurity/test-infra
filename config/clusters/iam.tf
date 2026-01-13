@@ -532,6 +532,7 @@ module "falco_s3_role" {
   name    = "github_actions-falco-s3"
   create  = true
   subjects = [
+    "falcosecurity/falco:ref:refs/heads/master",
     "falcosecurity/falco:ref:refs/tags/*"
   ]
   policies = {
