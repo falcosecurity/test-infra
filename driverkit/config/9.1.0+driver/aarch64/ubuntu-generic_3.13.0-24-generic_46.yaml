@@ -1,0 +1,10 @@
+kernelversion: "46"
+kernelrelease: 3.13.0-24-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: ""
+    probe: ""
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-24-generic_3.13.0-24.46_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-3.13.0-24_3.13.0-24.46_all.deb
