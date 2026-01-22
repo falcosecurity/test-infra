@@ -39,6 +39,10 @@ spec:
             configMaps:
               falco:
                 folder: "falcosecurity"
+        driver:
+          loader:
+            initContainer:
+              tag: "0.43.0-rc2"  
         collectors:
           containerEngine:
             pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.6.1"
