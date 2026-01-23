@@ -48,6 +48,7 @@ spec:
             pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.6.1"
           kubernetes:
             enabled: true
+            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.4.1"
         k8s-metacollector:
           serviceMonitor:
             create: true
