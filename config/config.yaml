@@ -318,6 +318,8 @@ branch-protection:
               protect: true
             v0.41:
               protect: true
+            v0.42:
+              protect: true
           required_status_checks:
             contexts:
               - "netlify/falcosecurity/deploy-preview"
