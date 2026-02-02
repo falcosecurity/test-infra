@@ -1,0 +1,11 @@
+kernelversion: 4~24.04.3
+kernelrelease: 6.17.0-1004-gcp
+target: ubuntu-gcp
+architecture: arm64
+output:
+    module: output/8.1.0+driver/aarch64/falco_ubuntu-gcp_6.17.0-1004-gcp_4~24.04.3.ko
+    probe: output/8.1.0+driver/aarch64/falco_ubuntu-gcp_6.17.0-1004-gcp_4~24.04.3.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-6.17/linux-gcp-6.17-headers-6.17.0-1004_6.17.0-1004.4~24.04.3_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-6.17/linux-headers-6.17.0-1004-gcp-64k_6.17.0-1004.4~24.04.3_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-6.17/linux-headers-6.17.0-1004-gcp_6.17.0-1004.4~24.04.3_arm64.deb
