@@ -223,6 +223,18 @@ branch-protection:
               - "tests-e2e"
               - "Lint golang files"
               - "Unit"
+        falco-lsp:
+          branches:
+            main:
+              protect: true
+          required_status_checks:
+            contexts:
+              - "Lint"
+              - "Build"
+              - "Build Extension"
+              - "Tests"
+              - "Coverage"
+              - "Integration Tests"
         falco-talon:
           required_status_checks:
             contexts:
@@ -510,6 +522,7 @@ tide:
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-actions: rebase
     falcosecurity/falco-operator: rebase
+    falcosecurity/falco-lsp: rebase
     falcosecurity/falco-playground: rebase
     falcosecurity/falco-rustlings: rebase
     falcosecurity/falco-talon: rebase
@@ -872,6 +885,20 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-operator
+      labels:
+        - approved
+        - lgtm
+        - "dco-signoff: yes"
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-lsp
       labels:
         - approved
         - lgtm

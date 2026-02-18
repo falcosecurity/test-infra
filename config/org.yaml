@@ -242,6 +242,14 @@ orgs:
         description: Kubernetes Operator for Falco
         has_projects: true
         has_wiki: false
+      falco-lsp:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Language Server Protocol and VSCode Extension for Falco rules
+        has_projects: true
+        has_wiki: false
       falco-playground:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -704,6 +712,15 @@ orgs:
         privacy: closed
         repos:
           falco-operator: maintain
+      falco-lsp-maintainers:
+        description: maintainers of falcosecurity/falco-lsp
+        maintainers:
+          - c2ndev
+          - leogr
+        members: []
+        privacy: closed
+        repos:
+          falco-lsp: maintain
       falco-playground-maintainers:
         description: maintainers of falcosecurity/falco-playground
         maintainers:
