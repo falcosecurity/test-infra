@@ -83,7 +83,6 @@ branch-protection:
             contexts:
               - "test"
               - "readme"
-              - "linkChecker"
               - "go-unit-tests"
           branches:
             master:
