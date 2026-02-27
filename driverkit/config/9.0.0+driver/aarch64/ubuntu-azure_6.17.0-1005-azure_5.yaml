@@ -1,0 +1,10 @@
+kernelversion: "5"
+kernelrelease: 6.17.0-1005-azure
+target: ubuntu-azure
+architecture: arm64
+output:
+    module: output/9.0.0+driver/aarch64/falco_ubuntu-azure_6.17.0-1005-azure_5.ko
+    probe: output/9.0.0+driver/aarch64/falco_ubuntu-azure_6.17.0-1005-azure_5.o
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure-nvidia-6.17/linux-azure-nvidia-6.17-headers-6.17.0-1005_6.17.0-1005.5_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure-nvidia-6.17/linux-headers-6.17.0-1005-azure-nvidia_6.17.0-1005.5_arm64.deb
