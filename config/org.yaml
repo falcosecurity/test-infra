@@ -605,6 +605,7 @@ orgs:
         members:
           - FedeDP
           - alacuku
+          - ekoops
         privacy: closed
         repos:
           event-generator: maintain
