@@ -707,6 +707,7 @@ orgs:
         description: maintainers of falcosecurity/falco-operator
         maintainers:
           - alacuku
+          - c2ndev
           - leogr
           - fededp
         members: []
