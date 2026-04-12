@@ -1,0 +1,20 @@
+kernelversion: "5"
+kernelrelease: 7.0.0-1005-nvidia
+target: ubuntu-nvidia
+architecture: arm64
+output:
+    module: output/8.1.0+driver/aarch64/falco_ubuntu-nvidia_7.0.0-1005-nvidia_5.ko
+    probe: output/8.1.0+driver/aarch64/falco_ubuntu-nvidia_7.0.0-1005-nvidia_5.o
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia-64k_7.0.0-1005.5_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia_7.0.0-1005.5_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-nvidia-headers-7.0.0-1005_7.0.0-1005.5_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia-64k_7.0.0-1005.5_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia_7.0.0-1005.5_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia/linux-nvidia-headers-7.0.0-1005_7.0.0-1005.5_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia-64k_7.0.0-1005.5_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia_7.0.0-1005.5_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia/linux-nvidia-headers-7.0.0-1005_7.0.0-1005.5_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia-64k_7.0.0-1005.5_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1005-nvidia_7.0.0-1005.5_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-nvidia-headers-7.0.0-1005_7.0.0-1005.5_all.deb
