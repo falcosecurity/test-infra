@@ -93,6 +93,7 @@ orgs:
         allow_merge_commit: false
         allow_rebase_merge: true
         allow_squash_merge: false
+        archived: true
         description: Go client and SDK for Falco
         has_projects: true
       client-py:
