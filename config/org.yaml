@@ -407,6 +407,14 @@ orgs:
         allow_squash_merge: false
         description: Falco plugins registry
         has_projects: true
+      prempti:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Falco-powered policy and visibility layer for AI coding agents
+        has_projects: true
+        has_wiki: false
       rules:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -986,6 +994,18 @@ orgs:
         privacy: closed
         repos:
           plugins: maintain
+      prempti-maintainers:
+        description: maintainers of falcosecurity/prempti
+        maintainers:
+          - leogr
+          - ldegio
+          - c2ndev
+          - irozzo-1A
+          - ekoops
+        members: []
+        privacy: closed
+        repos:
+          prempti: maintain
       rules-maintainers:
         description: maintainers of falcosecurity/rules
         maintainers:

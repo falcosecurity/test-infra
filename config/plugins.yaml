@@ -44,6 +44,7 @@ approve:
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugin-sdk-rs
       - falcosecurity/plugins
+      - falcosecurity/prempti
       - falcosecurity/rules
       - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
@@ -131,6 +132,7 @@ lgtm:
       - falcosecurity/plugin-sdk-go
       - falcosecurity/plugin-sdk-cpp
       - falcosecurity/plugin-sdk-rs
+      - falcosecurity/prempti
       - falcosecurity/rules
       - falcosecurity/syscalls-bumper
       - falcosecurity/template-repository
@@ -487,6 +489,14 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: falco-actions
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: prempti
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -1477,6 +1487,29 @@ plugins:
       - verify-owners
       - welcome
       - wip
+  falcosecurity/prempti:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
   falcosecurity/rules:
     plugins:
       - approve
@@ -1752,6 +1785,10 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/plugin-sdk-rs:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/prempti:
     - name: needs-rebase
       events:
         - pull_request
