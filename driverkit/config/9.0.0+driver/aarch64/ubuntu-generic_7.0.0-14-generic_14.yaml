@@ -4,7 +4,6 @@ target: ubuntu-generic
 architecture: arm64
 output:
     module: output/9.0.0+driver/aarch64/falco_ubuntu-generic_7.0.0-14-generic_14.ko
-    probe: output/9.0.0+driver/aarch64/falco_ubuntu-generic_7.0.0-14-generic_14.o
 kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-14-generic-64k_7.0.0-14.14_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-14-generic_7.0.0-14.14_arm64.deb

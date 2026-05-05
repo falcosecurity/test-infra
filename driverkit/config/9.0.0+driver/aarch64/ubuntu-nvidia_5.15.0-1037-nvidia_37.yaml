@@ -4,7 +4,6 @@ target: ubuntu-nvidia
 architecture: arm64
 output:
     module: output/9.0.0+driver/aarch64/falco_ubuntu-nvidia_5.15.0-1037-nvidia_37.ko
-    probe: output/9.0.0+driver/aarch64/falco_ubuntu-nvidia_5.15.0-1037-nvidia_37.o
 kernelurls:
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-tegra-igx-modules/linux-headers-tegra-oot-jetson-5.15.0-1037-nvidia-tegra-igx-rt_5.15.0-1037.37_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-tegra-igx-modules/linux-headers-tegra-oot-jetson-5.15.0-1037-nvidia-tegra-igx_5.15.0-1037.37_arm64.deb

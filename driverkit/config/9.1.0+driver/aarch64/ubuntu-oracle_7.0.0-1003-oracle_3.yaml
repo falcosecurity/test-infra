@@ -4,7 +4,6 @@ target: ubuntu-oracle
 architecture: arm64
 output:
     module: output/9.1.0+driver/aarch64/falco_ubuntu-oracle_7.0.0-1003-oracle_3.ko
-    probe: output/9.1.0+driver/aarch64/falco_ubuntu-oracle_7.0.0-1003-oracle_3.o
 kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oracle/linux-headers-7.0.0-1003-oracle-64k_7.0.0-1003.3_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oracle/linux-headers-7.0.0-1003-oracle_7.0.0-1003.3_arm64.deb
