@@ -4,7 +4,6 @@ target: ubuntu-realtime
 architecture: arm64
 output:
     module: output/8.1.0+driver/aarch64/falco_ubuntu-realtime_7.0.0-14-realtime_14.1.ko
-    probe: output/8.1.0+driver/aarch64/falco_ubuntu-realtime_7.0.0-14-realtime_14.1.o
 kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-realtime/linux-headers-7.0.0-14-realtime-64k_7.0.0-14.14.1_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-realtime/linux-headers-7.0.0-14-realtime_7.0.0-14.14.1_arm64.deb
