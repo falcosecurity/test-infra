@@ -545,7 +545,6 @@ orgs:
           - cpanato
           - Issif
           - FedeDP
-          - maxgio92
           - zuc
           - jasondellaluce
           - Molter73
@@ -574,7 +573,6 @@ orgs:
         maintainers:
           - leogr
         members:
-          - maxgio92
           - zuc
           - jasondellaluce
         privacy: closed
@@ -623,7 +621,6 @@ orgs:
         maintainers:
           - leogr
         members:
-          - maxgio92
           - jasondellaluce
         privacy: closed
         repos:
@@ -704,7 +701,6 @@ orgs:
           - leogr
         members:
           - zuc
-          - maxgio92
           - fededp
           - cpanato
           - alacuku
@@ -789,7 +785,6 @@ orgs:
         maintainers:
           - leogr
         members:
-          - maxgio92
           - jasondellaluce
         privacy: closed
         repos:
