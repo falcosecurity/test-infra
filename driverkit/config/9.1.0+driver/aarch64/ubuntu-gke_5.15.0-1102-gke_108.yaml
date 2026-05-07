@@ -1,0 +1,9 @@
+kernelversion: "108"
+kernelrelease: 5.15.0-1102-gke
+target: ubuntu-gke
+architecture: arm64
+output:
+    module: output/9.1.0+driver/aarch64/falco_ubuntu-gke_5.15.0-1102-gke_108.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gke/linux-gke-headers-5.15.0-1102_5.15.0-1102.108_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gke/linux-headers-5.15.0-1102-gke_5.15.0-1102.108_arm64.deb
