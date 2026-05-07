@@ -586,6 +586,8 @@ orgs:
           - FedeDP
           - EXONER4TED
           - Lowaiz
+          - LucaGuerra
+          - leogr
         privacy: closed
         repos:
           driverkit: maintain
@@ -622,6 +624,8 @@ orgs:
           - leogr
         members:
           - jasondellaluce
+          - LucaGuerra
+          - ekoops
         privacy: closed
         repos:
           evolution: maintain
@@ -786,6 +790,7 @@ orgs:
           - leogr
         members:
           - jasondellaluce
+          - LucaGuerra
         privacy: closed
         repos:
           .github: maintain
@@ -1036,6 +1041,8 @@ orgs:
           - jonahjon
           - fededp
           - ekoops
+          - LucaGuerra
+          - alacuku
         privacy: closed
         repos:
           test-infra: maintain
