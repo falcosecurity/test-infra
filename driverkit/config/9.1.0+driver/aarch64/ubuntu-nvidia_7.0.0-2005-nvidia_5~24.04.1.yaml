@@ -1,0 +1,10 @@
+kernelversion: 5~24.04.1
+kernelrelease: 7.0.0-2005-nvidia
+target: ubuntu-nvidia
+architecture: arm64
+output:
+    module: output/9.1.0+driver/aarch64/falco_ubuntu-nvidia_7.0.0-2005-nvidia_5~24.04.1.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos-7.0/linux-headers-7.0.0-2005-nvidia-bos-64k_7.0.0-2005.5~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos-7.0/linux-headers-7.0.0-2005-nvidia-bos_7.0.0-2005.5~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos-7.0/linux-nvidia-bos-7.0-headers-7.0.0-2005_7.0.0-2005.5~24.04.1_all.deb
