@@ -197,12 +197,12 @@ postsubmits:
           privileged: true
       nodeSelector:
         Archtype: "x86"
-  - name: publish-images-update-falco-operator-chart
+  - name: publish-images-sync-charts
     decorate: true
     path_alias: github.com/falcosecurity/test-infra
     skip_report: false
     agent: kubernetes
-    run_if_changed: '^images/update-falco-operator-chart/'
+    run_if_changed: '^images/sync-charts/'
     branches:
       - ^master$
     spec:
@@ -210,7 +210,7 @@ postsubmits:
       - command:
           - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/publish.sh"
         args:
-          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/update-falco-operator-chart"
+          - "/home/prow/go/src/github.com/falcosecurity/test-infra/images/sync-charts"
         env:
         - name: AWS_REGION
           value: eu-west-1

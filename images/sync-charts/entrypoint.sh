@@ -25,11 +25,13 @@ BOT_NAME="${BOT_NAME:-"poiana"}"
 BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
 BOT_GPG_PUBLIC_KEY="${BOT_GPG_PUBLIC_KEY:-"EC9875C7B990D55F3B44D6E45F284448FF941C8F"}"
-SOURCE_REPO_PATH="${SOURCE_REPO_PATH:-"/home/prow/go/src/github.com/falcosecurity/falco-operator"}"
-SOURCE_CHART_PATH="${SOURCE_CHART_PATH:-"chart/falco-operator"}"
-TARGET_CHART_PATH="${TARGET_CHART_PATH:-"charts/falco-operator"}"
-PR_BRANCH="${PR_BRANCH:-"update/falco-operator-chart"}"
-PR_TITLE="${PR_TITLE:-"update(falco-operator): sync Helm chart"}"
+SOURCE_REPO_PATH="${SOURCE_REPO_PATH:-""}"
+SOURCE_REPO_URL="${SOURCE_REPO_URL:-""}"
+SOURCE_CHART_PATH="${SOURCE_CHART_PATH:-""}"
+TARGET_CHART_PATH="${TARGET_CHART_PATH:-""}"
+PR_BRANCH="${PR_BRANCH:-""}"
+PR_TITLE="${PR_TITLE:-""}"
+PR_BODY_EXTRA="${PR_BODY_EXTRA:-""}"
 
 export GIT_COMMITTER_NAME="${BOT_NAME}"
 export GIT_COMMITTER_EMAIL="${BOT_MAIL}"
@@ -80,6 +82,17 @@ require_dir() {
     fi
 }
 
+require_var() {
+    if [[ -z "${!1:-}" ]]; then
+        echo "ERROR: required environment variable unset: $1" >&2
+        return 1
+    fi
+}
+
+target_chart_name() {
+    basename "${TARGET_CHART_PATH}"
+}
+
 source_chart_dir() {
     if [[ "${SOURCE_CHART_PATH}" = /* ]]; then
         printf "%s" "${SOURCE_CHART_PATH}"
@@ -92,7 +105,7 @@ chart_version() {
     local chart_dir="$1"
     local version
 
-    version="$(helm show chart "${chart_dir}" | awk '$1 == "version:" { print $2; exit }')"
+    version="$(helm show chart "${chart_dir}" | awk '/^version:/ { print $2; exit }')"
     if [[ -z "${version}" ]]; then
         echo "ERROR: unable to read Chart.yaml version from ${chart_dir}" >&2
         return 1
@@ -101,16 +114,27 @@ chart_version() {
     printf "%s" "${version}"
 }
 
+chart_name() {
+    local chart_dir="$1"
+    local name
+
+    name="$(helm show chart "${chart_dir}" | awk '/^name:/ { print $2; exit }')"
+    if [[ -z "${name}" ]]; then
+        echo "ERROR: unable to read Chart.yaml name from ${chart_dir}" >&2
+        return 1
+    fi
+
+    printf "%s" "${name}"
+}
+
 validate_chart_layout() {
     local chart_dir="$1"
 
-    require_file "${chart_dir}/.helmignore"
     require_file "${chart_dir}/CHANGELOG.md"
     require_file "${chart_dir}/Chart.yaml"
     require_file "${chart_dir}/README.gotmpl"
     require_file "${chart_dir}/README.md"
     require_file "${chart_dir}/values.yaml"
-    require_dir "${chart_dir}/crds"
     require_dir "${chart_dir}/templates"
 }
 
@@ -141,22 +165,25 @@ validate_target_chart_path() {
             return 1
             ;;
     esac
+
+    if [[ "${chart_dir#charts/}" == */* ]]; then
+        echo "ERROR: refusing nested target chart path: ${chart_dir}" >&2
+        return 1
+    fi
 }
 
-validate_chart_rendering() {
-    local chart_dir="$1"
+validate_chart_identity() {
+    local source_dir="$1"
+    local target_dir="$2"
+    local source_name
+    local target_name
 
-    echo "> linting ${chart_dir}..." >&2
-    helm lint --strict "${chart_dir}"
-
-    echo "> rendering ${chart_dir}..." >&2
-    helm template falco-operator "${chart_dir}" \
-        --namespace falco-operator \
-        --include-crds \
-        >/tmp/falco-operator-chart-render.yaml
-
-    echo "> packaging ${chart_dir}..." >&2
-    helm package "${chart_dir}" -d /tmp >/tmp/falco-operator-chart-package.log
+    source_name="$(chart_name "${source_dir}")"
+    target_name="$(basename "${target_dir}")"
+    if [[ "${source_name}" != "${target_name}" ]]; then
+        echo "ERROR: source chart name ${source_name} does not match target chart path ${target_dir}." >&2
+        return 1
+    fi
 }
 
 sync_chart() {
@@ -168,6 +195,7 @@ sync_chart() {
 
     validate_chart_layout "${source_dir}"
     validate_target_chart_path "${target_dir}"
+    validate_chart_identity "${source_dir}" "${target_dir}"
     current_version="$(chart_version "${source_dir}")"
 
     if [[ -f "${target_dir}/Chart.yaml" ]]; then
@@ -177,15 +205,14 @@ sync_chart() {
 
     echo "> syncing ${source_dir} to ${target_dir}..." >&2
     mkdir -p "${target_dir}"
-    rsync -a --delete --exclude ".git" --exclude "OWNERS" "${source_dir}/" "${target_dir}/"
+    rsync -a --checksum --delete --exclude ".git" --exclude "OWNERS" "${source_dir}/" "${target_dir}/"
 
     validate_chart_layout "${target_dir}"
-    validate_chart_rendering "${target_dir}"
 
     if [[ "$(git status --porcelain=v1 -- "${target_dir}" | wc -l | tr -d ' ')" -gt 0 ]]; then
         if [[ "${target_exists}" == "true" && "${previous_version}" == "${current_version}" ]]; then
             echo "ERROR: chart changes detected but Chart.yaml version is still ${current_version}." >&2
-            echo "ERROR: bump the chart version in falcosecurity/falco-operator before syncing to falcosecurity/charts." >&2
+            echo "ERROR: bump the source chart version before syncing to falcosecurity/charts." >&2
             return 1
         fi
     fi
@@ -195,9 +222,73 @@ get_user_from_token() {
     curl --silent -H "Authorization: token $(cat "$1")" "https://api.github.com/user" | grep -Po '"login": "\K.*?(?=")'
 }
 
+pr_title() {
+    local chart_dir="$1"
+    local version
+
+    if [[ -n "${PR_TITLE}" ]]; then
+        printf "%s" "${PR_TITLE}"
+        return 0
+    fi
+
+    version="$(chart_version "${chart_dir}")"
+    printf "sync(%s): v%s" "${TARGET_CHART_PATH}" "${version}"
+}
+
+pr_branch() {
+    if [[ -n "${PR_BRANCH}" ]]; then
+        printf "%s" "${PR_BRANCH}"
+        return 0
+    fi
+
+    printf "sync/%s" "${TARGET_CHART_PATH}"
+}
+
+pr_body() {
+    local source_dir="$1"
+    local chart_name
+    local source_ref
+
+    chart_name="$(target_chart_name)"
+    source_ref="${SOURCE_REPO_URL:-${source_dir}}"
+
+    cat <<EOF
+**What type of PR is this?**
+
+/kind chart-release
+
+**Any specific area of the project related to this PR?**
+
+/area ${chart_name}-chart
+
+**What this PR does / why we need it**:
+
+Syncs the ${chart_name} Helm chart from its source repository.
+
+Source chart: ${source_ref}
+
+**Which issue(s) this PR fixes**:
+
+None.
+
+**Special notes for your reviewer**:
+
+Generated by the sync-charts ProwJob. Do not edit this PR directly; change the source chart instead.
+${PR_BODY_EXTRA}
+
+**Checklist**
+- [x] Chart Version bumped
+- [x] Variables are documented in the README.md
+- [x] CHANGELOG.md updated
+EOF
+}
+
 create_pr() {
     local token_path="$1"
+    local source_dir="$2"
     local nchanges
+    local title
+    local branch
     local user
     local body
 
@@ -207,76 +298,58 @@ create_pr() {
         return 0
     fi
 
+    title="$(pr_title "${source_dir}")"
+    branch="$(pr_branch)"
+
     echo "> creating commit..." >&2
     git add "${TARGET_CHART_PATH}"
-    git commit -s -m "${PR_TITLE}"
+    git commit -s -m "${title}"
 
     user="$(get_user_from_token "${token_path}")"
-    echo "> pushing commit as ${user} on branch ${PR_BRANCH}..." >&2
+    echo "> pushing commit as ${user} on branch ${branch}..." >&2
     git push -f \
         "https://${user}:$(cat "${token_path}")@github.com/${GH_ORG}/${GH_REPO}" \
-        "HEAD:${PR_BRANCH}" 2>/dev/null
+        "HEAD:${branch}" 2>/dev/null
 
-    echo "> creating pull-request to merge ${user}:${PR_BRANCH} into ${GH_REPO_BRANCH}..." >&2
-    body="$(cat <<'EOF'
-**What type of PR is this?**
-
-/kind chart-release
-
-**Any specific area of the project related to this PR?**
-
-/area falco-operator-chart
-
-**What this PR does / why we need it**:
-
-Syncs the Falco Operator Helm chart from `falcosecurity/falco-operator`.
-
-Source chart: https://github.com/falcosecurity/falco-operator/tree/main/chart/falco-operator
-
-**Which issue(s) this PR fixes**:
-
-None.
-
-**Special notes for your reviewer**:
-
-Generated by the update-falco-operator-chart ProwJob. Do not edit this PR directly; change the source chart in `falcosecurity/falco-operator` instead.
-
-**Checklist**
-- [x] Chart Version bumped
-- [x] Variables are documented in the README.md
-- [x] CHANGELOG.md updated
-EOF
-)"
-
+    body="$(pr_body "${source_dir}")"
+    echo "> creating or updating pull-request from ${GH_ORG}:${branch} into ${GH_REPO_BRANCH}..." >&2
     pr-creator \
         --github-endpoint="${GH_PROXY}" \
         --github-token-path="${token_path}" \
         --org="${GH_ORG}" --repo="${GH_REPO}" --branch="${GH_REPO_BRANCH}" \
-        --title="${PR_TITLE}" --match-title="${PR_TITLE}" \
+        --title="${title}" \
+        --head-branch="${GH_ORG}:${branch}" \
         --body="${body}" \
-        --local --source="${PR_BRANCH}" \
+        --local --source="${branch}" \
         --allow-mods --confirm
 }
 
 main() {
-    local token_path="$1"
+    local token_path="${1:-}"
     local source_dir
 
     check_program "awk"
     check_program "curl"
     check_program "git"
-    check_program "gpg"
     check_program "helm"
-    check_program "pr-creator"
     check_program "rsync"
 
+    require_var "SOURCE_CHART_PATH"
+    require_var "TARGET_CHART_PATH"
+    if [[ "${SOURCE_CHART_PATH}" != /* ]]; then
+        require_var "SOURCE_REPO_PATH"
+    fi
+
+    source_dir="$(source_chart_dir)"
+
+    check_program "gpg"
+    check_program "pr-creator"
     require_file "${token_path}"
     ensure_git_config "${BOT_NAME}" "${BOT_MAIL}"
     ensure_gpg_key "${BOT_GPG_KEY_PATH}" "${BOT_GPG_PUBLIC_KEY}"
 
-    source_dir="$(source_chart_dir)"
     sync_chart "${source_dir}" "${TARGET_CHART_PATH}"
-    create_pr "${token_path}"
+    create_pr "${token_path}" "${source_dir}"
 }
 
 if [[ $# -lt 1 ]]; then

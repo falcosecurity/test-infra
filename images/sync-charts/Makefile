@@ -1,8 +1,9 @@
 SHELL := /bin/bash
 
 IMG_SLUG := test-infra
-IMG_NAME := update-falco-operator-chart
+IMG_NAME := sync-charts
 IMG_TAG ?= latest
+PLATFORM ?= linux/amd64
 
 ACCOUNT := 292999226676
 DOCKER_PUSH_REPOSITORY = dkr.ecr.eu-west-1.amazonaws.com
@@ -12,7 +13,7 @@ IMAGE := "$(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG
 build-push: build-image push-image
 
 build-image:
-	docker build --no-cache -t "$(IMG_SLUG)/$(IMG_NAME)" .
+	docker build --platform "$(PLATFORM)" --no-cache -t "$(IMG_SLUG)/$(IMG_NAME)" .
 
 push-image:
 	docker tag "$(IMG_SLUG)/$(IMG_NAME)" $(IMAGE)

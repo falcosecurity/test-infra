@@ -1,7 +1,7 @@
 FROM golang:1.24 AS pullrequestcreator
 
-RUN git clone https://github.com/kubernetes/test-infra
-RUN cd test-infra/robots/pr-creator && go build -v -o pr-creator ./main.go
+RUN mkdir -p /go/test-infra/robots/pr-creator
+COPY --from=gcr.io/k8s-prow/pr-creator@sha256:776cc7d7aa8e7dc0a557c53aa83d3edd7cceafc3119e889a81c0655851783518 /ko-app/pr-creator /go/test-infra/robots/pr-creator/pr-creator
 
 FROM golang:1.24-bookworm
 
