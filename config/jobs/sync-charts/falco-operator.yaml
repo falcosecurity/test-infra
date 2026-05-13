@@ -1,6 +1,6 @@
 postsubmits:
   falcosecurity/falco-operator:
-    - name: update-falco-operator-chart
+    - name: sync-charts-falco-operator
       decorate: true
       skip_report: false
       agent: kubernetes
@@ -17,8 +17,8 @@ postsubmits:
           workdir: true
       spec:
         containers:
-          # See images/update-falco-operator-chart
-          - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/update-falco-operator-chart:latest
+          # See images/sync-charts
+          - image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/sync-charts:latest
             imagePullPolicy: Always
             command:
               - /entrypoint.sh
@@ -35,6 +35,8 @@ postsubmits:
                 value: master
               - name: SOURCE_REPO_PATH
                 value: /home/prow/go/src/github.com/falcosecurity/falco-operator
+              - name: SOURCE_REPO_URL
+                value: https://github.com/falcosecurity/falco-operator/tree/main/chart/falco-operator
               - name: SOURCE_CHART_PATH
                 value: chart/falco-operator
               - name: TARGET_CHART_PATH
