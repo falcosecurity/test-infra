@@ -56,6 +56,11 @@ resource "aws_ecr_repository_policy" "update_dbg" {
   policy     = data.aws_iam_policy_document.ecr_standard.json
 }
 
+resource "aws_ecr_repository_policy" "sync_charts" {
+  repository = aws_ecr_repository.sync_charts.name
+  policy     = data.aws_iam_policy_document.ecr_standard.json
+}
+
 resource "aws_ecr_repository_policy" "update_falco_operator_chart" {
   repository = aws_ecr_repository.update_falco_operator_chart.name
   policy     = data.aws_iam_policy_document.ecr_standard.json

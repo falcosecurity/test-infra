@@ -54,6 +54,13 @@ resource "aws_ecr_repository" "update_rules_index" {
   }
 }
 
+resource "aws_ecr_repository" "sync_charts" {
+  name = "test-infra/sync-charts"
+  encryption_configuration {
+    encryption_type = "KMS"
+  }
+}
+
 resource "aws_ecr_repository" "update_falco_operator_chart" {
   name = "test-infra/update-falco-operator-chart"
   encryption_configuration {
