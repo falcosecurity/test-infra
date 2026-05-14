@@ -467,16 +467,16 @@ branch-protection:
           branches:
             main:
               protect: true
+              required_status_checks:
+                contexts:
+                  - "Build & Test (Linux x86_64)"
+                  - "Build & Test (Linux aarch64)"
+                  - "Build & Test (Windows x64)"
+                  - "Build & Test (Windows arm64)"
+                  - "Build & Test (macOS aarch64)"
+                  - "Build & Test (macOS x86_64)"
             gh-pages:
               protect: true
-          required_status_checks:
-            contexts:
-              - "Build & Test (Linux x86_64)"
-              - "Build & Test (Linux aarch64)"
-              - "Build & Test (Windows x64)"
-              - "Build & Test (Windows arm64)"
-              - "Build & Test (macOS aarch64)"
-              - "Build & Test (macOS x86_64)"
         rules:
           branches:
             main:
