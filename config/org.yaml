@@ -475,6 +475,7 @@ orgs:
           - Issif
           - alacuku
           - ekoops
+          - c2ndev
         privacy: closed
         repos:
           charts: maintain
@@ -557,6 +558,7 @@ orgs:
           - deepskyblue86
           - geraldcombs
           - irozzo-1A
+          - c2ndev
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
