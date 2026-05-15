@@ -318,7 +318,7 @@ create_pr() {
         --github-token-path="${token_path}" \
         --org="${GH_ORG}" --repo="${GH_REPO}" --branch="${GH_REPO_BRANCH}" \
         --title="${title}" \
-        --head-branch="${GH_ORG}:${branch}" \
+        --head-branch="${branch}" \
         --body="${body}" \
         --local --source="${branch}" \
         --allow-mods --confirm
