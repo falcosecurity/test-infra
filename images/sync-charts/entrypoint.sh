@@ -203,19 +203,16 @@ sync_chart() {
         previous_version="$(chart_version "${target_dir}")"
     fi
 
+    if [[ "${target_exists}" == "true" && "${previous_version}" == "${current_version}" ]]; then
+        echo "> moving on since ${target_dir} is already at chart version ${current_version}..." >&2
+        return 0
+    fi
+
     echo "> syncing ${source_dir} to ${target_dir}..." >&2
     mkdir -p "${target_dir}"
     rsync -a --checksum --delete --exclude ".git" --exclude "OWNERS" "${source_dir}/" "${target_dir}/"
 
     validate_chart_layout "${target_dir}"
-
-    if [[ "$(git status --porcelain=v1 -- "${target_dir}" | wc -l | tr -d ' ')" -gt 0 ]]; then
-        if [[ "${target_exists}" == "true" && "${previous_version}" == "${current_version}" ]]; then
-            echo "ERROR: chart changes detected but Chart.yaml version is still ${current_version}." >&2
-            echo "ERROR: bump the source chart version before syncing to falcosecurity/charts." >&2
-            return 1
-        fi
-    fi
 }
 
 get_user_from_token() {
@@ -236,21 +233,74 @@ pr_title() {
 }
 
 pr_branch() {
+    local chart_dir="$1"
+    local version
+
     if [[ -n "${PR_BRANCH}" ]]; then
         printf "%s" "${PR_BRANCH}"
         return 0
     fi
 
-    printf "sync/%s" "${TARGET_CHART_PATH}"
+    version="$(chart_version "${chart_dir}")"
+    printf "sync/%s/v%s" "${TARGET_CHART_PATH}" "${version}"
+}
+
+source_repo_root_url() {
+    local source_url="${SOURCE_REPO_URL%/}"
+
+    if [[ -z "${source_url}" ]]; then
+        return 0
+    fi
+
+    case "${source_url}" in
+        *"/tree/"*) printf "%s" "${source_url%%/tree/*}" ;;
+        *"/blob/"*) printf "%s" "${source_url%%/blob/*}" ;;
+        *) printf "%s" "${source_url}" ;;
+    esac
+}
+
+source_commit() {
+    local source_dir="$1"
+    local repo_dir="${SOURCE_REPO_PATH}"
+
+    if [[ -z "${repo_dir}" ]]; then
+        repo_dir="$(git -C "${source_dir}" rev-parse --show-toplevel 2>/dev/null || true)"
+    fi
+
+    if [[ -n "${repo_dir}" ]]; then
+        git -C "${repo_dir}" rev-parse HEAD 2>/dev/null || true
+    fi
+}
+
+source_commit_ref() {
+    local source_dir="$1"
+    local commit
+    local repo_url
+
+    commit="$(source_commit "${source_dir}")"
+    if [[ -z "${commit}" ]]; then
+        printf "unavailable"
+        return 0
+    fi
+
+    repo_url="$(source_repo_root_url)"
+    if [[ -n "${repo_url}" ]]; then
+        printf "%s/commit/%s" "${repo_url}" "${commit}"
+        return 0
+    fi
+
+    printf "%s" "${commit}"
 }
 
 pr_body() {
     local source_dir="$1"
     local chart_name
     local source_ref
+    local source_commit
 
     chart_name="$(target_chart_name)"
     source_ref="${SOURCE_REPO_URL:-${source_dir}}"
+    source_commit="$(source_commit_ref "${source_dir}")"
 
     cat <<EOF
 **What type of PR is this?**
@@ -266,6 +316,7 @@ pr_body() {
 Syncs the ${chart_name} Helm chart from its source repository.
 
 Source chart: ${source_ref}
+Source commit: ${source_commit}
 
 **Which issue(s) this PR fixes**:
 
@@ -299,7 +350,7 @@ create_pr() {
     fi
 
     title="$(pr_title "${source_dir}")"
-    branch="$(pr_branch)"
+    branch="$(pr_branch "${source_dir}")"
 
     echo "> creating commit..." >&2
     git add "${TARGET_CHART_PATH}"
