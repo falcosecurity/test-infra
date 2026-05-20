@@ -1,0 +1,15 @@
+kernelversion: "16"
+kernelrelease: 6.17.0-1016-raspi
+target: ubuntu-raspi
+architecture: arm64
+output:
+    module: output/10.0.0+driver/aarch64/falco_ubuntu-raspi_6.17.0-1016-raspi_16.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-6.17.0-1016-raspi_6.17.0-1016.16_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-raspi-headers-6.17.0-1016_6.17.0-1016.16_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-raspi/linux-headers-6.17.0-1016-raspi_6.17.0-1016.16_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-raspi/linux-raspi-headers-6.17.0-1016_6.17.0-1016.16_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-headers-6.17.0-1016-raspi_6.17.0-1016.16_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-raspi-headers-6.17.0-1016_6.17.0-1016.16_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-6.17.0-1016-raspi_6.17.0-1016.16_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-raspi-headers-6.17.0-1016_6.17.0-1016.16_arm64.deb
