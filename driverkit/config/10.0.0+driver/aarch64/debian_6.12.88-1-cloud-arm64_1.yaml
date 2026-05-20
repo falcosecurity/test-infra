@@ -1,0 +1,10 @@
+kernelversion: "1"
+kernelrelease: 6.12.88-1-cloud-arm64
+target: debian
+architecture: arm64
+output:
+    module: output/10.0.0+driver/aarch64/falco_debian_6.12.88-1-cloud-arm64_1.ko
+kernelurls:
+    - http://security.debian.org/debian-security/pool/updates/main/l/linux/linux-headers-6.12.88+deb13-cloud-arm64_6.12.88-1_arm64.deb
+    - http://security.debian.org/debian-security/pool/updates/main/l/linux/linux-headers-6.12.88+deb13-common_6.12.88-1_all.deb
+    - http://security.debian.org/debian-security/pool/updates/main/l/linux/linux-kbuild-6.12.88+deb13_6.12.88-1_arm64.deb
