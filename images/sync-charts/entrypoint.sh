@@ -246,7 +246,10 @@ pr_branch() {
 }
 
 source_repo_root_url() {
-    local source_url="${SOURCE_REPO_URL%/}"
+    local source_url
+
+    source_url="$(source_repo_url)"
+    source_url="${source_url%/}"
 
     if [[ -z "${source_url}" ]]; then
         return 0
@@ -257,6 +260,25 @@ source_repo_root_url() {
         *"/blob/"*) printf "%s" "${source_url%%/blob/*}" ;;
         *) printf "%s" "${source_url}" ;;
     esac
+}
+
+source_repo_url() {
+    if [[ -n "${SOURCE_REPO_URL}" ]]; then
+        printf "%s" "${SOURCE_REPO_URL}"
+        return 0
+    fi
+
+    if [[ -n "${REPO_OWNER:-}" && -n "${REPO_NAME:-}" && -n "${PULL_BASE_SHA:-}" ]]; then
+        printf "https://github.com/%s/%s/tree/%s/%s" "${REPO_OWNER}" "${REPO_NAME}" "${PULL_BASE_SHA}" "${SOURCE_CHART_PATH}"
+        return 0
+    fi
+
+    if [[ -n "${REPO_OWNER:-}" && -n "${REPO_NAME:-}" && -n "${PULL_BASE_REF:-}" ]]; then
+        printf "https://github.com/%s/%s/tree/%s/%s" "${REPO_OWNER}" "${REPO_NAME}" "${PULL_BASE_REF}" "${SOURCE_CHART_PATH}"
+        return 0
+    fi
+
+    return 0
 }
 
 source_commit() {
@@ -299,7 +321,8 @@ pr_body() {
     local source_commit
 
     chart_name="$(target_chart_name)"
-    source_ref="${SOURCE_REPO_URL:-${source_dir}}"
+    source_ref="$(source_repo_url)"
+    source_ref="${source_ref:-${source_dir}}"
     source_commit="$(source_commit_ref "${source_dir}")"
 
     cat <<EOF
