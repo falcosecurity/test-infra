@@ -6,7 +6,7 @@ postsubmits:
       agent: kubernetes
       max_concurrency: 1
       branches:
-        - ^master$
+        - ^release/.*$
       run_if_changed: "^chart/falco/"
       extra_refs:
         # Check out the falcosecurity/charts repo.
@@ -35,8 +35,6 @@ postsubmits:
                 value: master
               - name: SOURCE_REPO_PATH
                 value: /home/prow/go/src/github.com/falcosecurity/falco
-              - name: SOURCE_REPO_URL
-                value: https://github.com/falcosecurity/falco/tree/master/chart/falco
               - name: SOURCE_CHART_PATH
                 value: chart/falco
               - name: TARGET_CHART_PATH
