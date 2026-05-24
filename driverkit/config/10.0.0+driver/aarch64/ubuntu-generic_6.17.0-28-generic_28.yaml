@@ -5,15 +5,6 @@ architecture: arm64
 output:
     module: output/10.0.0+driver/aarch64/falco_ubuntu-generic_6.17.0-28-generic_28.ko
 kernelurls:
-    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28-generic-64k_6.17.0-28.28_arm64.deb
-    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28-generic_6.17.0-28.28_arm64.deb
-    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28_6.17.0-28.28_all.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28-generic-64k_6.17.0-28.28_arm64.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28-generic_6.17.0-28.28_arm64.deb
     - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28_6.17.0-28.28_all.deb
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.17.0-28-generic-64k_6.17.0-28.28_arm64.deb
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.17.0-28-generic_6.17.0-28.28_arm64.deb
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.17.0-28_6.17.0-28.28_all.deb
-    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28-generic-64k_6.17.0-28.28_arm64.deb
-    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28-generic_6.17.0-28.28_arm64.deb
-    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-6.17.0-28_6.17.0-28.28_all.deb
