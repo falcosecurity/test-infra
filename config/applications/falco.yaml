@@ -10,12 +10,12 @@ spec:
   source:
     chart: falco
     repoURL: https://falcosecurity.github.io/charts
-    targetRevision: 8.0.5
+    targetRevision: 9.0.0
     helm:
       releaseName: falco
       values: |
         image:
-          tag: "0.44.0-rc2"
+          tag: "0.44.1-rc1"
         tolerations:
           - key: "Availability"
             operator: "Equal"
@@ -42,7 +42,7 @@ spec:
         driver:
           loader:
             initContainer:
-              tag: "0.44.0-rc2"  
+              tag: "0.44.1-rc1"  
         collectors:
           containerEngine:
             pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.7.1"
