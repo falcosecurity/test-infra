@@ -1,0 +1,16 @@
+region                      = "eu-frankfurt-1"
+tenancy_ocid                = "ocid1.tenancy.oc1..example"
+compartment_ocid            = "ocid1.compartment.oc1..example"
+object_storage_namespace    = "example_namespace"
+terraform_state_bucket_name = "falco-test-infra-terraform-state"
+
+kubernetes_api_allowed_cidrs = [
+  "203.0.113.0/24",
+]
+
+# Pin these before production apply. Set allow_dynamic_node_images=true only for
+# a controlled test plan where selecting the current OCI image is intentional.
+node_pool_image_ids = {
+  x86 = "ocid1.image.oc1.eu-frankfurt-1.example"
+  arm = "ocid1.image.oc1.eu-frankfurt-1.example"
+}
