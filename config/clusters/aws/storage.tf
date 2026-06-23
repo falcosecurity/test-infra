@@ -17,9 +17,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "prow_storage_lifecycle_configu
   bucket = aws_s3_bucket.prow_storage.id
 
   rule {
-    id      = "ten_day_retention_logs"
+    id = "ten_day_retention_logs"
     filter {
-      prefix  = "logs/"
+      prefix = "logs/"
     }
 
     expiration {
@@ -30,10 +30,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "prow_storage_lifecycle_configu
   }
 
   rule {
-    id      = "ten_day_retention_pr_logs"
+    id = "ten_day_retention_pr_logs"
 
     filter {
-      prefix  = "logs/"
+      prefix = "logs/"
     }
 
     expiration {

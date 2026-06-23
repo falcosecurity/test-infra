@@ -20,7 +20,7 @@
 
 ## EKS Master version
 
-- update the version in Terraform eks [File](../config/clusters/eks.tf)
+- update the version in Terraform eks [File](../config/clusters/aws/eks.tf)
 
 ## EKS AMI are automatically updated my managed node group
 
