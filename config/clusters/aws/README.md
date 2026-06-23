@@ -29,14 +29,14 @@ The state is stored in an already created S3 bucket called
 We define this as the backend for the state, and create a dynamoDB table for locking.
 
 ```shell
-terraform init config/clusters
+terraform init config/clusters/aws
 
 ```
 
 Then run apply to create the required infrastructure including the DynamoDB table lock. 
 
 ```
-terraform apply -var-file config/clusters/prow.tfvars -auto-approve config/clusters
+terraform apply -var-file config/clusters/aws/prow.auto.tfvars -auto-approve config/clusters/aws
 ```
 
 Now the state is stored in the S3 bucket, and the DynamoDB table will be used to lock the state to prevent concurrent modification.
@@ -54,7 +54,7 @@ Additional Outputs:
 ```
 ### Destroy the cluster infrastructure:
 
-terraform destroy -var-file config/clusters/prow.tfvars -auto-approve config/clusters
+terraform destroy -var-file config/clusters/aws/prow.auto.tfvars -auto-approve config/clusters/aws
 ```
 
 ### The state backend infrastructure

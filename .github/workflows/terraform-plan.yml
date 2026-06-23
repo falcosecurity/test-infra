@@ -5,11 +5,14 @@ on:
     branches:
       - master
     paths:
-    - 'config/clusters/**'
+    - 'config/clusters/aws/**'
 
 defaults:
   run:
-    working-directory: config/clusters
+    working-directory: config/clusters/aws
+
+env:
+  tf_actions_working_dir: config/clusters/aws
 
 jobs:
   plan:

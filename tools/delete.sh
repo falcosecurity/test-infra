@@ -47,9 +47,9 @@ function terraform-install() {
 function createClusterStateBackend() {
   local workspace="test-infra"
   echo "Creating cluster '${CLUSTER}' state backend..."
-  terraform init config/clusters
-  terraform workspace new $workspace config/clusters || true
-  terraform workspace select $workspace config/clusters
+  terraform init config/clusters/aws
+  terraform workspace new $workspace config/clusters/aws || true
+  terraform workspace select $workspace config/clusters/aws
 }
 
 function deleteCluster() {
@@ -57,7 +57,7 @@ function deleteCluster() {
   echo
 
 
-  pushd config/clusters
+  pushd config/clusters/aws
 
   terraform init
   terraform get
