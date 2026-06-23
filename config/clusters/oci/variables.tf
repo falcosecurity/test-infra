@@ -113,12 +113,22 @@ variable "node_pools" {
     autoscaler_max    = number
     max_pods_per_node = optional(number, 110)
     extra_labels      = optional(map(string), {})
+    taints = optional(list(object({
+      key    = string
+      value  = string
+      effect = string
+    })), [])
   }))
 
   default = {
     prow = {
-      arch            = "x86"
-      application     = "prow"
+      arch        = "x86"
+      application = "prow"
+      taints = [{
+        key    = "dedicated.falco.org/prow"
+        value  = "true"
+        effect = "NoSchedule"
+      }]
       shape           = "VM.Standard.E6.Flex"
       ocpus           = 2
       memory_gbs      = 16
@@ -153,8 +163,13 @@ variable "node_pools" {
       autoscaler_max  = 20
     }
     automation = {
-      arch            = "x86"
-      application     = "automation"
+      arch        = "x86"
+      application = "automation"
+      taints = [{
+        key    = "dedicated.falco.org/automation"
+        value  = "true"
+        effect = "NoSchedule"
+      }]
       shape           = "VM.Standard.E6.Flex"
       ocpus           = 2
       memory_gbs      = 16
@@ -165,8 +180,13 @@ variable "node_pools" {
       autoscaler_max  = 5
     }
     driverkit-x86 = {
-      arch            = "x86"
-      application     = "driverkit"
+      arch        = "x86"
+      application = "driverkit"
+      taints = [{
+        key    = "dedicated.falco.org/driverkit"
+        value  = "true"
+        effect = "NoSchedule"
+      }]
       shape           = "VM.Standard.E6.Flex"
       ocpus           = 8
       memory_gbs      = 48
@@ -177,8 +197,13 @@ variable "node_pools" {
       autoscaler_max  = 4
     }
     driverkit-arm = {
-      arch            = "arm"
-      application     = "driverkit"
+      arch        = "arm"
+      application = "driverkit"
+      taints = [{
+        key    = "dedicated.falco.org/driverkit"
+        value  = "true"
+        effect = "NoSchedule"
+      }]
       shape           = "VM.Standard.A1.Flex"
       ocpus           = 8
       memory_gbs      = 48

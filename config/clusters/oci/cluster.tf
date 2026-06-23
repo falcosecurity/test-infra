@@ -109,6 +109,8 @@ resource "oci_containerengine_node_pool" "fixed" {
     is_node_cycling_enabled = false
   }
 
+  node_metadata = local.pool_node_metadata[each.key]
+
   freeform_tags = local.tags
 
   lifecycle {
@@ -169,6 +171,8 @@ resource "oci_containerengine_node_pool" "autoscaled" {
   node_pool_cycling_details {
     is_node_cycling_enabled = false
   }
+
+  node_metadata = local.pool_node_metadata[each.key]
 
   freeform_tags = local.tags
 
