@@ -1,4 +1,6 @@
-region       = "eu-frankfurt-1"
+region = "eu-frankfurt-1"
+# Tenancy home region; Identity (compartment, policy) writes must target it.
+home_region  = "us-ashburn-1"
 tenancy_ocid = "ocid1.tenancy.oc1..example"
 
 # Leave true for a brand-new tenancy setup.
