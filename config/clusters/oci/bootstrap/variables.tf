@@ -15,6 +15,11 @@ variable "region" {
   type        = string
 }
 
+variable "home_region" {
+  description = "OCI tenancy home region. Identity (compartment, policy) writes must target it."
+  type        = string
+}
+
 variable "tenancy_ocid" {
   description = "OCI tenancy OCID. The tenancy OCID is also the root compartment OCID."
   type        = string
