@@ -1,0 +1,16 @@
+kernelversion: "12"
+kernelrelease: 7.0.0-2012-nvidia
+target: ubuntu-nvidia
+architecture: arm64
+output:
+    module: output/10.0.0+driver/aarch64/falco_ubuntu-nvidia_7.0.0-2012-nvidia_12.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2012-nvidia-bos-64k_7.0.0-2012.12_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2012-nvidia-bos_7.0.0-2012.12_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-nvidia-bos-headers-7.0.0-2012_7.0.0-2012.12_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2012-nvidia-bos-64k_7.0.0-2012.12_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2012-nvidia-bos_7.0.0-2012.12_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos/linux-nvidia-bos-headers-7.0.0-2012_7.0.0-2012.12_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2012-nvidia-bos-64k_7.0.0-2012.12_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2012-nvidia-bos_7.0.0-2012.12_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-nvidia-bos-headers-7.0.0-2012_7.0.0-2012.12_all.deb
