@@ -711,6 +711,7 @@ orgs:
           - cpanato
           - alacuku
           - loresuso
+          - c2ndev
         privacy: closed
         repos:
           falcoctl: maintain
@@ -1045,6 +1046,7 @@ orgs:
           - ekoops
           - LucaGuerra
           - alacuku
+          - c2ndev
         privacy: closed
         repos:
           test-infra: maintain
