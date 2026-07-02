@@ -5,4 +5,4 @@ architecture: arm64
 output:
     module: output/9.1.0+driver/aarch64/falco_amazonlinux2_5.4.242-155.348.amzn2.aarch64_1.ko
 kernelurls:
-    - http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.4/stable/aarch64/000e71ab2dcc937626b70b6bdad4817ebfc6ea1f26ef2303a9ebfbd13818d05b/../../../../../../blobstore/9db3080a883d94466365dcf91a1f3b47fe2eb0987ee41a1a6c0bd361a91a422d/kernel-devel-5.4.242-155.348.amzn2.aarch64.rpm
+    - http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.4/stable/aarch64/4a0a81c845ee411181012966a1ffe18b3f68de718dab0fcf2872487cbecc132d/../../../../../../blobstore/9db3080a883d94466365dcf91a1f3b47fe2eb0987ee41a1a6c0bd361a91a422d/kernel-devel-5.4.242-155.348.amzn2.aarch64.rpm

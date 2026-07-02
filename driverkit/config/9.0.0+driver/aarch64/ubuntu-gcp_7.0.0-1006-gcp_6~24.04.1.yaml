@@ -1,0 +1,10 @@
+kernelversion: 6~24.04.1
+kernelrelease: 7.0.0-1006-gcp
+target: ubuntu-gcp
+architecture: arm64
+output:
+    module: output/9.0.0+driver/aarch64/falco_ubuntu-gcp_7.0.0-1006-gcp_6~24.04.1.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-7.0/linux-gcp-7.0-headers-7.0.0-1006_7.0.0-1006.6~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-7.0/linux-headers-7.0.0-1006-gcp-64k_7.0.0-1006.6~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-7.0/linux-headers-7.0.0-1006-gcp_7.0.0-1006.6~24.04.1_arm64.deb

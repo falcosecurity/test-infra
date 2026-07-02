@@ -1,0 +1,16 @@
+kernelversion: "3"
+kernelrelease: 7.0.0-1002-gke
+target: ubuntu-gke
+architecture: arm64
+output:
+    module: output/10.1.0+driver/aarch64/falco_ubuntu-gke_7.0.0-1002-gke_3.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-gke/linux-gke-headers-7.0.0-1002_7.0.0-1002.3_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-gke/linux-headers-7.0.0-1002-gke-64k_7.0.0-1002.3_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-gke/linux-headers-7.0.0-1002-gke_7.0.0-1002.3_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gke/linux-gke-headers-7.0.0-1002_7.0.0-1002.3_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gke/linux-headers-7.0.0-1002-gke-64k_7.0.0-1002.3_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gke/linux-headers-7.0.0-1002-gke_7.0.0-1002.3_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-gke/linux-gke-headers-7.0.0-1002_7.0.0-1002.3_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-gke/linux-headers-7.0.0-1002-gke-64k_7.0.0-1002.3_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-gke/linux-headers-7.0.0-1002-gke_7.0.0-1002.3_arm64.deb
