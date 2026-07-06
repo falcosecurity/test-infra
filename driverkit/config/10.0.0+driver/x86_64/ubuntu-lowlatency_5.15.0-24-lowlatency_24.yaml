@@ -7,7 +7,5 @@ output:
 kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-lowlatency/linux-headers-5.15.0-24-lowlatency_5.15.0-24.24_amd64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-lowlatency/linux-lowlatency-headers-5.15.0-24_5.15.0-24.24_all.deb
-    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-lowlatency/linux-headers-5.15.0-24-lowlatency_5.15.0-24.24_amd64.deb
-    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-lowlatency/linux-lowlatency-headers-5.15.0-24_5.15.0-24.24_all.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-lowlatency/linux-headers-5.15.0-24-lowlatency_5.15.0-24.24_amd64.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-lowlatency/linux-lowlatency-headers-5.15.0-24_5.15.0-24.24_all.deb

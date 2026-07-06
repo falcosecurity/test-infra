@@ -1,9 +1,0 @@
-kernelversion: "112"
-kernelrelease: 5.15.0-1106-gke
-target: ubuntu-gke
-architecture: arm64
-output:
-    module: output/9.1.0+driver/aarch64/falco_ubuntu-gke_5.15.0-1106-gke_112.ko
-kernelurls:
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gke/linux-gke-headers-5.15.0-1106_5.15.0-1106.112_arm64.deb
-    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gke/linux-headers-5.15.0-1106-gke_5.15.0-1106.112_arm64.deb

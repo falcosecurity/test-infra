@@ -1,0 +1,16 @@
+kernelversion: "15"
+kernelrelease: 7.0.0-1015-raspi
+target: ubuntu-raspi
+architecture: arm64
+output:
+    module: output/9.1.0+driver/aarch64/falco_ubuntu-raspi_7.0.0-1015-raspi_15.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1015-raspi-realtime_7.0.0-1015.15_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1015-raspi_7.0.0-1015.15_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-raspi-headers-7.0.0-1015_7.0.0-1015.15_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-headers-7.0.0-1015-raspi-realtime_7.0.0-1015.15_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-headers-7.0.0-1015-raspi_7.0.0-1015.15_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-raspi-headers-7.0.0-1015_7.0.0-1015.15_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1015-raspi-realtime_7.0.0-1015.15_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1015-raspi_7.0.0-1015.15_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-raspi-headers-7.0.0-1015_7.0.0-1015.15_arm64.deb
