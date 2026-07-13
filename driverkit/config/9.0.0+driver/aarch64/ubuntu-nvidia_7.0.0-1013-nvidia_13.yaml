@@ -8,6 +8,9 @@ kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1013-nvidia-64k_7.0.0-1013.13_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1013-nvidia_7.0.0-1013.13_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia/linux-nvidia-headers-7.0.0-1013_7.0.0-1013.13_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1013-nvidia-64k_7.0.0-1013.13_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia/linux-headers-7.0.0-1013-nvidia_7.0.0-1013.13_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia/linux-nvidia-headers-7.0.0-1013_7.0.0-1013.13_all.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia/linux-headers-7.0.0-1013-nvidia-64k_7.0.0-1013.13_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia/linux-headers-7.0.0-1013-nvidia_7.0.0-1013.13_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia/linux-nvidia-headers-7.0.0-1013_7.0.0-1013.13_all.deb
