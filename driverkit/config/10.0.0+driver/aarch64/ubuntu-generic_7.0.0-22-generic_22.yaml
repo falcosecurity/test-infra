@@ -8,6 +8,9 @@ kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-22-generic-64k_7.0.0-22.22_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-22-generic_7.0.0-22.22_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-22_7.0.0-22.22_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-22-generic-64k_7.0.0-22.22_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-22-generic_7.0.0-22.22_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-22_7.0.0-22.22_all.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-22-generic-64k_7.0.0-22.22_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-22-generic_7.0.0-22.22_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-22_7.0.0-22.22_all.deb

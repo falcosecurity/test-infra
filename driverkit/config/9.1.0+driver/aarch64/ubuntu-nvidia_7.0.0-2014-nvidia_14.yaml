@@ -8,6 +8,9 @@ kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2014-nvidia-bos-64k_7.0.0-2014.14_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2014-nvidia-bos_7.0.0-2014.14_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-nvidia-bos/linux-nvidia-bos-headers-7.0.0-2014_7.0.0-2014.14_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2014-nvidia-bos-64k_7.0.0-2014.14_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2014-nvidia-bos_7.0.0-2014.14_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-nvidia-bos/linux-nvidia-bos-headers-7.0.0-2014_7.0.0-2014.14_all.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2014-nvidia-bos-64k_7.0.0-2014.14_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos/linux-headers-7.0.0-2014-nvidia-bos_7.0.0-2014.14_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-nvidia-bos/linux-nvidia-bos-headers-7.0.0-2014_7.0.0-2014.14_all.deb

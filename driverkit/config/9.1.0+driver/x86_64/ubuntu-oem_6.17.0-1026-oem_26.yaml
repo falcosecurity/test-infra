@@ -7,5 +7,7 @@ output:
 kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oem-6.17/linux-headers-6.17.0-1026-oem_6.17.0-1026.26_amd64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oem-6.17/linux-oem-6.17-headers-6.17.0-1026_6.17.0-1026.26_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oem-6.17/linux-headers-6.17.0-1026-oem_6.17.0-1026.26_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oem-6.17/linux-oem-6.17-headers-6.17.0-1026_6.17.0-1026.26_all.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-oem-6.17/linux-headers-6.17.0-1026-oem_6.17.0-1026.26_amd64.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-oem-6.17/linux-oem-6.17-headers-6.17.0-1026_6.17.0-1026.26_all.deb

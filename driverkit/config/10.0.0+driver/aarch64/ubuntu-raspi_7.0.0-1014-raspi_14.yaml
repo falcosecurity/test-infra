@@ -8,6 +8,9 @@ kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1014-raspi-realtime_7.0.0-1014.14_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1014-raspi_7.0.0-1014.14_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-raspi/linux-raspi-headers-7.0.0-1014_7.0.0-1014.14_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1014-raspi-realtime_7.0.0-1014.14_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-raspi/linux-headers-7.0.0-1014-raspi_7.0.0-1014.14_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-raspi/linux-raspi-headers-7.0.0-1014_7.0.0-1014.14_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-headers-7.0.0-1014-raspi-realtime_7.0.0-1014.14_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-headers-7.0.0-1014-raspi_7.0.0-1014.14_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-raspi/linux-raspi-headers-7.0.0-1014_7.0.0-1014.14_arm64.deb

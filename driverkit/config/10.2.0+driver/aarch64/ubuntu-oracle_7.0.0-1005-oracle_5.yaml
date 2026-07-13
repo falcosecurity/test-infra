@@ -8,6 +8,9 @@ kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oracle/linux-headers-7.0.0-1005-oracle-64k_7.0.0-1005.5_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oracle/linux-headers-7.0.0-1005-oracle_7.0.0-1005.5_arm64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-oracle/linux-oracle-headers-7.0.0-1005_7.0.0-1005.5_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oracle/linux-headers-7.0.0-1005-oracle-64k_7.0.0-1005.5_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oracle/linux-headers-7.0.0-1005-oracle_7.0.0-1005.5_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-oracle/linux-oracle-headers-7.0.0-1005_7.0.0-1005.5_all.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-headers-7.0.0-1005-oracle-64k_7.0.0-1005.5_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-headers-7.0.0-1005-oracle_7.0.0-1005.5_arm64.deb
     - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-oracle/linux-oracle-headers-7.0.0-1005_7.0.0-1005.5_all.deb
