@@ -794,6 +794,7 @@ orgs:
         members:
           - jasondellaluce
           - LucaGuerra
+          - ekoops
         privacy: closed
         repos:
           .github: maintain
