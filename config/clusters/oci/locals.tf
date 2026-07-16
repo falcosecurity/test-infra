@@ -29,14 +29,10 @@ locals {
     for name, pool in local.node_pools : name => pool if !pool.autoscale
   }
 
-  # The OKE managed node pool resource has no native taints field
-  # (oracle/terraform-provider-oci#1504). Taints are injected via node_metadata
-  # in two places read by two different consumers, and BOTH are required:
-  #  - user_data: a cloud-init that runs the default OKE bootstrap with
-  #    --register-with-taints, so nodes are actually tainted when they join.
-  #  - "kubelet-extra-args": the literal key the OKE cluster autoscaler parses to
-  #    taint its scale-from-zero node template, matching pending pods before a
-  #    node exists.
+  # Managed node pools have no taints field; taints are injected via node_metadata.
+  # Both keys are required: user_data taints nodes at boot via the OKE bootstrap
+  # (--register-with-taints); kubelet-extra-args lets the autoscaler taint its
+  # scale-from-zero template.
   pool_taint_args = {
     for name, pool in local.node_pools : name =>
     length(pool.taints) > 0 ? "--register-with-taints=${join(",", [for t in pool.taints : "${t.key}=${t.value}:${t.effect}"])}" : ""

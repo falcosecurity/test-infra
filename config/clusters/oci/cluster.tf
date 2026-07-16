@@ -53,6 +53,10 @@ resource "oci_containerengine_cluster" "this" {
 
   options {
     service_lb_subnet_ids = [oci_core_subnet.service_lb.id]
+
+    open_id_connect_discovery {
+      is_open_id_connect_discovery_enabled = true
+    }
   }
 
   freeform_tags = local.tags
@@ -64,7 +68,7 @@ resource "oci_containerengine_node_pool" "fixed" {
   cluster_id         = oci_containerengine_cluster.this.id
   compartment_id     = var.compartment_ocid
   kubernetes_version = var.nodepool_k8s_version
-  name               = "${var.cluster_name}-${each.key}"
+  name               = each.key
   node_shape         = each.value.shape
 
   node_shape_config {
@@ -86,6 +90,16 @@ resource "oci_containerengine_node_pool" "fixed" {
       content {
         availability_domain = placement_configs.value.name
         subnet_id           = oci_core_subnet.node.id
+
+        dynamic "preemptible_node_config" {
+          for_each = each.value.preemptible ? [1] : []
+          content {
+            preemption_action {
+              type                    = "TERMINATE"
+              is_preserve_boot_volume = false
+            }
+          }
+        }
       }
     }
 
@@ -127,7 +141,7 @@ resource "oci_containerengine_node_pool" "autoscaled" {
   cluster_id         = oci_containerengine_cluster.this.id
   compartment_id     = var.compartment_ocid
   kubernetes_version = var.nodepool_k8s_version
-  name               = "${var.cluster_name}-${each.key}"
+  name               = each.key
   node_shape         = each.value.shape
 
   node_shape_config {
@@ -149,6 +163,16 @@ resource "oci_containerengine_node_pool" "autoscaled" {
       content {
         availability_domain = placement_configs.value.name
         subnet_id           = oci_core_subnet.node.id
+
+        dynamic "preemptible_node_config" {
+          for_each = each.value.preemptible ? [1] : []
+          content {
+            preemption_action {
+              type                    = "TERMINATE"
+              is_preserve_boot_volume = false
+            }
+          }
+        }
       }
     }
 

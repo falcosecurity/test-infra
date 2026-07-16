@@ -15,6 +15,17 @@ variable "region" {
   type        = string
 }
 
+variable "home_region" {
+  description = "OCI tenancy home region. Identity (dynamic group, policy, user) writes must target it."
+  type        = string
+}
+
+variable "compartment_name" {
+  description = "Name of the Falco test-infra compartment, used in IAM policy statements."
+  type        = string
+  default     = "falco-test-infra"
+}
+
 variable "tenancy_ocid" {
   description = "OCI tenancy OCID."
   type        = string
@@ -111,7 +122,8 @@ variable "node_pools" {
     autoscale         = bool
     autoscaler_min    = number
     autoscaler_max    = number
-    max_pods_per_node = optional(number, 110)
+    preemptible       = optional(bool, false)
+    max_pods_per_node = optional(number, 31)
     extra_labels      = optional(map(string), {})
     taints = optional(list(object({
       key    = string
@@ -129,7 +141,7 @@ variable "node_pools" {
         value  = "true"
         effect = "NoSchedule"
       }]
-      shape           = "VM.Standard.E6.Flex"
+      shape           = "VM.Standard.E5.Flex"
       ocpus           = 2
       memory_gbs      = 16
       boot_volume_gbs = 100
@@ -141,26 +153,33 @@ variable "node_pools" {
     jobs-x86 = {
       arch            = "x86"
       application     = "jobs"
-      shape           = "VM.Standard.E6.Flex"
-      ocpus           = 4
-      memory_gbs      = 24
+      shape           = "VM.Standard.E5.Flex"
+      ocpus           = 2
+      memory_gbs      = 16
       boot_volume_gbs = 100
-      size            = 0
+      size            = 1
       autoscale       = true
-      autoscaler_min  = 0
+      autoscaler_min  = 1
       autoscaler_max  = 20
+      preemptible     = true
     }
     jobs-arm = {
-      arch            = "arm"
-      application     = "jobs"
+      arch        = "arm"
+      application = "jobs"
+      taints = [{
+        key    = "Archtype"
+        value  = "arm"
+        effect = "NoSchedule"
+      }]
       shape           = "VM.Standard.A1.Flex"
-      ocpus           = 4
-      memory_gbs      = 24
+      ocpus           = 2
+      memory_gbs      = 16
       boot_volume_gbs = 100
-      size            = 0
+      size            = 1
       autoscale       = true
-      autoscaler_min  = 0
+      autoscaler_min  = 1
       autoscaler_max  = 20
+      preemptible     = true
     }
     automation = {
       arch        = "x86"
@@ -174,9 +193,9 @@ variable "node_pools" {
       ocpus           = 2
       memory_gbs      = 16
       boot_volume_gbs = 100
-      size            = 0
+      size            = 1
       autoscale       = true
-      autoscaler_min  = 0
+      autoscaler_min  = 1
       autoscaler_max  = 5
     }
     driverkit-x86 = {

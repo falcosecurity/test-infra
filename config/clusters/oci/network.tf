@@ -21,8 +21,7 @@ data "oci_core_services" "this" {
 }
 
 locals {
-  # The filter above matches exactly one service set (the Oracle Services
-  # Network supernet); one() fails the plan if it ever matches zero or several.
+  # Exactly one match expected; one() fails the plan if zero or several.
   oci_services_network_id   = one(data.oci_core_services.this.services[*].id)
   oci_services_network_cidr = one(data.oci_core_services.this.services[*].cidr_block)
 }
