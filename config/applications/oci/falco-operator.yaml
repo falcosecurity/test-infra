@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: falco-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: falco-operator
+    repoURL: https://falcosecurity.github.io/charts
+    targetRevision: 0.3.1
+    helm:
+      releaseName: falco-operator
+      values: |
+        image:
+          repository: docker.io/falcosecurity/falco-operator
+        nodeSelector:
+          Application: platform
+        tolerations:
+          - key: dedicated.falco.org/platform
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: falco-operator
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

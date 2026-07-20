@@ -1,0 +1,15 @@
+apiVersion: artifact.falcosecurity.dev/v1alpha1
+kind: Config
+metadata:
+  name: falco
+  namespace: falco
+spec:
+  priority: 50
+  config:
+    metrics:
+      enabled: true
+      interval: 10s
+      include_empty_values: true
+    libs_logger:
+      enabled: true
+      severity: info
