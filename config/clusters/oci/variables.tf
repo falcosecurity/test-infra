@@ -135,9 +135,9 @@ variable "node_pools" {
   default = {
     prow = {
       arch        = "x86"
-      application = "prow"
+      application = "platform"
       taints = [{
-        key    = "dedicated.falco.org/prow"
+        key    = "dedicated.falco.org/platform"
         value  = "true"
         effect = "NoSchedule"
       }]
