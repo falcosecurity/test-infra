@@ -120,7 +120,9 @@ resource "oci_containerengine_node_pool" "fixed" {
   }
 
   node_pool_cycling_details {
-    is_node_cycling_enabled = false
+    is_node_cycling_enabled = true
+    maximum_surge           = "1"
+    maximum_unavailable     = "0"
   }
 
   node_metadata = local.pool_node_metadata[each.key]
@@ -193,7 +195,9 @@ resource "oci_containerengine_node_pool" "autoscaled" {
   }
 
   node_pool_cycling_details {
-    is_node_cycling_enabled = false
+    is_node_cycling_enabled = true
+    maximum_surge           = "1"
+    maximum_unavailable     = "0"
   }
 
   node_metadata = local.pool_node_metadata[each.key]
