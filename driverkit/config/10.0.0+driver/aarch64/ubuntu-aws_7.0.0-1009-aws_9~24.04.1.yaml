@@ -1,0 +1,10 @@
+kernelversion: 9~24.04.1
+kernelrelease: 7.0.0-1009-aws
+target: ubuntu-aws
+architecture: arm64
+output:
+    module: output/10.0.0+driver/aarch64/falco_ubuntu-aws_7.0.0-1009-aws_9~24.04.1.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws-7.0/linux-aws-7.0-headers-7.0.0-1009_7.0.0-1009.9~24.04.1_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws-7.0/linux-headers-7.0.0-1009-aws-64k_7.0.0-1009.9~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws-7.0/linux-headers-7.0.0-1009-aws_7.0.0-1009.9~24.04.1_arm64.deb

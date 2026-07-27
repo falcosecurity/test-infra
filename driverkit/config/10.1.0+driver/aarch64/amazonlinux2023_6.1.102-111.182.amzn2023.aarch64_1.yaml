@@ -5,4 +5,4 @@ architecture: arm64
 output:
     module: output/10.1.0+driver/aarch64/falco_amazonlinux2023_6.1.102-111.182.amzn2023.aarch64_1.ko
 kernelurls:
-    - https://cdn.amazonlinux.com/al2023/core/guids/afbfb1520b8c3c502390fae871ec490d87e317f5b58a51483259c2b11a5e16c0/aarch64/../../../../blobstore/7de07b1e9b460195d2c4f57a5ba0e748a337bf1e33b138244932179442f5faf2/kernel-devel-6.1.102-111.182.amzn2023.aarch64.rpm
+    - https://cdn.amazonlinux.com/al2023/core/guids/54e05508feeac704564981c4ca2313c5ba510f42ab109739e0aab4eec3af9ba6/aarch64/../../../../blobstore/7de07b1e9b460195d2c4f57a5ba0e748a337bf1e33b138244932179442f5faf2/kernel-devel-6.1.102-111.182.amzn2023.aarch64.rpm
