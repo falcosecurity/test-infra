@@ -21,6 +21,16 @@ output "selected_node_images" {
   value       = local.selected_node_image_ids
 }
 
+output "gateway_public_ip_address" {
+  description = "Reserved public IPv4 address for the OKE Envoy Gateway NLB."
+  value       = oci_core_public_ip.gateway.ip_address
+}
+
+output "gateway_public_ip_id" {
+  description = "OCID of the reserved public IPv4 address for the OKE Envoy Gateway NLB."
+  value       = oci_core_public_ip.gateway.id
+}
+
 output "kubeconfig" {
   description = "Generated kubeconfig for the OKE cluster."
   value       = data.oci_containerengine_cluster_kube_config.this.content

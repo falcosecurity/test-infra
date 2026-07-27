@@ -63,6 +63,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
+    directory:
+      exclude: argocd-values.yaml
     path: config/applications/oci
     repoURL: https://github.com/falcosecurity/test-infra.git
     targetRevision: HEAD

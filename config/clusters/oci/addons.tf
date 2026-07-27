@@ -40,77 +40,12 @@ resource "oci_containerengine_addon" "cluster_autoscaler" {
   }
 }
 
-resource "oci_containerengine_addon" "cert_manager" {
-  addon_name                       = "CertManager"
-  cluster_id                       = oci_containerengine_cluster.this.id
-  remove_addon_resources_on_delete = true
-
-  depends_on = [oci_containerengine_addon.cluster_autoscaler]
-
-  configurations {
-    key   = "numOfReplicas"
-    value = "1"
-  }
-
-  configurations {
-    key   = "nodeSelectors"
-    value = local.addon_node_selector
-  }
-
-  configurations {
-    key   = "tolerations"
-    value = local.addon_tolerations
-  }
-}
-
 resource "oci_containerengine_addon" "metrics_server" {
   addon_name                       = "KubernetesMetricsServer"
   cluster_id                       = oci_containerengine_cluster.this.id
   remove_addon_resources_on_delete = true
 
-  depends_on = [oci_containerengine_addon.cert_manager]
-
-  configurations {
-    key   = "numOfReplicas"
-    value = "1"
-  }
-
-  configurations {
-    key   = "nodeSelectors"
-    value = local.addon_node_selector
-  }
-
-  configurations {
-    key   = "tolerations"
-    value = local.addon_tolerations
-  }
-}
-
-resource "oci_containerengine_addon" "native_ingress_controller" {
-  addon_name                       = "NativeIngressController"
-  cluster_id                       = oci_containerengine_cluster.this.id
-  remove_addon_resources_on_delete = true
-
-  depends_on = [
-    oci_containerengine_addon.metrics_server,
-    oci_identity_policy.oke_nodes,
-    oci_identity_policy.oke_nodes_tenancy,
-  ]
-
-  configurations {
-    key   = "compartmentId"
-    value = var.compartment_ocid
-  }
-
-  configurations {
-    key   = "loadBalancerSubnetId"
-    value = oci_core_subnet.service_lb.id
-  }
-
-  configurations {
-    key   = "authType"
-    value = "instance"
-  }
+  depends_on = [oci_containerengine_addon.cluster_autoscaler]
 
   configurations {
     key   = "numOfReplicas"
@@ -134,7 +69,7 @@ resource "oci_containerengine_addon" "core_dns" {
   remove_addon_resources_on_delete = false
   override_existing                = true
 
-  depends_on = [oci_containerengine_addon.native_ingress_controller]
+  depends_on = [oci_containerengine_addon.metrics_server]
 
   configurations {
     key   = "nodesPerReplica"

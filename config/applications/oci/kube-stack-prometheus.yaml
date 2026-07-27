@@ -103,6 +103,8 @@ spec:
               disable_gravatar: true
             metrics:
               enabled: true
+            server:
+              domain: oci-monitoring.prow.falco.org
           serviceMonitor:
             enabled: true
             labels:
