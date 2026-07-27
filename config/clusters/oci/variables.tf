@@ -110,7 +110,7 @@ variable "node_pool_image_ids" {
 }
 
 variable "node_pools" {
-  description = "OKE node pools for Prow control plane, generic jobs, automation, and DriverKit workloads."
+  description = "OKE node pools for the Prow platform, automation, and DriverKit workloads."
   type = map(object({
     arch              = string
     application       = string
@@ -149,37 +149,6 @@ variable "node_pools" {
       autoscale       = false
       autoscaler_min  = 3
       autoscaler_max  = 3
-    }
-    jobs-x86 = {
-      arch            = "x86"
-      application     = "jobs"
-      shape           = "VM.Standard.E5.Flex"
-      ocpus           = 2
-      memory_gbs      = 16
-      boot_volume_gbs = 100
-      size            = 1
-      autoscale       = true
-      autoscaler_min  = 1
-      autoscaler_max  = 20
-      preemptible     = true
-    }
-    jobs-arm = {
-      arch        = "arm"
-      application = "jobs"
-      taints = [{
-        key    = "Archtype"
-        value  = "arm"
-        effect = "NoSchedule"
-      }]
-      shape           = "VM.Standard.A1.Flex"
-      ocpus           = 2
-      memory_gbs      = 16
-      boot_volume_gbs = 100
-      size            = 1
-      autoscale       = true
-      autoscaler_min  = 1
-      autoscaler_max  = 20
-      preemptible     = true
     }
     automation = {
       arch        = "x86"

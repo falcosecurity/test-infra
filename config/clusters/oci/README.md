@@ -7,7 +7,7 @@ The root of this directory is the steady-state OCI platform stack. This is the
 stack that creates the OCI/OKE infrastructure and that future Terraform
 plan/apply automation will manage after the first live apply. It will contain:
 
-- OKE node pools for Prow, generic jobs, automation jobs, and DriverKit;
+- OKE node pools for the Prow platform, automation jobs, and DriverKit;
 - Actions Runner Controller runner substrate for cloudful GitHub Actions;
 - OCIR repositories for `test-infra/*` images;
 - OCI Object Storage for new Prow logs;
@@ -18,7 +18,7 @@ plan/apply automation will manage after the first live apply. It will contain:
 The platform intentionally does not copy the old AWS/EKS shape one-to-one. The
 AWS cluster had old Kubernetes/versioning pressure, broad node pools, GP2-era
 storage defaults, and DriverKit reliability concerns. The OCI target starts with
-separate node pools for Prow, generic jobs, automation, and DriverKit, Kubernetes
+separate node pools for the Prow platform, automation, and DriverKit, Kubernetes
 `v1.35.0`, larger boot volumes for build-heavy pools, and pinned node images for
 production applies.
 
