@@ -1,0 +1,9 @@
+kernelversion: "72"
+kernelrelease: 6.8.0-1064-azure
+target: ubuntu-azure
+architecture: arm64
+output:
+    module: output/10.0.0+driver/aarch64/falco_ubuntu-azure_6.8.0-1064-azure_72.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-azure-headers-6.8.0-1064_6.8.0-1064.72_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure/linux-headers-6.8.0-1064-azure_6.8.0-1064.72_arm64.deb

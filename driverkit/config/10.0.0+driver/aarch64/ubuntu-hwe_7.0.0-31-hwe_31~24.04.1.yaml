@@ -1,0 +1,10 @@
+kernelversion: 31~24.04.1
+kernelrelease: 7.0.0-31-hwe
+target: ubuntu-hwe
+architecture: arm64
+output:
+    module: output/10.0.0+driver/aarch64/falco_ubuntu-hwe_7.0.0-31-hwe_31~24.04.1.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe-7.0/linux-headers-7.0.0-31-generic-64k_7.0.0-31.31~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe-7.0/linux-headers-7.0.0-31-generic_7.0.0-31.31~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-hwe-7.0/linux-hwe-7.0-headers-7.0.0-31_7.0.0-31.31~24.04.1_all.deb

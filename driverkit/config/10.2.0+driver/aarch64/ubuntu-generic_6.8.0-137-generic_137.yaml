@@ -1,0 +1,10 @@
+kernelversion: "137"
+kernelrelease: 6.8.0-137-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/10.2.0+driver/aarch64/falco_ubuntu-generic_6.8.0-137-generic_137.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.8.0-137-generic-64k_6.8.0-137.137_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.8.0-137-generic_6.8.0-137.137_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-6.8.0-137_6.8.0-137.137_all.deb

@@ -1,0 +1,8 @@
+kernelversion: "1"
+kernelrelease: 5.15.213-150.251.amzn2.x86_64
+target: amazonlinux2
+architecture: amd64
+output:
+    module: output/10.0.0+driver/x86_64/falco_amazonlinux2_5.15.213-150.251.amzn2.x86_64_1.ko
+kernelurls:
+    - http://amazonlinux.us-east-1.amazonaws.com/2/extras/kernel-5.15/stable/x86_64/52181345c14c67fb6537814ab0dfc5cb38c808f23e3b067ba6532abe47b42d19/../../../../../../blobstore/fefb229c71f09e3756fbc67c57e2d4f6865a09d0fa8177e16f98f123c04e71a2/kernel-devel-5.15.213-150.251.amzn2.x86_64.rpm
