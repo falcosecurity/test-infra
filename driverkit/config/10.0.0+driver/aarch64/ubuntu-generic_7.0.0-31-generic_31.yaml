@@ -1,0 +1,19 @@
+kernelversion: "31"
+kernelrelease: 7.0.0-31-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/10.0.0+driver/aarch64/falco_ubuntu-generic_7.0.0-31-generic_31.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31-generic-64k_7.0.0-31.31_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31-generic_7.0.0-31.31_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31_7.0.0-31.31_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31-generic-64k_7.0.0-31.31_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31-generic_7.0.0-31.31_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31_7.0.0-31.31_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-31-generic-64k_7.0.0-31.31_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-31-generic_7.0.0-31.31_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-31_7.0.0-31.31_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31-generic-64k_7.0.0-31.31_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31-generic_7.0.0-31.31_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-31_7.0.0-31.31_all.deb
