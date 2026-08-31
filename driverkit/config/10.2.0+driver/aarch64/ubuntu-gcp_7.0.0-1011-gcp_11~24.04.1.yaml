@@ -1,0 +1,10 @@
+kernelversion: 11~24.04.1
+kernelrelease: 7.0.0-1011-gcp
+target: ubuntu-gcp
+architecture: arm64
+output:
+    module: output/10.2.0+driver/aarch64/falco_ubuntu-gcp_7.0.0-1011-gcp_11~24.04.1.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-7.0/linux-gcp-7.0-headers-7.0.0-1011_7.0.0-1011.11~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-7.0/linux-headers-7.0.0-1011-gcp-64k_7.0.0-1011.11~24.04.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-gcp-7.0/linux-headers-7.0.0-1011-gcp_7.0.0-1011.11~24.04.1_arm64.deb

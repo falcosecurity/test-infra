@@ -1,0 +1,13 @@
+kernelversion: "44"
+kernelrelease: 6.17.0-44-hwe
+target: ubuntu-hwe
+architecture: amd64
+output:
+    module: output/10.2.0+driver/x86_64/falco_ubuntu-hwe_6.17.0-44-hwe_44.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-headers-6.17.0-44-generic_6.17.0-44.44_amd64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-hwe-6.17-headers-6.17.0-44_6.17.0-44.44_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-6.17/linux-headers-6.17.0-44-generic_6.17.0-44.44_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-6.17/linux-hwe-6.17-headers-6.17.0-44_6.17.0-44.44_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-headers-6.17.0-44-generic_6.17.0-44.44_amd64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-hwe-6.17-headers-6.17.0-44_6.17.0-44.44_all.deb
