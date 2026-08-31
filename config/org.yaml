@@ -24,7 +24,7 @@ orgs:
       - admiral0
       - ahmedameenaim
       - alacuku
-      - Andreagit97
+      - andreaterzolo
       - araujof
       - bencer
       - c2ndev
@@ -522,7 +522,6 @@ orgs:
           - araujof
           - maxgio92
           - terylt
-          - Andreagit97
         privacy: closed
         repos:
           community: maintain
@@ -603,7 +602,6 @@ orgs:
           - FedeDP
           - Molter73
           - LucaGuerra
-          - Andreagit97
           - hbrueckner
         privacy: closed
         repos:
@@ -800,7 +798,6 @@ orgs:
         description: maintainers of falcosecurity/k8s-metacollector
         maintainers:
           - alacuku
-          - andreagit97
           - leogr
           - Issif
         members: []
@@ -823,7 +820,6 @@ orgs:
         description: maintainers of falcosecurity/kernel-testing
         maintainers:
           - alacuku
-          - Andreagit97
           - FedeDP
           - therealbobo
           - ekoops
@@ -869,7 +865,6 @@ orgs:
           - araujof
           - jasondellaluce
           - terylt
-          - Andreagit97
         privacy: closed
         repos:
           libs-sdk-go: maintain
@@ -973,7 +968,6 @@ orgs:
         description: maintainers of falcosecurity/plugin-sdk-rs
         maintainers:
           - gnosek
-          - andreagit97
         members:
           - mrgian
           - ekoops
@@ -1027,7 +1021,6 @@ orgs:
           - leogr
         members:
           - FedeDP
-          - Andreagit97
         privacy: closed
         repos:
           syscalls-bumper: maintain
