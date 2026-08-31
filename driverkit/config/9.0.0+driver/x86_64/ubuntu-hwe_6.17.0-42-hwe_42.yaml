@@ -1,0 +1,13 @@
+kernelversion: "42"
+kernelrelease: 6.17.0-42-hwe
+target: ubuntu-hwe
+architecture: amd64
+output:
+    module: output/9.0.0+driver/x86_64/falco_ubuntu-hwe_6.17.0-42-hwe_42.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-headers-6.17.0-42-generic_6.17.0-42.42_amd64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-hwe-6.17-headers-6.17.0-42_6.17.0-42.42_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-6.17/linux-headers-6.17.0-42-generic_6.17.0-42.42_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-6.17/linux-hwe-6.17-headers-6.17.0-42_6.17.0-42.42_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-headers-6.17.0-42-generic_6.17.0-42.42_amd64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.17/linux-hwe-6.17-headers-6.17.0-42_6.17.0-42.42_all.deb

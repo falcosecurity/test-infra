@@ -1,0 +1,19 @@
+kernelversion: "1"
+kernelrelease: 7.2.0-1001-aws
+target: ubuntu-aws
+architecture: arm64
+output:
+    module: output/9.1.0+driver/aarch64/falco_ubuntu-aws_7.2.0-1001-aws_1.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-aws-headers-7.2.0-1001_7.2.0-1001.1_all.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws-64k_7.2.0-1001.1_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws_7.2.0-1001.1_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-aws-headers-7.2.0-1001_7.2.0-1001.1_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws-64k_7.2.0-1001.1_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws_7.2.0-1001.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-aws-headers-7.2.0-1001_7.2.0-1001.1_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws-64k_7.2.0-1001.1_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws_7.2.0-1001.1_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-aws-headers-7.2.0-1001_7.2.0-1001.1_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws-64k_7.2.0-1001.1_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-aws/linux-headers-7.2.0-1001-aws_7.2.0-1001.1_arm64.deb
