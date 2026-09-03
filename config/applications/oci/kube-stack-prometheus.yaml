@@ -1,0 +1,152 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 66.2.1
+    helm:
+      releaseName: kube-prometheus-stack
+      values: |
+        crds:
+          # crds are managed by the prometheus-operator-crds application
+          enabled: false
+        prometheus:
+          prometheusSpec:
+            retention: 180d
+            nodeSelector:
+              Application: platform
+            tolerations:
+              - key: dedicated.falco.org/platform
+                operator: Equal
+                value: "true"
+                effect: NoSchedule
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: oci-bv-retain
+                  accessModes: ["ReadWriteOnce"]
+                  resources:
+                    requests:
+                      storage: 100Gi
+        prometheusOperator:
+          nodeSelector:
+            Application: platform
+          tolerations:
+            - key: dedicated.falco.org/platform
+              operator: Equal
+              value: "true"
+              effect: NoSchedule
+          admissionWebhooks:
+            patch:
+              nodeSelector:
+                Application: platform
+              tolerations:
+                - key: dedicated.falco.org/platform
+                  operator: Equal
+                  value: "true"
+                  effect: NoSchedule
+        alertmanager:
+          alertmanagerSpec:
+            nodeSelector:
+              Application: platform
+            tolerations:
+              - key: dedicated.falco.org/platform
+                operator: Equal
+                value: "true"
+                effect: NoSchedule
+        grafana:
+          nodeSelector:
+            Application: platform
+          tolerations:
+            - key: dedicated.falco.org/platform
+              operator: Equal
+              value: "true"
+              effect: NoSchedule
+          ingress:
+            enabled: false
+          dashboardProviders:
+            dashboardproviders.yaml:
+              apiVersion: 1
+              providers:
+                - name: falcosecurity
+                  orgId: 1
+                  folder: Falcosecurity
+                  type: file
+                  disableDeletion: false
+                  editable: true
+                  options:
+                    path: /var/lib/grafana/dashboards/falcosecurity
+          dashboards:
+            falcosecurity:
+              falco:
+                url: https://raw.githubusercontent.com/falcosecurity/charts/falco-9.1.0/charts/falco/dashboards/falco-dashboard.json
+                datasource: Prometheus
+              k8s-metacollector:
+                url: https://raw.githubusercontent.com/falcosecurity/charts/k8s-metacollector-0.3.1/charts/k8s-metacollector/dashboards/k8s-metacollector-dashboard.json
+                datasource: Prometheus
+          grafana.ini:
+            auth.basic:
+              enabled: true
+            auth.anonymous:
+              enabled: true
+              org_role: Viewer
+            auth:
+              disable_login_form: false
+            security:
+              disable_gravatar: true
+            metrics:
+              enabled: true
+          serviceMonitor:
+            enabled: true
+            labels:
+              release: kube-prometheus-stack
+          sidecar:
+            dashboards:
+              annotations:
+                k8s-sidecar-target-directory: "mixins"
+              provider:
+                foldersFromFilesStructure: true
+                allowUiUpdates: true
+        kube-state-metrics:
+          nodeSelector:
+            Application: platform
+          tolerations:
+            - key: dedicated.falco.org/platform
+              operator: Equal
+              value: "true"
+              effect: NoSchedule
+        prometheus-node-exporter:
+          tolerations:
+            - operator: Exists
+        nodeExporter:
+          operatingSystems:
+            aix:
+              enabled: false
+            darwin:
+              enabled: false
+        kubeProxy:
+          enabled: false
+        kubeEtcd:
+          enabled: false
+        kubeControllerManager:
+          enabled: false
+        kubeScheduler:
+          enabled: false
+        coreDns:
+          enabled: false
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

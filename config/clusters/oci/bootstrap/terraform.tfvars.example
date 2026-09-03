@@ -1,0 +1,14 @@
+region = "eu-frankfurt-1"
+# Tenancy home region; Identity (compartment, policy) writes must target it.
+home_region  = "us-ashburn-1"
+tenancy_ocid = "ocid1.tenancy.oc1..example"
+
+# Leave true for a brand-new tenancy setup.
+create_compartment = true
+compartment_name   = "falco-test-infra"
+
+# Set create_compartment to false and fill this when a maintainer creates the
+# compartment outside Terraform.
+# existing_compartment_ocid = "ocid1.compartment.oc1..example"
+
+terraform_state_bucket_name = "falco-test-infra-terraform-state"

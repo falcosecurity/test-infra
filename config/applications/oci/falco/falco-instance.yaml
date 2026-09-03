@@ -1,0 +1,15 @@
+apiVersion: instance.falcosecurity.dev/v1alpha1
+kind: Falco
+metadata:
+  name: falco
+  namespace: falco
+spec:
+  type: DaemonSet
+  version: "0.44.1"
+  podTemplateSpec:
+    spec:
+      # Security DaemonSet: tolerate every taint so Falco runs on all nodes.
+      containers:
+        - name: falco
+      tolerations:
+        - operator: Exists
