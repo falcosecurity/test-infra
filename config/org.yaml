@@ -672,6 +672,7 @@ orgs:
           - sgaist
           - ekoops
           - irozzo-1A
+          - c2ndev
         privacy: closed
         repos:
           falco: maintain
