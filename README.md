@@ -4,6 +4,23 @@
 
 GitHub Workflow & Testing Infrastructure
 
+## Cloud configuration
+
+Infrastructure is separated by area and cloud:
+
+| Area | AWS | OCI |
+| --- | --- | --- |
+| Terraform | [Cluster](config/clusters/aws/) | [Cluster](config/clusters/oci/) |
+| Applications | [Applications](config/applications/aws/) | [Applications](config/applications/oci/) |
+| Prow | [Configuration](config/prow/aws/) | [Configuration](config/prow/oci/) |
+| Prow jobs | [Active catalog](config/jobs/aws/) | No jobs migrated yet |
+
+AWS and OCI retain their own Prow versions, configuration, and node scheduling.
+Moving the AWS files does not migrate or rename its jobs. OCI jobs will be added
+in separate migration PRs after the platform PR is merged and validated.
+The [OCI bootstrap](config/clusters/oci/bootstrap/) is managed and validated
+locally, outside CI.
+
 ## DBG
 
 DBG stands for Drivers Build Grid.
