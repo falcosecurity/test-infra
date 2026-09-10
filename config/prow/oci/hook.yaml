@@ -1,0 +1,247 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hook
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: hook
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: prow
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: hook
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: hook
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: prow
+rules:
+  - apiGroups:
+      - prow.k8s.io
+    resources:
+      - prowjobs
+    verbs:
+      - create
+      - get
+      - list
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - create
+      - get
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: hook
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: hook
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: prow
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: hook
+subjects:
+  - kind: ServiceAccount
+    name: hook
+    namespace: prow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hook
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: hook
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: prow
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: hook
+  ports:
+    - name: http
+      port: 8888
+      protocol: TCP
+      targetPort: http
+    - name: metrics
+      port: 9090
+      protocol: TCP
+      targetPort: metrics
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hook
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: hook
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: prow
+    app.kubernetes.io/version: v20260811-cafa49460
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hook
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hook
+        app.kubernetes.io/component: webhook
+        app.kubernetes.io/part-of: prow
+        app.kubernetes.io/version: v20260811-cafa49460
+    spec:
+      serviceAccountName: hook
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 180
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: hook
+          image: us-docker.pkg.dev/k8s-infra-prow/images/hook:v20260811-cafa49460@sha256:58ef2ff23c0f5d76fa80b02a12cffbdce51c82b7ec888570e4b6b31110c93ccb
+          imagePullPolicy: IfNotPresent
+          args:
+            - --dry-run=false
+            - --github-token-path=/etc/github/oauth
+            - --github-endpoint=http://ghproxy
+            - --github-endpoint=https://api.github.com
+            - --github-graphql-endpoint=http://ghproxy/graphql
+            - --config-path=/etc/prow/config/config.yaml
+            - --plugin-config=/etc/prow/plugins/plugins.yaml
+            - --hmac-secret-file=/etc/prow/webhook/hmac
+            - --cache-dir-base=/tmp
+            - --health-port=8081
+            - --metrics-port=9090
+          ports:
+            - name: http
+              containerPort: 8888
+              protocol: TCP
+            - name: healthz
+              containerPort: 8081
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            failureThreshold: 30
+            periodSeconds: 2
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            failureThreshold: 3
+            periodSeconds: 10
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /healthz/ready
+              port: healthz
+            failureThreshold: 3
+            periodSeconds: 5
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /etc/prow/config
+              readOnly: true
+            - name: plugins
+              mountPath: /etc/prow/plugins
+              readOnly: true
+            - name: hmac
+              mountPath: /etc/prow/webhook
+              readOnly: true
+            - name: oauth
+              mountPath: /etc/github
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: config
+          configMap:
+            name: config
+            defaultMode: 0444
+        - name: plugins
+          configMap:
+            name: plugins
+            defaultMode: 0444
+        - name: hmac
+          secret:
+            secretName: hmac-token
+            defaultMode: 0440
+        - name: oauth
+          secret:
+            secretName: oauth-token
+            defaultMode: 0440
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi
+      nodeSelector:
+        Application: platform
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/platform
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: hook
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: hook
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: hook
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: prow
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hook
