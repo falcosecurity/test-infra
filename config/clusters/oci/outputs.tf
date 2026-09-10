@@ -31,6 +31,11 @@ output "gateway_public_ip_id" {
   value       = oci_core_public_ip.gateway.id
 }
 
+output "prow_logs_user_id" {
+  description = "OCI IAM user OCID used to create the Prow Object Storage Customer Secret Key outside Terraform."
+  value       = oci_identity_domains_user.prow_logs.ocid
+}
+
 output "kubeconfig" {
   description = "Generated kubeconfig for the OKE cluster."
   value       = data.oci_containerengine_cluster_kube_config.this.content
