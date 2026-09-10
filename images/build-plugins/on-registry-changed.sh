@@ -81,7 +81,7 @@ create_pr() {
         "HEAD:${branch}"
 
     echo "> creating pull-request to merge ${user}:${branch} into ${GH_REPO_BRANCH}..." >&2
-    body=$'Updating README.md (automatically generated with build/registry). Made using the [build-plugins-on-registry-changed-postsubmit](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/build-plugins/build-plugins.yaml) ProwJob. Do not edit this PR.\n\n/kind documentation\n\n/area documentation'
+    body=$'Updating README.md (automatically generated with build/registry). Made using the [build-plugins-on-registry-changed-postsubmit](https://github.com/falcosecurity/test-infra/blob/master/config/jobs/aws/build-plugins/build-plugins.yaml) ProwJob. Do not edit this PR.\n\n/kind documentation\n\n/area documentation'
 
     pr-creator \
         --github-endpoint="${GH_PROXY}" \

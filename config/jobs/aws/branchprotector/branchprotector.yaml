@@ -7,15 +7,15 @@ postsubmits:
         - ^master$
       decorate: true
       max_concurrency: 1
-      run_if_changed: '^config/config.yaml$'
+      run_if_changed: '^config/prow/aws/config.yaml$'
       spec:
         containers:
           - image: gcr.io/k8s-prow/branchprotector:v20240805-37a08f946
             command:
               - branchprotector
             args:
-              - --config-path=config/config.yaml
-              - --job-config-path=config/jobs
+              - --config-path=config/prow/aws/config.yaml
+              - --job-config-path=config/jobs/aws
               - --github-token-path=/etc/github/oauth
               - --confirm
               - --github-endpoint=http://ghproxy.default.svc.cluster.local
@@ -46,8 +46,8 @@ periodics:
           command:
             - branchprotector
           args:
-            - --config-path=config/config.yaml
-            - --job-config-path=config/jobs
+            - --config-path=config/prow/aws/config.yaml
+            - --job-config-path=config/jobs/aws
             - --github-token-path=/etc/github/oauth
             - --confirm
             - --github-endpoint=http://ghproxy.default.svc.cluster.local

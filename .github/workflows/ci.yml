@@ -24,7 +24,7 @@ jobs:
           chmod +x kubeconform
         
       - name: yaml config validation 🔍
-        run: ./kubeconform -ignore-filename-pattern ".json" -ignore-missing-schemas -verbose config/prow/
+        run: ./kubeconform -ignore-filename-pattern ".json" -ignore-missing-schemas -verbose config/prow/aws/manifests/
         
   scan-terraform:
     runs-on: ubuntu-latest

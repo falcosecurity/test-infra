@@ -25,7 +25,7 @@ For example, from the `test-infra` repository root, run:
 
 ```console
 DEBUG=true \
-JOB_CONFIG_PATH="$(pwd)/config/jobs/update-maintainers/update-maintainers.yaml" \
+JOB_CONFIG_PATH="$(pwd)/config/jobs/aws/update-maintainers/update-maintainers.yaml" \
 IMAGE_PATH="$(pwd)/images/update-maintainers" \
 ./tools/local_prowjob.sh update-maintainers
 ```
@@ -52,7 +52,7 @@ Here we have our makefile, and can go into our image folder, and run `make local
 
 Create a new file at the following path:
 
-`config/jobs/build-new-drivers/build-drivers.local`
+`config/jobs/aws/build-new-drivers/build-drivers.local`
 
 Put in it the following content:
 
@@ -83,8 +83,8 @@ Put in it the following content:
 Skip this if not performing image build in script
 
 ```bash
-export CONFIG_PATH="$(pwd)/config/config.yaml"
-export JOB_CONFIG_PATH="$(pwd)/config/jobs/build-new-drivers/build-drivers.local"
+export CONFIG_PATH="$(pwd)/config/prow/aws/config.yaml"
+export JOB_CONFIG_PATH="$(pwd)/config/jobs/aws/build-new-drivers/build-drivers.local"
 export IMAGE_PATH="$(pwd)/images/build-drivers"
 ```
 

@@ -1,20 +1,20 @@
 # ProwJobs
 
-Make sure prow has been [deployed] correctly:
+Make sure [AWS Prow](../../prow/aws/manifests/) has been deployed correctly:
 
 * The `horologium` component schedules periodic jobs.
 * The `hook` component schedules presubmit and postsubmit jobs, ensuring the repo:
-  - enabled `trigger` in [`plugins.yaml`]
+  - enabled `trigger` in [plugins.yaml](../../prow/aws/plugins.yaml)
   - sends GitHub webhooks to prow.
 * The `prow-controller-manager` component schedules the pod requested by a prowjob.
 * The `crier` component reports status back to github.
 
 ## How to configure new jobs
 
-To configure a new job you'll need to add a job into [jobs](/config/jobs).
+To configure a new AWS job, add its configuration to [this catalog](./).
 
 ```
-config/jobs/
+config/jobs/aws/
 ├── OWNERS
 ├── README.md
 └── update-jobs
@@ -23,7 +23,7 @@ config/jobs/
 If we wanted to add a new job to test a driver, we would add a new folder called `test-driver` and a job definition in yaml in the corresponding folder.
 
 ```
-config/jobs/
+config/jobs/aws/
 ├── OWNERS
 ├── README.md
 ├── test-driver
@@ -93,7 +93,7 @@ presubmits:
     #Clone Path == /home/prow/go/src/github.com/repo_org/repo_name
     skip_report: false # Whether to skip setting a status on GitHub, use to show success/failure in github.
     agent: kubernetes
-    run_if_changed: '^config/jobs/' #Trigger if PR changes files in this path
+    run_if_changed: '^config/jobs/aws/' #Trigger if PR changes files in this path
     branches: 
       - ^master$ #Any branch besides master
     spec:

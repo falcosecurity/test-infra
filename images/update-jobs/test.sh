@@ -22,8 +22,8 @@ set -o pipefail
 DEBUG="${DEBUG:-"false"}"
 
 # We use a .local file because the update-jobs configmap will merge all yaml together into one configmap
-CONFIG_PATH="${CONFIG_PATH:-"$(pwd)/config/config.yaml"}"
-JOB_CONFIG_PATH="${JOB_CONFIG_PATH:-"$(pwd)/config/jobs/driverkit/driverkit-test.local"}"
+CONFIG_PATH="${CONFIG_PATH:-"$(pwd)/config/prow/aws/config.yaml"}"
+JOB_CONFIG_PATH="${JOB_CONFIG_PATH:-"$(pwd)/config/jobs/aws/driverkit/driverkit-test.local"}"
 IMAGE_PATH="${IMAGE_PATH:-"$(pwd)/images/golang"}"
 CLUSTER_NAME=update-jobs-test
 
@@ -244,7 +244,7 @@ metadata:
 data:
   config.yaml: 'This is a mock Prow configuration'
 EOF
-  cat ${PWD}/../../config/prow/update-jobs.yaml | kubectl apply -f -
+  cat ${PWD}/../../config/prow/aws/manifests/update-jobs.yaml | kubectl apply -f -
 
   # Connect kind to local registry if not connected
   connect_kind_network_to_local_registry_network

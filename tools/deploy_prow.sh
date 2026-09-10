@@ -36,9 +36,9 @@ function updateKubeConfig() {
 
 function launchPodIdentityWebhook() {
   # Create the namespace.
-  kubectl apply -f "config/prow/pod-identity-webhook/namespace.yaml"
+  kubectl apply -f "config/prow/aws/manifests/pod-identity-webhook/namespace.yaml"
   # Apply the other manifests.
-  kubectl apply -f "config/prow/pod-identity-webhook/"
+  kubectl apply -f "config/prow/aws/manifests/pod-identity-webhook/"
 }
 
 function launchMetricsServer() {
@@ -48,11 +48,11 @@ function launchMetricsServer() {
 }
 
 function launchProwConfig() {
-  kubectl create configmap plugins --from-file=plugins.yaml=./config/plugins.yaml || true
-  kubectl create configmap config --from-file "./config/config.yaml" || true
-  kubectl create configmap config --from-file "./config/config.yaml" -n test-pods || true
-  kubectl create configmap job-config --from-file "./config/jobs/config.yaml" || true
-  kubectl create configmap branding --from-file "./config/branding" || true
+  kubectl create configmap plugins --from-file=plugins.yaml=./config/prow/aws/plugins.yaml || true
+  kubectl create configmap config --from-file "./config/prow/aws/config.yaml" || true
+  kubectl create configmap config --from-file "./config/prow/aws/config.yaml" -n test-pods || true
+  kubectl create configmap job-config --from-file "./config/jobs/aws/config.yaml" || true
+  kubectl create configmap branding --from-file "./config/prow/aws/branding" || true
   kubectl create secret generic s3-credentials --from-literal=service-account.json="${PROW_SERVICE_ACCOUNT_JSON}" || true
 
   #Github related items
@@ -68,8 +68,8 @@ function launchProwConfig() {
   
   # Related to OAuth setup... need to setup base url on Github for callback before we can create these
   
-  # kubectl create secret generic github-oauth-config --from-file=secret=" ... config/prow/github-oauth-config ..." || true
-  # kubectl create secret generic cookie --from-file=secret=" ... config/prow/cookie ..." || true
+  # kubectl create secret generic github-oauth-config --from-file=secret=" ... config/prow/aws/manifests/github-oauth-config ..." || true
+  # kubectl create secret generic cookie --from-file=secret=" ... config/prow/aws/manifests/cookie ..." || true
 }
 
 function launchConfig(){
@@ -80,11 +80,11 @@ function launchConfig(){
 
 function launchProwjobCRD(){
   # Apply the prow CRD.
-  kubectl apply --server-side=true -f config/prow/prowjob-crd/prowjob_custromresourcedefinition.yaml
+  kubectl apply --server-side=true -f config/prow/aws/manifests/prowjob-crd/prowjob_custromresourcedefinition.yaml
 }
 
 function launchProw(){
-  kubectl apply -f config/prow/
+  kubectl apply -f config/prow/aws/manifests/
 }
 
 function cleanup() {

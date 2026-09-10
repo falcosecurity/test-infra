@@ -24,7 +24,7 @@ include $(PWD)/tools/terraform.Makefile
 
 update-jobs:
 	@$(MAKE) -C prow/update-jobs build
-	prow/update-jobs/bin/update-jobs --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/
+	prow/update-jobs/bin/update-jobs --kubeconfig $$HOME/.kube/config --jobs-config-path config/jobs/aws/
 
 oauth-token:
 	kubectl create secret generic oauth-token --from-literal=oauth="$${PROW_OAUTH_TOKEN}" --dry-run -o yaml | kubectl replace secret oauth-token -f -
@@ -33,22 +33,22 @@ hmac-token:
 	kubectl create secret generic hmac-token --from-literal=hmac="$${PROW_HMAC_TOKEN}" --dry-run -o yaml | kubectl replace secret hmac-token -f -
 
 github-oauth-config:
-	kubectl create secret generic github-oauth-config --from-file=secret=./config/prow/github_oauth" --dry-run -o yaml | kubectl replace secret github-oauth-config -f -
+	kubectl create secret generic github-oauth-config --from-file=secret=./config/prow/aws/manifests/github_oauth" --dry-run -o yaml | kubectl replace secret github-oauth-config -f -
 
 cookie:
-	kubectl create secret generic cookie --from-file=secret=./config/prow/cookie.txt" --dry-run -o yaml | kubectl replace secret cookie -f -
+	kubectl create secret generic cookie --from-file=secret=./config/prow/aws/manifests/cookie.txt" --dry-run -o yaml | kubectl replace secret cookie -f -
 
 plugins:
-	kubectl create configmap plugins --from-file=plugins.yaml=config/plugins.yaml --dry-run -o yaml | kubectl replace configmap plugins -f -
+	kubectl create configmap plugins --from-file=plugins.yaml=config/prow/aws/plugins.yaml --dry-run -o yaml | kubectl replace configmap plugins -f -
 
 update-config:
-	kubectl create configmap config --from-file=config.yaml=config/config.yaml --dry-run -o yaml | kubectl replace configmap config -f -
+	kubectl create configmap config --from-file=config.yaml=config/prow/aws/config.yaml --dry-run -o yaml | kubectl replace configmap config -f -
 
 prow-s3-credentials:
 	kubectl create secret generic s3-credentials --from-literal=service-account.json="$${PROW_SERVICE_ACCOUNT_JSON}" --dry-run -o yaml | kubectl replace secret s3-credentials -f -
 
 prow:
-	kubectl apply -f config/prow/
+	kubectl apply -f config/prow/aws/manifests/
 
 kubeconfig:
 	aws eks --region eu-west-1 update-kubeconfig --name falco-prow-test-infra --profile default

@@ -45,7 +45,7 @@ There are three types of prow jobs:
 
 ### Create a Presubmits job that run's tests on PR's.
 
-1. We add a file at `config/jobs/build-drivers/build-drivers.yaml`
+1. Add a file under [AWS jobs](config/jobs/aws/), such as the existing [Amazon Linux driver jobs](config/jobs/aws/build-drivers/build-new-amazonlinux.yaml).
 
 2. 
 ```yaml

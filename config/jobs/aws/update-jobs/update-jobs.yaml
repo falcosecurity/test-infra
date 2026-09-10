@@ -14,6 +14,6 @@ postsubmits:
         command:
         - /go/bin/update-jobs
         - --jobs-config-path
-        - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
+        - /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs/aws
       nodeSelector:
         Archtype: "x86"

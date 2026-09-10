@@ -3,7 +3,7 @@ name: Prow Jobs Checker
 on:
   pull_request:
     branches: [master]
-    paths: ['config/jobs/**']
+    paths: ['config/jobs/aws/**']
 
 # Checks if any concurrent jobs under the same pull request or branch are being executed
 concurrency:
@@ -30,6 +30,6 @@ jobs:
         
       - name: prow jobs validation 🔍
         run: |
-          ./tools/prow-jobs-checker/prow-jobs-checker --verbose
+          ./tools/prow-jobs-checker/prow-jobs-checker --verbose --config-job config/jobs/aws --config-prow config/prow/aws/config.yaml
 
    

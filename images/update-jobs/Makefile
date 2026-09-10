@@ -52,7 +52,7 @@ local-registry: build-image local-tag
 .PHONY: test
 test:
 	@DEBUG=true \
-		CONFIG_PATH="$(PWD)/../../config/config.yaml" \
-		JOB_CONFIG_PATH="$(PWD)/../../config/jobs/update-jobs/update-jobs.local" \
+		CONFIG_PATH="$(PWD)/../../config/prow/aws/config.yaml" \
+		JOB_CONFIG_PATH="$(PWD)/../../config/jobs/aws/update-jobs/update-jobs.local" \
 		IMAGE_PATH="$(PWD)/../../images/update-jobs" \
 		./test.sh update-jobs-pr

@@ -66,11 +66,11 @@ blunderbuss:
 
 config_updater:
   maps:
-    config/config.yaml:
+    config/prow/aws/config.yaml:
       name: config
-    config/plugins.yaml:
+    config/prow/aws/plugins.yaml:
       name: plugins
-    config/jobs/**/*.yaml:
+    config/jobs/aws/**/*.yaml:
       name: job-config
       gzip: true
 
