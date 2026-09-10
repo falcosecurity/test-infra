@@ -3,7 +3,11 @@ name: Prow Jobs Checker
 on:
   pull_request:
     branches: [master]
-    paths: ['config/jobs/aws/**']
+    paths:
+      - 'config/jobs/aws/**'
+      - 'config/prow/aws/config.yaml'
+      - 'tools/prow-jobs-checker/**'
+      - '.github/workflows/job-checker.yml'
 
 # Checks if any concurrent jobs under the same pull request or branch are being executed
 concurrency:
