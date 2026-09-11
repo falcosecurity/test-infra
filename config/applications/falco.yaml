@@ -10,12 +10,12 @@ spec:
   source:
     chart: falco
     repoURL: https://falcosecurity.github.io/charts
-    targetRevision: 9.0.0
+    targetRevision: 9.2.0-rc1
     helm:
       releaseName: falco
       values: |
         image:
-          tag: "0.44.1-rc1"
+          tag: "0.45.0-rc2"
         tolerations:
           - key: "Availability"
             operator: "Equal"
@@ -42,13 +42,13 @@ spec:
         driver:
           loader:
             initContainer:
-              tag: "0.44.1-rc1"  
+              tag: "0.45.0-rc2"
         collectors:
           containerEngine:
-            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.7.1"
+            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.7.4"
           kubernetes:
             enabled: true
-            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.4.1"
+            pluginRef: "ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.4.2"
         k8s-metacollector:
           serviceMonitor:
             create: true
