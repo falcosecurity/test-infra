@@ -17,8 +17,8 @@ file list. Selection rules and gate tests live in
 The required `manifests-validation` context always reports the combined result.
 A failed selector, failed validation or unexpectedly skipped cloud blocks it.
 These workflows use read-only repository permissions, no cloud credentials, and
-no deployment commands. Existing deployment workflows and the required AWS Prow
-`check-prow-config` presubmit are unchanged. In particular, that Prow presubmit
+no deployment commands. The required AWS Prow
+`check-prow-config` presubmit is unchanged. In particular, that Prow presubmit
 still runs on all PRs until its required-context transition is coordinated.
 
 ## Validation scope
@@ -52,6 +52,7 @@ Run from the repository root:
 node --test tools/ci/changes.test.mjs
 node --test tools/ci/verify-prow.test.mjs
 node --test tools/ci/verify-branding.test.mjs
+bash tools/ci/apply-terraform-aws.test.sh
 node tools/ci/changes.mjs upstream/master HEAD
 bash tools/ci/verify-manifests.sh aws
 bash tools/ci/verify-manifests.sh oci
@@ -71,3 +72,30 @@ Terraform uses the version in the OCI stack's version file.
 Manifest checks download public charts and schemas. Terraform initialization
 downloads public provider packages. Neither requires cluster access or secrets.
 End-to-end workload behavior and server-side admission remain separate checks.
+
+## Automatic AWS Terraform apply
+
+The [AWS apply workflow](../../.github/workflows/terraform-apply.yml) runs after
+changes to the AWS stack or its apply automation reach `master`. The merge is
+the authorization: no additional deployment approval is required. OCI-only
+changes do not trigger it.
+
+[apply-terraform-aws.sh](apply-terraform-aws.sh) checks formatting, initializes
+with the committed provider lock file, validates the configuration, and saves
+a plan in a private temporary directory. A plan with no changes finishes
+successfully without applying. A plan with changes is applied automatically
+from that exact saved file in the same job. Any failed prerequisite, planning
+error, or failed apply fails the job; it does not silently generate another plan.
+
+Backend locking and the existing shared deployment concurrency group remain
+enabled. Plans and raw Terraform output are not uploaded as artifacts or
+published in logs; the helper reports stages and resource-action counts. The
+temporary files are removed when the helper exits. Diagnosing a failed stage
+may require an authorized reproduction because the raw diagnostics are private
+and ephemeral.
+
+The [Bash regression tests](apply-terraform-aws.test.sh) use a simulated Terraform
+executable, not cloud credentials or state. They run in the AWS validation
+workflow. The [PR plan](../../.github/workflows/terraform-plan.yml) remains
+speculative and is not reused for deployment. Both workflows pin Terraform
+1.15.6; the AWS provider versions and backend configuration are unchanged.

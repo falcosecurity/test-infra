@@ -18,6 +18,8 @@ for (const [name, paths, expected] of [
   ['AWS applications', ['config/applications/aws/falco.yaml'], aws],
   ['OCI applications', ['config/applications/oci/gateway/httproute-prow.yaml'], oci],
   ['AWS Terraform', ['config/clusters/aws/eks.tf'], aws],
+  ['AWS Terraform apply helper', ['tools/ci/apply-terraform-aws.sh'], aws],
+  ['AWS Terraform apply tests', ['tools/ci/apply-terraform-aws.test.sh'], aws],
   ['OCI Terraform', ['config/clusters/oci/.terraform.lock.hcl'], oci],
   ['OCI Terraform version', ['config/clusters/oci/.terraform-version'], oci],
   ['OCI bootstrap', ['config/clusters/oci/bootstrap/main.tf', 'config/clusters/oci/bootstrap/run.sh'], neither],

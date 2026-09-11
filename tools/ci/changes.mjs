@@ -17,6 +17,7 @@ export function selectClouds(paths) {
         'tools/ci/verify-branding.test.mjs'].includes(path)) {
       selected.oci = true;
     } else if (/^\.github\/workflows\/(?:ci-aws|job-checker|job-checker-builder|prow|argocd|terraform-plan|terraform-apply)\.yml$/.test(path)
+      || /^tools\/ci\/apply-terraform-aws(?:\.test)?\.sh$/.test(path)
       || path.startsWith('tools/prow-jobs-checker/') || path.startsWith('prow/')
       || path === 'config/org.yaml'
       || /^tools\/(?:deploy_prow|deploy_argocd|local_prowjob|delete_local_prowjob|clean_prowjobs|util)\.sh$/.test(path)) {
