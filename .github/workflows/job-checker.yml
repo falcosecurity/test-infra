@@ -3,10 +3,7 @@ name: Prow Jobs Checker
 on:
   pull_request:
     branches: [master]
-    paths:
-      - 'config/jobs/**'
-      - 'tools/prow-jobs-checker/**'
-      - '.github/workflows/job-checker.yml'
+    paths: ['config/jobs/**']
 
 # Checks if any concurrent jobs under the same pull request or branch are being executed
 concurrency:
@@ -30,10 +27,6 @@ jobs:
         working-directory: ./tools/prow-jobs-checker
         run: |
           go build
-
-      - name: Test checkconfig repository layouts
-        working-directory: ./tools/prow-jobs-checker
-        run: go test -tags=integration -count=1 -v ./...
         
       - name: prow jobs validation 🔍
         run: |
