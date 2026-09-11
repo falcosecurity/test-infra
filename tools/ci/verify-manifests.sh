@@ -101,7 +101,9 @@ fi
 if [[ -n "${CHECKCONFIG_BIN:-}" && "${CI:-}" != true ]]; then
   "$CHECKCONFIG_BIN" "${check_args[@]}"
 else
+  # mktemp directories are private to the runner user; keep that UID in the container.
   docker run --rm --network=none --read-only --cap-drop=ALL --security-opt=no-new-privileges \
+    --user "$(id -u):$(id -g)" \
     --mount "type=bind,src=$validation_dir,dst=$validation_dir,readonly" \
     "$checkconfig_image" "${check_args[@]}"
 fi
