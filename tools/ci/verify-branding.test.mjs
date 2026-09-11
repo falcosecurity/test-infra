@@ -58,7 +58,7 @@ test('Kustomize binds Deck to the namespaced, content-hashed branding ConfigMap'
   assert.deepEqual(Object.keys(assets.binaryData).sort(), ['favicon.png', 'logo.png']);
 });
 
-test('Deck mounts branding read-only without replacing upstream static extensions', () => {
+test('Deck mounts branding read-only without hiding the upstream extension directory', () => {
   const container = deck.spec.template.spec.containers.find((item) => item.name === 'deck');
   const mount = container.volumeMounts.find((item) => item.name === 'branding');
   assert.equal(mount.mountPath, '/var/run/ko/static/branding');
@@ -66,4 +66,19 @@ test('Deck mounts branding read-only without replacing upstream static extension
   assert.equal(volume.configMap.defaultMode, 0o444);
   assert.equal(container.securityContext.readOnlyRootFilesystem, true);
   assert.ok(container.volumeMounts.every((item) => !['/var/run/ko/static', '/var/run/ko/static/extensions'].includes(item.mountPath)));
+});
+
+test('Deck loads the scoped 32px navbar sizing through its CSS extension', () => {
+  const css = readFileSync(`${brandingPath}style.css`, 'utf8');
+  assert.deepEqual(Object.keys(assets.data), ['style.css']);
+  assert.equal(assets.data['style.css'], css);
+  assert.match(css, /#header-title \.logo\s*\{\s*height:\s*32px;\s*\}/);
+  assert.match(css, /#header-title img\.logo\s*\{\s*width:\s*auto;\s*\}/);
+
+  const container = deck.spec.template.spec.containers.find((item) => item.name === 'deck');
+  const mount = container.volumeMounts.find((item) => item.mountPath === '/var/run/ko/static/extensions/style.css');
+  assert.equal(mount.name, 'branding');
+  assert.equal(mount.subPath, 'style.css');
+  assert.equal(mount.readOnly, true);
+  assert.ok(container.volumeMounts.every((item) => item.mountPath !== '/var/run/ko/static/extensions/script.js'));
 });

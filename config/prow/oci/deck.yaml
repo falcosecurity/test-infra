@@ -207,6 +207,10 @@ spec:
             - name: branding
               mountPath: /var/run/ko/static/branding
               readOnly: true
+            - name: branding
+              mountPath: /var/run/ko/static/extensions/style.css
+              subPath: style.css
+              readOnly: true
             - name: s3-credentials
               mountPath: /etc/s3-credentials
               readOnly: true

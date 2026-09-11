@@ -13,3 +13,8 @@ mounted read-only by [Deck](../deck.yaml). [Prow configuration](../config.yaml)
 uses a URL for the navbar logo and a path relative to Deck's static directory
 for the favicon. [Regression tests](../../../../tools/ci/verify-branding.test.mjs)
 check both assets and the rendered mount.
+
+[style.css](style.css) sizes the navbar logo to 32px while preserving its aspect
+ratio. Deck mounts only this CSS extension file with `subPath`, leaving the
+upstream extension directory and JavaScript intact. The stylesheet shares the
+content-hashed ConfigMap, so changing it updates the Deployment's volume reference.

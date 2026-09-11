@@ -13,6 +13,7 @@ configMapGenerator:
     files:
       - branding/favicon.png
       - branding/logo.png
+      - branding/style.css
     options:
       labels:
         app.kubernetes.io/name: deck
