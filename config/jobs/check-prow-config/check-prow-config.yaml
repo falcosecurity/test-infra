@@ -10,11 +10,24 @@ presubmits:
         containers:
           - image: gcr.io/k8s-prow/checkconfig:v20240805-37a08f946
             command:
-              - checkconfig
+              - /bin/sh
+              - -ec
             args:
-            - --config-path=config/config.yaml
-            - --job-config-path=config/jobs
-            - --plugin-config=config/plugins.yaml
+              - |
+                if [ -d config/prow/aws ] || [ -d config/jobs/aws ]; then
+                  if [ -e config/config.yaml ] || [ -e config/plugins.yaml ]; then
+                    echo "Mixed AWS Prow layouts are not supported" >&2
+                    exit 1
+                  fi
+                  exec /ko-app/checkconfig \
+                    --config-path=config/prow/aws/config.yaml \
+                    --job-config-path=config/jobs/aws \
+                    --plugin-config=config/prow/aws/plugins.yaml
+                fi
+                exec /ko-app/checkconfig \
+                  --config-path=config/config.yaml \
+                  --job-config-path=config/jobs \
+                  --plugin-config=config/plugins.yaml
         nodeSelector:
           Archtype: "x86"
 periodics:
@@ -29,10 +42,23 @@ periodics:
     containers:
     - image: gcr.io/k8s-prow/checkconfig:v20240805-37a08f946
       command:
-      - checkconfig
+      - /bin/sh
+      - -ec
       args:
-      - --config-path=config/config.yaml
-      - --job-config-path=config/jobs
-      - --plugin-config=config/plugins.yaml
+      - |
+        if [ -d config/prow/aws ] || [ -d config/jobs/aws ]; then
+          if [ -e config/config.yaml ] || [ -e config/plugins.yaml ]; then
+            echo "Mixed AWS Prow layouts are not supported" >&2
+            exit 1
+          fi
+          exec /ko-app/checkconfig \
+            --config-path=config/prow/aws/config.yaml \
+            --job-config-path=config/jobs/aws \
+            --plugin-config=config/prow/aws/plugins.yaml
+        fi
+        exec /ko-app/checkconfig \
+          --config-path=config/config.yaml \
+          --job-config-path=config/jobs \
+          --plugin-config=config/plugins.yaml
     nodeSelector:
       Archtype: "x86"
