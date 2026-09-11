@@ -4,47 +4,95 @@ on:
   pull_request:
     branches: [master]
 
-# Checks if any concurrent jobs under the same pull request or branch are being executed
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
-  manifests-validation:
-    runs-on: ubuntu-latest
-
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      aws: ${{ steps.clouds.outputs.aws }}
+      oci: ${{ steps.clouds.outputs.oci }}
     steps:
-      - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v4
-
-      - name: Download kubeconform ⛓️
-        run: |
-          wget https://github.com/yannh/kubeconform/releases/download/v0.6.6/kubeconform-linux-amd64.tar.gz
-          tar -xvf kubeconform-linux-amd64.tar.gz
-          chmod +x kubeconform
-        
-      - name: yaml config validation 🔍
-        run: ./kubeconform -ignore-filename-pattern ".json" -ignore-missing-schemas -verbose config/prow/
-        
-  scan-terraform:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v4
-
-      - name: Setup Go
-        uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          go-version: 1.25
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Select cloud checks from the PR merge diff
+        id: clouds
+        shell: bash
+        run: |
+          read -r merge_commit base_commit head_commit extra <<< "$(git rev-list --parents -n 1 HEAD)"
+          if [[ -z "$base_commit" || -z "$head_commit" || -n "$extra" ]]; then
+            echo 'Expected the PR merge commit and both parents.' >&2
+            exit 1
+          fi
+          git diff --no-ext-diff --no-textconv --no-renames --name-only -z \
+            "$base_commit" "$merge_commit" -- > "$RUNNER_TEMP/changed-files"
+          aws=false
+          oci=false
+          while IFS= read -r -d '' changed_file; do
+            case "$changed_file" in
+              config/clusters/oci/bootstrap/*|*.md|OWNERS|*/OWNERS) ;;
+              config/applications/aws/*|config/clusters/aws/*|config/jobs/aws/*|config/prow/aws/*)
+                aws=true ;;
+              config/applications/oci/*|config/clusters/oci/*|config/jobs/oci/*|config/prow/oci/*)
+                oci=true ;;
+              .github/workflows/ci-oci.yml|tools/deploy_argocd_oci.sh|tools/ci/prow-version.sh|tools/ci/verify-prow.sh)
+                oci=true ;;
+              .github/workflows/ci-aws.yml|.github/workflows/job-checker.yml|.github/workflows/job-checker-builder.yml|\
+              .github/workflows/prow.yml|.github/workflows/argocd.yml|.github/workflows/terraform-plan.yml|.github/workflows/terraform-apply.yml|\
+              tools/ci/apply-terraform-aws.sh|tools/prow-jobs-checker/*|prow/*|config/org.yaml|\
+              tools/deploy_prow.sh|tools/deploy_argocd.sh|tools/local_prowjob.sh|tools/delete_local_prowjob.sh|tools/clean_prowjobs.sh|tools/util.sh)
+                aws=true ;;
+              .github/workflows/ci.yml|tools/ci/*|.github/actions/*|Makefile|.gitignore|tools/terraform.Makefile|\
+              config/applications/*|config/clusters/*|config/jobs/*|config/prow/*)
+                aws=true
+                oci=true ;;
+            esac
+          done < "$RUNNER_TEMP/changed-files"
+          printf 'aws=%s\noci=%s\n' "$aws" "$oci" >> "$GITHUB_OUTPUT"
 
-      - name: Install deps
+  aws:
+    needs: changes
+    if: needs.changes.outputs.aws == 'true'
+    uses: ./.github/workflows/ci-aws.yml
+
+  oci:
+    needs: changes
+    if: needs.changes.outputs.oci == 'true'
+    uses: ./.github/workflows/ci-oci.yml
+
+  # Keep the existing branch-protection context; failures cannot become skips.
+  manifests-validation:
+    needs: [changes, aws, oci]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every selected cloud to pass
+        env:
+          SELECTION_RESULT: ${{ needs.changes.result }}
+          AWS_SELECTED: ${{ needs.changes.outputs.aws }}
+          AWS_RESULT: ${{ needs.aws.result }}
+          OCI_SELECTED: ${{ needs.changes.outputs.oci }}
+          OCI_RESULT: ${{ needs.oci.result }}
+        shell: bash
         run: |
-          curl -L "$(curl -Ls https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
-          tar -xf terrascan.tar.gz
-          install terrascan /usr/local/bin
-        
-      - name: Scan terrafrom code
-        run: |
-          terrascan scan -i terraform -d config/clusters/aws -v \
-              --skip-rules 'AC_AWS_0214,AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'      
-        
+          if [[ "$SELECTION_RESULT" != success ]]; then
+            echo 'Cloud selection failed or was cancelled.' >&2
+            exit 1
+          fi
+          case "$AWS_SELECTED:$AWS_RESULT" in
+            true:success|false:skipped) ;;
+            *) echo 'AWS checks did not match the cloud selection.' >&2; exit 1 ;;
+          esac
+          case "$OCI_SELECTED:$OCI_RESULT" in
+            true:success|false:skipped) ;;
+            *) echo 'OCI checks did not match the cloud selection.' >&2; exit 1 ;;
+          esac

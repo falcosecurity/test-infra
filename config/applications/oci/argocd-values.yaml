@@ -1,0 +1,18 @@
+# ArgoCD Helm values for the OKE cluster.
+# All ArgoCD components run on the platform control-plane pool (every worker pool is tainted).
+global:
+  nodeSelector:
+    Application: platform
+  tolerations:
+    - key: dedicated.falco.org/platform
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
+controller:
+  replicas: 1
+server:
+  replicas: 2
+repoServer:
+  replicas: 2
+applicationSet:
+  replicas: 2

@@ -1,0 +1,270 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prow-controller-manager
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prow-controller-manager
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+rules:
+  - apiGroups:
+      - prow.k8s.io
+    resources:
+      - prowjobs
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    resourceNames:
+      - prow-controller-manager-leader-lock
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    resourceNames:
+      - prow-controller-manager-leader-lock
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - events
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prow-controller-manager
+  namespace: test-pods
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prow-controller-manager
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: prow-controller-manager
+subjects:
+  - kind: ServiceAccount
+    name: prow-controller-manager
+    namespace: prow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prow-controller-manager
+  namespace: test-pods
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: prow-controller-manager
+subjects:
+  - kind: ServiceAccount
+    name: prow-controller-manager
+    namespace: prow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prow-controller-manager
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: prow-controller-manager
+  ports:
+    - name: metrics
+      port: 9090
+      protocol: TCP
+      targetPort: metrics
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prow-controller-manager
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+    app.kubernetes.io/version: v20260811-cafa49460
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prow-controller-manager
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prow-controller-manager
+        app.kubernetes.io/component: plank
+        app.kubernetes.io/part-of: prow
+        app.kubernetes.io/version: v20260811-cafa49460
+    spec:
+      serviceAccountName: prow-controller-manager
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: prow-controller-manager
+          image: us-docker.pkg.dev/k8s-infra-prow/images/prow-controller-manager:v20260811-cafa49460@sha256:184a3aacdb93bc9864a1aa4133aebdb0ae5f02dd9a9c99c9ca34be2f5e48e6bc
+          imagePullPolicy: IfNotPresent
+          args:
+            - --dry-run=false
+            - --config-path=/etc/prow/config/config.yaml
+            - --enable-controller=plank
+            - --health-port=8081
+            - --metrics-port=9090
+          ports:
+            - name: healthz
+              containerPort: 8081
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            failureThreshold: 30
+            periodSeconds: 2
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            failureThreshold: 3
+            periodSeconds: 10
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /healthz/ready
+              port: healthz
+            failureThreshold: 3
+            periodSeconds: 5
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /etc/prow/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: config
+            defaultMode: 0444
+      nodeSelector:
+        Application: platform
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/platform
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: prow-controller-manager
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: prow-controller-manager
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prow-controller-manager

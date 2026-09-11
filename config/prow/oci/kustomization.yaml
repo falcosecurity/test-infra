@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespaces.yaml
+  - prowjob-crd.yaml
+  - config.yaml
+  - ghproxy.yaml
+  - prow-controller-manager.yaml
+  - deck.yaml
+configMapGenerator:
+  - name: branding
+    namespace: prow
+    files:
+      - branding/favicon.png
+      - branding/logo.png
+      - branding/style.css
+    options:
+      labels:
+        app.kubernetes.io/name: deck
+        app.kubernetes.io/component: dashboard
+        app.kubernetes.io/part-of: prow

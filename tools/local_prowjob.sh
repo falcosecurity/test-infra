@@ -22,8 +22,8 @@ set -o pipefail
 DEBUG="${DEBUG:-"false"}"
 
 # We use a .local file because the update-jobs configmap will merge all yaml together into one configmap
-CONFIG_PATH="${CONFIG_PATH:-"$(pwd)/config/config.yaml"}"
-JOB_CONFIG_PATH="${JOB_CONFIG_PATH:-"$(pwd)/config/jobs/driverkit/driverkit-test.local"}"
+CONFIG_PATH="${CONFIG_PATH:-"$(pwd)/config/prow/aws/config.yaml"}"
+JOB_CONFIG_PATH="${JOB_CONFIG_PATH:-"$(pwd)/config/jobs/aws/driverkit/driverkit-test.local"}"
 IMAGE_PATH="${IMAGE_PATH:-"$(pwd)/images/golang"}"
 
 export CONFIG_PATH

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plugins
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: hook
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: prow
+data:
+  plugins.yaml: |
+    {}

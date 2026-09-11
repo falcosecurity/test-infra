@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: prow-oci-gateway-tls
+  namespace: prow
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  dnsNames:
+    - oci-prow.falco.org
+  issuerRef:
+    group: cert-manager.io
+    kind: Issuer
+    name: letsencrypt-prod-gateway
+  privateKey:
+    algorithm: ECDSA
+    encoding: PKCS8
+    rotationPolicy: Always
+    size: 256
+  revisionHistoryLimit: 2
+  secretName: prow-oci-gateway-tls

@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow-controller-manager
+    app.kubernetes.io/component: plank
+    app.kubernetes.io/part-of: prow
+data:
+  config.yaml: |
+    prowjob_namespace: prow
+    pod_namespace: test-pods
+    decorate_all_jobs: false
+
+    deck:
+      branding:
+        header_color: "#00AEC7"
+        logo: /static/branding/logo.png
+        favicon: branding/favicon.png
+      spyglass:
+        lenses:
+          - lens:
+              name: metadata
+            required_files:
+              - '^(started|finished)\.json$'
+            optional_files:
+              - '^podinfo\.json$'
+          - lens:
+              name: buildlog
+            required_files:
+              - '^build-log\.txt$'
+          - lens:
+              name: podinfo
+            required_files:
+              - '^podinfo\.json$'
+
+    plank:
+      job_url_prefix_config:
+        '*': https://oci-prow.falco.org/view/
+      default_decoration_config_entries:
+        - config:
+            timeout: 24h
+            grace_period: 10m
+            censor_secrets: true
+            utility_images:
+              clonerefs: us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260811-cafa49460@sha256:b024d55113e195e69b66ef5b8973144d48cd1db11346dd1097e9af9294783bf2
+              initupload: us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260811-cafa49460@sha256:fa08b00d6a34a8ffd8e8a4285702b06bfa2b25ff115e07cd1cfe2851899b534d
+              entrypoint: us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260811-cafa49460@sha256:f6e41df39f5894fba72e2c66e5da8d5cbde0b45683995dfffb6031222397d1df
+              sidecar: us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260811-cafa49460@sha256:d52d5dc7ae13272fe814e1ae8689d6236f6c2271987a2ca64b727590444b83d3
+            gcs_configuration:
+              bucket: s3://falco-prow-logs
+              path_strategy: explicit
+            s3_credentials_secret: s3-credentials

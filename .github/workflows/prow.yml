@@ -3,6 +3,14 @@ name: Deploy Prow
 on:
   push:
     branches: [master]
+    paths:
+      - 'config/prow/aws/manifests/**'
+      - 'config/prow/aws/config.yaml'
+      - 'config/prow/aws/plugins.yaml'
+      - 'config/prow/aws/branding/**'
+      - 'config/jobs/aws/**'
+      - 'tools/deploy_prow.sh'
+  workflow_dispatch:
 
 concurrency:
   group: master-CI

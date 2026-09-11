@@ -1,0 +1,8 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+#header-title .logo {
+    height: 32px;
+}
+
+#header-title img.logo {
+    width: auto;
+}

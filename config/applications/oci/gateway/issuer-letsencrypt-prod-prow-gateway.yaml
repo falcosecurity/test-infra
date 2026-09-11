@@ -1,0 +1,43 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-prod-gateway
+  namespace: prow
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  acme:
+    email: cncf-falco-maintainers@lists.cncf.io
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-gateway-account-key
+    solvers:
+      - selector:
+          dnsNames:
+            - oci-prow.falco.org
+        http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                namespace: envoy-gateway-system
+                name: oci-public
+                sectionName: prow-http
+            serviceType: ClusterIP
+            podTemplate:
+              spec:
+                nodeSelector:
+                  Application: platform
+                  kubernetes.io/os: linux
+                tolerations:
+                  - key: dedicated.falco.org/platform
+                    operator: Equal
+                    value: "true"
+                    effect: NoSchedule
+                resources:
+                  requests:
+                    cpu: 10m
+                    memory: 64Mi
+                  limits:
+                    cpu: 100m
+                    memory: 64Mi

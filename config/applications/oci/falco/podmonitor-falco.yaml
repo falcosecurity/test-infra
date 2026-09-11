@@ -1,0 +1,36 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: falco
+  namespace: falco
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: falco
+      app.kubernetes.io/instance: falco
+  podMetricsEndpoints:
+    - port: web
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 10s
+      honorLabels: true
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: k8s-metacollector
+  namespace: falco
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: k8s-metacollector
+      app.kubernetes.io/instance: k8s-metacollector
+  podMetricsEndpoints:
+    - port: metrics
+      path: /metrics
+      interval: 15s
+      honorLabels: true

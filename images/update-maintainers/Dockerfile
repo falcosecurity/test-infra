@@ -1,7 +1,12 @@
-FROM golang:1.24 AS pullrequestcreator
+FROM golang:1.26.7-bookworm@sha256:e8c859f5632dcfde7b32d2012b4351728f6437930887c2f6a91ea242459e5514 AS pullrequestcreator
 
-RUN git clone https://github.com/kubernetes/test-infra
-RUN cd test-infra/robots/pr-creator && env GO111MODULE=on go build -v -o pr-creator ./main.go
+ARG PR_CREATOR_REF=f1d922fc202a10825bbc599605a4bedce2fbf048
+RUN git init test-infra \
+    && cd test-infra \
+    && git remote add origin https://github.com/kubernetes/test-infra \
+    && git fetch --depth=1 origin "$PR_CREATOR_REF" \
+    && git checkout --detach FETCH_HEAD
+RUN cd test-infra/robots/pr-creator && CGO_ENABLED=0 go build -mod=readonly -v -o pr-creator ./main.go
 
 FROM golang:1.24 AS maintainersgenerator
 

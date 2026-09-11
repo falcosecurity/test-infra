@@ -1,0 +1,1814 @@
+approve:
+  - repos:
+      - falcosecurity/.github
+      - falcosecurity/advocacy
+      - falcosecurity/charts
+      - falcosecurity/client-go
+      - falcosecurity/client-py
+      - falcosecurity/client-rs
+      - falcosecurity/cncf-green-review-testing
+      - falcosecurity/community
+      - falcosecurity/contrib
+      - falcosecurity/dbg-go
+      - falcosecurity/deploy-kubernetes
+      - falcosecurity/driverkit
+      - falcosecurity/ebpf-probe
+      - falcosecurity/elftoolchain
+      - falcosecurity/event-generator
+      - falcosecurity/evolution
+      - falcosecurity/falco-actions
+      - falcosecurity/falco-aws-terraform
+      - falcosecurity/falco-exporter
+      - falcosecurity/falco-website
+      - falcosecurity/falcoctl
+      - falcosecurity/falco-operator
+      - falcosecurity/falco-lsp
+      - falcosecurity/falco-playground
+      - falcosecurity/falco-rustlings
+      - falcosecurity/falco-talon
+      - falcosecurity/falcosidekick
+      - falcosecurity/falcosidekick-ui
+      - falcosecurity/flycheck-falco-rules
+      - falcosecurity/k8s-metacollector
+      - falcosecurity/kernel-crawler
+      - falcosecurity/kernel-testing
+      - falcosecurity/kernel-module
+      - falcosecurity/kilt
+      - falcosecurity/libs-sdk-go
+      - falcosecurity/libscap
+      - falcosecurity/libsinsp
+      - falcosecurity/pdig
+      - falcosecurity/peribolos-syncer
+      - falcosecurity/pigeon
+      - falcosecurity/plugin-sdk-cpp
+      - falcosecurity/plugin-sdk-go
+      - falcosecurity/plugin-sdk-rs
+      - falcosecurity/plugins
+      - falcosecurity/prempti
+      - falcosecurity/rules
+      - falcosecurity/syscalls-bumper
+      - falcosecurity/template-repository
+      - falcosecurity/test-infra
+      - falcosecurity/testing
+    lgtm_acts_as_approve: true
+    require_self_approval: false
+    commandHelpLink: https://prow.falco.org/command-help
+  - repos:
+      - falcosecurity/falco
+      - falcosecurity/libs
+    lgtm_acts_as_approve: true
+    require_self_approval: false
+    commandHelpLink: https://prow.falco.org/command-help
+
+blunderbuss:
+  max_request_count: 2
+  use_status_availability: true
+
+config_updater:
+  maps:
+    config/prow/aws/config.yaml:
+      name: config
+    config/prow/aws/plugins.yaml:
+      name: plugins
+    config/jobs/aws/**/*.yaml:
+      name: job-config
+      gzip: true
+
+dco:
+  "*":
+    contributing_branch: main
+    contributing_repo: falcosecurity/.github
+
+goose:
+  key_path: /etc/unsplash/honk
+
+label:
+  additional_labels:
+    # Custom kind/* labels for evolution repository
+    - kind/sandbox
+    - kind/incubation
+    - kind/officialsupport
+
+lgtm:
+  - repos:
+      - falcosecurity/.github
+      - falcosecurity/advocacy
+      - falcosecurity/charts
+      - falcosecurity/client-go
+      - falcosecurity/client-py
+      - falcosecurity/client-rs
+      - falcosecurity/cncf-green-review-testing
+      - falcosecurity/community
+      - falcosecurity/contrib
+      - falcosecurity/evolution
+      - falcosecurity/dbg-go
+      - falcosecurity/deploy-kubernetes
+      - falcosecurity/driverkit
+      - falcosecurity/elftoolchain
+      - falcosecurity/event-generator
+      - falcosecurity/falco
+      - falcosecurity/falcoctl
+      - falcosecurity/falcosidekick
+      - falcosecurity/falcosidekick-ui
+      - falcosecurity/falco-actions
+      - falcosecurity/falco-aws-terraform
+      - falcosecurity/falco-exporter
+      - falcosecurity/falco-website
+      - falcosecurity/falco-operator
+      - falcosecurity/falco-lsp
+      - falcosecurity/falco-playground
+      - falcosecurity/falco-rustlings
+      - falcosecurity/falco-talon
+      - falcosecurity/flycheck-falco-rules
+      - falcosecurity/kernel-crawler
+      - falcosecurity/kernel-testing
+      - falcosecurity/kilt
+      - falcosecurity/libs
+      - falcosecurity/libs-sdk-go
+      - falcosecurity/pdig
+      - falcosecurity/peribolos-syncer
+      - falcosecurity/pigeon
+      - falcosecurity/plugins
+      - falcosecurity/plugin-sdk-go
+      - falcosecurity/plugin-sdk-cpp
+      - falcosecurity/plugin-sdk-rs
+      - falcosecurity/prempti
+      - falcosecurity/rules
+      - falcosecurity/syscalls-bumper
+      - falcosecurity/template-repository
+      - falcosecurity/test-infra
+      - falcosecurity/testing
+    review_acts_as_lgtm: true
+    store_tree_hash: true
+    trusted_team_for_sticky_lgtm: test-infra-maintainers
+
+repo_milestone:
+  # To obtain the team ID: curl -H "Authorization: token <token>" "https://api.github.com/orgs/falcosecurity/teams"
+  falcosecurity/falco:
+    maintainers_id: 3770343
+    maintainers_team: falco-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/falco
+  falcosecurity/libs:
+    maintainers_id: 4535471
+    maintainers_team: libs-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/libs
+  falcosecurity/pdig:
+    maintainers_id: 3832091
+    maintainers_team: pdig-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/pdig
+  falcosecurity/falcoctl:
+    maintainers_team: falcoctl-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/falcoctl
+  falcosecurity/plugin-sdk-cpp:
+    maintainers_team: plugin-sdk-cpp-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/plugin-sdk-cpp
+
+require_matching_label:
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: .github
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: client-go
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: client-py
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: client-rs
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: cncf-green-review-testing
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: community
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this proposal.
+      Whether it refers to an issue or to a PR in [Falco](https://github.com/falcosecurity/falco).
+      Please specify it either using `/kind <group>` or manually from the side menu.
+      In case you do not know which kind this proposal is please mention the maintainers using `@team/maintainers`.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: contrib
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: dbg-go
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: deploy-kubernetes
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: driverkit
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: evolution
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: event-generator
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falcosidekick
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falcosidekick-ui
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-aws-terraform
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-exporter
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falcoctl
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-website
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: flycheck-falco-rules
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: k8s-metacollector
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: kilt
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: plugins
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: rules
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: plugin-sdk-go
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: plugin-sdk-cpp
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: plugin-sdk-rs
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: libs
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: libs-sdk-go
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: syscalls-bumper
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: peribolos-syncer
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: pigeon
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: testing
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: kernel-crawler
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: kernel-testing
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-operator
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-lsp
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-playground
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-rustlings
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-talon
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: falco-actions
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: prempti
+    issues: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+
+retitle:
+  allow_closed_issues: true
+
+size:
+  s: 10
+  m: 30
+  l: 90
+  xl: 270
+  xxl: 520
+
+triggers:
+  - repos:
+      - falcosecurity
+    join_org_url: "https://github.com/falcosecurity/.github/blob/main/CONTRIBUTING.md"
+    only_org_members: true
+
+plugins:
+  falcosecurity/.github:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/advocacy:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/charts:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/client-go:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - release-note
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/client-py:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - release-note
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/client-rs:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - release-note
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/cncf-green-review-testing:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/community:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/contrib:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/evolution:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/dbg-go:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/deploy-kubernetes:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/driverkit:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/elftoolchain:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/event-generator:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - milestone
+      - release-note
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falcosidekick:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falcosidekick-ui:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-actions:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-aws-terraform:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-exporter:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falcoctl:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - milestone
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-operator:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-lsp:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-playground:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-rustlings:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-talon:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/falco-website:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - milestone
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/flycheck-falco-rules:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/k8s-metacollector:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/kernel-crawler:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/kernel-testing:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/kilt:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/libs:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - milestone
+      - release-note
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/libs-sdk-go:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/pdig:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - milestone
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/peribolos-syncer:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/pigeon:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/plugins:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/plugin-sdk-go:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - release-note
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/plugin-sdk-cpp:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - milestone
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/plugin-sdk-rs:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - release-note
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/prempti:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/rules:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - mergecommitblocker
+      - milestone
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/syscalls-bumper:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/template-repository:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/test-infra:
+    plugins:
+      - approve # Allow OWNERS to /approve
+      - assign # Allow /assign and /cc
+      - blunderbuss # Auto-assign people
+      - branchcleaner
+      - cat # /meow replies with cat pictures
+      - config-updater # auto-update config.yaml and plugins.yaml on changes
+      - dco # checks for DCO sign off on commits
+      - dog # /bark replies with dog pictures
+      - goose
+      - help # Support /help and /good-first-issue
+      - hold # Support /hold to delay merge
+      - lifecycle # Allow /lifecycle stale
+      - lgtm # Allow /lgtm
+      - retitle
+      - size # Auto-label size of PR
+      - trigger # Allow people to configure CI jobs to /test
+      - verify-owners # Validates OWNERS file changes in PRs.
+      - welcome # welcomes new PR users
+      - wip # Auto-hold PRs with WIP in title
+  falcosecurity/testing:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - golint
+      - goose
+      - help
+      - hold
+      - label
+      - lifecycle
+      - lgtm
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+
+external_plugins:
+  falcosecurity/.github:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/advocacy:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/charts:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/client-go:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/client-py:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/client-rs:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/cncf-green-review-testing:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/community:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/contrib:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/dbg-go:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/deploy-kubernetes:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/driverkit:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/elftoolchain:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/evolution:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/event-generator:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falcosidekick:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falcosidekick-ui:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-actions:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-aws-terraform:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-exporter:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falcoctl:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-operator:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-lsp:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-playground:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-rustlings:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-talon:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/falco-website:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/flycheck-falco-rules:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/k8s-metacollector:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/kernel-crawler:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/kernel-testing:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/kilt:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/libs:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/libs-sdk-go:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/pdig:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/peribolos-syncer:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/pigeon:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/plugins:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/plugin-sdk-go:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/plugin-sdk-cpp:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/plugin-sdk-rs:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/prempti:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/rules:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/syscalls-bumper:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/template-repository:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/test-infra:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/testing:
+    - name: needs-rebase
+      events:
+        - pull_request
