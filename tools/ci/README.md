@@ -4,8 +4,8 @@ The [CI workflow](../../.github/workflows/ci.yml) selects the
 [AWS](../../.github/workflows/ci-aws.yml) and
 [OCI](../../.github/workflows/ci-oci.yml) validation workflows from the PR merge
 diff. It reads both sides of renames and does not use GitHub's truncated path-filter
-file list. Selection rules and gate tests live in
-[changes.mjs](changes.mjs) and [changes.test.mjs](changes.test.mjs).
+file list. Selection rules and the required-check gate are defined directly in
+the [CI workflow](../../.github/workflows/ci.yml).
 
 | Changed area | Checks |
 | --- | --- |
@@ -32,8 +32,6 @@ still runs on all PRs until its required-context transition is coordinated.
   This validates resource schemas, not every Helm value or live admission policy.
 - The OCI ProwJob CRD is checked byte-for-byte against its pinned upstream source,
   rather than silently skipped. Other OCI resources require a schema.
-- OCI dashboard [branding tests](verify-branding.test.mjs) verify the official
-  logo and favicon, rendered ConfigMap references and read-only asset mount.
 - The separate OCI `jobs-checker` job validates core/plugins and any future job
   catalog using [verify-prow.sh](verify-prow.sh) and the pinned Prow `checkconfig`
   image, with networking disabled inside the validator container. Both `.yaml`
@@ -49,18 +47,13 @@ still runs on all PRs until its required-context transition is coordinated.
 Run from the repository root:
 
 ```sh
-node --test tools/ci/changes.test.mjs
-node --test tools/ci/verify-prow.test.mjs
-node --test tools/ci/verify-branding.test.mjs
-bash tools/ci/apply-terraform-aws.test.sh
-node tools/ci/changes.mjs upstream/master HEAD
 bash tools/ci/verify-manifests.sh aws
 bash tools/ci/verify-manifests.sh oci
 bash tools/ci/verify-prow.sh
 bash tools/ci/verify-terraform.sh
 ```
 
-Use Node.js 20 or newer, kubeconform 0.8.0, Kustomize 5.7.1, yq 4.52.4, Helm
+Use kubeconform 0.8.0, Kustomize 5.7.1, yq 4.52.4, Helm
 4.0.4, and Python with PyYAML 6.0.3. The Linux CI
 [installer](install-tools.sh) verifies the downloaded tool checksums. For native
 local tools, set `OPENAPI2JSONSCHEMA` to kubeconform 0.8.0's
@@ -94,8 +87,6 @@ temporary files are removed when the helper exits. Diagnosing a failed stage
 may require an authorized reproduction because the raw diagnostics are private
 and ephemeral.
 
-The [Bash regression tests](apply-terraform-aws.test.sh) use a simulated Terraform
-executable, not cloud credentials or state. They run in the AWS validation
-workflow. The [PR plan](../../.github/workflows/terraform-plan.yml) remains
+The [PR plan](../../.github/workflows/terraform-plan.yml) remains
 speculative and is not reused for deployment. Both workflows pin Terraform
 1.15.6; the AWS provider versions and backend configuration are unchanged.

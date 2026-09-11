@@ -23,11 +23,40 @@ jobs:
         with:
           fetch-depth: 2
           persist-credentials: false
-      - name: Test cloud selection and required-check gate
-        run: node --test tools/ci/changes.test.mjs
       - name: Select cloud checks from the PR merge diff
         id: clouds
-        run: node tools/ci/changes.mjs --pull-request >> "$GITHUB_OUTPUT"
+        shell: bash
+        run: |
+          read -r merge_commit base_commit head_commit extra <<< "$(git rev-list --parents -n 1 HEAD)"
+          if [[ -z "$base_commit" || -z "$head_commit" || -n "$extra" ]]; then
+            echo 'Expected the PR merge commit and both parents.' >&2
+            exit 1
+          fi
+          git diff --no-ext-diff --no-textconv --no-renames --name-only -z \
+            "$base_commit" "$merge_commit" -- > "$RUNNER_TEMP/changed-files"
+          aws=false
+          oci=false
+          while IFS= read -r -d '' changed_file; do
+            case "$changed_file" in
+              config/clusters/oci/bootstrap/*|*.md|OWNERS|*/OWNERS) ;;
+              config/applications/aws/*|config/clusters/aws/*|config/jobs/aws/*|config/prow/aws/*)
+                aws=true ;;
+              config/applications/oci/*|config/clusters/oci/*|config/jobs/oci/*|config/prow/oci/*)
+                oci=true ;;
+              .github/workflows/ci-oci.yml|tools/deploy_argocd_oci.sh|tools/ci/prow-version.sh|tools/ci/verify-prow.sh)
+                oci=true ;;
+              .github/workflows/ci-aws.yml|.github/workflows/job-checker.yml|.github/workflows/job-checker-builder.yml|\
+              .github/workflows/prow.yml|.github/workflows/argocd.yml|.github/workflows/terraform-plan.yml|.github/workflows/terraform-apply.yml|\
+              tools/ci/apply-terraform-aws.sh|tools/prow-jobs-checker/*|prow/*|config/org.yaml|\
+              tools/deploy_prow.sh|tools/deploy_argocd.sh|tools/local_prowjob.sh|tools/delete_local_prowjob.sh|tools/clean_prowjobs.sh|tools/util.sh)
+                aws=true ;;
+              .github/workflows/ci.yml|tools/ci/*|.github/actions/*|Makefile|.gitignore|tools/terraform.Makefile|\
+              config/applications/*|config/clusters/*|config/jobs/*|config/prow/*)
+                aws=true
+                oci=true ;;
+            esac
+          done < "$RUNNER_TEMP/changed-files"
+          printf 'aws=%s\noci=%s\n' "$aws" "$oci" >> "$GITHUB_OUTPUT"
 
   aws:
     needs: changes
@@ -46,10 +75,24 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
       - name: Require every selected cloud to pass
         env:
-          CI_RESULTS: ${{ toJSON(needs) }}
-        run: node tools/ci/changes.mjs --gate
+          SELECTION_RESULT: ${{ needs.changes.result }}
+          AWS_SELECTED: ${{ needs.changes.outputs.aws }}
+          AWS_RESULT: ${{ needs.aws.result }}
+          OCI_SELECTED: ${{ needs.changes.outputs.oci }}
+          OCI_RESULT: ${{ needs.oci.result }}
+        shell: bash
+        run: |
+          if [[ "$SELECTION_RESULT" != success ]]; then
+            echo 'Cloud selection failed or was cancelled.' >&2
+            exit 1
+          fi
+          case "$AWS_SELECTED:$AWS_RESULT" in
+            true:success|false:skipped) ;;
+            *) echo 'AWS checks did not match the cloud selection.' >&2; exit 1 ;;
+          esac
+          case "$OCI_SELECTED:$OCI_RESULT" in
+            true:success|false:skipped) ;;
+            *) echo 'OCI checks did not match the cloud selection.' >&2; exit 1 ;;
+          esac

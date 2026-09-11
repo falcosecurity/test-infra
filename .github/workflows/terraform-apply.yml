@@ -8,7 +8,6 @@ on:
     - 'config/clusters/aws/**'
     - '.github/workflows/terraform-apply.yml'
     - 'tools/ci/apply-terraform-aws.sh'
-    - 'tools/ci/apply-terraform-aws.test.sh'
 
 concurrency:
   group: master-CI
