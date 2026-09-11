@@ -19,6 +19,15 @@ presubmits:
                     echo "Mixed AWS Prow layouts are not supported" >&2
                     exit 1
                   fi
+                  for job_path in config/jobs/* config/jobs/.[!.]* config/jobs/..?*; do
+                    case "$job_path" in
+                      config/jobs/aws|config/jobs/oci) continue ;;
+                      *.yaml|*.yml) ;;
+                      *) [ -d "$job_path" ] || continue ;;
+                    esac
+                    echo "AWS Prow jobs must be under config/jobs/aws: $job_path" >&2
+                    exit 1
+                  done
                   exec /ko-app/checkconfig \
                     --config-path=config/prow/aws/config.yaml \
                     --job-config-path=config/jobs/aws \
@@ -51,6 +60,15 @@ periodics:
             echo "Mixed AWS Prow layouts are not supported" >&2
             exit 1
           fi
+          for job_path in config/jobs/* config/jobs/.[!.]* config/jobs/..?*; do
+            case "$job_path" in
+              config/jobs/aws|config/jobs/oci) continue ;;
+              *.yaml|*.yml) ;;
+              *) [ -d "$job_path" ] || continue ;;
+            esac
+            echo "AWS Prow jobs must be under config/jobs/aws: $job_path" >&2
+            exit 1
+          done
           exec /ko-app/checkconfig \
             --config-path=config/prow/aws/config.yaml \
             --job-config-path=config/jobs/aws \
