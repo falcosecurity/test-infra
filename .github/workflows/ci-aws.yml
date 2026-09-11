@@ -1,0 +1,65 @@
+name: Validate AWS
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  manifests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install pinned validators
+        run: bash tools/ci/install-tools.sh
+      - name: Validate AWS manifests and Argo CD Applications
+        run: bash tools/ci/verify-manifests.sh aws
+
+  jobs-checker:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
+        with:
+          go-version-file: tools/prow-jobs-checker/go.mod
+          cache-dependency-path: tools/prow-jobs-checker/go.sum
+      - name: Build AWS jobs checker
+        working-directory: tools/prow-jobs-checker
+        run: go build -mod=readonly -o "$RUNNER_TEMP/prow-jobs-checker" .
+      - name: Validate AWS jobs without GitHub API access
+        run: >-
+          "$RUNNER_TEMP/prow-jobs-checker" --base-ref master
+          --config-job config/jobs/aws --config-prow config/prow/aws/config.yaml
+
+  scan-terraform:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
+        with:
+          go-version: '1.25'
+          cache: false
+      - name: Install Terrascan
+        run: |
+          curl --fail --silent --show-error --location --retry 3 https://github.com/tenable/terrascan/releases/download/v1.19.9/terrascan_1.19.9_Linux_x86_64.tar.gz -o "$RUNNER_TEMP/terrascan.tar.gz"
+          echo "9275d75210b7df52f8870252035803288646674f5701ced82812037700a39670  $RUNNER_TEMP/terrascan.tar.gz" | sha256sum --check --status
+          tar -xf "$RUNNER_TEMP/terrascan.tar.gz" -C "$RUNNER_TEMP" terrascan
+          curl --fail --silent --show-error --location --retry 3 https://codeload.github.com/tenable/terrascan/tar.gz/refs/tags/v1.19.9 -o "$RUNNER_TEMP/terrascan-source.tar.gz"
+          echo "13c120a63d7024ca8c54422e047424e318622625336ed77b2c1a36ef5fb1441c  $RUNNER_TEMP/terrascan-source.tar.gz" | sha256sum --check --status
+          tar -xf "$RUNNER_TEMP/terrascan-source.tar.gz" -C "$RUNNER_TEMP" terrascan-1.19.9/pkg/policies/opa/rego
+      - name: Scan AWS Terraform
+        run: >-
+          "$RUNNER_TEMP/terrascan" scan -i terraform -d config/clusters/aws -v
+          -p "$RUNNER_TEMP/terrascan-1.19.9/pkg/policies/opa/rego"
+          --temp-dir "$RUNNER_TEMP"
+          --skip-rules 'AC_AWS_0214,AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'

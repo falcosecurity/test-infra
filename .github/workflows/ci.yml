@@ -4,47 +4,52 @@ on:
   pull_request:
     branches: [master]
 
-# Checks if any concurrent jobs under the same pull request or branch are being executed
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
-  manifests-validation:
-    runs-on: ubuntu-latest
-
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      aws: ${{ steps.clouds.outputs.aws }}
+      oci: ${{ steps.clouds.outputs.oci }}
     steps:
-      - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v4
-
-      - name: Download kubeconform ⛓️
-        run: |
-          wget https://github.com/yannh/kubeconform/releases/download/v0.6.6/kubeconform-linux-amd64.tar.gz
-          tar -xvf kubeconform-linux-amd64.tar.gz
-          chmod +x kubeconform
-        
-      - name: yaml config validation 🔍
-        run: ./kubeconform -ignore-filename-pattern ".json" -ignore-missing-schemas -verbose config/prow/aws/manifests/
-        
-  scan-terraform:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout test-infra ⤵️
-        uses: actions/checkout@v4
-
-      - name: Setup Go
-        uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          go-version: 1.25
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Test cloud selection and required-check gate
+        run: node --test tools/ci/changes.test.mjs
+      - name: Select cloud checks from the PR merge diff
+        id: clouds
+        run: node tools/ci/changes.mjs --pull-request >> "$GITHUB_OUTPUT"
 
-      - name: Install deps
-        run: |
-          curl -L "$(curl -Ls https://api.github.com/repos/accurics/terrascan/releases/latest | grep -o -E "https://.+?_Linux_x86_64.tar.gz")" > terrascan.tar.gz
-          tar -xf terrascan.tar.gz
-          install terrascan /usr/local/bin
-        
-      - name: Scan terrafrom code
-        run: |
-          terrascan scan -i terraform -d config/clusters/aws -v \
-              --skip-rules 'AC_AWS_0214,AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'      
-        
+  aws:
+    needs: changes
+    if: needs.changes.outputs.aws == 'true'
+    uses: ./.github/workflows/ci-aws.yml
+
+  oci:
+    needs: changes
+    if: needs.changes.outputs.oci == 'true'
+    uses: ./.github/workflows/ci-oci.yml
+
+  # Keep the existing branch-protection context; failures cannot become skips.
+  manifests-validation:
+    needs: [changes, aws, oci]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Require every selected cloud to pass
+        env:
+          CI_RESULTS: ${{ toJSON(needs) }}
+        run: node tools/ci/changes.mjs --gate

@@ -21,6 +21,9 @@ in separate migration PRs after the platform PR is merged and validated.
 The [OCI bootstrap](config/clusters/oci/bootstrap/) is managed and validated
 locally, outside CI.
 
+The [infrastructure CI](tools/ci/README.md) selects AWS, OCI, or both from the
+changed paths and validates them without cloud credentials or deployment.
+
 ## DBG
 
 DBG stands for Drivers Build Grid.
