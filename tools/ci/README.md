@@ -32,9 +32,11 @@ still runs on all PRs until its required-context transition is coordinated.
   This validates resource schemas, not every Helm value or live admission policy.
 - The OCI ProwJob CRD is checked byte-for-byte against its pinned upstream source,
   rather than silently skipped. Other OCI resources require a schema.
-- OCI core/plugins and any future job catalog use the pinned Prow `checkconfig`
-  image, with networking disabled inside the validator container. Updating Prow
-  also requires updating the validator pin in [verify-manifests.sh](verify-manifests.sh).
+- The separate OCI `jobs-checker` job validates core/plugins and any future job
+  catalog using [verify-prow.sh](verify-prow.sh) and the pinned Prow `checkconfig`
+  image, with networking disabled inside the validator container. Both `.yaml`
+  and `.yml` job files are included. Updating Prow also requires updating the
+  shared release pins in [prow-version.sh](prow-version.sh).
 - [Terraform validation](verify-terraform.sh) copies only the OCI root Terraform
   sources and provider lock file into a temporary directory. It runs formatting,
   initialization with `-backend=false -lockfile=readonly`, and validation. It does
@@ -46,9 +48,11 @@ Run from the repository root:
 
 ```sh
 node --test tools/ci/changes.test.mjs
+node --test tools/ci/verify-prow.test.mjs
 node tools/ci/changes.mjs upstream/master HEAD
 bash tools/ci/verify-manifests.sh aws
 bash tools/ci/verify-manifests.sh oci
+bash tools/ci/verify-prow.sh
 bash tools/ci/verify-terraform.sh
 ```
 

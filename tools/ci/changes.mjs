@@ -12,7 +12,8 @@ export function selectClouds(paths) {
     const cloud = path.match(/^config\/(?:applications|clusters|jobs|prow)\/(aws|oci)\//);
     if (cloud) {
       selected[cloud[1]] = true;
-    } else if (path === '.github/workflows/ci-oci.yml' || path === 'tools/deploy_argocd_oci.sh') {
+    } else if (path === '.github/workflows/ci-oci.yml' || path === 'tools/deploy_argocd_oci.sh'
+      || ['tools/ci/prow-version.sh', 'tools/ci/verify-prow.sh', 'tools/ci/verify-prow.test.mjs'].includes(path)) {
       selected.oci = true;
     } else if (/^\.github\/workflows\/(?:ci-aws|job-checker|job-checker-builder|prow|argocd|terraform-plan|terraform-apply)\.yml$/.test(path)
       || path.startsWith('tools/prow-jobs-checker/') || path.startsWith('prow/')

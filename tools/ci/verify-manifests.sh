@@ -57,17 +57,12 @@ if [[ "$cloud" == aws ]]; then
   exit
 fi
 
-prow_version=v20260811-cafa49460
-prow_commit=cafa494600840c6b58f9b765aa7133ca6e82bb48
-checkconfig_image="us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:$prow_version@sha256:0ec431c5efcdee82117fa6d272497ed657fd2bce1b1620acd164e41212fde2f3"
+source tools/ci/prow-version.sh
+assert_prow_version
 curl --fail --silent --show-error --location --retry 3 \
   "https://raw.githubusercontent.com/kubernetes-sigs/prow/$prow_commit/config/prow/cluster/prowjob-crd/prowjob_customresourcedefinition.yaml" \
   --output "$validation_dir/prowjob-crd.yaml"
 cmp config/prow/oci/prowjob-crd.yaml "$validation_dir/prowjob-crd.yaml"
-runtime_image=$(yq -r 'select(.kind == "Deployment") | .spec.template.spec.containers[] | select(.name == "prow-controller-manager") | .image' config/prow/oci/prow-controller-manager.yaml)
-[[ "$runtime_image" == *":$prow_version@sha256:"* ]] || {
-  echo 'Update the OCI checkconfig pin to match the Prow deployment.' >&2; exit 1;
-}
 
 git ls-files -z --cached --others --exclude-standard -- 'config/prow/oci/*.yaml' 'config/applications/oci/*.yaml' > "$validation_dir/source-files"
 manifest_files=()
@@ -82,28 +77,3 @@ crd_names=$(yq -r 'select(.kind == "CustomResourceDefinition") | .metadata.name'
 kubeconform -strict -summary -kubernetes-version "$kube_version" -skip CustomResourceDefinition "${schema_args[@]}" "${manifest_files[@]}"
 kustomize build config/prow/oci > "$validation_dir/rendered.yaml"
 kubeconform -strict -summary -kubernetes-version "$kube_version" -skip CustomResourceDefinition "${schema_args[@]}" "$validation_dir/rendered.yaml"
-
-yq -er '.data."config.yaml"' config/prow/oci/config.yaml > "$validation_dir/config.yaml"
-yq -er '.data."plugins.yaml"' config/prow/oci/plugins.yaml > "$validation_dir/plugins.yaml"
-check_args=(--config-path="$validation_dir/config.yaml" --plugin-config="$validation_dir/plugins.yaml"
-  --warnings=unknown-fields-all --warnings=valid-decoration-config --strict)
-# No OCI catalog is created here. Validate its YAML when migration PRs add it.
-if [[ -d config/jobs/oci ]]; then
-  mkdir -p "$validation_dir/jobs"
-  git ls-files -z --cached --others --exclude-standard -- 'config/jobs/oci/*.yaml' > "$validation_dir/job-files"
-  while IFS= read -r -d '' job; do
-    destination="$validation_dir/jobs/${job#config/jobs/oci/}"
-    mkdir -p "$(dirname "$destination")"
-    cp "$job" "$destination"
-  done < "$validation_dir/job-files"
-  check_args+=(--job-config-path="$validation_dir/jobs")
-fi
-if [[ -n "${CHECKCONFIG_BIN:-}" && "${CI:-}" != true ]]; then
-  "$CHECKCONFIG_BIN" "${check_args[@]}"
-else
-  # mktemp directories are private to the runner user; keep that UID in the container.
-  docker run --rm --network=none --read-only --cap-drop=ALL --security-opt=no-new-privileges \
-    --user "$(id -u):$(id -g)" \
-    --mount "type=bind,src=$validation_dir,dst=$validation_dir,readonly" \
-    "$checkconfig_image" "${check_args[@]}"
-fi

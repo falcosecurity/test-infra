@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: Apache-2.0
 set -euo pipefail
+scope=${1:-manifests}
+[[ "$scope" == manifests || "$scope" == prow ]] || {
+  echo 'Usage: bash tools/ci/install-tools.sh [manifests|prow]' >&2
+  exit 1
+}
 
 [[ $(uname -s) == Linux && $(uname -m) == x86_64 ]] || {
   echo 'This installer targets the Linux amd64 CI runner. Locally, use the documented native tools.' >&2
@@ -17,15 +22,18 @@ download() {
   echo "$digest  $output" | sha256sum --check --status
 }
 
+download 'https://github.com/mikefarah/yq/releases/download/v4.52.4/yq_linux_amd64' \
+  0c4d965ea944b64b8fddaf7f27779ee3034e5693263786506ccd1c120f184e8c "$ci_bin/yq"
+chmod +x "$ci_bin/yq"
+echo "$ci_bin" >> "${GITHUB_PATH:?}"
+[[ "$scope" == prow ]] && exit 0
+
 download 'https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-linux-amd64.tar.gz' \
   9bc2bffbf71f261128533edaf912153948b7ff238f9a531ae6d34466ec287883 "$download_dir/kubeconform.tgz"
 tar -xzf "$download_dir/kubeconform.tgz" -C "$ci_bin" kubeconform
 download 'https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.7.1/kustomize_v5.7.1_linux_amd64.tar.gz' \
   ea375e7372f9aa029129d4b2d16c66b7750b7f1213c4f66f910d981c895818d8 "$download_dir/kustomize.tgz"
 tar -xzf "$download_dir/kustomize.tgz" -C "$ci_bin" kustomize
-download 'https://github.com/mikefarah/yq/releases/download/v4.52.4/yq_linux_amd64' \
-  0c4d965ea944b64b8fddaf7f27779ee3034e5693263786506ccd1c120f184e8c "$ci_bin/yq"
-chmod +x "$ci_bin/yq"
 download 'https://get.helm.sh/helm-v4.0.4-linux-amd64.tar.gz' \
   29454bc351f4433e66c00f5d37841627cbbcc02e4c70a6d796529d355237671c "$download_dir/helm.tgz"
 tar -xzf "$download_dir/helm.tgz" -C "$ci_bin" --strip-components=1 linux-amd64/helm
@@ -34,5 +42,4 @@ download 'https://raw.githubusercontent.com/yannh/kubeconform/v0.8.0/scripts/ope
 
 python3 -m venv "${RUNNER_TEMP}/falco-ci-python"
 "${RUNNER_TEMP}/falco-ci-python/bin/pip" install --disable-pip-version-check 'PyYAML==6.0.3'
-echo "$ci_bin" >> "${GITHUB_PATH:?}"
 echo "${RUNNER_TEMP}/falco-ci-python/bin" >> "$GITHUB_PATH"
