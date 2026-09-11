@@ -16,6 +16,8 @@ jobs:
           persist-credentials: false
       - name: Install pinned validators
         run: bash tools/ci/install-tools.sh
+      - name: Test Falco dashboard branding
+        run: node --test tools/ci/verify-branding.test.mjs
       - name: Validate OCI manifests and Argo CD Applications
         run: bash tools/ci/verify-manifests.sh oci
 

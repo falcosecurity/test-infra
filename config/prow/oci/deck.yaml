@@ -204,6 +204,9 @@ spec:
             - name: config
               mountPath: /etc/prow/config
               readOnly: true
+            - name: branding
+              mountPath: /var/run/ko/static/branding
+              readOnly: true
             - name: s3-credentials
               mountPath: /etc/s3-credentials
               readOnly: true
@@ -213,6 +216,10 @@ spec:
         - name: config
           configMap:
             name: config
+            defaultMode: 0444
+        - name: branding
+          configMap:
+            name: branding
             defaultMode: 0444
         - name: s3-credentials
           secret:

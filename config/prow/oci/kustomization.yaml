@@ -7,3 +7,14 @@ resources:
   - ghproxy.yaml
   - prow-controller-manager.yaml
   - deck.yaml
+configMapGenerator:
+  - name: branding
+    namespace: prow
+    files:
+      - branding/favicon.png
+      - branding/logo.png
+    options:
+      labels:
+        app.kubernetes.io/name: deck
+        app.kubernetes.io/component: dashboard
+        app.kubernetes.io/part-of: prow

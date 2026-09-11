@@ -14,6 +14,10 @@ data:
     decorate_all_jobs: false
 
     deck:
+      branding:
+        header_color: "#00AEC7"
+        logo: /static/branding/logo.png
+        favicon: branding/favicon.png
       spyglass:
         lenses:
           - lens:

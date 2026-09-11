@@ -32,6 +32,8 @@ still runs on all PRs until its required-context transition is coordinated.
   This validates resource schemas, not every Helm value or live admission policy.
 - The OCI ProwJob CRD is checked byte-for-byte against its pinned upstream source,
   rather than silently skipped. Other OCI resources require a schema.
+- OCI dashboard [branding tests](verify-branding.test.mjs) verify the official
+  logo and favicon, rendered ConfigMap references and read-only asset mount.
 - The separate OCI `jobs-checker` job validates core/plugins and any future job
   catalog using [verify-prow.sh](verify-prow.sh) and the pinned Prow `checkconfig`
   image, with networking disabled inside the validator container. Both `.yaml`
@@ -49,6 +51,7 @@ Run from the repository root:
 ```sh
 node --test tools/ci/changes.test.mjs
 node --test tools/ci/verify-prow.test.mjs
+node --test tools/ci/verify-branding.test.mjs
 node tools/ci/changes.mjs upstream/master HEAD
 bash tools/ci/verify-manifests.sh aws
 bash tools/ci/verify-manifests.sh oci

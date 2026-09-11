@@ -30,6 +30,8 @@ for (const [name, paths, expected] of [
   ['OCI Prow checker', ['tools/ci/verify-prow.sh'], oci],
   ['OCI Prow checker tests', ['tools/ci/verify-prow.test.mjs'], oci],
   ['OCI Prow version pins', ['tools/ci/prow-version.sh'], oci],
+  ['OCI branding tests', ['tools/ci/verify-branding.test.mjs'], oci],
+  ['OCI branding assets', ['config/prow/oci/branding/logo.png', 'config/prow/oci/branding/favicon.png'], oci],
   ['AWS checker source', ['tools/prow-jobs-checker/go.mod'], aws],
   ['OCI deployment script', ['tools/deploy_argocd_oci.sh'], oci],
   ['AWS deployment script', ['tools/deploy_argocd.sh'], aws],
