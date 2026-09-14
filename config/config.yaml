@@ -223,9 +223,11 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - "tests-e2e-chainsaw"
-              - "Lint golang files"
-              - "Unit"
+              - "e2e-chainsaw-summary"
+              - "lint-summary"
+              - "unit-tests"
+              - "helm-chart-check"
+              - "manifests-check"
         falco-lsp:
           branches:
             main:
