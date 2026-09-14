@@ -223,7 +223,20 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - "tests-e2e"
+              - "build-e2e-binaries"
+              - "tests-e2e-chainsaw (config, http)"
+              - "tests-e2e-chainsaw (config, mtls)"
+              - "tests-e2e-chainsaw (plugin, http)"
+              - "tests-e2e-chainsaw (plugin, mtls)"
+              - "tests-e2e-chainsaw (rulesfile, http)"
+              - "tests-e2e-chainsaw (rulesfile, mtls)"
+              - "tests-e2e-chainsaw (artifact-shared, http)"
+              - "tests-e2e-chainsaw (artifact-shared, mtls)"
+              - "tests-e2e-chainsaw (instance-operator, http)"
+              - "tests-e2e-chainsaw (instance-operator, mtls)"
+              - "tests-e2e-chainsaw (scenarios, http)"
+              - "tests-e2e-chainsaw (scenarios, mtls)"
+              - "tests-e2e-chainsaw (validation)"
               - "Lint golang files"
               - "Unit"
         falco-lsp:
