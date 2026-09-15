@@ -1,5 +1,83 @@
 # Infrastructure validation
 
+The [CI workflow](../../.github/workflows/ci.yml) selects the
+[AWS](../../.github/workflows/ci-aws.yml) and
+[OCI](../../.github/workflows/ci-oci.yml) validation workflows from the PR merge
+diff. It reads both sides of renames and does not use GitHub's truncated path-filter
+file list. Selection rules and the required-check gate are defined directly in
+the [CI workflow](../../.github/workflows/ci.yml).
+
+| Changed area | Checks |
+| --- | --- |
+| Cloud-specific configuration or tooling | That cloud |
+| Shared CI tooling or configuration | AWS and OCI |
+| OCI bootstrap only | Neither; validate locally |
+| Documentation or DriverKit generated catalog only | Neither; existing dedicated checks remain |
+
+The required `manifests-validation` context always reports the combined result.
+A failed selector, failed validation or unexpectedly skipped cloud blocks it.
+These workflows use read-only repository permissions, no cloud credentials, and
+no deployment commands. The required AWS Prow
+`check-prow-config` presubmit runs on all PRs, independently of cloud selection.
+
+## Validation scope
+
+- AWS uses its Prow schema policy and Terrascan rule exceptions.
+  Its job checker is built once and runs without GitHub API requests.
+- OCI checks both raw manifests (including Hook and plugins) and the Kustomize
+  bundle. Custom-resource schemas come from the chart versions in the Argo CD
+  Applications. Argo CD schemas use the chart version in each bootstrap script.
+  This validates resource schemas, not every Helm value or live admission policy.
+- The OCI ProwJob CRD is checked byte-for-byte against its pinned upstream source.
+  Other OCI resources require a schema.
+- The separate OCI `jobs-checker` job validates core/plugins and the configured job
+  catalog using [verify-prow.sh](verify-prow.sh) and the pinned Prow `checkconfig`
+  image, with networking disabled inside the validator container. Both `.yaml`
+  and `.yml` job files are included. Updating Prow also requires updating the
+  shared release pins in [prow-version.sh](prow-version.sh).
+- [Terraform validation](verify-terraform.sh) copies only the OCI root Terraform
+  sources and provider lock file into a temporary directory. It runs formatting,
+  initialization with `-backend=false -lockfile=readonly`, and validation. It does
+  not copy state, tfvars, backend configuration files, or the bootstrap stack.
+
+## Local checks
+
+Run from the repository root:
+
+```sh
+bash tools/ci/verify-manifests.sh aws
+bash tools/ci/verify-manifests.sh oci
+bash tools/ci/verify-prow.sh
+bash tools/ci/verify-terraform.sh
+```
+
+Use kubeconform 0.8.0, Kustomize 5.7.1, yq 4.52.4, Helm
+4.0.4, and Python with PyYAML 6.0.3. The Linux CI
+[installer](install-tools.sh) verifies the downloaded tool checksums. For native
+local tools, set `OPENAPI2JSONSCHEMA` to kubeconform 0.8.0's
+[upstream converter](https://github.com/yannh/kubeconform/blob/v0.8.0/scripts/openapi2jsonschema.py).
+OCI `checkconfig` needs Docker; outside CI, `CHECKCONFIG_BIN` can point to a native
+binary built from Prow commit `cafa494600840c6b58f9b765aa7133ca6e82bb48`.
+Terraform uses the version in the OCI stack's version file.
+
+Manifest checks download public charts and schemas. Terraform initialization
+downloads public provider packages. Neither requires cluster access or secrets.
+End-to-end workload behavior and server-side admission remain separate checks.
+
+## OCI Terraform security scan
+
+The separate `oci / scan-terraform` job runs Checkov 3.3.17 pinned by image
+digest. It evaluates the built-in `CKV_OCI_*` policies against the platform's
+Terraform source, without network access, credentials, state, tfvars or the
+manual bootstrap stack. AWS retains its existing Terrascan job.
+
+Resource-local suppressions document exceptions: OKE security
+lists use stateful rules, and the private, versioned Prow log bucket uses
+Oracle-managed encryption without an object-event consumer. No policy is
+disabled globally, and new resources do not inherit these exceptions. See
+[Oracle's OKE network requirements](https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengnetworkconfig.htm)
+and [Object Storage encryption](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/encryption.htm).
+
 ## Automatic AWS Terraform apply
 
 The [AWS apply workflow](../../.github/workflows/terraform-apply.yml) runs after
@@ -60,9 +138,11 @@ steps. The [session helper](oci-session.sh) owns only OCI authentication,
 credential renewal and private command output. Its `run <stage> <command>`
 interface leaves every Terraform command visible in the workflow. The helper
 comes from the immutable `master` revision selected during preflight, in a
-separate checkout from the Terraform revision being planned.
+separate checkout from the Terraform revision being planned. Changes to either
+helper select OCI validation only and trigger the OCI deployment workflow after
+merge; they do not trigger AWS deployment.
 
-A maintainer
+All PRs retain the credential-free OCI validation and security scan. A maintainer
 can additionally dispatch a speculative cloud plan from the workflow on `master`,
 selecting `operation=plan` and specifying the PR number and exact reviewed head
 SHA. The workflow rejects a closed PR, a non-master base or a changed head.

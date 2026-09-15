@@ -44,12 +44,12 @@
 ## Cluster Autoscaler
 
 - Find the latest version https://docs.aws.amazon.com/eks/latest/userguide/cluster-autoscaler.html
-- Update the install yaml in the [file](../config/prow/cluster-autoscaler.yaml)
+- Update the install yaml in the [file](../config/prow/aws/manifests/cluster-autoscaler.yaml)
 
 ## ALB Controller
 
 - Find the latest version https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
-- Update the yaml with the updated RBAC/image settings in this [file](../config/prow/alb_controller.yaml)
+- Update the yaml with the updated RBAC/image settings in this [file](../config/applications/aws/alb-controller.yaml)
 
 
 ## Pushgateway
@@ -66,5 +66,5 @@
 
 - Some resources get updated by the weekly job https://prow.falco.org/job-history/s3/falco-prow-logs/logs/ci-test-infra-autobump-prow
 - One's that are not udated and must be done manually
-- - [Check config](../config/prow/check-config.yaml)
-- - [Prowjob CRD](../config/prow/prowjob_custromresourcedefinition.yaml)
+- - [Check config](../config/prow/aws/manifests/check-config.yaml)
+- - [Prowjob CRD](../config/prow/aws/manifests/prowjob-crd/prowjob_custromresourcedefinition.yaml)

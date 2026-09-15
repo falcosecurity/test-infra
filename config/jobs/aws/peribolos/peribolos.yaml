@@ -6,7 +6,7 @@ presubmits:
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: '^config/org.yaml$|^config/jobs/peribolos/.*'
+      run_if_changed: '^config/org.yaml$|^config/jobs/aws/peribolos/.*'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20240805-37a08f946
@@ -43,7 +43,7 @@ postsubmits:
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: '^config/org.yaml$|^config/jobs/peribolos/.*'
+      run_if_changed: '^config/org.yaml$|^config/jobs/aws/peribolos/.*'
       spec:
         containers:
           - image: gcr.io/k8s-prow/peribolos:v20240805-37a08f946

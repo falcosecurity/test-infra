@@ -36,9 +36,9 @@ function updateKubeConfig() {
 
 function launchPodIdentityWebhook() {
   # Create the namespace.
-  kubectl apply -f "config/prow/pod-identity-webhook/namespace.yaml"
+  kubectl apply -f "config/prow/aws/manifests/pod-identity-webhook/namespace.yaml"
   # Apply the other manifests.
-  kubectl apply -f "config/prow/pod-identity-webhook/"
+  kubectl apply -f "config/prow/aws/manifests/pod-identity-webhook/"
 }
 
 function launchMetricsServer() {
@@ -47,12 +47,32 @@ function launchMetricsServer() {
   kubectl apply -f "https://github.com/kubernetes-sigs/metrics-server/releases/download/${metrics_server_version}/components.yaml"
 }
 
+function createConfigMapIfMissing() {
+  local name=$1 namespace=$2 existing
+  shift 2
+  existing=$(kubectl get configmap "$name" -n "$namespace" --ignore-not-found -o name)
+  if [[ -z "$existing" ]]; then
+    kubectl create configmap "$name" -n "$namespace" "$@"
+  fi
+}
+
 function launchProwConfig() {
-  kubectl create configmap plugins --from-file=plugins.yaml=./config/plugins.yaml || true
-  kubectl create configmap config --from-file "./config/config.yaml" || true
-  kubectl create configmap config --from-file "./config/config.yaml" -n test-pods || true
-  kubectl create configmap job-config --from-file "./config/jobs/config.yaml" || true
-  kubectl create configmap branding --from-file "./config/branding" || true
+  # config-updater owns existing configuration; deployment only bootstraps missing maps.
+  # Never replace a live catalog from a possibly older deployment checkout.
+  createConfigMapIfMissing plugins default --from-file=plugins.yaml=./config/prow/aws/plugins.yaml
+  createConfigMapIfMissing config default --from-file=./config/prow/aws/config.yaml
+  createConfigMapIfMissing config test-pods --from-file=./config/prow/aws/config.yaml
+  local job_file
+  local job_files=()
+  while IFS= read -r -d '' job_file; do
+    job_files+=(--from-file="$job_file")
+  done < <(git ls-files -z -- 'config/jobs/aws/*.yaml')
+  if (( ${#job_files[@]} == 0 )); then
+    echo 'The AWS Prow job catalog is empty; refusing to bootstrap it.' >&2
+    exit 1
+  fi
+  createConfigMapIfMissing job-config default "${job_files[@]}"
+  createConfigMapIfMissing branding default --from-file=./config/prow/aws/branding
   kubectl create secret generic s3-credentials --from-literal=service-account.json="${PROW_SERVICE_ACCOUNT_JSON}" || true
 
   #Github related items
@@ -68,23 +88,24 @@ function launchProwConfig() {
   
   # Related to OAuth setup... need to setup base url on Github for callback before we can create these
   
-  # kubectl create secret generic github-oauth-config --from-file=secret=" ... config/prow/github-oauth-config ..." || true
-  # kubectl create secret generic cookie --from-file=secret=" ... config/prow/cookie ..." || true
+  # kubectl create secret generic github-oauth-config --from-file=secret=" ... config/prow/aws/manifests/github-oauth-config ..." || true
+  # kubectl create secret generic cookie --from-file=secret=" ... config/prow/aws/manifests/cookie ..." || true
 }
 
 function launchConfig(){
   launchMetricsServer
   launchPodIdentityWebhook
+  kubectl apply -f config/prow/aws/manifests/test_pod_namespace.yaml
   launchProwConfig
 }
 
 function launchProwjobCRD(){
   # Apply the prow CRD.
-  kubectl apply --server-side=true -f config/prow/prowjob-crd/prowjob_custromresourcedefinition.yaml
+  kubectl apply --server-side=true -f config/prow/aws/manifests/prowjob-crd/prowjob_custromresourcedefinition.yaml
 }
 
 function launchProw(){
-  kubectl apply -f config/prow/
+  kubectl apply -f config/prow/aws/manifests/
 }
 
 function cleanup() {

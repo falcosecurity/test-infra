@@ -4,6 +4,29 @@
 
 GitHub Workflow & Testing Infrastructure
 
+## Cloud configuration
+
+Infrastructure is separated by area and cloud:
+
+| Area | AWS | OCI |
+| --- | --- | --- |
+| Terraform | [Cluster](config/clusters/aws/) | [Cluster](config/clusters/oci/) |
+| Applications | [Applications](config/applications/aws/) | [Applications](config/applications/oci/) |
+| Prow | [Configuration](config/prow/aws/) | [Configuration](config/prow/oci/) |
+| Prow jobs | [Job catalog](config/jobs/aws/) | No catalog configured |
+
+AWS and OCI have independent Prow versions, configuration, and node scheduling.
+The [OCI bootstrap](config/clusters/oci/bootstrap/) is managed and validated
+locally, outside CI.
+
+The [infrastructure CI](tools/ci/README.md) selects AWS, OCI, or both from the
+changed paths and validates them without cloud credentials or deployment.
+The [OCI Prow Application](config/applications/oci/prow.yaml) reconciles the
+[Prow bundle](config/prow/oci/) from `master`; see its
+[deployment instructions](config/prow/oci/README.md).
+AWS Prow configuration is maintained by `config-updater`, using the mappings in
+[plugins.yaml](config/prow/aws/plugins.yaml).
+
 ## DBG
 
 DBG stands for Drivers Build Grid.
@@ -28,7 +51,7 @@ Are you looking for Deck to check the merge queue and prow jobs?
 
 ### Adding a Job on Prow
 
-Falco is the first Public Prow instance running 100% on AWS infrastructure. This means there are slight differences when it comes to adding jobs to Falco's Prow.
+The examples below use the AWS job catalog and its container images.
 
 
 ### Job Types
@@ -45,7 +68,7 @@ There are three types of prow jobs:
 
 ### Create a Presubmits job that run's tests on PR's.
 
-1. We add a file at `config/jobs/build-drivers/build-drivers.yaml`
+1. Add a file under [AWS jobs](config/jobs/aws/), such as the existing [Amazon Linux driver jobs](config/jobs/aws/build-drivers/build-new-amazonlinux.yaml).
 
 2. 
 ```yaml

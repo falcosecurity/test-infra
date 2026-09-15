@@ -12,7 +12,7 @@ periodics:
         command:
         - generic-autobumper
         args:
-        - --config=config/autobump-config/prow-autobump-config.yaml
+        - --config=config/prow/aws/autobump-config.yaml
         - --signoff
         volumeMounts:
         - name: github
