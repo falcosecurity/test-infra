@@ -1,0 +1,15 @@
+apiVersion: artifact.falcosecurity.dev/v1alpha1
+kind: Plugin
+metadata:
+  name: k8smeta
+  namespace: falco
+spec:
+  ociArtifact:
+    image:
+      repository: falcosecurity/plugins/plugin/k8smeta
+      tag: "0.4.1"
+  config:
+    initConfig:
+      collectorHostname: k8s-metacollector.falco.svc
+      collectorPort: 45000
+      nodeName: "${FALCO_K8S_NODE_NAME}"

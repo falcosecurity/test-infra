@@ -1,0 +1,41 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-staging-gateway
+  namespace: monitoring
+spec:
+  acme:
+    email: cncf-falco-maintainers@lists.cncf.io
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging-gateway-account-key
+    solvers:
+      - selector:
+          dnsNames:
+            - oci-monitoring.prow.falco.org
+        http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                namespace: envoy-gateway-system
+                name: oci-public
+                sectionName: grafana-http
+            serviceType: ClusterIP
+            podTemplate:
+              spec:
+                nodeSelector:
+                  Application: platform
+                  kubernetes.io/os: linux
+                tolerations:
+                  - key: dedicated.falco.org/platform
+                    operator: Equal
+                    value: "true"
+                    effect: NoSchedule
+                resources:
+                  requests:
+                    cpu: 10m
+                    memory: 64Mi
+                  limits:
+                    cpu: 100m
+                    memory: 64Mi
