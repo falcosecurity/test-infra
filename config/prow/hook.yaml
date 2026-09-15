@@ -58,7 +58,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -85,7 +85,7 @@ spec:
             containerPort: 9090
         resources:
           limits:
-            cpu: 100m
+            cpu: "1"
             memory: 256M
           requests:
             cpu: 100m
