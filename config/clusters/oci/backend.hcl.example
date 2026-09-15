@@ -1,0 +1,6 @@
+bucket              = "falco-test-infra-terraform-state"
+namespace           = "example_namespace"
+key                 = "platform.tfstate"
+region              = "eu-frankfurt-1"
+auth                = "APIKey"
+config_file_profile = "FALCO_TEST_INFRA"
