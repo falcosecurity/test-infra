@@ -1,0 +1,19 @@
+apiVersion: instance.falcosecurity.dev/v1alpha1
+kind: Component
+metadata:
+  name: k8s-metacollector
+  namespace: falco
+spec:
+  component:
+    type: metacollector
+  podTemplateSpec:
+    spec:
+      containers:
+        - name: metacollector
+      nodeSelector:
+        Application: platform
+      tolerations:
+        - key: dedicated.falco.org/platform
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

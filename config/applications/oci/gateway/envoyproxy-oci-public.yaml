@@ -1,0 +1,51 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: oci-public
+  namespace: envoy-gateway-system
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 2
+        container:
+          resources:
+            requests:
+              cpu: 150m
+              memory: 640Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+        pod:
+          nodeSelector:
+            Application: platform
+          tolerations:
+            - key: dedicated.falco.org/platform
+              operator: Equal
+              value: "true"
+              effect: NoSchedule
+          topologySpreadConstraints:
+            - maxSkew: 1
+              minDomains: 2
+              topologyKey: topology.kubernetes.io/zone
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  gateway.envoyproxy.io/owning-gateway-namespace: envoy-gateway-system
+                  gateway.envoyproxy.io/owning-gateway-name: oci-public
+      envoyPDB:
+        minAvailable: 1
+      envoyService:
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        allocateLoadBalancerNodePorts: true
+        annotations:
+          oci.oraclecloud.com/load-balancer-type: "nlb"
+          oci.oraclecloud.com/reserved-ips: "92.5.3.49"
+          oci.oraclecloud.com/security-rule-management-mode: "None"
+          oci-network-load-balancer.oraclecloud.com/node-label-selector: "Application=platform"
+          oci-network-load-balancer.oraclecloud.com/external-ip-only: "true"
+          oci-network-load-balancer.oraclecloud.com/is-ppv2-enabled: "true"
