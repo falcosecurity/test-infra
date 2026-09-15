@@ -1,5 +1,40 @@
 # Infrastructure validation
 
+## Automatic AWS Terraform apply
+
+The [AWS apply workflow](../../.github/workflows/terraform-apply.yml) runs after
+changes to the AWS stack or its apply automation reach `master`. The merge is
+the authorization: no additional deployment approval is required. OCI-only
+changes do not trigger it.
+
+[apply-terraform-aws.sh](apply-terraform-aws.sh) checks formatting, initializes
+with the committed provider lock file, validates the configuration, and saves
+a plan in a private temporary directory. A plan with no changes finishes
+successfully without applying. A plan with changes is applied automatically
+from that exact saved file in the same job. Any failed prerequisite, planning
+error, or failed apply fails the job; it does not silently generate another plan.
+
+Backend locking and the existing shared deployment concurrency group remain
+enabled. AWS Terraform, Prow and Argo CD deployments share a queue with up to
+100 pending runs. They check out current `master` after acquiring concurrency,
+so delayed events do not deploy an older checkout. Runs exceeding the queue
+limit are canceled by GitHub and require operator follow-up.
+Plans and raw Terraform output are not uploaded as artifacts or
+published in logs; the helper reports stages and resource-action counts. The
+temporary files are removed when the helper exits. Diagnosing a failed stage
+may require an authorized reproduction because the raw diagnostics are private
+and ephemeral.
+
+The [PR plan](../../.github/workflows/terraform-plan.yml) remains
+speculative and is not reused for deployment. Both workflows pin Terraform
+1.15.6 and use the committed AWS provider lock file and backend configuration.
+
+AWS Prow's config-updater owns existing configuration ConfigMaps;
+[deploy_prow.sh](../deploy_prow.sh) only creates missing ones. When moving watched
+configuration paths, update the running config-updater mappings before merging
+the path changes. Keep other configuration merges paused during that transition
+and verify the running Hook has loaded the new mappings before resuming them.
+
 ## OCI Terraform plan and apply
 
 The [OCI workflow](../../.github/workflows/terraform-oci.yml) is separate from
