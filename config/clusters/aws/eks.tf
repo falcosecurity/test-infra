@@ -38,7 +38,7 @@ module "eks" {
 
       instance_types     = [var.eks_default_worker_group_instance_type]
       ami_type           = "AL2_x86_64"
-      version            = var.eks_cluster_version
+      version            = var.eks_node_group_version
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
 
       k8s_labels = {
@@ -67,7 +67,7 @@ module "eks" {
       instance_types     = [var.eks_jobs_worker_group_instance_type]
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
       ami_type           = "AL2_x86_64"
-      version            = var.eks_cluster_version
+      version            = var.eks_node_group_version
 
       k8s_labels = {
         Archtype    = "x86"
@@ -99,7 +99,7 @@ module "eks" {
         local.single_az_nodegroup_taint,
       ]
 
-      version            = var.eks_cluster_version
+      version            = var.eks_node_group_version
       kubelet_extra_args = "--kube-reserved=emephemeral-storage=30Gi"
 
       k8s_labels = {

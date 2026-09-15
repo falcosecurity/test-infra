@@ -1,6 +1,13 @@
 variable "eks_cluster_version" {
+  type        = string
+  default     = "1.31"
+  description = "Kubernetes version of the EKS control plane."
+}
+
+variable "eks_node_group_version" {
+  type        = string
   default     = "1.30"
-  description = "See https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html"
+  description = "Kubernetes version of the EKS managed node groups."
 }
 
 # Default Node Group.
