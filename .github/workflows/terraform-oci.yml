@@ -1,0 +1,189 @@
+name: Terraform OCI
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'config/clusters/oci/**'
+      - '!config/clusters/oci/bootstrap/**'
+      - '!config/clusters/oci/**/*.md'
+      - '.github/workflows/terraform-oci.yml'
+      - 'tools/ci/oci-session.sh'
+      - 'tools/ci/preflight-terraform-oci.sh'
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Verify both identities against master, or plan a reviewed PR
+        required: true
+        default: verify
+        type: choice
+        options:
+          - verify
+          - plan
+      pull_request:
+        description: PR number (required only for plan)
+        required: false
+        type: string
+      head_sha:
+        description: Exact reviewed PR head SHA (required only for plan)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oci-platform-terraform
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    if: github.repository == 'falcosecurity/test-infra' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      ref: ${{ github.event_name == 'workflow_dispatch' && inputs.operation == 'plan' && inputs.head_sha || steps.preflight.outputs.trusted_ref }}
+      identities: ${{ github.event_name == 'push' && '["apply"]' || inputs.operation == 'verify' && '["plan","apply"]' || '["plan"]' }}
+      terraform: ${{ steps.preflight.outputs.terraform }}
+      trusted_ref: ${{ steps.preflight.outputs.trusted_ref }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: master
+          persist-credentials: false
+      - name: Verify prerequisites and the reviewed revision
+        id: preflight
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPERATION: ${{ inputs.operation }}
+          PR_NUMBER: ${{ inputs.pull_request }}
+          REVIEWED_SHA: ${{ inputs.head_sha }}
+          OCI_OIDC_DOMAIN_URL: ${{ vars.OCI_OIDC_DOMAIN_URL }}
+          OCI_OIDC_CLIENT_ID: ${{ vars.OCI_OIDC_CLIENT_ID }}
+          STATE_BACKEND: ${{ vars.OCI_TERRAFORM_BACKEND }}
+          PLATFORM_VARIABLES: ${{ vars.OCI_TERRAFORM_VARIABLES }}
+        run: bash tools/ci/preflight-terraform-oci.sh
+      - name: Report paused automatic deployment
+        if: github.event_name == 'push' && vars.OCI_TERRAFORM_APPLY_ENABLED != 'true'
+        run: echo 'Automatic OCI deployment is disabled; manual verification remains available.'
+
+  terraform:
+    needs: preflight
+    if: github.event_name != 'push' || vars.OCI_TERRAFORM_APPLY_ENABLED == 'true'
+    name: Terraform (${{ matrix.identity }})
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        identity: ${{ fromJSON(needs.preflight.outputs.identities) }}
+    runs-on: ubuntu-24.04
+    environment: oci-terraform-${{ matrix.identity }}
+    permissions:
+      contents: read
+      id-token: write
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+        working-directory: platform/config/clusters/oci
+    env:
+      TF_IN_AUTOMATION: 'true'
+      TF_INPUT: '0'
+      TF_LOG: 'OFF'
+      TF_WORKSPACE: default
+      OCI_OIDC_DOMAIN_URL: ${{ vars.OCI_OIDC_DOMAIN_URL }}
+      OCI_SESSION_HELPER: ${{ github.workspace }}/ci/tools/ci/oci-session.sh
+    steps:
+      - name: Checkout the trusted session helper
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.preflight.outputs.trusted_ref }}
+          path: ci
+          sparse-checkout: tools/ci/oci-session.sh
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - name: Checkout the selected Terraform revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.preflight.outputs.ref }}
+          path: platform
+          persist-credentials: false
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+        with:
+          terraform_version: ${{ needs.preflight.outputs.terraform }}
+          terraform_wrapper: false
+      - name: Terraform fmt
+        run: terraform fmt -check
+      - name: Authenticate to OCI with GitHub OIDC
+        id: identity
+        env:
+          OCI_OIDC_CLIENT_ID: ${{ vars.OCI_OIDC_CLIENT_ID }}
+          OCI_OIDC_CLIENT_SECRET: ${{ secrets.OCI_OIDC_CLIENT_SECRET }}
+          OCI_TENANCY_OCID: ${{ fromJSON(vars.OCI_TERRAFORM_VARIABLES).tenancy_ocid }}
+        run: bash "$OCI_SESSION_HELPER" start
+      - name: Prepare private platform inputs
+        env:
+          PLATFORM_VARIABLES: ${{ vars.OCI_TERRAFORM_VARIABLES }}
+        run: |
+          umask 077
+          jq '. + {auth:"SecurityToken",config_file_profile:"CI"}' \
+            <<< "$PLATFORM_VARIABLES" > "$OCI_SESSION_DIR/inputs.tfvars.json"
+      - name: Terraform init
+        env:
+          STATE_BACKEND: ${{ vars.OCI_TERRAFORM_BACKEND }}
+        run: |
+          backend_args=(-backend-config=auth=SecurityToken -backend-config=config_file_profile=CI)
+          for key in bucket namespace key region; do
+            backend_args+=("-backend-config=$key=$(jq -er --arg key "$key" '.[$key]' <<< "$STATE_BACKEND")")
+          done
+          bash "$OCI_SESSION_HELPER" run init terraform init -input=false \
+            -lockfile=readonly -lock-timeout=5m -no-color "${backend_args[@]}"
+      - name: Terraform validate
+        run: bash "$OCI_SESSION_HELPER" run validate terraform validate -no-color
+      - name: Verify the existing platform state
+        run: |
+          bash "$OCI_SESSION_HELPER" run state terraform state list
+          if ! grep -qx 'oci_containerengine_cluster.this' "$OCI_SESSION_DIR/state.log"; then
+            echo 'The backend does not contain the existing OKE platform; refusing a new or unrelated state.' >&2
+            exit 1
+          fi
+          if awk '/(^|\.)oci_identity_/ && !/(^|\.)data\.oci_identity_/ { found = 1 } END { exit !found }' "$OCI_SESSION_DIR/state.log"; then
+            echo 'IAM resources must be managed in the manual bootstrap state, not the platform state.' >&2
+            exit 1
+          fi
+      - name: Terraform plan
+        id: plan
+        run: |
+          result=0
+          bash "$OCI_SESSION_HELPER" run plan terraform plan -input=false -no-color \
+            -lock-timeout=5m -detailed-exitcode -var-file="$OCI_SESSION_DIR/inputs.tfvars.json" \
+            -out="$OCI_SESSION_DIR/plan" || result=$?
+          case "$result" in
+            0) echo 'changes=false' >> "$GITHUB_OUTPUT"; echo 'OCI Terraform: no changes.' ;;
+            2) echo 'changes=true' >> "$GITHUB_OUTPUT" ;;
+            *) echo "OCI Terraform plan failed (exit $result)." >&2; exit "$result" ;;
+          esac
+      - name: Summarize the saved plan
+        if: steps.plan.outputs.changes == 'true'
+        run: |
+          bash "$OCI_SESSION_HELPER" run show terraform show -json "$OCI_SESSION_DIR/plan"
+          jq -er '
+            if type != "object" or (.format_version | type) != "string" then
+              error("Invalid Terraform plan JSON")
+            else . end
+            | def count_action($action):
+                [.resource_changes[]? | select(.change.actions | index($action))] | length;
+              "OCI Terraform plan: \(count_action("create")) to add, \(count_action("update")) to change, \(count_action("delete")) to destroy; \([(.output_changes // {})[] | select(.actions != ["no-op"])] | length) output changes."
+          ' "$OCI_SESSION_DIR/show.log" 2> "$OCI_SESSION_DIR/summary.log"
+      - name: Apply the saved plan after merge
+        if: github.event_name == 'push' && vars.OCI_TERRAFORM_APPLY_ENABLED == 'true' && matrix.identity == 'apply' && steps.plan.outputs.changes == 'true'
+        run: |
+          bash "$OCI_SESSION_HELPER" run apply terraform apply -input=false \
+            -no-color -lock-timeout=5m "$OCI_SESSION_DIR/plan"
+      - name: Clean up OCI credentials and private Terraform files
+        if: always() && steps.identity.outcome == 'success'
+        working-directory: ${{ github.workspace }}
+        run: bash "$OCI_SESSION_HELPER" cleanup
