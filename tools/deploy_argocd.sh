@@ -60,7 +60,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: config/applications
+    path: config/applications/aws
     repoURL: https://github.com/falcosecurity/test-infra.git
     targetRevision: HEAD
   syncPolicy:

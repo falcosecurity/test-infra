@@ -10,7 +10,8 @@ remoteName: "test-infra"
 upstreamURLBase: "https://raw.githubusercontent.com/falcosecurity/test-infra/master"
 targetVersion: "latest"
 includedConfigPaths:
-  - "."
+  - "config/prow/aws/"
+  - "config/jobs/aws/"
 excludedConfigPaths:
   - "driverkit/"
 prefixes:

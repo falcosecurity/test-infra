@@ -2,11 +2,15 @@
 
 ## Overview
 
-We use a custom Go Config-Uploader to update job-config here from all the files.
+This utility uploads Prow configuration to existing ConfigMaps. It is run
+manually and replaces each selected ConfigMap's contents. AWS uses
+[`config-updater`](../../config/prow/aws/plugins.yaml) for automatic updates;
+do not run both writers concurrently.
 
-go run cmd/configuploader/main.go --kubeconfig $HOME/.kube/config --plugin-config-path {pathToPluginsYaml}
+The [RBAC manifests](rbac.yaml) are provided for manual use and are not part of
+the automatic AWS deployment.
 
-> **NOTE:** Config Uploader expects that the `config`, `plugins`, and `job-config` ConfigMaps are present on the cluster.
+> **NOTE:** Each ConfigMap selected for upload must already exist on the cluster.
 
 ### Flags
 
@@ -14,7 +18,7 @@ See the list of available flags:
 
 | Name                      | Required | Description                                                                                          |
 | :------------------------ | :------: | :--------------------------------------------------------------------------------------------------- |
-| **--kubeconfig**          |   Yes    | The path to the `kubeconfig` file, needed to connect to a cluster.                                   |
+| **--kubeconfig**          |    No    | Kubeconfig path; when omitted, the tool uses in-cluster ServiceAccount authentication.              |
 | **--config-path**         |    No    | The path to the `config.yaml` file. Set it to upload the Prow configuration to a cluster.            |
 | **--jobs-config-path**    |    No    | The path to the directory with job configurations. Set it to upload job configurations to a cluster. |
 | **--plugins-config-path** |    No    | The path to the `plugins.yaml` file. Set it to upload plugin configurations to a cluster.             |

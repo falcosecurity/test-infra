@@ -26,8 +26,8 @@ var (
 )
 
 func init() {
-	jobConfigPath = flag.String("config-job", "config/jobs/", "Path to the prow job config file or a folder full of prow jobs config files.")
-	prowConfigPath = flag.String("config-prow", "config/config.yaml", "Path to the prow main config file")
+	jobConfigPath = flag.String("config-job", "config/jobs/aws/", "Path to the prow job config file or a folder full of prow jobs config files.")
+	prowConfigPath = flag.String("config-prow", "config/prow/aws/config.yaml", "Path to the prow main config file")
 	changed = flag.String("changed-file", "", "Changed file to check run against")
 	ref = flag.String("base-ref", "", "Changed ref to check run against")
 	verbose = flag.Bool("verbose", false, "Enable verbose logging")

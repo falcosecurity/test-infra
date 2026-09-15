@@ -33,7 +33,7 @@ echo "******************************************************"
 echo "Running job update"
 echo "******************************************************"
 
-bin/update-jobs --kubeconfig $KUBECONFIG --jobs-config-path /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs
+bin/update-jobs --kubeconfig $KUBECONFIG --jobs-config-path /home/prow/go/src/github.com/falcosecurity/test-infra/config/jobs/aws
 
 echo "******************************************************"
 echo "Updated-jobs image"
