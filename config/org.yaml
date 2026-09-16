@@ -686,6 +686,7 @@ orgs:
           - vjjmiras
           - LucaGuerra
           - ekoops
+          - c2ndev
         privacy: closed
         repos:
           falco-website: maintain
