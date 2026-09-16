@@ -19,14 +19,6 @@ AWS and OCI have independent Prow versions, configuration, and node scheduling.
 The [OCI bootstrap](config/clusters/oci/bootstrap/) is managed and validated
 locally, outside CI.
 
-The [infrastructure CI](tools/ci/README.md) selects AWS, OCI, or both from the
-changed paths and validates them without cloud credentials or deployment.
-The [OCI Prow Application](config/applications/oci/prow.yaml) reconciles the
-[Prow bundle](config/prow/oci/) from `master`; see its
-[deployment instructions](config/prow/oci/README.md).
-AWS Prow configuration is maintained by `config-updater`, using the mappings in
-[plugins.yaml](config/prow/aws/plugins.yaml).
-
 ## DBG
 
 DBG stands for Drivers Build Grid.
