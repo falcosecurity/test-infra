@@ -6,6 +6,7 @@ locals {
     "read cluster-node-pools",
     "read cluster-work-requests",
     "inspect instances",
+    "inspect instance-images",
     "read virtual-network-family",
     "read log-groups",
     "read repos",
