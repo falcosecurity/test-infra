@@ -9,6 +9,6 @@ compartment_name   = "falco-test-infra"
 terraform_state_bucket_name = "falco-test-infra-terraform-state"
 
 github_oidc_client_id = "718a53d715f549aca624c028ede41440"
-github_oidc_enabled   = false
+github_oidc_enabled   = true
 
 oke_cluster_ocid = "ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaarclidxnact4h4lh55xvyaxuibzcpmqeordimlfnvycuiycvgt3ca"

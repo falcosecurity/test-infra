@@ -21,12 +21,7 @@ resource "oci_identity_domains_identity_propagation_trust" "github" {
   dynamic "impersonation_service_users" {
     for_each = local.terraform_identities
     content {
-      rule = join(" and ", [
-        "sub eq 'repo:falcosecurity/test-infra:environment:oci-terraform-${impersonation_service_users.key}'",
-        "aud eq 'https://cloud.oracle.com'",
-        "ref eq 'refs/heads/master'",
-        "runner_environment eq 'github-hosted'",
-      ])
+      rule  = "sub eq repo:falcosecurity/test-infra:environment:oci-terraform-${impersonation_service_users.key}"
       value = oci_identity_domains_user.terraform[impersonation_service_users.key].id
     }
   }
