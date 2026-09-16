@@ -1,9 +1,6 @@
 # AWS Prow jobs
 
-This directory contains the AWS Prow job catalog. The
-[config-updater mappings](../../prow/aws/plugins.yaml) publish the catalog to
-Prow, and [check-prow-config](check-prow-config/check-prow-config.yaml) validates
-the core, plugin and job configuration.
+This directory contains the AWS Prow job catalog.
 
 ## Job types
 
@@ -23,12 +20,3 @@ type's structure.
 
 The [local testing guide](../../../docs/local-testing.md) describes how to run
 a job during development. Repository CI validates the submitted configuration.
-
-## Configuration updates
-
-Prow's `config-updater` manages the job ConfigMap using the committed AWS paths.
-The [deployment script](../../../tools/deploy_prow.sh) creates missing
-ConfigMaps without overwriting existing configuration.
-
-The [manual uploader](../../../prow/update-jobs/README.md) replaces ConfigMap
-contents and must not run concurrently with automatic configuration updates.

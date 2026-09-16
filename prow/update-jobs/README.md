@@ -3,12 +3,7 @@
 ## Overview
 
 This utility uploads Prow configuration to existing ConfigMaps. It is run
-manually and replaces each selected ConfigMap's contents. AWS uses
-[`config-updater`](../../config/prow/aws/plugins.yaml) for automatic updates;
-do not run both writers concurrently.
-
-The [RBAC manifests](rbac.yaml) are provided for manual use and are not part of
-the automatic AWS deployment.
+manually and replaces each selected ConfigMap's contents.
 
 > **NOTE:** Each ConfigMap selected for upload must already exist on the cluster.
 
