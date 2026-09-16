@@ -15,7 +15,7 @@ spec:
       releaseName: falco
       values: |
         image:
-          tag: "0.45.0-rc2"
+          tag: "0.45.0-rc3"
         tolerations:
           - key: "Availability"
             operator: "Equal"
@@ -42,7 +42,7 @@ spec:
         driver:
           loader:
             initContainer:
-              tag: "0.45.0-rc2"
+              tag: "0.45.0-rc3"
         collectors:
           containerEngine:
             pluginRef: "ghcr.io/falcosecurity/plugins/plugin/container:0.7.4"
