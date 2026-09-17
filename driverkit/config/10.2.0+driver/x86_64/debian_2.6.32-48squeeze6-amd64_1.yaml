@@ -1,0 +1,16 @@
+kernelversion: "1"
+kernelrelease: 2.6.32-48squeeze6-amd64
+target: debian
+architecture: amd64
+output:
+    module: ""
+kernelurls:
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-amd64_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-common-openvz_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-common-vserver_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-common-xen_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-common_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-openvz-amd64_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-vserver-amd64_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-2.6/linux-headers-2.6.32-5-xen-amd64_2.6.32-48squeeze6_amd64.deb
+    - http://archive.debian.org/debian/pool/main/l/linux-kbuild-2.6/linux-kbuild-2.6.32_2.6.32-1_amd64.deb
