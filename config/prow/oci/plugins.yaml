@@ -9,6 +9,11 @@ metadata:
     app.kubernetes.io/part-of: prow
 data:
   plugins.yaml: |
+    triggers:
+      - repos:
+          - falcosecurity
+        join_org_url: "https://github.com/falcosecurity/.github/blob/main/CONTRIBUTING.md"
+        only_org_members: true
     plugins:
       falcosecurity/test-infra:
         plugins:
