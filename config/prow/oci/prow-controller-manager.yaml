@@ -184,6 +184,7 @@ spec:
           args:
             - --dry-run=false
             - --config-path=/etc/prow/config/config.yaml
+            - --job-config-path=/etc/prow/jobs
             - --enable-controller=plank
             - --health-port=8081
             - --metrics-port=9090
@@ -229,10 +230,17 @@ spec:
               drop:
                 - ALL
           volumeMounts:
+            - name: job-config
+              mountPath: /etc/prow/jobs
+              readOnly: true
             - name: config
               mountPath: /etc/prow/config
               readOnly: true
       volumes:
+        - name: job-config
+          configMap:
+            name: job-config
+            defaultMode: 0444
         - name: config
           configMap:
             name: config

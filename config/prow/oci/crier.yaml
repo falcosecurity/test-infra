@@ -188,6 +188,7 @@ spec:
           args:
             - --dry-run=false
             - --config-path=/etc/prow/config/config.yaml
+            - --job-config-path=/etc/prow/jobs
             - --blob-storage-workers=1
             - --kubernetes-blob-storage-workers=1
             - --github-workers=0
@@ -232,6 +233,9 @@ spec:
               drop:
                 - ALL
           volumeMounts:
+            - name: job-config
+              mountPath: /etc/prow/jobs
+              readOnly: true
             - name: config
               mountPath: /etc/prow/config
               readOnly: true
@@ -239,6 +243,10 @@ spec:
               mountPath: /etc/s3-credentials
               readOnly: true
       volumes:
+        - name: job-config
+          configMap:
+            name: job-config
+            defaultMode: 0444
         - name: config
           configMap:
             name: config

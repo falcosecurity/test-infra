@@ -18,6 +18,7 @@ if [[ -d config/jobs/oci ]]; then
   mkdir -p "$validation_dir/jobs"
   git ls-files -z --cached --others --exclude-standard -- 'config/jobs/oci/*.yaml' 'config/jobs/oci/*.yml' > "$validation_dir/job-files"
   while IFS= read -r -d '' job; do
+    [[ "$job" != */kustomization.yaml ]] || continue
     destination="$validation_dir/jobs/${job#config/jobs/oci/}"
     mkdir -p "$(dirname "$destination")"
     cp "$job" "$destination"

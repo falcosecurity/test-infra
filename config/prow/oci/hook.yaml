@@ -122,6 +122,7 @@ spec:
             - --github-endpoint=https://api.github.com
             - --github-graphql-endpoint=http://ghproxy/graphql
             - --config-path=/etc/prow/config/config.yaml
+            - --job-config-path=/etc/prow/jobs
             - --plugin-config=/etc/prow/plugins/plugins.yaml
             - --hmac-secret-file=/etc/prow/webhook/hmac
             - --cache-dir-base=/tmp
@@ -172,6 +173,9 @@ spec:
               drop:
                 - ALL
           volumeMounts:
+            - name: job-config
+              mountPath: /etc/prow/jobs
+              readOnly: true
             - name: config
               mountPath: /etc/prow/config
               readOnly: true
@@ -187,6 +191,10 @@ spec:
             - name: tmp
               mountPath: /tmp
       volumes:
+        - name: job-config
+          configMap:
+            name: job-config
+            defaultMode: 0444
         - name: config
           configMap:
             name: config
