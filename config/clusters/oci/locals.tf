@@ -40,12 +40,13 @@ locals {
 
   pool_node_metadata = {
     for name, args in local.pool_taint_args : name =>
-    args == "" ? {} : {
-      user_data = base64encode(join("\n", [
+    args == "" && local.node_pools[name].application != "driverkit" ? {} : {
+      user_data = base64encode(join("\n", compact([
         "#!/bin/bash",
         "curl --fail -H \"Authorization: Bearer Oracle\" -L0 http://169.254.169.254/opc/v2/instance/metadata/oke_init_script | base64 --decode >/var/run/oke-init.sh",
+        local.node_pools[name].application == "driverkit" ? "bash /usr/libexec/oci-growfs -y || exit 1" : "",
         "bash /var/run/oke-init.sh --kubelet-extra-args \"${args}\"",
-      ]))
+      ])))
       "kubelet-extra-args" = args
     }
   }
