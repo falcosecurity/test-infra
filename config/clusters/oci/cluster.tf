@@ -202,7 +202,10 @@ resource "oci_containerengine_node_pool" "autoscaled" {
 
   node_metadata = local.pool_node_metadata[each.key]
 
-  freeform_tags = local.tags
+  # Scale-from-zero needs filesystem allocatable space, not boot volume size.
+  freeform_tags = merge(local.tags, {
+    "cluster-autoscaler/node-ephemeral-storage" = "30Gi"
+  })
 
   lifecycle {
     ignore_changes = [
