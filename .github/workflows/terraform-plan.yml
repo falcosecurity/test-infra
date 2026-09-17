@@ -6,6 +6,7 @@ on:
       - master
     paths:
     - 'config/clusters/aws/**'
+    - '!config/clusters/aws/bootstrap/**'
 
 defaults:
   run:

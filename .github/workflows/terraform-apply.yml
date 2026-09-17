@@ -6,6 +6,7 @@ on:
     - master
     paths:
     - 'config/clusters/aws/**'
+    - '!config/clusters/aws/bootstrap/**'
     - '.github/workflows/terraform-apply.yml'
     - 'tools/ci/apply-terraform-aws.sh'
 
