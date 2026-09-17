@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
   - ../../jobs/oci
   - namespaces.yaml
+  - driverkit.yaml
+  - driverkit-policy.yaml
   - log-storage-policy.yaml
   - prowjob-crd.yaml
   - config.yaml

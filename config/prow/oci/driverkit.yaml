@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: driver-kit
+  namespace: test-pods
+  labels:
+    app.kubernetes.io/name: driverkit
+    app.kubernetes.io/part-of: prow
+automountServiceAccountToken: false
