@@ -21,7 +21,8 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=confirm,Delete=confirm
   labels:
     app.kubernetes.io/part-of: prow
-    pod-security.kubernetes.io/enforce: baseline
+    # The prow-driverkit admission policy restricts privileged Docker to dedicated nodes.
+    pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/enforce-version: v1.35
     pod-security.kubernetes.io/audit: restricted
     pod-security.kubernetes.io/audit-version: v1.35

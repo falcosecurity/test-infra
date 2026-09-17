@@ -3,7 +3,8 @@ kind: Kustomization
 namespace: prow
 configMapGenerator:
   - name: job-config
-    files: []
+    files:
+      - build-drivers/build-new-minikube.yaml
     options:
       labels:
         app.kubernetes.io/part-of: prow
