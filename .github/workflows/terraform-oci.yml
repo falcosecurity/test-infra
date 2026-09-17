@@ -77,8 +77,8 @@ jobs:
           REVIEWED_SHA: ${{ github.event.pull_request.head.sha || inputs.head_sha }}
           OCI_OIDC_DOMAIN_URL: ${{ vars.OCI_OIDC_DOMAIN_URL }}
           OCI_OIDC_CLIENT_ID: ${{ vars.OCI_OIDC_CLIENT_ID }}
+          OCI_TENANCY_OCID: ${{ vars.OCI_TENANCY_OCID }}
           STATE_BACKEND: ${{ vars.OCI_TERRAFORM_BACKEND }}
-          PLATFORM_VARIABLES: ${{ vars.OCI_TERRAFORM_VARIABLES }}
         run: bash tools/ci/preflight-terraform-oci.sh
       - name: Mark the PR plan as pending
         if: github.event_name == 'pull_request_target' || inputs.operation == 'plan'
@@ -93,13 +93,9 @@ jobs:
               context: 'Terraform OCI / plan', target_url: process.env.RUN_URL,
               description: 'OCI Terraform plan awaiting approval or execution.'
             });
-      - name: Report paused automatic deployment
-        if: github.event_name == 'push' && vars.OCI_TERRAFORM_APPLY_ENABLED != 'true'
-        run: echo 'Automatic OCI deployment is disabled; manual verification remains available.'
 
   terraform:
     needs: preflight
-    if: github.event_name != 'push' || vars.OCI_TERRAFORM_APPLY_ENABLED == 'true'
     name: Terraform (${{ matrix.identity }}, ${{ github.event.pull_request.head.sha || inputs.head_sha || 'master' }})
     strategy:
       fail-fast: false
@@ -126,6 +122,8 @@ jobs:
       TF_INPUT: '0'
       TF_LOG: 'OFF'
       TF_WORKSPACE: default
+      TF_VAR_auth: SecurityToken
+      TF_VAR_config_file_profile: CI
       OCI_OIDC_DOMAIN_URL: ${{ vars.OCI_OIDC_DOMAIN_URL }}
       OCI_SESSION_HELPER: ${{ github.workspace }}/ci/tools/ci/oci-session.sh
       OCI_IDENTITY: ${{ matrix.identity }}
@@ -166,15 +164,8 @@ jobs:
         env:
           OCI_OIDC_CLIENT_ID: ${{ vars.OCI_OIDC_CLIENT_ID }}
           OCI_OIDC_CLIENT_SECRET: ${{ secrets.OCI_OIDC_CLIENT_SECRET }}
-          OCI_TENANCY_OCID: ${{ fromJSON(vars.OCI_TERRAFORM_VARIABLES).tenancy_ocid }}
+          OCI_TENANCY_OCID: ${{ vars.OCI_TENANCY_OCID }}
         run: bash "$OCI_SESSION_HELPER" start
-      - name: Prepare private platform inputs
-        env:
-          PLATFORM_VARIABLES: ${{ vars.OCI_TERRAFORM_VARIABLES }}
-        run: |
-          umask 077
-          jq '. + {auth:"SecurityToken",config_file_profile:"CI"}' \
-            <<< "$PLATFORM_VARIABLES" > "$OCI_SESSION_DIR/inputs.tfvars.json"
       - name: Terraform init
         env:
           STATE_BACKEND: ${{ vars.OCI_TERRAFORM_BACKEND }}
@@ -203,7 +194,7 @@ jobs:
         run: |
           result=0
           bash "$OCI_SESSION_HELPER" run plan terraform plan -input=false -no-color \
-            -lock-timeout=5m -detailed-exitcode -var-file="$OCI_SESSION_DIR/inputs.tfvars.json" \
+            -lock-timeout=5m -detailed-exitcode \
             -out="$OCI_SESSION_DIR/plan" || result=$?
           case "$result" in
             0) echo 'changes=false' >> "$GITHUB_OUTPUT"; echo 'OCI Terraform: no changes.' ;;
@@ -226,7 +217,7 @@ jobs:
           if-no-files-found: error
           retention-days: 7
       - name: Apply the saved plan after merge
-        if: github.event_name == 'push' && vars.OCI_TERRAFORM_APPLY_ENABLED == 'true' && matrix.identity == 'apply' && steps.plan.outputs.changes == 'true'
+        if: github.event_name == 'push' && matrix.identity == 'apply' && steps.plan.outputs.changes == 'true'
         run: |
           bash "$OCI_SESSION_HELPER" run apply terraform apply -input=false \
             -no-color -lock-timeout=5m -parallelism=1 "$OCI_SESSION_DIR/plan"
