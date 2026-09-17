@@ -220,7 +220,7 @@ jobs:
         if: github.event_name == 'push' && matrix.identity == 'apply' && steps.plan.outputs.changes == 'true'
         run: |
           bash "$OCI_SESSION_HELPER" run apply terraform apply -input=false \
-            -no-color -lock-timeout=5m -parallelism=1 "$OCI_SESSION_DIR/plan"
+            -json -lock-timeout=5m -parallelism=1 "$OCI_SESSION_DIR/plan"
       - name: Clean up OCI credentials and private Terraform files
         if: always() && steps.identity.outcome == 'success'
         working-directory: ${{ github.workspace }}

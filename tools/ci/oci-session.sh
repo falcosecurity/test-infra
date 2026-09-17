@@ -135,7 +135,21 @@ case "${1:-}" in
       sleep 0.1
     done
     result=0
-    "$@" > "$OCI_SESSION_DIR/$stage.log" 2> "$OCI_SESSION_DIR/$stage.err" || result=$?
+    if [[ "$stage" == apply ]]; then
+      # Stream Terraform UI events, never provider messages, IDs or output values.
+      "$@" 2> "$OCI_SESSION_DIR/$stage.err" | tee "$OCI_SESSION_DIR/$stage.log" \
+        | jq --unbuffered -r '
+            if .type == "apply_start" or .type == "apply_progress" or
+               .type == "apply_complete" or .type == "apply_errored" then
+              "Terraform \(.type): \(.hook.resource.addr | @json) (\(.hook.action), \(.hook.elapsed_seconds // 0)s)"
+            elif .type == "change_summary" then
+              "Terraform \(.changes.operation): \(.changes.add) added, \(.changes.change) changed, \(.changes.remove) destroyed."
+            elif .type == "diagnostic" then
+              "Terraform diagnostic received; provider details withheld."
+            else empty end' || result=$?
+    else
+      "$@" > "$OCI_SESSION_DIR/$stage.log" 2> "$OCI_SESSION_DIR/$stage.err" || result=$?
+    fi
     check_renewal
     echo "OCI step $stage completed (exit $result); raw output withheld."
     exit "$result"
