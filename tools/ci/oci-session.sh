@@ -7,7 +7,8 @@ umask 077
 # This helper is run from the trusted master checkout, never from a PR checkout.
 if [[ "${GITHUB_ACTIONS:-}" != true || "${GITHUB_REF:-}" != refs/heads/master ||
       "${GITHUB_REPOSITORY:-}" != falcosecurity/test-infra ||
-      ! "${GITHUB_EVENT_NAME:-}" =~ ^(push|workflow_dispatch)$ ]]; then
+      ! "${GITHUB_EVENT_NAME:-}" =~ ^(push|workflow_dispatch|pull_request_target)$ ||
+      ( "${GITHUB_EVENT_NAME:-}" == pull_request_target && "${OCI_IDENTITY:-}" != plan ) ]]; then
   echo 'OCI sessions require the upstream master workflow.' >&2
   exit 1
 fi
