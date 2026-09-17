@@ -13,8 +13,6 @@ spec:
     repoURL: https://github.com/falcosecurity/test-infra.git
     targetRevision: HEAD
     path: config/applications/oci/gateway
-    directory:
-      recurse: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: envoy-gateway-system

@@ -11,8 +11,6 @@ spec:
     repoURL: https://github.com/falcosecurity/test-infra.git
     targetRevision: HEAD
     path: config/applications/oci/falco
-    directory:
-      recurse: false
   destination:
     server: "https://kubernetes.default.svc"
     namespace: falco
