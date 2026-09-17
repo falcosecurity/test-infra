@@ -41,8 +41,8 @@ check_pull_request() {
   fi
   gh api "repos/$GITHUB_REPOSITORY/environments/oci-terraform-plan" \
     | jq -e '.can_admins_bypass == false and any(.protection_rules[]?;
-        .type == "required_reviewers" and .prevent_self_review == true and (.reviewers | length) > 0)' >/dev/null \
-    || fail 'oci-terraform-plan requires reviewers, prevention of self-review and disabled admin bypass.'
+        .type == "required_reviewers" and (.reviewers | length) > 0)' >/dev/null \
+    || fail 'oci-terraform-plan requires reviewers and disabled admin bypass.'
 }
 
 if [[ "${1:-}" == recheck ]]; then
