@@ -37,8 +37,8 @@ data:
 
     plank:
       job_queue_capacities:
-        driverkit-arm: 1
-        driverkit-x86: 1
+        driverkit-arm: 4
+        driverkit-x86: 4
       job_url_prefix_config:
         '*': https://oci-prow.falco.org/view/
       default_decoration_config_entries:

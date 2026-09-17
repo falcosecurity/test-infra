@@ -1,0 +1,61 @@
+presubmits:
+  falcosecurity/test-infra:
+    - name: validate-dbg
+      decorate: true
+      skip_report: false
+      agent: kubernetes
+      branches:
+        - ^master$
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/(.+/)?'
+      spec:
+        serviceAccountName: driver-kit
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        securityContext:
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        nodeSelector:
+          Application: driverkit
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        tolerations:
+          - key: dedicated.falco.org/driverkit
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+        containers:
+          - &validator
+            name: validate-amd64
+            image: ghcr.io/falcosecurity/dbg-go:0.18.0@sha256:e3ae931c8d08c6682111d1b0f3230aee74a49098da809d9981ec72e9a24f9a68
+            command:
+              - /ko-app/dbg-go
+            args:
+              - configs
+              - validate
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=amd64
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 65532
+              runAsGroup: 65532
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 250m
+                memory: 256Mi
+                ephemeral-storage: 128Mi
+              limits:
+                cpu: "1"
+                memory: 2Gi
+                ephemeral-storage: 512Mi
+          - <<: *validator
+            name: validate-arm64
+            args:
+              - configs
+              - validate
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=arm64

@@ -11,6 +11,7 @@ resources:
   - plugins.yaml
   - ghproxy.yaml
   - hook.yaml
+  - horologium.yaml
   - prow-controller-manager.yaml
   - sinker.yaml
   - crier.yaml

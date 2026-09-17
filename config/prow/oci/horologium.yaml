@@ -1,0 +1,162 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: horologium
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: horologium
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/part-of: prow
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: horologium
+  namespace: prow
+rules:
+  - apiGroups:
+      - prow.k8s.io
+    resources:
+      - prowjobs
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: horologium
+  namespace: prow
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: horologium
+subjects:
+  - kind: ServiceAccount
+    name: horologium
+    namespace: prow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: horologium
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: horologium
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/part-of: prow
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: horologium
+  ports:
+    - name: metrics
+      port: 9090
+      protocol: TCP
+      targetPort: metrics
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: horologium
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: horologium
+    app.kubernetes.io/component: scheduler
+    app.kubernetes.io/part-of: prow
+    app.kubernetes.io/version: v20260811-cafa49460
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: horologium
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: horologium
+        app.kubernetes.io/component: scheduler
+        app.kubernetes.io/part-of: prow
+        app.kubernetes.io/version: v20260811-cafa49460
+    spec:
+      serviceAccountName: horologium
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: horologium
+          image: us-docker.pkg.dev/k8s-infra-prow/images/horologium:v20260811-cafa49460@sha256:5e7dcaac31aaff2fabbc8dba7d69e9b9e0637c027765a0268dc507be46cf3b49
+          args:
+            - --dry-run=false
+            - --config-path=/etc/prow/config/config.yaml
+            - --job-config-path=/etc/prow/jobs
+            - --metrics-port=9090
+          ports:
+            - name: metrics
+              containerPort: 9090
+          startupProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            failureThreshold: 30
+            periodSeconds: 2
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            periodSeconds: 5
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /etc/prow/config
+              readOnly: true
+            - name: job-config
+              mountPath: /etc/prow/jobs
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: config
+        - name: job-config
+          configMap:
+            name: job-config
+      nodeSelector:
+        Application: platform
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/platform
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

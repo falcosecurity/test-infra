@@ -533,6 +533,8 @@ tide:
           test-infra:
             required-if-present-contexts:
               - "Terraform OCI / plan"
+              - "validate-dbg"
+              - "build-update-dbg-image"
   merge_method:
     falcosecurity/.github: rebase
     falcosecurity/advocacy: rebase
