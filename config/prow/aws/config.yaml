@@ -527,6 +527,12 @@ tide:
   context_options:
     skip-unknown-contexts: true
     from-branch-protection: true
+    orgs:
+      falcosecurity:
+        repos:
+          test-infra:
+            required-if-present-contexts:
+              - "Terraform OCI / plan"
   merge_method:
     falcosecurity/.github: rebase
     falcosecurity/advocacy: rebase
