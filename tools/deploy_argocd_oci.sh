@@ -75,23 +75,5 @@ echo
 
 echo "Configuring app of apps:"
 # Install the application that installs all the other applications.
-cat <<EOF | kubectl --kubeconfig "$kubeconfig" --context "$kube_context" apply -f -
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: applications
-  namespace: argocd
-spec:
-  destination:
-    namespace: argocd
-    server: https://kubernetes.default.svc
-  project: default
-  source:
-    directory:
-      exclude: argocd-values.yaml
-    path: config/applications/oci
-    repoURL: https://github.com/falcosecurity/test-infra.git
-    targetRevision: HEAD
-  syncPolicy:
-    automated: {}
-EOF
+kubectl --kubeconfig "$kubeconfig" --context "$kube_context" apply \
+  -f "${repo_root}/config/applications/oci/bootstrap/applications.yaml"
