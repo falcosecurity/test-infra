@@ -8,7 +8,9 @@ resources:
   - ghproxy.yaml
   - hook.yaml
   - prow-controller-manager.yaml
+  - sinker.yaml
   - deck.yaml
+  - monitoring.yaml
 patches:
   - target:
       kind: CustomResourceDefinition

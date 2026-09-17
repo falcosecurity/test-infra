@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prow
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: prow
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/part-of: prow
+    release: kube-prometheus-stack
+spec:
+  jobLabel: app.kubernetes.io/name
+  namespaceSelector:
+    matchNames:
+      - prow
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: prow
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      scrapeTimeout: 10s
