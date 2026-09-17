@@ -58,8 +58,10 @@ jobs:
           echo "13c120a63d7024ca8c54422e047424e318622625336ed77b2c1a36ef5fb1441c  $RUNNER_TEMP/terrascan-source.tar.gz" | sha256sum --check --status
           tar -xf "$RUNNER_TEMP/terrascan-source.tar.gz" -C "$RUNNER_TEMP" terrascan-1.19.9/pkg/policies/opa/rego
       - name: Scan AWS Terraform
-        run: >-
-          "$RUNNER_TEMP/terrascan" scan -i terraform -d config/clusters/aws -v
-          -p "$RUNNER_TEMP/terrascan-1.19.9/pkg/policies/opa/rego"
-          --temp-dir "$RUNNER_TEMP"
+        run: |
+          scan_dir=$(mktemp -d "$RUNNER_TEMP/aws-terraform-scan.XXXXXXXX")
+          cp config/clusters/aws/*.tf "$scan_dir/"
+          "$RUNNER_TEMP/terrascan" scan -i terraform -d "$scan_dir" -v \
+          -p "$RUNNER_TEMP/terrascan-1.19.9/pkg/policies/opa/rego" \
+          --temp-dir "$RUNNER_TEMP" \
           --skip-rules 'AC_AWS_0214,AC_AWS_0369,AC_AWS_0487,AC_AWS_078,AWS.CloudTrail.Logging.Medium.007,AC_AWS_0447,AC_AWS_0497,AC_AWS_0458,AC_AWS_0320'
