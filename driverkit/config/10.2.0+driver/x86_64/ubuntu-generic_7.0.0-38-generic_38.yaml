@@ -1,0 +1,13 @@
+kernelversion: "38"
+kernelrelease: 7.0.0-38-generic
+target: ubuntu-generic
+architecture: amd64
+output:
+    module: output/10.2.0+driver/x86_64/falco_ubuntu-generic_7.0.0-38-generic_38.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-38-generic_7.0.0-38.38_amd64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-38_7.0.0-38.38_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-38-generic_7.0.0-38.38_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-38_7.0.0-38.38_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-38-generic_7.0.0-38.38_amd64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-38_7.0.0-38.38_all.deb
