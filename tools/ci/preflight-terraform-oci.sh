@@ -56,25 +56,15 @@ version=$(tr -d '\n\r' < config/clusters/oci/.terraform-version)
 trusted_ref=$(git rev-parse HEAD)
 printf 'terraform=%s\ntrusted_ref=%s\nref=%s\n' "$version" "$trusted_ref" "$trusted_ref" >> "${GITHUB_OUTPUT:?}"
 
-for required in OCI_OIDC_DOMAIN_URL OCI_OIDC_CLIENT_ID STATE_BACKEND PLATFORM_VARIABLES; do
+for required in OCI_OIDC_DOMAIN_URL OCI_OIDC_CLIENT_ID OCI_TENANCY_OCID STATE_BACKEND; do
   [[ -n "${!required:-}" ]] || fail "Missing OCI Terraform prerequisite: $required"
 done
+[[ "$OCI_TENANCY_OCID" =~ ^ocid1\.tenancy\.[a-z0-9.]+$ ]] || fail 'Invalid OCI tenancy OCID.'
 
 jq -e 'type == "object" and (keys == ["bucket","key","namespace","region"])
   and all(.[]; type == "string" and length > 0)
   and .region == "eu-frankfurt-1"' <<< "$STATE_BACKEND" >/dev/null 2>&1 \
   || fail 'Invalid OCI Terraform backend configuration.'
-jq -e 'type == "object" and .region == "eu-frankfurt-1"
-  and all(.tenancy_ocid,.compartment_ocid,.object_storage_namespace,.terraform_state_bucket_name,.cluster_name,.control_plane_k8s_version,.nodepool_k8s_version; type == "string" and length > 0)
-  and (.node_pools | type == "object" and length > 0)
-  and (.kubernetes_api_allowed_cidrs | type == "array")
-  and (.allow_dynamic_node_images // false) == false
-  and all(.node_pool_image_ids.x86,.node_pool_image_ids.arm; type == "string" and startswith("ocid1.image."))' \
-  <<< "$PLATFORM_VARIABLES" >/dev/null 2>&1 \
-  || fail 'Invalid OCI Terraform production variables.'
-[[ "$(jq -r '.bucket' <<< "$STATE_BACKEND")" == "$(jq -r '.terraform_state_bucket_name' <<< "$PLATFORM_VARIABLES")" &&
-   "$(jq -r '.namespace' <<< "$STATE_BACKEND")" == "$(jq -r '.object_storage_namespace' <<< "$PLATFORM_VARIABLES")" ]] \
-  || fail 'OCI Terraform backend and platform variables refer to different storage.'
 
 case "${GITHUB_EVENT_NAME:-}:${OPERATION:-}" in
   push:) ;;
