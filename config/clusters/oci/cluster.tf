@@ -202,9 +202,10 @@ resource "oci_containerengine_node_pool" "autoscaled" {
 
   node_metadata = local.pool_node_metadata[each.key]
 
-  # Scale-from-zero needs filesystem allocatable space, not boot volume size.
+  # DriverKit grows its root filesystem at boot; leave 25% for partitions and
+  # system reservations. Other pools retain their image's default root size.
   freeform_tags = merge(local.tags, {
-    "cluster-autoscaler/node-ephemeral-storage" = "30Gi"
+    "cluster-autoscaler/node-ephemeral-storage" = each.value.application == "driverkit" ? "${floor(each.value.boot_volume_gbs * 0.75)}Gi" : "30Gi"
   })
 
   lifecycle {
