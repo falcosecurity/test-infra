@@ -150,6 +150,7 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - --config-path=/etc/prow/config/config.yaml
+            - --job-config-path=/etc/prow/jobs
             - --dry-run=true
             - --rerun-creates-job=false
             - --spyglass=true
@@ -201,6 +202,9 @@ spec:
               drop:
                 - ALL
           volumeMounts:
+            - name: job-config
+              mountPath: /etc/prow/jobs
+              readOnly: true
             - name: config
               mountPath: /etc/prow/config
               readOnly: true
@@ -217,6 +221,10 @@ spec:
             - name: tmp
               mountPath: /tmp
       volumes:
+        - name: job-config
+          configMap:
+            name: job-config
+            defaultMode: 0444
         - name: config
           configMap:
             name: config
