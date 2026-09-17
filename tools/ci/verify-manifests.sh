@@ -16,6 +16,10 @@ export HELM_CACHE_HOME="$validation_dir/helm/cache"
 export HELM_DATA_HOME="$validation_dir/helm/data"
 export HELM_REGISTRY_CONFIG="$validation_dir/helm/registry.json"
 kube_version=1.35.0
+if [[ "$cloud" == oci ]]; then
+  kube_version=$(sed -n 's/^control_plane_k8s_version *= *"v\([^"]*\)"/\1/p' config/clusters/oci/terraform.tfvars)
+  [[ "$kube_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+fi
 converter=${OPENAPI2JSONSCHEMA:-$(dirname "$(command -v kubeconform)")/openapi2jsonschema.py}
 
 extract_crds() {
