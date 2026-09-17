@@ -4,9 +4,10 @@ IMG_SLUG := test-infra
 IMG_NAME := update-dbg
 IMG_TAG ?= latest
 
-DOCKER_PUSH_REPOSITORY := ghcr.io/falcosecurity
+ACCOUNT := 292999226676
+DOCKER_PUSH_REPOSITORY = dkr.ecr.eu-west-1.amazonaws.com
 
-IMAGE := "$(DOCKER_PUSH_REPOSITORY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG)"
+IMAGE := "$(ACCOUNT).$(DOCKER_PUSH_REPOSITORY)/$(IMG_SLUG)/$(IMG_NAME):$(IMG_TAG)"
 
 build-push: build-image push-image
 
