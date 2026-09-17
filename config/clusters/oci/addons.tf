@@ -48,6 +48,11 @@ resource "oci_containerengine_addon" "metrics_server" {
   depends_on = [oci_containerengine_addon.cluster_autoscaler]
 
   configurations {
+    key   = "skipAddonDependenciesCheck"
+    value = "true"
+  }
+
+  configurations {
     key   = "numOfReplicas"
     value = "1"
   }
