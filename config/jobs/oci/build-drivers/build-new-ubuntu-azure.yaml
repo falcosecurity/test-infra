@@ -1,0 +1,303 @@
+postsubmits:
+  falcosecurity/test-infra:
+    - &driver-build
+      name: build-new-drivers-ubuntu-azure-3-postsubmit
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+      error_on_eviction: true
+      decorate: true
+      skip_report: false
+      agent: kubernetes
+      max_concurrency: 1
+      job_queue_name: driverkit-x86
+      branches:
+        - ^master$
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_3.+'
+      spec: &driver-pod
+        serviceAccountName: driver-kit
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        terminationGracePeriodSeconds: 60
+        securityContext:
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        nodeSelector:
+          Application: driverkit
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        tolerations:
+          - key: dedicated.falco.org/driverkit
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+        initContainers:
+          - name: docker
+            image: docker.io/library/docker:29.8.1-dind@sha256:76cd6bbc3ab600fced21a7e1bea77ac00cb7c545eb95d5767e4ec4ffbcb242dc
+            command:
+              - /usr/local/bin/dockerd-entrypoint.sh
+            args:
+              - dockerd
+              - --host=unix:///run/docker/docker.sock
+              - --group=65532
+              - --storage-driver=overlay2
+            restartPolicy: Always
+            env:
+              - name: DOCKER_HOST
+                value: unix:///run/docker/docker.sock
+            startupProbe:
+              exec:
+                command:
+                  - docker
+                  - info
+              periodSeconds: 2
+              timeoutSeconds: 5
+              failureThreshold: 60
+            securityContext:
+              runAsUser: 0
+              privileged: true
+            resources:
+              requests:
+                cpu: "2"
+                memory: 4Gi
+                ephemeral-storage: 96Gi
+              limits:
+                cpu: "6"
+                memory: 32Gi
+                ephemeral-storage: 120Gi
+            volumeMounts:
+              - name: docker-socket
+                mountPath: /run/docker
+              - name: docker-data
+                mountPath: /var/lib/docker
+        containers:
+          - &driver-builder
+            name: build
+            image: ghcr.io/falcosecurity/dbg-go:0.18.0@sha256:e3ae931c8d08c6682111d1b0f3230aee74a49098da809d9981ec72e9a24f9a68
+            command:
+              - /ko-app/dbg-go
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=amd64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=3.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log
+            env:
+              - name: DOCKER_HOST
+                value: unix:///run/docker/docker.sock
+              - name: AWS_ROLE_ARN
+                value: arn:aws:iam::292999226676:role/falco-prow-driver-publisher
+              - name: AWS_REGION
+                value: eu-west-1
+              - name: AWS_WEB_IDENTITY_TOKEN_FILE
+                value: /var/run/secrets/aws/token
+              - name: AWS_EC2_METADATA_DISABLED
+                value: "true"
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 65532
+              runAsGroup: 65532
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: "1"
+                memory: 2Gi
+                ephemeral-storage: 1Gi
+              limits:
+                cpu: "2"
+                memory: 4Gi
+                ephemeral-storage: 8Gi
+            volumeMounts:
+              - name: docker-socket
+                mountPath: /run/docker
+              - name: driver-output
+                mountPath: /home/prow/go/src/github.com/falcosecurity/test-infra/driverkit/output
+              - name: aws-token
+                mountPath: /var/run/secrets/aws
+                readOnly: true
+        volumes:
+          - name: docker-socket
+            emptyDir: {}
+          - name: docker-data
+            emptyDir:
+              sizeLimit: 120Gi
+          - name: driver-output
+            emptyDir:
+              sizeLimit: 8Gi
+          - name: aws-token
+            projected:
+              defaultMode: 288
+              sources:
+                - serviceAccountToken:
+                    path: token
+                    audience: sts.amazonaws.com
+                    expirationSeconds: 3600
+    - <<: *driver-build
+      name: build-new-drivers-ubuntu-azure-3-postsubmit-arm
+      job_queue_name: driverkit-arm
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_3.+'
+      spec:
+        <<: *driver-pod
+        nodeSelector:
+          Application: driverkit
+          Archtype: arm
+          kubernetes.io/arch: arm64
+        containers:
+          - <<: *driver-builder
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=arm64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=3.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log
+    - <<: *driver-build
+      name: build-new-drivers-ubuntu-azure-4-postsubmit
+      job_queue_name: driverkit-x86
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_4.+'
+      spec:
+        <<: *driver-pod
+        nodeSelector:
+          Application: driverkit
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        containers:
+          - <<: *driver-builder
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=amd64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=4.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log
+    - <<: *driver-build
+      name: build-new-drivers-ubuntu-azure-4-postsubmit-arm
+      job_queue_name: driverkit-arm
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_4.+'
+      spec:
+        <<: *driver-pod
+        nodeSelector:
+          Application: driverkit
+          Archtype: arm
+          kubernetes.io/arch: arm64
+        containers:
+          - <<: *driver-builder
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=arm64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=4.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log
+    - <<: *driver-build
+      name: build-new-drivers-ubuntu-azure-5-postsubmit
+      job_queue_name: driverkit-x86
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_5.+'
+      spec:
+        <<: *driver-pod
+        nodeSelector:
+          Application: driverkit
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        containers:
+          - <<: *driver-builder
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=amd64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=5.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log
+    - <<: *driver-build
+      name: build-new-drivers-ubuntu-azure-5-postsubmit-arm
+      job_queue_name: driverkit-arm
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_5.+'
+      spec:
+        <<: *driver-pod
+        nodeSelector:
+          Application: driverkit
+          Archtype: arm
+          kubernetes.io/arch: arm64
+        containers:
+          - <<: *driver-builder
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=arm64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=5.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log
+    - <<: *driver-build
+      name: build-new-drivers-ubuntu-azure-6-postsubmit
+      job_queue_name: driverkit-x86
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-azure_6.+'
+      spec:
+        <<: *driver-pod
+        nodeSelector:
+          Application: driverkit
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        containers:
+          - <<: *driver-builder
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=amd64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=6.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log
+    - <<: *driver-build
+      name: build-new-drivers-ubuntu-azure-6-postsubmit-arm
+      job_queue_name: driverkit-arm
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-azure_6.+'
+      spec:
+        <<: *driver-pod
+        nodeSelector:
+          Application: driverkit
+          Archtype: arm
+          kubernetes.io/arch: arm64
+        containers:
+          - <<: *driver-builder
+            args:
+              - configs
+              - build
+              - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
+              - --architecture=arm64
+              - --target-distro=ubuntu-azure
+              - --target-kernelrelease=6.*
+              - --skip-existing
+              - --publish
+              - --ignore-errors
+              - --redirect-errors=/logs/artifacts/failing.log

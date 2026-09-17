@@ -9,4 +9,7 @@ metadata:
     app.kubernetes.io/part-of: prow
 data:
   plugins.yaml: |
-    {}
+    plugins:
+      falcosecurity/test-infra:
+        plugins:
+          - trigger

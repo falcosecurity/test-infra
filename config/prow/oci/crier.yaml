@@ -191,7 +191,11 @@ spec:
             - --job-config-path=/etc/prow/jobs
             - --blob-storage-workers=1
             - --kubernetes-blob-storage-workers=1
-            - --github-workers=0
+            - --github-workers=2
+            - --github-token-path=/etc/github/oauth
+            - --github-endpoint=http://ghproxy
+            - --github-endpoint=https://api.github.com
+            - --github-graphql-endpoint=http://ghproxy/graphql
             - --s3-credentials-file=/etc/s3-credentials/service-account.json
             - --metrics-port=9090
           ports:
@@ -242,6 +246,9 @@ spec:
             - name: s3-credentials
               mountPath: /etc/s3-credentials
               readOnly: true
+            - name: oauth
+              mountPath: /etc/github
+              readOnly: true
       volumes:
         - name: job-config
           configMap:
@@ -258,6 +265,10 @@ spec:
             items:
               - key: service-account.json
                 path: service-account.json
+        - name: oauth
+          secret:
+            secretName: oauth-token
+            defaultMode: 0440
       nodeSelector:
         Application: platform
         Archtype: x86

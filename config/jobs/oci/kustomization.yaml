@@ -4,7 +4,22 @@ namespace: prow
 configMapGenerator:
   - name: job-config
     files:
+      - build-drivers/build-new-almalinux.yaml
+      - build-drivers/build-new-amazonlinux.yaml
+      - build-drivers/build-new-bottlerocket.yaml
+      - build-drivers/build-new-centos.yaml
+      - build-drivers/build-new-debian.yaml
+      - build-drivers/build-new-fedora.yaml
       - build-drivers/build-new-minikube.yaml
+      - build-drivers/build-new-photon.yaml
+      - build-drivers/build-new-talos.yaml
+      - build-drivers/build-new-ubuntu-aws.yaml
+      - build-drivers/build-new-ubuntu-azure.yaml
+      - build-drivers/build-new-ubuntu-gcp.yaml
+      - build-drivers/build-new-ubuntu-generic.yaml
+      - build-drivers/build-new-ubuntu-gke.yaml
+      - build-drivers/validate-dbg.yaml
+      - update-dbg/update-dbg.yaml
     options:
       labels:
         app.kubernetes.io/part-of: prow

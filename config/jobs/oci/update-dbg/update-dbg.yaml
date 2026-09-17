@@ -1,0 +1,86 @@
+periodics:
+  - name: update-dbg
+    cron: "0 8 * * *"
+    decorate: true
+    max_concurrency: 1
+    job_queue_name: driverkit-x86
+    extra_refs:
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+        workdir: true
+    spec:
+      serviceAccountName: driver-kit
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: update-dbg
+          image: ghcr.io/falcosecurity/test-infra/update-dbg:0.18.0-1
+          command:
+            - /entrypoint.sh
+          args:
+            - /etc/github-token/oauth
+          env:
+            - name: GH_PROXY
+              value: https://api.github.com
+            - name: HOME
+              value: /home/nonroot
+            - name: BOT_GPG_KEY_PATH
+              value: /etc/gpg/poiana.asc
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+              ephemeral-storage: 1Gi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+              ephemeral-storage: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github-token
+              readOnly: true
+            - name: gpg-signing-key
+              mountPath: /etc/gpg
+              readOnly: true
+            - name: home
+              mountPath: /home/nonroot
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+            defaultMode: 0440
+            items:
+              - key: oauth
+                path: oauth
+        - name: gpg-signing-key
+          secret:
+            secretName: poiana-gpg-signing-key
+            defaultMode: 0440
+            items:
+              - key: poiana.asc
+                path: poiana.asc
+        - name: home
+          emptyDir:
+            sizeLimit: 64Mi
+      nodeSelector:
+        Application: driverkit
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/driverkit
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

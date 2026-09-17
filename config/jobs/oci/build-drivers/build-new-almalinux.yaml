@@ -1,7 +1,7 @@
 postsubmits:
   falcosecurity/test-infra:
     - &driver-build
-      name: build-new-drivers-minikube-postsubmit
+      name: build-new-drivers-almalinux-postsubmit
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
       error_on_eviction: true
@@ -12,7 +12,7 @@ postsubmits:
       job_queue_name: driverkit-x86
       branches:
         - ^master$
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/minikube_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/almalinux_.+'
       spec: &driver-pod
         serviceAccountName: driver-kit
         automountServiceAccountToken: false
@@ -81,7 +81,7 @@ postsubmits:
               - build
               - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
               - --architecture=amd64
-              - --target-distro=minikube
+              - --target-distro=almalinux
               - --skip-existing
               - --publish
               - --ignore-errors
@@ -140,9 +140,9 @@ postsubmits:
                     audience: sts.amazonaws.com
                     expirationSeconds: 3600
     - <<: *driver-build
-      name: build-new-drivers-minikube-postsubmit-arm
+      name: build-new-drivers-almalinux-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/minikube_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/almalinux_.+'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -156,7 +156,7 @@ postsubmits:
               - build
               - --repo-root=/home/prow/go/src/github.com/falcosecurity/test-infra
               - --architecture=arm64
-              - --target-distro=minikube
+              - --target-distro=almalinux
               - --skip-existing
               - --publish
               - --ignore-errors
