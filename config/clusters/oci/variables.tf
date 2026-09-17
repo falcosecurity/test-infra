@@ -50,7 +50,7 @@ variable "cluster_name" {
 variable "control_plane_k8s_version" {
   description = "Kubernetes version for the OKE control plane."
   type        = string
-  default     = "v1.35.0"
+  default     = "v1.36.1"
 }
 
 variable "cluster_autoscaler_enabled" {
@@ -63,7 +63,7 @@ variable "cluster_autoscaler_enabled" {
 variable "nodepool_k8s_version" {
   description = "Kubernetes version for OKE node pools."
   type        = string
-  default     = "v1.35.0"
+  default     = "v1.36.1"
 }
 
 variable "vcn_cidr" {
