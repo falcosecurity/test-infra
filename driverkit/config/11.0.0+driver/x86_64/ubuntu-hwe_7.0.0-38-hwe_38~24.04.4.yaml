@@ -1,0 +1,13 @@
+kernelversion: 38~24.04.4
+kernelrelease: 7.0.0-38-hwe
+target: ubuntu-hwe
+architecture: amd64
+output:
+    module: output/11.0.0+driver/x86_64/falco_ubuntu-hwe_7.0.0-38-hwe_38~24.04.4.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-7.0/linux-headers-7.0.0-38-generic_7.0.0-38.38~24.04.4_amd64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-7.0/linux-hwe-7.0-headers-7.0.0-38_7.0.0-38.38~24.04.4_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-7.0/linux-headers-7.0.0-38-generic_7.0.0-38.38~24.04.4_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-7.0/linux-hwe-7.0-headers-7.0.0-38_7.0.0-38.38~24.04.4_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-7.0/linux-headers-7.0.0-38-generic_7.0.0-38.38~24.04.4_amd64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-7.0/linux-hwe-7.0-headers-7.0.0-38_7.0.0-38.38~24.04.4_all.deb
