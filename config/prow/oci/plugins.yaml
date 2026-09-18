@@ -15,6 +15,24 @@ data:
         join_org_url: "https://github.com/falcosecurity/.github/blob/main/CONTRIBUTING.md"
         only_org_members: true
     plugins:
+      falcosecurity/event-generator:
+        plugins:
+          - trigger
+      falcosecurity/falco:
+        plugins:
+          - trigger
+      falcosecurity/falco-operator:
+        plugins:
+          - trigger
+      falcosecurity/k8s-metacollector:
+        plugins:
+          - trigger
+      falcosecurity/plugins:
+        plugins:
+          - trigger
+      falcosecurity/rules:
+        plugins:
+          - trigger
       falcosecurity/test-infra:
         plugins:
           - trigger

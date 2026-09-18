@@ -1,0 +1,278 @@
+postsubmits:
+  falcosecurity/plugins:
+    - name: build-plugins-on-registry-changed-postsubmit
+      decorate: true
+      max_concurrency: 1
+      job_queue_name: artifact-index
+      decoration_config:
+        timeout: 1h
+      branches:
+        - '^main$'
+      run_if_changed: "^registry.yaml"
+      extra_refs:
+        - org: falcosecurity
+          repo: plugins
+          base_ref: main
+          path_alias: github.com/falcosecurity/plugins-registry
+          workdir: true
+          clone_depth: 1
+          skip_submodules: true
+      spec:
+        serviceAccountName: automation
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        containers:
+          - name: automation
+            image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:4f85ff1ffb762c78a541b8a47434dfd83f7fff2e1529b585a74b82794ae126b5
+            command:
+              - /on-registry-changed.sh
+            args:
+              - /etc/github-token/oauth
+            env:
+              - name: GH_PROXY
+                value: https://api.github.com
+              - name: HOME
+                value: /home/nonroot
+              - name: BOT_GPG_KEY_PATH
+                value: /etc/gpg/poiana.asc
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+                ephemeral-storage: 2Gi
+              limits:
+                cpu: "2"
+                memory: 4Gi
+                ephemeral-storage: 8Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            volumeMounts:
+              - name: github
+                mountPath: /etc/github-token
+                readOnly: true
+              - name: gpg-signing-key
+                mountPath: /etc/gpg
+                readOnly: true
+              - name: home
+                mountPath: /home/nonroot
+        volumes:
+          - name: github
+            secret:
+              secretName: oauth-token
+              defaultMode: 0440
+              items:
+                - key: oauth
+                  path: oauth
+          - name: gpg-signing-key
+            secret:
+              secretName: poiana-gpg-signing-key
+              defaultMode: 0440
+              items:
+                - key: poiana.asc
+                  path: poiana.asc
+          - name: home
+            emptyDir:
+              sizeLimit: 4Gi
+        nodeSelector:
+          Application: automation
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        tolerations:
+          - key: dedicated.falco.org/automation
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+    - name: build-plugins-on-plugin-release-postsubmit
+      decorate: true
+      max_concurrency: 1
+      job_queue_name: artifact-index
+      decoration_config:
+        timeout: 1h
+      branches:
+        - '^plugins/[a-z]+[a-z0-9-_\-]*/v\d+\.\d+\.\d+$'
+      extra_refs:
+        - org: falcosecurity
+          repo: plugins
+          base_ref: main
+          path_alias: github.com/falcosecurity/plugins-registry
+          workdir: true
+          clone_depth: 1
+          skip_submodules: true
+      spec:
+        serviceAccountName: automation
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        containers:
+          - name: automation
+            image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:4f85ff1ffb762c78a541b8a47434dfd83f7fff2e1529b585a74b82794ae126b5
+            command:
+              - /on-registry-changed.sh
+            args:
+              - /etc/github-token/oauth
+            env:
+              - name: GH_PROXY
+                value: https://api.github.com
+              - name: HOME
+                value: /home/nonroot
+              - name: BOT_GPG_KEY_PATH
+                value: /etc/gpg/poiana.asc
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+                ephemeral-storage: 2Gi
+              limits:
+                cpu: "2"
+                memory: 4Gi
+                ephemeral-storage: 8Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            volumeMounts:
+              - name: github
+                mountPath: /etc/github-token
+                readOnly: true
+              - name: gpg-signing-key
+                mountPath: /etc/gpg
+                readOnly: true
+              - name: home
+                mountPath: /home/nonroot
+        volumes:
+          - name: github
+            secret:
+              secretName: oauth-token
+              defaultMode: 0440
+              items:
+                - key: oauth
+                  path: oauth
+          - name: gpg-signing-key
+            secret:
+              secretName: poiana-gpg-signing-key
+              defaultMode: 0440
+              items:
+                - key: poiana.asc
+                  path: poiana.asc
+          - name: home
+            emptyDir:
+              sizeLimit: 4Gi
+        nodeSelector:
+          Application: automation
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        tolerations:
+          - key: dedicated.falco.org/automation
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+  falcosecurity/rules:
+    - name: update-rules-index-on-registry-changed-postsubmit
+      decorate: true
+      max_concurrency: 1
+      job_queue_name: artifact-index
+      decoration_config:
+        timeout: 1h
+      branches:
+        - '^main$'
+      run_if_changed: "^registry.yaml"
+      extra_refs:
+        - org: falcosecurity
+          repo: rules
+          base_ref: main
+          path_alias: github.com/falcosecurity/rules-registry
+          workdir: true
+          clone_depth: 1
+          skip_submodules: true
+      spec:
+        serviceAccountName: automation
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        containers:
+          - name: automation
+            image: ghcr.io/falcosecurity/test-infra/update-rules-index@sha256:627ade089ed6b17045d0988fc29afa0639dd0f4c85f789b1ead52097f06b0b39
+            command:
+              - /on-registry-changed.sh
+            args:
+              - /etc/github-token/oauth
+            env:
+              - name: GH_PROXY
+                value: https://api.github.com
+              - name: HOME
+                value: /home/nonroot
+              - name: BOT_GPG_KEY_PATH
+                value: /etc/gpg/poiana.asc
+            resources:
+              requests:
+                cpu: 500m
+                memory: 1Gi
+                ephemeral-storage: 2Gi
+              limits:
+                cpu: "2"
+                memory: 4Gi
+                ephemeral-storage: 8Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            volumeMounts:
+              - name: github
+                mountPath: /etc/github-token
+                readOnly: true
+              - name: gpg-signing-key
+                mountPath: /etc/gpg
+                readOnly: true
+              - name: home
+                mountPath: /home/nonroot
+        volumes:
+          - name: github
+            secret:
+              secretName: oauth-token
+              defaultMode: 0440
+              items:
+                - key: oauth
+                  path: oauth
+          - name: gpg-signing-key
+            secret:
+              secretName: poiana-gpg-signing-key
+              defaultMode: 0440
+              items:
+                - key: poiana.asc
+                  path: poiana.asc
+          - name: home
+            emptyDir:
+              sizeLimit: 4Gi
+        nodeSelector:
+          Application: automation
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        tolerations:
+          - key: dedicated.falco.org/automation
+            operator: Equal
+            value: "true"
+            effect: NoSchedule

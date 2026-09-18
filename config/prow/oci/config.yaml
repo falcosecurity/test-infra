@@ -37,6 +37,8 @@ data:
 
     plank:
       job_queue_capacities:
+        artifact-index: 1
+        automation: 3
         driverkit-arm: 4
         driverkit-x86: 4
       job_url_prefix_config:

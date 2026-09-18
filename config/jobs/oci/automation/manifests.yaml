@@ -1,0 +1,292 @@
+periodics:
+  - name: update-falco-k8s-manifests
+    decorate: true
+    max_concurrency: 1
+    job_queue_name: automation
+    decoration_config:
+      timeout: 1h
+    cron: "0 10 * * *"
+    extra_refs:
+      - org: falcosecurity
+        repo: deploy-kubernetes
+        base_ref: main
+        workdir: true
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+        auxiliary: true
+        clone_depth: 1
+        skip_submodules: true
+        sparse_checkout_files:
+          - images/update-falco-k8s-manifests
+    spec:
+      serviceAccountName: automation
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: automation
+          image: ghcr.io/falcosecurity/test-infra/update-falco-k8s-manifests@sha256:4850c4ef3d4758e2a32b68b2c7a80930c5bfab5e28d94507d7db389c0e96f8c0
+          command:
+            - /home/prow/go/src/github.com/falcosecurity/test-infra/images/update-falco-k8s-manifests/entrypoint.sh
+          args:
+            - /etc/github-token/oauth
+          env:
+            - name: GH_PROXY
+              value: https://api.github.com
+            - name: HOME
+              value: /home/nonroot
+            - name: BOT_GPG_KEY_PATH
+              value: /etc/gpg/poiana.asc
+            - name: HELM_CHART_NAME
+              value: "falco"
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+              ephemeral-storage: 2Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+              ephemeral-storage: 8Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github-token
+              readOnly: true
+            - name: gpg-signing-key
+              mountPath: /etc/gpg
+              readOnly: true
+            - name: home
+              mountPath: /home/nonroot
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+            defaultMode: 0440
+            items:
+              - key: oauth
+                path: oauth
+        - name: gpg-signing-key
+          secret:
+            secretName: poiana-gpg-signing-key
+            defaultMode: 0440
+            items:
+              - key: poiana.asc
+                path: poiana.asc
+        - name: home
+          emptyDir:
+            sizeLimit: 4Gi
+      nodeSelector:
+        Application: automation
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/automation
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+  - name: update-falco-sidekick-k8s-manifests
+    decorate: true
+    max_concurrency: 1
+    job_queue_name: automation
+    decoration_config:
+      timeout: 1h
+    cron: "0 12 * * *"
+    extra_refs:
+      - org: falcosecurity
+        repo: deploy-kubernetes
+        base_ref: main
+        workdir: true
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+        auxiliary: true
+        clone_depth: 1
+        skip_submodules: true
+        sparse_checkout_files:
+          - images/update-falco-k8s-manifests
+    spec:
+      serviceAccountName: automation
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: automation
+          image: ghcr.io/falcosecurity/test-infra/update-falco-k8s-manifests@sha256:4850c4ef3d4758e2a32b68b2c7a80930c5bfab5e28d94507d7db389c0e96f8c0
+          command:
+            - /home/prow/go/src/github.com/falcosecurity/test-infra/images/update-falco-k8s-manifests/entrypoint.sh
+          args:
+            - /etc/github-token/oauth
+          env:
+            - name: GH_PROXY
+              value: https://api.github.com
+            - name: HOME
+              value: /home/nonroot
+            - name: BOT_GPG_KEY_PATH
+              value: /etc/gpg/poiana.asc
+            - name: HELM_CHART_NAME
+              value: "falcosidekick"
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+              ephemeral-storage: 2Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+              ephemeral-storage: 8Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github-token
+              readOnly: true
+            - name: gpg-signing-key
+              mountPath: /etc/gpg
+              readOnly: true
+            - name: home
+              mountPath: /home/nonroot
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+            defaultMode: 0440
+            items:
+              - key: oauth
+                path: oauth
+        - name: gpg-signing-key
+          secret:
+            secretName: poiana-gpg-signing-key
+            defaultMode: 0440
+            items:
+              - key: poiana.asc
+                path: poiana.asc
+        - name: home
+          emptyDir:
+            sizeLimit: 4Gi
+      nodeSelector:
+        Application: automation
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/automation
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+  - name: update-event-generator-k8s-manifests
+    decorate: true
+    max_concurrency: 1
+    job_queue_name: automation
+    decoration_config:
+      timeout: 1h
+    cron: "0 13 * * *"
+    extra_refs:
+      - org: falcosecurity
+        repo: deploy-kubernetes
+        base_ref: main
+        workdir: true
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+        auxiliary: true
+        clone_depth: 1
+        skip_submodules: true
+        sparse_checkout_files:
+          - images/update-falco-k8s-manifests
+    spec:
+      serviceAccountName: automation
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: automation
+          image: ghcr.io/falcosecurity/test-infra/update-falco-k8s-manifests@sha256:4850c4ef3d4758e2a32b68b2c7a80930c5bfab5e28d94507d7db389c0e96f8c0
+          command:
+            - /home/prow/go/src/github.com/falcosecurity/test-infra/images/update-falco-k8s-manifests/entrypoint.sh
+          args:
+            - /etc/github-token/oauth
+          env:
+            - name: GH_PROXY
+              value: https://api.github.com
+            - name: HOME
+              value: /home/nonroot
+            - name: BOT_GPG_KEY_PATH
+              value: /etc/gpg/poiana.asc
+            - name: HELM_CHART_NAME
+              value: "event-generator"
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+              ephemeral-storage: 2Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+              ephemeral-storage: 8Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github-token
+              readOnly: true
+            - name: gpg-signing-key
+              mountPath: /etc/gpg
+              readOnly: true
+            - name: home
+              mountPath: /home/nonroot
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+            defaultMode: 0440
+            items:
+              - key: oauth
+                path: oauth
+        - name: gpg-signing-key
+          secret:
+            secretName: poiana-gpg-signing-key
+            defaultMode: 0440
+            items:
+              - key: poiana.asc
+                path: poiana.asc
+        - name: home
+          emptyDir:
+            sizeLimit: 4Gi
+      nodeSelector:
+        Application: automation
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/automation
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

@@ -1,0 +1,88 @@
+periodics:
+  - name: update-maintainers
+    decorate: true
+    max_concurrency: 1
+    job_queue_name: automation
+    decoration_config:
+      timeout: 1h
+    cron: "0 9 * * *"
+    extra_refs:
+      - org: falcosecurity
+        repo: evolution
+        base_ref: main
+        workdir: true
+    spec:
+      serviceAccountName: automation
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: automation
+          image: ghcr.io/falcosecurity/test-infra/update-maintainers@sha256:d88751dd9797f2a1c18322ef51169f25801ee03d01a1e4c4322a24c9a5b51bbd
+          command:
+            - /entrypoint.sh
+          args:
+            - /etc/github-token/oauth
+          env:
+            - name: GH_PROXY
+              value: https://api.github.com
+            - name: HOME
+              value: /home/nonroot
+            - name: BOT_GPG_KEY_PATH
+              value: /etc/gpg/poiana.asc
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+              ephemeral-storage: 2Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+              ephemeral-storage: 8Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github-token
+              readOnly: true
+            - name: gpg-signing-key
+              mountPath: /etc/gpg
+              readOnly: true
+            - name: home
+              mountPath: /home/nonroot
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+            defaultMode: 0440
+            items:
+              - key: oauth
+                path: oauth
+        - name: gpg-signing-key
+          secret:
+            secretName: poiana-gpg-signing-key
+            defaultMode: 0440
+            items:
+              - key: poiana.asc
+                path: poiana.asc
+        - name: home
+          emptyDir:
+            sizeLimit: 4Gi
+      nodeSelector:
+        Application: automation
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/automation
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
