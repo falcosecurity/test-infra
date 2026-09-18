@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: automation
+  namespace: test-pods
+  labels:
+    app.kubernetes.io/name: automation
+    app.kubernetes.io/part-of: prow
+automountServiceAccountToken: false
