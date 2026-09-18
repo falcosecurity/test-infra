@@ -4,6 +4,10 @@ namespace: prow
 configMapGenerator:
   - name: job-config
     files:
+      - automation/maintainers.yaml
+      - automation/manifests.yaml
+      - automation/charts.yaml
+      - automation/registry.yaml
       - build-drivers/build-new-almalinux.yaml
       - build-drivers/build-new-amazonlinux.yaml
       - build-drivers/build-new-bottlerocket.yaml

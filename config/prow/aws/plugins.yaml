@@ -855,7 +855,6 @@ plugins:
       - require-matching-label
       - retitle
       - size
-      - trigger
       - verify-owners
       - welcome
       - wip
@@ -880,7 +879,6 @@ plugins:
       - require-matching-label
       - retitle
       - size
-      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1044,7 +1042,6 @@ plugins:
       - require-matching-label
       - retitle
       - size
-      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1205,7 +1202,6 @@ plugins:
       - require-matching-label
       - retitle
       - size
-      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1413,7 +1409,6 @@ plugins:
       - require-matching-label
       - retitle
       - size
-      - trigger
       - verify-owners
       - welcome
       - wip
@@ -1531,7 +1526,6 @@ plugins:
       - milestone
       - retitle
       - size
-      - trigger
       - verify-owners
       - welcome
       - wip
