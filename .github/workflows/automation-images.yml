@@ -1,0 +1,80 @@
+name: Automation images
+
+on:
+  pull_request:
+    paths:
+      - images/build-plugins/**
+      - images/sync-charts/**
+      - images/update-falco-k8s-manifests/**
+      - images/update-maintainers/**
+      - images/update-rules-index/**
+      - .github/workflows/automation-images.yml
+  push:
+    branches: [master]
+    paths:
+      - images/build-plugins/**
+      - images/sync-charts/**
+      - images/update-falco-k8s-manifests/**
+      - images/update-maintainers/**
+      - images/update-rules-index/**
+      - .github/workflows/automation-images.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: automation-images-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build-automation-image (${{ matrix.image }})
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [build-plugins, sync-charts, update-falco-k8s-manifests, update-maintainers, update-rules-index]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: images/${{ matrix.image }}
+          platforms: linux/amd64
+          push: false
+
+  publish:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [build-plugins, sync-charts, update-falco-k8s-manifests, update-maintainers, update-rules-index]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: images/${{ matrix.image }}
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/falcosecurity/test-infra/${{ matrix.image }}:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/falcosecurity/test-infra
+            org.opencontainers.image.revision=${{ github.sha }}
