@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -euo pipefail
+
 GH_PROXY="${GH_PROXY:-"http://ghproxy"}"
 GH_ORG="${GH_ORG:-"falcosecurity"}"
 GH_REPO="${GH_REPO:-"plugins"}"
@@ -118,6 +120,11 @@ push_index() {
     pushd "$2"
 
     git add index.yaml
+    if git diff --cached --quiet; then
+        echo "> moving on since the distribution index is unchanged..." >&2
+        popd
+        return 0
+    fi
     git commit --message="update(index.yaml): new plugins registry data" --signoff
 
     # N.B., no force push here. 
