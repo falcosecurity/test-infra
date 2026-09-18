@@ -4,6 +4,7 @@ resources:
   - ../../jobs/oci
   - namespaces.yaml
   - driverkit.yaml
+  - automation.yaml
   - driverkit-policy.yaml
   - log-storage-policy.yaml
   - prowjob-crd.yaml
