@@ -1,0 +1,197 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tide
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: tide
+    app.kubernetes.io/component: merge
+    app.kubernetes.io/part-of: prow
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tide
+  namespace: prow
+rules:
+  - apiGroups:
+      - prow.k8s.io
+    resources:
+      - prowjobs
+    verbs:
+      - create
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tide
+  namespace: prow
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tide
+subjects:
+  - kind: ServiceAccount
+    name: tide
+    namespace: prow
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tide
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: tide
+    app.kubernetes.io/component: merge
+    app.kubernetes.io/part-of: prow
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: tide
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: metrics
+      port: 9090
+      protocol: TCP
+      targetPort: metrics
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tide
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: tide
+    app.kubernetes.io/component: merge
+    app.kubernetes.io/part-of: prow
+    app.kubernetes.io/version: v20260811-cafa49460
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tide
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tide
+        app.kubernetes.io/component: merge
+        app.kubernetes.io/part-of: prow
+        app.kubernetes.io/version: v20260811-cafa49460
+    spec:
+      serviceAccountName: tide
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 180
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+        fsGroup: 65532
+      containers:
+        - name: tide
+          image: us-docker.pkg.dev/k8s-infra-prow/images/tide:v20260811-cafa49460@sha256:842e694f559ac984b3aa43d67b81560020d72dd32051c8facbaf07fbfda9b1e9
+          args:
+            - --dry-run=false
+            - --github-token-path=/etc/github/oauth
+            - --github-endpoint=http://ghproxy
+            - --github-endpoint=https://api.github.com
+            - --config-path=/etc/prow/config/config.yaml
+            - --job-config-path=/etc/prow/jobs
+            - --s3-credentials-file=/etc/s3-credentials/service-account.json
+            - --github-graphql-endpoint=http://ghproxy/graphql
+            - --status-path=s3://falco-prow-logs/tide-status
+            - --history-uri=s3://falco-prow-logs/tide-history.json
+            - --metrics-port=9090
+          ports:
+            - name: http
+              containerPort: 8888
+            - name: metrics
+              containerPort: 9090
+          startupProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            failureThreshold: 30
+            periodSeconds: 2
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            periodSeconds: 5
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: oauth
+              mountPath: /etc/github
+              readOnly: true
+            - name: config
+              mountPath: /etc/prow/config
+              readOnly: true
+            - name: job-config
+              mountPath: /etc/prow/jobs
+              readOnly: true
+            - name: s3-credentials
+              mountPath: /etc/s3-credentials
+              readOnly: true
+          env:
+            - name: AWS_REQUEST_CHECKSUM_CALCULATION
+              value: WHEN_REQUIRED
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 256Mi
+        - name: oauth
+          secret:
+            secretName: oauth-token
+            defaultMode: 288
+        - name: config
+          configMap:
+            name: config
+        - name: job-config
+          configMap:
+            name: job-config
+        - name: s3-credentials
+          secret:
+            secretName: s3-credentials
+            defaultMode: 288
+      nodeSelector:
+        Application: platform
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/platform
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

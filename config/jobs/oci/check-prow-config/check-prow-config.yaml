@@ -1,0 +1,110 @@
+presubmits:
+  falcosecurity/test-infra:
+    - name: check-prow-config
+      branches:
+        - ^master$
+      decorate: true
+      skip_report: false
+      always_run: true
+      spec:
+        containers:
+          - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20260811-cafa49460@sha256:0ec431c5efcdee82117fa6d272497ed657fd2bce1b1620acd164e41212fde2f3
+            command:
+              - /ko-app/checkconfig
+            args:
+              - --config-path=config/prow/oci/config.yaml
+              - --job-config-path=config/jobs/oci
+              - --plugin-config=config/prow/oci/plugins.yaml
+            name: automation
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 500m
+                memory: 512Mi
+                ephemeral-storage: 1Gi
+              limits:
+                cpu: "2"
+                memory: 3Gi
+                ephemeral-storage: 4Gi
+        nodeSelector:
+          Application: automation
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        serviceAccountName: automation
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        tolerations:
+          - key: dedicated.falco.org/automation
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+      max_concurrency: 1
+      job_queue_name: automation
+      decoration_config:
+        timeout: 1h
+periodics:
+  - name: check-prow-config-periodic
+    interval: 1h
+    decorate: true
+    extra_refs:
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+    spec:
+      containers:
+        - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20260811-cafa49460@sha256:0ec431c5efcdee82117fa6d272497ed657fd2bce1b1620acd164e41212fde2f3
+          command:
+            - /ko-app/checkconfig
+          args:
+            - --config-path=config/prow/oci/config.yaml
+            - --job-config-path=config/jobs/oci
+            - --plugin-config=config/prow/oci/plugins.yaml
+          name: automation
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+              ephemeral-storage: 1Gi
+            limits:
+              cpu: "2"
+              memory: 3Gi
+              ephemeral-storage: 4Gi
+      nodeSelector:
+        Application: automation
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      serviceAccountName: automation
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      tolerations:
+        - key: dedicated.falco.org/automation
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+    max_concurrency: 1
+    job_queue_name: automation
+    decoration_config:
+      timeout: 1h

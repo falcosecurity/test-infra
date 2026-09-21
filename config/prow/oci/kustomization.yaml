@@ -8,8 +8,6 @@ resources:
   - driverkit-policy.yaml
   - log-storage-policy.yaml
   - prowjob-crd.yaml
-  - config.yaml
-  - plugins.yaml
   - ghproxy.yaml
   - hook.yaml
   - horologium.yaml
@@ -18,6 +16,9 @@ resources:
   - crier.yaml
   - deck.yaml
   - monitoring.yaml
+  - tide.yaml
+  - needs-rebase.yaml
+  - status-reconciler.yaml
 patches:
   - target:
       kind: CustomResourceDefinition
@@ -36,4 +37,20 @@ configMapGenerator:
       labels:
         app.kubernetes.io/name: deck
         app.kubernetes.io/component: dashboard
+        app.kubernetes.io/part-of: prow
+  - name: config
+    namespace: prow
+    files:
+      - config.yaml
+    options:
+      disableNameSuffixHash: true
+      labels:
+        app.kubernetes.io/part-of: prow
+  - name: plugins
+    namespace: prow
+    files:
+      - plugins.yaml
+    options:
+      disableNameSuffixHash: true
+      labels:
         app.kubernetes.io/part-of: prow

@@ -1,0 +1,148 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: status-reconciler
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: status-reconciler
+    app.kubernetes.io/component: status-reconciler
+    app.kubernetes.io/part-of: prow
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: status-reconciler
+  namespace: prow
+rules:
+  - apiGroups:
+      - prow.k8s.io
+    resources:
+      - prowjobs
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: status-reconciler
+  namespace: prow
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: status-reconciler
+subjects:
+  - kind: ServiceAccount
+    name: status-reconciler
+    namespace: prow
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: status-reconciler
+  namespace: prow
+  labels:
+    app.kubernetes.io/name: status-reconciler
+    app.kubernetes.io/component: status-reconciler
+    app.kubernetes.io/part-of: prow
+    app.kubernetes.io/version: v20260811-cafa49460
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: status-reconciler
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: status-reconciler
+        app.kubernetes.io/component: status-reconciler
+        app.kubernetes.io/part-of: prow
+        app.kubernetes.io/version: v20260811-cafa49460
+    spec:
+      serviceAccountName: status-reconciler
+      automountServiceAccountToken: true
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 180
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+        fsGroup: 65532
+      containers:
+        - name: status-reconciler
+          image: us-docker.pkg.dev/k8s-infra-prow/images/status-reconciler:v20260811-cafa49460@sha256:88afadbd272a6a9943c74f11adb05cdb53833d77ae74a91fc6ea2ceb6c0f7f43
+          args:
+            - --dry-run=false
+            - --github-token-path=/etc/github/oauth
+            - --github-endpoint=http://ghproxy
+            - --github-endpoint=https://api.github.com
+            - --config-path=/etc/prow/config/config.yaml
+            - --job-config-path=/etc/prow/jobs
+            - --s3-credentials-file=/etc/s3-credentials/service-account.json
+            - --continue-on-error=true
+            - --plugin-config=/etc/prow/plugins/plugins.yaml
+            - --status-path=s3://falco-prow-logs/status-reconciler-status
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: oauth
+              mountPath: /etc/github
+              readOnly: true
+            - name: config
+              mountPath: /etc/prow/config
+              readOnly: true
+            - name: job-config
+              mountPath: /etc/prow/jobs
+              readOnly: true
+            - name: s3-credentials
+              mountPath: /etc/s3-credentials
+              readOnly: true
+            - name: plugins
+              mountPath: /etc/prow/plugins
+              readOnly: true
+          env:
+            - name: AWS_REQUEST_CHECKSUM_CALCULATION
+              value: WHEN_REQUIRED
+      volumes:
+        - name: oauth
+          secret:
+            secretName: oauth-token
+            defaultMode: 288
+        - name: config
+          configMap:
+            name: config
+        - name: job-config
+          configMap:
+            name: job-config
+        - name: s3-credentials
+          secret:
+            secretName: s3-credentials
+            defaultMode: 288
+        - name: plugins
+          configMap:
+            name: plugins
+      nodeSelector:
+        Application: platform
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      tolerations:
+        - key: dedicated.falco.org/platform
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

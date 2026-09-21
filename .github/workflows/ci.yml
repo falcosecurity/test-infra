@@ -45,6 +45,7 @@ jobs:
               - '!**/OWNERS'
             oci:
               - 'config/{applications,clusters,jobs,prow}/oci/**'
+              - 'config/org.yaml'
               - '.github/workflows/{ci-oci,terraform-oci}.yml'
               - 'tools/deploy_argocd_oci.sh'
               - 'tools/ci/{oci-session,preflight-terraform-oci,prow-version,verify-prow}.sh'
