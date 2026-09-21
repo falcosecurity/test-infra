@@ -71,7 +71,7 @@ cmp config/prow/oci/prowjob-crd.yaml "$validation_dir/prowjob-crd.yaml"
 git ls-files -z --cached --others --exclude-standard -- 'config/prow/oci/*.yaml' 'config/applications/oci/*.yaml' > "$validation_dir/source-files"
 manifest_files=()
 while IFS= read -r -d '' manifest; do
-  case "$manifest" in */kustomization.yaml|*/argocd-values.yaml) continue ;; esac
+  case "$manifest" in */kustomization.yaml|*/argocd-values.yaml|config/prow/oci/config.yaml|config/prow/oci/plugins.yaml) continue ;; esac
   manifest_files+=("$manifest")
 done < "$validation_dir/source-files"
 (( ${#manifest_files[@]} > 0 ))

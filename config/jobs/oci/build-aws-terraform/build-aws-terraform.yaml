@@ -1,0 +1,51 @@
+presubmits:
+  falcosecurity/falco-aws-terraform:
+    - name: build-aws-terraform
+      decorate: true
+      skip_report: false
+      agent: kubernetes
+      always_run: true
+      path_alias: github.com/falcosecurity/falco-aws-terraform
+      spec:
+        containers:
+          - command:
+              - /home/prow/go/src/github.com/falcosecurity/falco-aws-terraform/presubmit.sh
+            image: hashicorp/terraform:1.15.6@sha256:adae45661e45d3c88beef071ee1277b4621cea73517aae7f0844657c8e85f641
+            resources:
+              requests:
+                cpu: 500m
+                memory: 512Mi
+                ephemeral-storage: 1Gi
+              limits:
+                cpu: "2"
+                memory: 3Gi
+                ephemeral-storage: 4Gi
+            name: automation
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+        nodeSelector:
+          Application: automation
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        serviceAccountName: automation
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        tolerations:
+          - key: dedicated.falco.org/automation
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+      max_concurrency: 1
+      job_queue_name: automation
+      decoration_config:
+        timeout: 1h

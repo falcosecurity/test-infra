@@ -151,6 +151,11 @@ spec:
           args:
             - --config-path=/etc/prow/config/config.yaml
             - --job-config-path=/etc/prow/jobs
+            - --plugin-config=/etc/prow/plugins/plugins.yaml
+            - --tide-url=http://tide/
+            - --hook-url=http://hook:8888/plugin-help
+            - --github-endpoint=http://ghproxy
+            - --github-endpoint=https://api.github.com
             - --dry-run=true
             - --rerun-creates-job=false
             - --spyglass=true
@@ -202,6 +207,9 @@ spec:
               drop:
                 - ALL
           volumeMounts:
+            - name: plugins
+              mountPath: /etc/prow/plugins
+              readOnly: true
             - name: job-config
               mountPath: /etc/prow/jobs
               readOnly: true
@@ -221,6 +229,9 @@ spec:
             - name: tmp
               mountPath: /tmp
       volumes:
+        - name: plugins
+          configMap:
+            name: plugins
         - name: job-config
           configMap:
             name: job-config

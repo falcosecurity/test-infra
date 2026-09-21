@@ -59,20 +59,38 @@ approve:
     lgtm_acts_as_approve: true
     require_self_approval: false
     commandHelpLink: https://prow.falco.org/command-help
+
 blunderbuss:
   max_request_count: 2
   use_status_availability: true
+
+config_updater:
+  maps:
+    config/prow/aws/config.yaml:
+      name: config
+      key: config.yaml
+    config/prow/aws/plugins.yaml:
+      name: plugins
+      key: plugins.yaml
+    config/jobs/aws/**/*.yaml:
+      name: job-config
+      gzip: true
+
 dco:
-  '*':
+  "*":
     contributing_branch: main
     contributing_repo: falcosecurity/.github
+
 goose:
   key_path: /etc/unsplash/honk
+
 label:
   additional_labels:
+    # Custom kind/* labels for evolution repository
     - kind/sandbox
     - kind/incubation
     - kind/officialsupport
+
 lgtm:
   - repos:
       - falcosecurity/.github
@@ -125,14 +143,19 @@ lgtm:
     review_acts_as_lgtm: true
     store_tree_hash: true
     trusted_team_for_sticky_lgtm: test-infra-maintainers
+
 repo_milestone:
+  # To obtain the team ID: curl -H "Authorization: token <token>" "https://api.github.com/orgs/falcosecurity/teams"
   falcosecurity/falco:
+    maintainers_id: 3770343
     maintainers_team: falco-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/falco
   falcosecurity/libs:
+    maintainers_id: 4535471
     maintainers_team: libs-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/libs
   falcosecurity/pdig:
+    maintainers_id: 3832091
     maintainers_team: pdig-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/pdig
   falcosecurity/falcoctl:
@@ -141,6 +164,7 @@ repo_milestone:
   falcosecurity/plugin-sdk-cpp:
     maintainers_team: plugin-sdk-cpp-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/plugin-sdk-cpp
+
 require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
@@ -480,19 +504,23 @@ require_matching_label:
     missing_comment: |
       There is not a label identifying the kind of this issue.
       Please specify it either using `/kind <group>` or manually from the side menu.
+
 retitle:
   allow_closed_issues: true
+
 size:
   s: 10
   m: 30
   l: 90
   xl: 270
   xxl: 520
+
 triggers:
   - repos:
       - falcosecurity
-    join_org_url: https://github.com/falcosecurity/.github/blob/main/CONTRIBUTING.md
+    join_org_url: "https://github.com/falcosecurity/.github/blob/main/CONTRIBUTING.md"
     only_org_members: true
+
 plugins:
   falcosecurity/.github:
     plugins:
@@ -830,7 +858,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-      - trigger
   falcosecurity/falco:
     plugins:
       - approve
@@ -855,7 +882,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-      - trigger
   falcosecurity/falcosidekick:
     plugins:
       - approve
@@ -1019,7 +1045,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-      - trigger
   falcosecurity/falco-lsp:
     plugins:
       - approve
@@ -1180,7 +1205,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-      - trigger
   falcosecurity/kernel-crawler:
     plugins:
       - approve
@@ -1388,7 +1412,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-      - trigger
   falcosecurity/plugin-sdk-go:
     plugins:
       - approve
@@ -1506,7 +1529,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-      - trigger
   falcosecurity/syscalls-bumper:
     plugins:
       - approve
@@ -1550,24 +1572,25 @@ plugins:
       - wip
   falcosecurity/test-infra:
     plugins:
-      - approve
-      - assign
-      - blunderbuss
+      - approve # Allow OWNERS to /approve
+      - assign # Allow /assign and /cc
+      - blunderbuss # Auto-assign people
       - branchcleaner
-      - cat
-      - dco
-      - dog
+      - cat # /meow replies with cat pictures
+      - config-updater # auto-update config.yaml and plugins.yaml on changes
+      - dco # checks for DCO sign off on commits
+      - dog # /bark replies with dog pictures
       - goose
-      - help
-      - hold
-      - lifecycle
-      - lgtm
+      - help # Support /help and /good-first-issue
+      - hold # Support /hold to delay merge
+      - lifecycle # Allow /lifecycle stale
+      - lgtm # Allow /lgtm
       - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
+      - size # Auto-label size of PR
+      - trigger # Allow people to configure CI jobs to /test
+      - verify-owners # Validates OWNERS file changes in PRs.
+      - welcome # welcomes new PR users
+      - wip # Auto-hold PRs with WIP in title
   falcosecurity/testing:
     plugins:
       - approve
@@ -1591,6 +1614,7 @@ plugins:
       - verify-owners
       - welcome
       - wip
+
 external_plugins:
   falcosecurity/.github:
     - name: needs-rebase
