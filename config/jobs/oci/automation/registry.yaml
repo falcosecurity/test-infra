@@ -30,7 +30,7 @@ postsubmits:
             type: RuntimeDefault
         containers:
           - name: automation
-            image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:4f85ff1ffb762c78a541b8a47434dfd83f7fff2e1529b585a74b82794ae126b5
+            image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:10bce5125acf10d2dc4df986e84dcd9a3af6f80563f3a7a42bf6d0cf996f93c3
             command:
               - /on-registry-changed.sh
             args:
@@ -121,7 +121,7 @@ postsubmits:
             type: RuntimeDefault
         containers:
           - name: automation
-            image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:4f85ff1ffb762c78a541b8a47434dfd83f7fff2e1529b585a74b82794ae126b5
+            image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:10bce5125acf10d2dc4df986e84dcd9a3af6f80563f3a7a42bf6d0cf996f93c3
             command:
               - /on-registry-changed.sh
             args:
