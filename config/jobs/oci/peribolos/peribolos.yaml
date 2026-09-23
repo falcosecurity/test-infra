@@ -80,6 +80,14 @@ postsubmits:
       max_concurrency: 1
       skip_report: false
       run_if_changed: ^config/org.yaml$|^config/jobs/oci/peribolos/.*
+      extra_refs:
+        - org: falcosecurity
+          repo: test-infra
+          base_ref: master
+          path_alias: github.com/falcosecurity/test-infra-governance
+          workdir: true
+          clone_depth: 1
+          skip_submodules: true
       spec:
         containers:
           - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
@@ -87,6 +95,7 @@ postsubmits:
               - /ko-app/peribolos
             args:
               - --confirm
+              - --allow-repo-archival
               - --config-path=config/org.yaml
               - --fix-org
               - --fix-org-members
@@ -160,6 +169,7 @@ periodics:
             - /ko-app/peribolos
           args:
             - --confirm
+            - --allow-repo-archival
             - --config-path=config/org.yaml
             - --fix-org
             - --fix-org-members
