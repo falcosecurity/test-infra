@@ -24,6 +24,10 @@ spec:
             type: PathPrefix
             value: /
           method: HEAD
+        - path:
+            type: Exact
+            value: /spyglass/lens/buildlog/callback
+          method: POST
       backendRefs:
         - group: ""
           kind: Service
