@@ -1,0 +1,9 @@
+kernelversion: "50"
+kernelrelease: 6.8.0-1047-azure
+target: ubuntu-azure
+architecture: arm64
+output:
+    module: output/10.2.0+driver/aarch64/falco_ubuntu-azure_6.8.0-1047-azure_50.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure-nvidia/linux-azure-nvidia-headers-6.8.0-1047_6.8.0-1047.50_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-azure-nvidia/linux-headers-6.8.0-1047-azure-nvidia_6.8.0-1047.50_arm64.deb
