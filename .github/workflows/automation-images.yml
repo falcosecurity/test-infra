@@ -2,22 +2,9 @@ name: Automation images
 
 on:
   pull_request:
-    paths:
-      - images/build-plugins/**
-      - images/sync-charts/**
-      - images/update-falco-k8s-manifests/**
-      - images/update-maintainers/**
-      - images/update-rules-index/**
-      - .github/workflows/automation-images.yml
+    branches: [master]
   push:
     branches: [master]
-    paths:
-      - images/build-plugins/**
-      - images/sync-charts/**
-      - images/update-falco-k8s-manifests/**
-      - images/update-maintainers/**
-      - images/update-rules-index/**
-      - .github/workflows/automation-images.yml
   workflow_dispatch:
 
 permissions:
@@ -25,18 +12,54 @@ permissions:
 
 concurrency:
   group: automation-images-${{ github.ref }}
+  queue: max
   cancel-in-progress: false
 
 jobs:
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      images: ${{ github.event_name == 'workflow_dispatch' && '["build-plugins","sync-charts","update-falco-k8s-manifests","update-maintainers","update-rules-index"]' || steps.images.outputs.changes }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Select changed automation images
+        if: github.event_name != 'workflow_dispatch'
+        id: images
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        with:
+          token: ''
+          base: ${{ github.event.pull_request.base.sha || github.event.before }}
+          filters: |
+            build-plugins:
+              - 'images/build-plugins/**'
+              - '.github/workflows/automation-images.yml'
+            sync-charts:
+              - 'images/sync-charts/**'
+              - '.github/workflows/automation-images.yml'
+            update-falco-k8s-manifests:
+              - 'images/update-falco-k8s-manifests/**'
+              - '.github/workflows/automation-images.yml'
+            update-maintainers:
+              - 'images/update-maintainers/**'
+              - '.github/workflows/automation-images.yml'
+            update-rules-index:
+              - 'images/update-rules-index/**'
+              - '.github/workflows/automation-images.yml'
+
   build:
+    needs: changes
     name: build-automation-image (${{ matrix.image }})
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && needs.changes.outputs.images != '[]'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        image: [build-plugins, sync-charts, update-falco-k8s-manifests, update-maintainers, update-rules-index]
+        image: ${{ fromJSON(needs.changes.outputs.images) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -48,8 +71,29 @@ jobs:
           platforms: linux/amd64
           push: false
 
+  automation-images-validation:
+    needs: [changes, build]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every selected image to build
+        env:
+          CHANGES_RESULT: ${{ needs.changes.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          IMAGES: ${{ needs.changes.outputs.images }}
+        run: |
+          test "$CHANGES_RESULT" = success
+          test -n "$IMAGES"
+          if [ "$IMAGES" = '[]' ]; then
+            test "$BUILD_RESULT" = skipped
+          else
+            test "$BUILD_RESULT" = success
+          fi
+
   publish:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    needs: changes
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master' && needs.changes.outputs.images != '[]'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
@@ -58,7 +102,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: [build-plugins, sync-charts, update-falco-k8s-manifests, update-maintainers, update-rules-index]
+        image: ${{ fromJSON(needs.changes.outputs.images) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

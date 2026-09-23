@@ -497,7 +497,7 @@ branch-protection:
               protect: true
           required_status_checks:
             contexts:
-              - check-prow-config
+              - automation-images-validation
               - manifests-validation
         testing:
           branches:
@@ -518,11 +518,6 @@ tide:
               - build-update-dbg-image
               - build-images-golang
               - build-images-update-jobs
-              - build-images-update-maintainers
-              - build-images-build-plugins
-              - build-images-update-rules-index
-              - build-images-update-falco-k8s-manifests
-              - build-images-sync-charts
               - build-images-build-docker-dind
   merge_method:
     falcosecurity/.github: rebase
