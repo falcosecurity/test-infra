@@ -6,6 +6,14 @@ postsubmits:
       decorate: true
       max_concurrency: 1
       run_if_changed: ^config/prow/oci/config\.yaml$|^config/jobs/oci/.*
+      extra_refs:
+        - org: falcosecurity
+          repo: test-infra
+          base_ref: master
+          path_alias: github.com/falcosecurity/test-infra-governance
+          workdir: true
+          clone_depth: 1
+          skip_submodules: true
       spec:
         containers:
           - image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20260811-cafa49460@sha256:3c0832ea1e8255f92a1edacd1aadf01f49a561debbc806746ed051163c556012
