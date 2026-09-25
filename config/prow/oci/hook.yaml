@@ -163,9 +163,11 @@ spec:
             requests:
               cpu: 100m
               memory: 256Mi
+              ephemeral-storage: 1Gi
             limits:
               cpu: 500m
               memory: 512Mi
+              ephemeral-storage: 10Gi
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -190,6 +192,8 @@ spec:
               readOnly: true
             - name: tmp
               mountPath: /tmp
+            - name: tmp
+              mountPath: /var/tmp
       volumes:
         - name: job-config
           configMap:
@@ -213,7 +217,7 @@ spec:
             defaultMode: 0440
         - name: tmp
           emptyDir:
-            sizeLimit: 256Mi
+            sizeLimit: 8Gi
       nodeSelector:
         Application: platform
         Archtype: x86
