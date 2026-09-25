@@ -141,9 +141,11 @@ spec:
             requests:
               cpu: 100m
               memory: 256Mi
+              ephemeral-storage: 1Gi
             limits:
               cpu: "1"
               memory: 1Gi
+              ephemeral-storage: 10Gi
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -153,6 +155,8 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
+            - name: tmp
+              mountPath: /var/tmp
             - name: oauth
               mountPath: /etc/github
               readOnly: true
@@ -171,7 +175,7 @@ spec:
       volumes:
         - name: tmp
           emptyDir:
-            sizeLimit: 256Mi
+            sizeLimit: 8Gi
         - name: oauth
           secret:
             secretName: oauth-token
