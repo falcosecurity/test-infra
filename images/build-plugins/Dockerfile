@@ -6,9 +6,9 @@ RUN git init test-infra \
     && git remote add origin https://github.com/kubernetes/test-infra \
     && git fetch --depth=1 origin "$PR_CREATOR_REF" \
     && git checkout --detach FETCH_HEAD
-RUN cd test-infra/robots/pr-creator && CGO_ENABLED=0 go build -mod=readonly -v -o pr-creator ./main.go
+RUN cd test-infra/robots/pr-creator && CGO_ENABLED=0 go build -p 2 -mod=readonly -v -o pr-creator ./main.go
 
-FROM golang:1.24-bullseye
+FROM golang:1.27.1-bookworm@sha256:69a7b9788769bec032d238959b61854e9ae87f57be9029ec04e9885fabf99195
 
 LABEL usage="docker run -i -t -v /path/to/source:/workspace test-infra/build-plugins"
 

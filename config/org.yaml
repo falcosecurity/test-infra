@@ -19,6 +19,7 @@ orgs:
       - LucaGuerra
       - FedeDP
       - ekoops
+      - c2ndev
 
     members:
       - admiral0
@@ -27,7 +28,6 @@ orgs:
       - andreaterzolo
       - araujof
       - bencer
-      - c2ndev
       - cpanato
       - cappellinsamuele
       - darryk10
@@ -892,6 +892,8 @@ orgs:
           falco-actions: admin
           falco-aws-terraform: admin
           falco-exporter: admin
+          falco-lsp: admin
+          falco-operator: admin
           falco-playground: admin
           falco-rustlings: admin
           falco-talon: admin
@@ -911,6 +913,7 @@ orgs:
           plugin-sdk-go: admin
           plugin-sdk-rs: admin
           plugins: admin
+          prempti: admin
           rules: admin
           syscalls-bumper: admin
           test-infra: admin

@@ -4,6 +4,10 @@ namespace: prow
 configMapGenerator:
   - name: job-config
     files:
+      - automation/maintainers.yaml
+      - automation/manifests.yaml
+      - automation/charts.yaml
+      - automation/registry.yaml
       - build-drivers/build-new-almalinux.yaml
       - build-drivers/build-new-amazonlinux.yaml
       - build-drivers/build-new-bottlerocket.yaml
@@ -20,6 +24,13 @@ configMapGenerator:
       - build-drivers/build-new-ubuntu-gke.yaml
       - build-drivers/validate-dbg.yaml
       - update-dbg/update-dbg.yaml
+      - branchprotector/branchprotector.yaml
+      - peribolos/peribolos.yaml
+      - check-prow-config/check-prow-config.yaml
+      - build-aws-terraform/build-aws-terraform.yaml
+      - lifecycle-bot/periodic-stale.yaml
+      - lifecycle-bot/periodic-rotten.yaml
+      - lifecycle-bot/periodic-close.yaml
     options:
       labels:
         app.kubernetes.io/part-of: prow

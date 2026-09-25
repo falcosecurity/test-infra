@@ -27,35 +27,38 @@ spec:
       expression: 'variables.regularContainers + variables.initContainers'
     - name: selector
       expression: 'object.spec.?nodeSelector.orValue({})'
+    - name: application
+      expression: "object.spec.serviceAccountName == 'driver-kit' ? 'driverkit' : 'automation'"
   validations:
     - expression: >-
-        object.spec.serviceAccountName == 'driver-kit' &&
+        object.spec.serviceAccountName in ['driver-kit', 'automation'] &&
         has(object.spec.automountServiceAccountToken) && !object.spec.automountServiceAccountToken
-      message: DriverKit jobs must use driver-kit without automatic service account token mounts.
+      message: Jobs must use driver-kit or automation without automatic service account token mounts.
     - expression: >-
-        'Application' in variables.selector && variables.selector.Application == 'driverkit' &&
+        'Application' in variables.selector && variables.selector.Application == variables.application &&
         'Archtype' in variables.selector && 'kubernetes.io/arch' in variables.selector &&
         ((variables.selector.Archtype == 'x86' && variables.selector['kubernetes.io/arch'] == 'amd64') ||
          (variables.selector.Archtype == 'arm' && variables.selector['kubernetes.io/arch'] == 'arm64')) &&
+        (variables.application != 'automation' || variables.selector.Archtype == 'x86') &&
         (request.operation != 'CREATE' || !has(object.spec.nodeName) || object.spec.nodeName == '')
-      message: DriverKit jobs must be scheduled on matching dedicated ARM or x86 nodes, not assigned directly.
+      message: Jobs must use their dedicated pool and matching architecture; automation requires x86. Direct node assignment is forbidden.
     - expression: >-
         object.spec.?tolerations.orValue([]).all(t,
-          (t.?key.orValue('') == 'dedicated.falco.org/driverkit' && t.operator == 'Equal' &&
+          (t.?key.orValue('') == 'dedicated.falco.org/' + variables.application && t.operator == 'Equal' &&
            t.?value.orValue('') == 'true' && t.?effect.orValue('') == 'NoSchedule') ||
           (t.?key.orValue('') in ['node.kubernetes.io/not-ready', 'node.kubernetes.io/unreachable'] &&
            t.operator == 'Exists' && t.?effect.orValue('') == 'NoExecute'))
-      message: Only the dedicated DriverKit and standard node readiness tolerations are allowed.
+      message: Only the job's dedicated pool and standard node readiness tolerations are allowed.
     - expression: >-
         !object.spec.?hostNetwork.orValue(false) &&
         !object.spec.?hostPID.orValue(false) && !object.spec.?hostIPC.orValue(false) &&
         object.spec.?volumes.orValue([]).all(v, !has(v.hostPath)) &&
         variables.containers.all(c, c.?ports.orValue([]).all(p, p.?hostPort.orValue(0) == 0))
-      message: DriverKit jobs cannot use host namespaces, host paths, or host ports.
+      message: Jobs cannot use host namespaces, host paths, or host ports.
     - expression: >-
         variables.regularContainers.all(c, !c.?securityContext.?privileged.orValue(false)) &&
         variables.initContainers.all(c, !c.?securityContext.?privileged.orValue(false) ||
-          (c.name == 'docker' && c.?restartPolicy.orValue('') == 'Always' &&
+          (variables.application == 'driverkit' && c.name == 'docker' && c.?restartPolicy.orValue('') == 'Always' &&
            c.image == 'docker.io/library/docker:29.8.1-dind@sha256:76cd6bbc3ab600fced21a7e1bea77ac00cb7c545eb95d5767e4ec4ffbcb242dc'))
       message: Only the pinned Docker daemon init container may be privileged.
     - expression: >-

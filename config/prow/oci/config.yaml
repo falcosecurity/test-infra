@@ -1,57 +1,1245 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: config
-  namespace: prow
-  labels:
-    app.kubernetes.io/name: prow-controller-manager
-    app.kubernetes.io/component: plank
-    app.kubernetes.io/part-of: prow
-data:
-  config.yaml: |
-    prowjob_namespace: prow
-    pod_namespace: test-pods
-    decorate_all_jobs: false
-
-    deck:
-      branding:
-        header_color: "#00AEC7"
-        logo: /static/branding/logo.png
-        favicon: branding/favicon.png
-      spyglass:
-        lenses:
-          - lens:
-              name: metadata
-            required_files:
-              - '^(started|finished)\.json$'
-            optional_files:
-              - '^podinfo\.json$'
-          - lens:
-              name: buildlog
-            required_files:
-              - '^build-log\.txt$'
-          - lens:
-              name: podinfo
-            required_files:
-              - '^podinfo\.json$'
-
-    plank:
-      job_queue_capacities:
-        driverkit-arm: 4
-        driverkit-x86: 4
-      job_url_prefix_config:
-        '*': https://oci-prow.falco.org/view/
-      default_decoration_config_entries:
-        - config:
-            timeout: 24h
-            grace_period: 10m
-            censor_secrets: true
-            utility_images:
-              clonerefs: us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260811-cafa49460@sha256:b024d55113e195e69b66ef5b8973144d48cd1db11346dd1097e9af9294783bf2
-              initupload: us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260811-cafa49460@sha256:fa08b00d6a34a8ffd8e8a4285702b06bfa2b25ff115e07cd1cfe2851899b534d
-              entrypoint: us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260811-cafa49460@sha256:f6e41df39f5894fba72e2c66e5da8d5cbde0b45683995dfffb6031222397d1df
-              sidecar: us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260811-cafa49460@sha256:d52d5dc7ae13272fe814e1ae8689d6236f6c2271987a2ca64b727590444b83d3
-            gcs_configuration:
-              bucket: s3://falco-prow-logs
-              path_strategy: explicit
-            s3_credentials_secret: s3-credentials
+prowjob_namespace: prow
+pod_namespace: test-pods
+decorate_all_jobs: false
+deck:
+  branding:
+    header_color: '#00AEC7'
+    logo: /static/branding/logo.png
+    favicon: branding/favicon.png
+  spyglass:
+    lenses:
+      - lens:
+          name: metadata
+        required_files:
+          - ^(started|finished)\.json$
+        optional_files:
+          - ^podinfo\.json$
+      - lens:
+          name: buildlog
+        required_files:
+          - ^build-log\.txt$
+      - lens:
+          name: podinfo
+        required_files:
+          - ^podinfo\.json$
+plank:
+  job_queue_capacities:
+    artifact-index: 1
+    automation: 3
+    driverkit-arm: 4
+    driverkit-x86: 4
+    governance: 1
+  job_url_prefix_config:
+    '*': https://oci-prow.falco.org/view/
+  default_decoration_config_entries:
+    - config:
+        timeout: 24h
+        grace_period: 10m
+        censor_secrets: true
+        utility_images:
+          clonerefs: us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260811-cafa49460@sha256:b024d55113e195e69b66ef5b8973144d48cd1db11346dd1097e9af9294783bf2
+          initupload: us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260811-cafa49460@sha256:fa08b00d6a34a8ffd8e8a4285702b06bfa2b25ff115e07cd1cfe2851899b534d
+          entrypoint: us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260811-cafa49460@sha256:f6e41df39f5894fba72e2c66e5da8d5cbde0b45683995dfffb6031222397d1df
+          sidecar: us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260811-cafa49460@sha256:d52d5dc7ae13272fe814e1ae8689d6236f6c2271987a2ca64b727590444b83d3
+        gcs_configuration:
+          bucket: s3://falco-prow-logs
+          path_strategy: explicit
+        s3_credentials_secret: s3-credentials
+branch-protection:
+  enforce_admins: true
+  restrictions:
+    teams:
+      - machine_users
+  required_pull_request_reviews:
+    dismiss_stale_reviews: true
+    dismissal_restrictions:
+      teams:
+        - machine_users
+    require_code_owner_reviews: true
+    required_approving_review_count: 1
+  required_status_checks:
+    strict: false
+  orgs:
+    falcosecurity:
+      required_status_checks:
+        contexts:
+          - dco
+      repos:
+        .github:
+          branches:
+            main:
+              protect: true
+        advocacy:
+          branches:
+            master:
+              protect: true
+        charts:
+          required_status_checks:
+            contexts:
+              - test
+              - readme
+          branches:
+            master:
+              protect: true
+        client-go:
+          branches:
+            master:
+              protect: true
+          required_status_checks:
+            contexts:
+              - test
+        client-py:
+          branches:
+            master:
+              protect: true
+        client-rs:
+          branches:
+            master:
+              protect: true
+        cncf-green-review-testing:
+          branches:
+            main:
+              protect: true
+        community:
+          branches:
+            main:
+              protect: true
+        contrib:
+          branches:
+            main:
+              protect: true
+        dbg-go:
+          branches:
+            main:
+              protect: true
+          required_status_checks:
+            contexts:
+              - build-and-test
+        deploy-kubernetes:
+          branches:
+            main:
+              protect: true
+        driverkit:
+          required_status_checks:
+            contexts:
+              - build-test-dev (amd64) / build-test
+              - build-test-dev (arm64) / build-test
+              - Enforce go.mod tidiness
+          branches:
+            master:
+              protect: true
+        elftoolchain:
+          branches:
+            main:
+              protect: true
+        evolution:
+          branches:
+            main:
+              protect: true
+        event-generator:
+          required_status_checks:
+            contexts:
+              - build-and-test-amd64
+              - build-and-test-arm64
+              - Enforce go.mod tidiness
+              - Lint golang files
+          branches:
+            main:
+              protect: true
+            gsoc2024:
+              protect: true
+        falco:
+          required_pull_request_reviews:
+            required_approving_review_count: 2
+          required_status_checks:
+            contexts:
+              - test-dev-packages / test-packages
+              - test-dev-packages-arm64 / test-packages
+              - "format code \U0001F432"
+          branches:
+            master:
+              protect: true
+            release/0.28.1:
+              protect: true
+            release/0.32.2:
+              protect: true
+            release/0.33.0:
+              protect: true
+            release/0.33.1:
+              protect: true
+            release/0.34.0:
+              protect: true
+            release/0.34.x:
+              protect: true
+            release/0.35.x:
+              protect: true
+            release/0.36.x:
+              protect: true
+            release/0.37.x:
+              protect: true
+            release/0.38.x:
+              protect: true
+            release/0.39.x:
+              protect: true
+            release/0.40.x:
+              protect: true
+            release/0.41.x:
+              protect: true
+            release/0.42.x:
+              protect: true
+            release/0.43.x:
+              protect: true
+            release/0.44.x:
+              protect: true
+            release/0.45.x:
+              protect: true
+        falcosidekick:
+          required_status_checks:
+            contexts:
+              - Run unit tests
+              - lint
+              - build-image
+          branches:
+            master:
+              protect: true
+        falcosidekick-ui:
+          required_status_checks:
+            contexts:
+              - lint
+              - build-image
+          branches:
+            master:
+              protect: true
+        falco-operator:
+          branches:
+            main:
+              protect: true
+          required_status_checks:
+            contexts:
+              - e2e-chainsaw-summary
+              - lint-summary
+              - unit-tests
+              - helm-chart-check
+              - manifests-check
+        falco-lsp:
+          branches:
+            main:
+              protect: true
+          required_status_checks:
+            contexts:
+              - Lint
+              - Build
+              - Build Extension
+              - Tests
+              - Coverage
+              - Integration Tests
+        falco-talon:
+          branches:
+            main:
+              protect: true
+        falco-aws-terraform:
+          branches:
+            main:
+              protect: true
+        falco-exporter:
+          branches:
+            master:
+              protect: true
+          required_status_checks:
+            contexts:
+              - build-and-test
+        falcoctl:
+          branches:
+            main:
+              protect: true
+            gh-pages:
+              protect: true
+              enforce_admins: false
+              required_pull_request_reviews:
+                require_code_owner_reviews: false
+                required_approving_review_count: 0
+          required_status_checks:
+            contexts:
+              - test
+              - build (linux, arm64)
+              - build (linux, amd64)
+              - build (darwin, arm64)
+              - build (darwin, amd64)
+              - build (windows, amd64)
+              - Lint golang files
+              - Enforce go.mod tidiness
+        falco-actions:
+          branches:
+            main:
+              protect: true
+          required_status_checks:
+            contexts:
+              - test-falco-live
+              - test-falco-live-custom-rule
+        falco-playground:
+          branches:
+            main:
+              protect: true
+        falco-rustlings:
+          branches:
+            main:
+              protect: true
+        falco-website:
+          branches:
+            master:
+              protect: true
+            v0.26:
+              protect: true
+            v0.27:
+              protect: true
+            v0.28:
+              protect: true
+            v0.29:
+              protect: true
+            v0.30:
+              protect: true
+            v0.31:
+              protect: true
+            v0.32:
+              protect: true
+            v0.33:
+              protect: true
+            v0.34:
+              protect: true
+            v0.35:
+              protect: true
+            v0.36:
+              protect: true
+            v0.37:
+              protect: true
+            v0.38:
+              protect: true
+            v0.39:
+              protect: true
+            v0.40:
+              protect: true
+            v0.41:
+              protect: true
+            v0.42:
+              protect: true
+            v0.43:
+              protect: true
+            v0.44:
+              protect: true
+          required_status_checks:
+            contexts:
+              - netlify/falcosecurity/deploy-preview
+        flycheck-falco-rules:
+          branches:
+            main:
+              protect: true
+        k8s-metacollector:
+          branches:
+            main:
+              protect: true
+        kernel-crawler:
+          required_status_checks:
+            contexts:
+              - test kernel-crawler
+          branches:
+            main:
+              protect: true
+        kernel-testing:
+          required_status_checks:
+            contexts:
+              - Ansible Lint
+          branches:
+            main:
+              protect: true
+        kilt:
+          branches:
+            master:
+              protect: true
+        libs:
+          required_pull_request_reviews:
+            required_approving_review_count: 2
+          required_status_checks:
+            contexts:
+              - "build-libs-linux-amd64 \U0001F601 (system_deps)"
+              - "build-libs-linux-amd64 \U0001F601 (bundled_deps)"
+              - "build-libs-linux-amd64 \U0001F601 (sanitizers)"
+              - "build-libs-linux-amd64 \U0001F601 (zig)"
+              - "build-libs-linux-arm64 \U0001F601 (system_deps)"
+              - "build-libs-linux-arm64 \U0001F601 (bundled_deps)"
+              - "build-libs-linux-arm64 \U0001F601 (sanitizers)"
+              - "build-libs-linux-arm64 \U0001F601 (zig)"
+              - "test-drivers-amd64 \U0001F607 (bundled_deps)"
+              - "test-drivers-arm64 \U0001F607 (bundled_deps)"
+              - test-libs-static (bundled_deps)
+              - "test-scap-amd64 \U0001F606 (bundled_deps)"
+              - "test-scap-arm64 \U0001F606 (bundled_deps)"
+              - "format code \U0001F432"
+          branches:
+            master:
+              protect: true
+            release/0.9.0:
+              protect: true
+            release/0.9.2:
+              protect: true
+            release/0.10.0:
+              protect: true
+            release/0.10.x:
+              protect: true
+            release/0.11.x:
+              protect: true
+            release/0.12.x:
+              protect: true
+            release/0.13.x:
+              protect: true
+            release/0.14.x:
+              protect: true
+            release/0.15.x:
+              protect: true
+            release/0.16.x:
+              protect: true
+            release/0.17.x:
+              protect: true
+            release/0.18.x:
+              protect: true
+            release/0.19.x:
+              protect: true
+            release/0.20.x:
+              protect: true
+            release/0.21.x:
+              protect: true
+            release/0.22.x:
+              protect: true
+            release/0.23.x:
+              protect: true
+            release/0.24.x:
+              protect: true
+            release/0.25.x:
+              protect: true
+            release/0.26.x:
+              protect: true
+        libs-sdk-go:
+          branches:
+            main:
+              protect: true
+        pdig:
+          branches:
+            master:
+              protect: true
+        peribolos-syncer:
+          branches:
+            main:
+              protect: true
+        pigeon:
+          branches:
+            main:
+              protect: true
+          required_status_checks:
+            contexts:
+              - build-and-test
+        plugins:
+          branches:
+            main:
+              protect: true
+          required_status_checks:
+            contexts:
+              - build-plugins / build-packages-x86_64
+              - build-plugins / build-packages-aarch64
+              - get-changed-plugins / get-values
+        plugin-sdk-go:
+          required_status_checks:
+            contexts:
+              - run-tests
+          branches:
+            master:
+              protect: true
+        plugin-sdk-cpp:
+          branches:
+            main:
+              protect: true
+        plugin-sdk-rs:
+          branches:
+            main:
+              protect: true
+        prempti:
+          branches:
+            main:
+              protect: true
+              required_status_checks:
+                contexts:
+                  - Build & Test (Linux x86_64)
+                  - Build & Test (Linux aarch64)
+                  - Build & Test (Windows x64)
+                  - Build & Test (Windows arm64)
+                  - Build & Test (macOS aarch64)
+                  - Build & Test (macOS x86_64)
+            gh-pages:
+              protect: true
+        rules:
+          branches:
+            main:
+              protect: true
+            release/falco-rules-0.1.x:
+              protect: true
+            release/falco-rules-1.0.x:
+              protect: true
+        syscalls-bumper:
+          required_status_checks:
+            contexts:
+              - build syscalls-bumper
+          branches:
+            main:
+              protect: true
+        test-infra:
+          branches:
+            master:
+              protect: true
+          required_status_checks:
+            contexts:
+              - automation-images-validation
+              - manifests-validation
+        testing:
+          branches:
+            main:
+              protect: true
+tide:
+  target_url: https://oci-prow.falco.org/tide
+  context_options:
+    skip-unknown-contexts: true
+    from-branch-protection: true
+    orgs:
+      falcosecurity:
+        repos:
+          test-infra:
+            required-if-present-contexts:
+              - Terraform OCI / plan
+              - validate-dbg
+              - build-update-dbg-image
+              - build-images-golang
+              - build-images-update-jobs
+              - build-images-build-docker-dind
+  merge_method:
+    falcosecurity/.github: rebase
+    falcosecurity/advocacy: rebase
+    falcosecurity/charts: rebase
+    falcosecurity/client-go: rebase
+    falcosecurity/client-py: rebase
+    falcosecurity/client-rs: rebase
+    falcosecurity/cncf-green-review-testing: rebase
+    falcosecurity/community: rebase
+    falcosecurity/contrib: rebase
+    falcosecurity/dbg-go: rebase
+    falcosecurity/deploy-kubernetes: rebase
+    falcosecurity/driverkit: rebase
+    falcosecurity/elftoolchain: rebase
+    falcosecurity/evolution: rebase
+    falcosecurity/event-generator: rebase
+    falcosecurity/falco: rebase
+    falcosecurity/falcosidekick: rebase
+    falcosecurity/falcosidekick-ui: rebase
+    falcosecurity/falco-aws-terraform: rebase
+    falcosecurity/falco-exporter: rebase
+    falcosecurity/falcoctl: rebase
+    falcosecurity/falco-actions: rebase
+    falcosecurity/falco-operator: rebase
+    falcosecurity/falco-lsp: rebase
+    falcosecurity/falco-playground: rebase
+    falcosecurity/falco-rustlings: rebase
+    falcosecurity/falco-talon: rebase
+    falcosecurity/falco-website: rebase
+    falcosecurity/flycheck-falco-rules: rebase
+    falcosecurity/k8s-metacollector: rebase
+    falcosecurity/kernel-crawler: rebase
+    falcosecurity/kernel-testing: rebase
+    falcosecurity/kilt: rebase
+    falcosecurity/libs: rebase
+    falcosecurity/libs-sdk-go: rebase
+    falcosecurity/pdig: rebase
+    falcosecurity/peribolos-syncer: rebase
+    falcosecurity/pigeon: rebase
+    falcosecurity/plugins: rebase
+    falcosecurity/plugin-sdk-go: rebase
+    falcosecurity/plugin-sdk-cpp: rebase
+    falcosecurity/plugin-sdk-rs: rebase
+    falcosecurity/prempti: rebase
+    falcosecurity/rules: rebase
+    falcosecurity/syscalls-bumper: rebase
+    falcosecurity/template-repository: rebase
+    falcosecurity/test-infra: rebase
+    falcosecurity/testing: rebase
+  queries:
+    - repos:
+        - falcosecurity/.github
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/advocacy
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/charts
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/client-go
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/event-generator
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/client-py
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/client-rs
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/cncf-green-review-testing
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/community
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/contrib
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/dbg-go
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/deploy-kubernetes
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/driverkit
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/elftoolchain
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/evolution
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falcosidekick
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falcosidekick-ui
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falcoctl
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-actions
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-aws-terraform
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-exporter
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-website
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-operator
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-lsp
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-playground
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-rustlings
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/falco-talon
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/flycheck-falco-rules
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/k8s-metacollector
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/kernel-crawler
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/kernel-testing
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/kilt
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/libs
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/libs-sdk-go
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/pdig
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/peribolos-syncer
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/pigeon
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/plugins
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/plugin-sdk-go
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/plugin-sdk-cpp
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/plugin-sdk-rs
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/prempti
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - do-not-merge/release-note-label-needed
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/rules
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/syscalls-bumper
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/test-infra
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/testing
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true
+    - repos:
+        - falcosecurity/template-repository
+      labels:
+        - approved
+        - lgtm
+        - 'dco-signoff: yes'
+      missingLabels:
+        - do-not-merge
+        - do-not-merge/hold
+        - do-not-merge/invalid-owners-file
+        - do-not-merge/work-in-progress
+        - needs-rebase
+      reviewApprovedRequired: true

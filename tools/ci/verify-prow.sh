@@ -9,8 +9,8 @@ assert_prow_version
 validation_dir=$(mktemp -d "${TMPDIR:-/tmp}/falco-ci-prow.XXXXXXXX")
 trap 'rm -rf -- "$validation_dir"' EXIT
 
-yq -er '.data."config.yaml"' config/prow/oci/config.yaml > "$validation_dir/config.yaml"
-yq -er '.data."plugins.yaml"' config/prow/oci/plugins.yaml > "$validation_dir/plugins.yaml"
+cp config/prow/oci/config.yaml "$validation_dir/config.yaml"
+cp config/prow/oci/plugins.yaml "$validation_dir/plugins.yaml"
 check_args=(--config-path="$validation_dir/config.yaml" --plugin-config="$validation_dir/plugins.yaml"
   --warnings=unknown-fields-all --warnings=valid-decoration-config --strict)
 # Validate the OCI job catalog if present.

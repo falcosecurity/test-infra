@@ -1,0 +1,141 @@
+postsubmits:
+  falcosecurity/test-infra:
+    - name: branchprotector-post-submit
+      branches:
+        - ^master$
+      decorate: true
+      max_concurrency: 1
+      run_if_changed: ^config/prow/oci/config\.yaml$|^config/jobs/oci/.*
+      extra_refs:
+        - org: falcosecurity
+          repo: test-infra
+          base_ref: master
+          path_alias: github.com/falcosecurity/test-infra-governance
+          workdir: true
+          clone_depth: 1
+          skip_submodules: true
+      spec:
+        containers:
+          - image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20260811-cafa49460@sha256:3c0832ea1e8255f92a1edacd1aadf01f49a561debbc806746ed051163c556012
+            command:
+              - /ko-app/branchprotector
+            args:
+              - --config-path=config/prow/oci/config.yaml
+              - --job-config-path=config/jobs/oci
+              - --github-token-path=/etc/github/oauth
+              - --confirm
+              - --github-endpoint=http://ghproxy.prow.svc.cluster.local
+              - --github-endpoint=https://api.github.com
+            volumeMounts:
+              - name: github
+                mountPath: /etc/github
+                readOnly: true
+            name: automation
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+            resources:
+              requests:
+                cpu: 500m
+                memory: 512Mi
+                ephemeral-storage: 1Gi
+              limits:
+                cpu: "2"
+                memory: 3Gi
+                ephemeral-storage: 4Gi
+        volumes:
+          - name: github
+            secret:
+              secretName: oauth-token
+              defaultMode: 288
+        nodeSelector:
+          Application: automation
+          Archtype: x86
+          kubernetes.io/arch: amd64
+        serviceAccountName: automation
+        automountServiceAccountToken: false
+        enableServiceLinks: false
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65532
+          runAsGroup: 65532
+          fsGroup: 65532
+          seccompProfile:
+            type: RuntimeDefault
+        tolerations:
+          - key: dedicated.falco.org/automation
+            operator: Equal
+            value: "true"
+            effect: NoSchedule
+      job_queue_name: governance
+      decoration_config:
+        timeout: 1h
+periodics:
+  - name: branchprotector-hourly
+    cron: 55 * * * *
+    extra_refs:
+      - org: falcosecurity
+        repo: test-infra
+        base_ref: master
+    decorate: true
+    max_concurrency: 1
+    spec:
+      containers:
+        - image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20260811-cafa49460@sha256:3c0832ea1e8255f92a1edacd1aadf01f49a561debbc806746ed051163c556012
+          command:
+            - /ko-app/branchprotector
+          args:
+            - --config-path=config/prow/oci/config.yaml
+            - --job-config-path=config/jobs/oci
+            - --github-token-path=/etc/github/oauth
+            - --confirm
+            - --github-endpoint=http://ghproxy.prow.svc.cluster.local
+            - --github-endpoint=https://api.github.com
+          volumeMounts:
+            - name: github
+              mountPath: /etc/github
+              readOnly: true
+          name: automation
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+              ephemeral-storage: 1Gi
+            limits:
+              cpu: "2"
+              memory: 3Gi
+              ephemeral-storage: 4Gi
+      volumes:
+        - name: github
+          secret:
+            secretName: oauth-token
+            defaultMode: 288
+      nodeSelector:
+        Application: automation
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      serviceAccountName: automation
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      tolerations:
+        - key: dedicated.falco.org/automation
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+    job_queue_name: governance
+    decoration_config:
+      timeout: 1h

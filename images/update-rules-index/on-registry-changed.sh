@@ -86,6 +86,11 @@ push_index() {
     pushd "$2"
 
     git add index.yaml
+    if git diff --cached --quiet; then
+        echo "> moving on since the distribution index is unchanged..." >&2
+        popd
+        return 0
+    fi
     git commit --message="update(index.yaml): new rules registry data" --signoff
 
     # N.B., no force push here. 

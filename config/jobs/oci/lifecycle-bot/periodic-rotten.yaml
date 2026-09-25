@@ -1,0 +1,82 @@
+periodics:
+  - name: periodic-rotten
+    interval: 6h
+    decorate: true
+    annotations:
+      description: '...'
+    agent: kubernetes
+    spec:
+      containers:
+        - image: gcr.io/k8s-prow/commenter:v20240731-a5d9345e59@sha256:9875f1fec0326e63bc9423841cc06e7e94ac0ba02a93e908c72a724fcdf6082e
+          command:
+            - /ko-app/commenter
+          args:
+            - |-
+              --query=org:falcosecurity
+              -label:lifecycle/frozen
+              label:lifecycle/stale
+              -label:lifecycle/rotten
+            - --updated=720h
+            - --token=/etc/github/oauth
+            - --endpoint=http://ghproxy.prow.svc.cluster.local
+            - |-
+              --comment=Stale issues rot after 30d of inactivity.
+
+              Mark the issue as fresh with `/remove-lifecycle rotten`.
+
+              Rotten issues close after an additional 30d of inactivity.
+
+              If this issue is safe to close now please do so with `/close`.
+
+              Provide feedback via https://github.com/falcosecurity/community.
+
+              /lifecycle rotten
+            - --template
+            - --confirm
+          volumeMounts:
+            - name: oauth
+              mountPath: /etc/github
+              readOnly: true
+          name: automation
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+              ephemeral-storage: 1Gi
+            limits:
+              cpu: "2"
+              memory: 3Gi
+              ephemeral-storage: 4Gi
+      volumes:
+        - name: oauth
+          secret:
+            secretName: oauth-token
+            defaultMode: 288
+      nodeSelector:
+        Application: automation
+        Archtype: x86
+        kubernetes.io/arch: amd64
+      serviceAccountName: automation
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      tolerations:
+        - key: dedicated.falco.org/automation
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+    max_concurrency: 1
+    job_queue_name: governance
+    decoration_config:
+      timeout: 1h

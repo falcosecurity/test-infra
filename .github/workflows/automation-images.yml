@@ -1,0 +1,124 @@
+name: Automation images
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: automation-images-${{ github.ref }}
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      images: ${{ github.event_name == 'workflow_dispatch' && '["build-plugins","sync-charts","update-falco-k8s-manifests","update-maintainers","update-rules-index"]' || steps.images.outputs.changes }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Select changed automation images
+        if: github.event_name != 'workflow_dispatch'
+        id: images
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+        with:
+          token: ''
+          base: ${{ github.event.pull_request.base.sha || github.event.before }}
+          filters: |
+            build-plugins:
+              - 'images/build-plugins/**'
+              - '.github/workflows/automation-images.yml'
+            sync-charts:
+              - 'images/sync-charts/**'
+              - '.github/workflows/automation-images.yml'
+            update-falco-k8s-manifests:
+              - 'images/update-falco-k8s-manifests/**'
+              - '.github/workflows/automation-images.yml'
+            update-maintainers:
+              - 'images/update-maintainers/**'
+              - '.github/workflows/automation-images.yml'
+            update-rules-index:
+              - 'images/update-rules-index/**'
+              - '.github/workflows/automation-images.yml'
+
+  build:
+    needs: changes
+    name: build-automation-image (${{ matrix.image }})
+    if: github.event_name == 'pull_request' && needs.changes.outputs.images != '[]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJSON(needs.changes.outputs.images) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: images/${{ matrix.image }}
+          platforms: linux/amd64
+          push: false
+
+  automation-images-validation:
+    needs: [changes, build]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every selected image to build
+        env:
+          CHANGES_RESULT: ${{ needs.changes.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          IMAGES: ${{ needs.changes.outputs.images }}
+        run: |
+          test "$CHANGES_RESULT" = success
+          test -n "$IMAGES"
+          if [ "$IMAGES" = '[]' ]; then
+            test "$BUILD_RESULT" = skipped
+          else
+            test "$BUILD_RESULT" = success
+          fi
+
+  publish:
+    needs: changes
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master' && needs.changes.outputs.images != '[]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJSON(needs.changes.outputs.images) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: images/${{ matrix.image }}
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/falcosecurity/test-infra/${{ matrix.image }}:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/falcosecurity/test-infra
+            org.opencontainers.image.revision=${{ github.sha }}
