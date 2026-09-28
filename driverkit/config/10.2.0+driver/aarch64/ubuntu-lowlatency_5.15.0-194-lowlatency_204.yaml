@@ -1,0 +1,10 @@
+kernelversion: "204"
+kernelrelease: 5.15.0-194-lowlatency
+target: ubuntu-lowlatency
+architecture: arm64
+output:
+    module: output/10.2.0+driver/aarch64/falco_ubuntu-lowlatency_5.15.0-194-lowlatency_204.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lowlatency/linux-headers-5.15.0-194-lowlatency-64k_5.15.0-194.204_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lowlatency/linux-headers-5.15.0-194-lowlatency_5.15.0-194.204_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-lowlatency/linux-lowlatency-headers-5.15.0-194_5.15.0-194.204_all.deb
