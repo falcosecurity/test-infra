@@ -36,6 +36,10 @@ plank:
         timeout: 24h
         grace_period: 10m
         censor_secrets: true
+        github_app_id: "5110708"
+        github_app_private_key_secret:
+          name: github-clone-readonly
+          key: private-key
         utility_images:
           clonerefs: us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260811-cafa49460@sha256:b024d55113e195e69b66ef5b8973144d48cd1db11346dd1097e9af9294783bf2
           initupload: us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260811-cafa49460@sha256:fa08b00d6a34a8ffd8e8a4285702b06bfa2b25ff115e07cd1cfe2851899b534d

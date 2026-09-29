@@ -24,6 +24,8 @@ BOT_MAIL="${BOT_MAIL:-"51138685+poiana@users.noreply.github.com"}"
 BOT_GPG_KEY_PATH="${BOT_GPG_KEY_PATH:-"/root/gpg-signing-key/poiana.asc"}"
 BOT_GPG_PUBLIC_KEY="${BOT_GPG_PUBLIC_KEY:-"EC9875C7B990D55F3B44D6E45F284448FF941C8F"}"
 
+: "${INDEX_REPO_PATH:?Set INDEX_REPO_PATH to the checked-out distribution index repository}"
+
 export GIT_COMMITTER_NAME=${BOT_NAME}
 export GIT_COMMITTER_EMAIL=${BOT_MAIL}
 export GIT_AUTHOR_NAME=${BOT_NAME}
@@ -64,19 +66,6 @@ ensure_gpg_key() {
 # $1: path of the file containing the token
 get_user_from_token() {
     curl --silent -H "Authorization: token $(cat "$1")" "https://api.github.com/user" | grep -Po '"login": "\K.*?(?=")'
-}
-
-# $1: temporary path to clone the repo
-clone_index_repo() {
-    echo "> cloning distribution index repository (https://github.com/${GH_ORG}/${GH_INDEX_REPO}.git)..." >&2
-    mkdir -p "$1"
-    pushd "$1"
-    git clone "https://github.com/${GH_ORG}/${GH_INDEX_REPO}.git"
-    pushd "${GH_INDEX_REPO}"
-    echo "> checkout ${GH_INDEX_REPO_BRANCH} branch..." >&2
-    git checkout ${GH_INDEX_REPO_BRANCH}
-    popd
-    popd
 }
 
 # $1: path of the file containing the token
@@ -123,24 +112,22 @@ main() {
     check_program "curl"
     check_program "pr-creator"
     check_program "awk"
+    git -C "${INDEX_REPO_PATH}" rev-parse --is-inside-work-tree >/dev/null
+    test -f "${INDEX_REPO_PATH}/index.yaml"
 
     # Settings
     ensure_git_config "${BOT_NAME}" "${BOT_MAIL}"
     ensure_gpg_key "${BOT_GPG_KEY_PATH}" "${BOT_GPG_PUBLIC_KEY}"
-    
-    # Clone the index repo and checkout to the correct branch
-    clone_index_repo "/tmp"
-
     pushd build/registry
 
     go build -o rules-registry ./...
 
     popd
 
-    build/registry/rules-registry update-index registry.yaml /tmp/${GH_INDEX_REPO}/index.yaml
+    build/registry/rules-registry update-index registry.yaml "${INDEX_REPO_PATH}/index.yaml"
 
     # Finally, commit and push the index
-    push_index "$1" "/tmp/${GH_INDEX_REPO}"
+    push_index "$1" "${INDEX_REPO_PATH}"
 
 }
 
