@@ -17,6 +17,20 @@ postsubmits:
           workdir: true
           clone_depth: 1
           skip_submodules: true
+        - org: falcosecurity
+          repo: falcoctl
+          base_ref: gh-pages
+          auxiliary: true
+          clone_depth: 1
+          skip_submodules: true
+        - org: falcosecurity
+          repo: test-infra
+          base_ref: master
+          auxiliary: true
+          clone_depth: 1
+          skip_submodules: true
+          sparse_checkout_files:
+            - images/build-plugins
       spec:
         serviceAccountName: automation
         automountServiceAccountToken: false
@@ -32,10 +46,13 @@ postsubmits:
           - name: automation
             image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:10bce5125acf10d2dc4df986e84dcd9a3af6f80563f3a7a42bf6d0cf996f93c3
             command:
-              - /on-registry-changed.sh
+              - /bin/bash
+              - /home/prow/go/src/github.com/falcosecurity/test-infra/images/build-plugins/on-registry-changed.sh
             args:
               - /etc/github-token/oauth
             env:
+              - name: INDEX_REPO_PATH
+                value: /home/prow/go/src/github.com/falcosecurity/falcoctl
               - name: GH_PROXY
                 value: https://api.github.com
               - name: HOME
@@ -108,6 +125,20 @@ postsubmits:
           workdir: true
           clone_depth: 1
           skip_submodules: true
+        - org: falcosecurity
+          repo: falcoctl
+          base_ref: gh-pages
+          auxiliary: true
+          clone_depth: 1
+          skip_submodules: true
+        - org: falcosecurity
+          repo: test-infra
+          base_ref: master
+          auxiliary: true
+          clone_depth: 1
+          skip_submodules: true
+          sparse_checkout_files:
+            - images/build-plugins
       spec:
         serviceAccountName: automation
         automountServiceAccountToken: false
@@ -123,10 +154,13 @@ postsubmits:
           - name: automation
             image: ghcr.io/falcosecurity/test-infra/build-plugins@sha256:10bce5125acf10d2dc4df986e84dcd9a3af6f80563f3a7a42bf6d0cf996f93c3
             command:
-              - /on-registry-changed.sh
+              - /bin/bash
+              - /home/prow/go/src/github.com/falcosecurity/test-infra/images/build-plugins/on-registry-changed.sh
             args:
               - /etc/github-token/oauth
             env:
+              - name: INDEX_REPO_PATH
+                value: /home/prow/go/src/github.com/falcosecurity/falcoctl
               - name: GH_PROXY
                 value: https://api.github.com
               - name: HOME
@@ -201,6 +235,20 @@ postsubmits:
           workdir: true
           clone_depth: 1
           skip_submodules: true
+        - org: falcosecurity
+          repo: falcoctl
+          base_ref: gh-pages
+          auxiliary: true
+          clone_depth: 1
+          skip_submodules: true
+        - org: falcosecurity
+          repo: test-infra
+          base_ref: master
+          auxiliary: true
+          clone_depth: 1
+          skip_submodules: true
+          sparse_checkout_files:
+            - images/update-rules-index
       spec:
         serviceAccountName: automation
         automountServiceAccountToken: false
@@ -216,10 +264,13 @@ postsubmits:
           - name: automation
             image: ghcr.io/falcosecurity/test-infra/update-rules-index@sha256:627ade089ed6b17045d0988fc29afa0639dd0f4c85f789b1ead52097f06b0b39
             command:
-              - /on-registry-changed.sh
+              - /bin/bash
+              - /home/prow/go/src/github.com/falcosecurity/test-infra/images/update-rules-index/on-registry-changed.sh
             args:
               - /etc/github-token/oauth
             env:
+              - name: INDEX_REPO_PATH
+                value: /home/prow/go/src/github.com/falcosecurity/falcoctl
               - name: GH_PROXY
                 value: https://api.github.com
               - name: HOME
