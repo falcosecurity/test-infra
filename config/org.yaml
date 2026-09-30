@@ -802,7 +802,8 @@ orgs:
           - alacuku
           - leogr
           - Issif
-        members: []
+        members:
+          - c2ndev
         privacy: closed
         repos:
           k8s-metacollector: maintain
