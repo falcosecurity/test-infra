@@ -1,14 +1,7 @@
 name: Terraform apply
 
 on:
-  push:
-    branches:
-    - master
-    paths:
-    - 'config/clusters/aws/**'
-    - '!config/clusters/aws/bootstrap/**'
-    - '.github/workflows/terraform-apply.yml'
-    - 'tools/ci/apply-terraform-aws.sh'
+  workflow_dispatch:
 
 concurrency:
   group: master-CI
@@ -21,6 +14,7 @@ defaults:
 
 jobs:
   plan:
+    if: github.repository == 'falcosecurity/test-infra' && github.ref == 'refs/heads/master'
     permissions:
       contents: read
       id-token: write

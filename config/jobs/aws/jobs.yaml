@@ -1,0 +1,4 @@
+# Keep the AWS job-config ConfigMap loadable without scheduling any jobs.
+presubmits: {}
+postsubmits: {}
+periodics: []

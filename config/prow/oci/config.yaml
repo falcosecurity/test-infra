@@ -518,9 +518,6 @@ tide:
               - Terraform OCI / plan
               - validate-dbg
               - build-update-dbg-image
-              - build-images-golang
-              - build-images-update-jobs
-              - build-images-build-docker-dind
   merge_method:
     falcosecurity/.github: rebase
     falcosecurity/advocacy: rebase

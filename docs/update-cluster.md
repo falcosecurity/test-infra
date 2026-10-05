@@ -64,7 +64,7 @@
 
 ## Prow resources
 
-- Some resources get updated by the weekly job https://prow.falco.org/job-history/s3/falco-prow-logs/logs/ci-test-infra-autobump-prow
+- The AWS Prow autobump job is [archived](../config/backup/aws/jobs/autobump/autobump.yaml); version updates are no longer scheduled.
 - One's that are not udated and must be done manually
 - - [Check config](../config/prow/aws/manifests/check-config.yaml)
 - - [Prowjob CRD](../config/prow/aws/manifests/prowjob-crd/prowjob_custromresourcedefinition.yaml)
