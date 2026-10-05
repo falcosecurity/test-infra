@@ -30,7 +30,7 @@ plank:
     driverkit-x86: 4
     governance: 1
   job_url_prefix_config:
-    '*': https://oci-prow.falco.org/view/
+    '*': https://prow.falco.org/view/
   default_decoration_config_entries:
     - config:
         timeout: 24h
@@ -506,7 +506,7 @@ branch-protection:
             main:
               protect: true
 tide:
-  target_url: https://oci-prow.falco.org/tide
+  target_url: https://prow.falco.org/tide
   context_options:
     skip-unknown-contexts: true
     from-branch-protection: true
