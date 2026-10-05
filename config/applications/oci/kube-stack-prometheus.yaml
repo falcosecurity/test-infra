@@ -111,7 +111,7 @@ spec:
             metrics:
               enabled: true
             server:
-              domain: oci-monitoring.prow.falco.org
+              domain: monitoring.prow.falco.org
           serviceMonitor:
             enabled: true
             labels:
