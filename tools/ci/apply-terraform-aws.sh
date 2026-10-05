@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 set -euo pipefail
 
-# This entrypoint belongs to the trusted post-merge workflow, not presubmits.
-if [[ "${GITHUB_ACTIONS:-}" != true || "${GITHUB_EVENT_NAME:-}" != push ||
+# AWS applies are manual during EKS retirement; only merged code may run.
+if [[ "${GITHUB_ACTIONS:-}" != true || "${GITHUB_EVENT_NAME:-}" != workflow_dispatch ||
       "${GITHUB_REF:-}" != refs/heads/master ||
       "${GITHUB_REPOSITORY:-}" != falcosecurity/test-infra ]]; then
-  echo 'AWS Terraform apply requires the upstream master push workflow.' >&2
+  echo 'AWS Terraform apply requires a manual workflow run on upstream master.' >&2
   exit 1
 fi
 if [[ -z "${RUNNER_TEMP:-}" || ! -d "$RUNNER_TEMP" ]]; then

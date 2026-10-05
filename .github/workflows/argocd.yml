@@ -1,9 +1,7 @@
 name: Deploy ArgoCD
 
 on:
-  push:
-    branches: [master]
-    paths: ["tools/deploy_argocd.sh"]
+  workflow_dispatch:
 
 concurrency:
   group: master-CI
@@ -12,6 +10,7 @@ concurrency:
 
 jobs:
   deploy-argocd:
+    if: github.repository == 'falcosecurity/test-infra' && github.ref == 'refs/heads/master'
     permissions:
       id-token: write
       contents: read

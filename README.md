@@ -13,7 +13,7 @@ Infrastructure is separated by area and cloud:
 | Terraform | [Cluster](config/clusters/aws/) | [Cluster](config/clusters/oci/) |
 | Applications | [Applications](config/applications/aws/) | [Applications](config/applications/oci/) |
 | Prow | [Configuration](config/prow/aws/) | [Configuration](config/prow/oci/) |
-| Prow jobs | [Job catalog](config/jobs/aws/) | No catalog configured |
+| Prow jobs | [Archived jobs](config/backup/aws/jobs/) | [Active jobs](config/jobs/oci/) |
 
 AWS and OCI have independent Prow versions, configuration, and node scheduling.
 The [OCI bootstrap](config/clusters/oci/bootstrap/) is managed and validated
@@ -43,55 +43,13 @@ Are you looking for Deck to check the merge queue and prow jobs?
 
 ### Adding a Job on Prow
 
-The examples below use the AWS job catalog and its container images.
+Add job definitions to [the OCI catalog](config/jobs/oci/) and include them in
+its [Kustomization](config/jobs/oci/kustomization.yaml).
 
+- **Presubmits** run against pull requests: [DBG validation](config/jobs/oci/build-drivers/validate-dbg.yaml).
+- **Postsubmits** run after changes are pushed: [driver builds](config/jobs/oci/build-drivers/build-new-amazonlinux.yaml).
+- **Periodics** run on a schedule: [DBG updates](config/jobs/oci/update-dbg/update-dbg.yaml).
 
-### Job Types
-
-There are three types of prow jobs:
-
-- **Presubmits** run against code in PRs
-
-- **Postsubmits** run after merging code
-
-- **Periodics** run on a periodic basis
-
-
-
-### Create a Presubmits job that run's tests on PR's.
-
-1. Add a file under [AWS jobs](config/jobs/aws/), such as the existing [Amazon Linux driver jobs](config/jobs/aws/build-drivers/build-new-amazonlinux.yaml).
-
-2. 
-```yaml
- presubmits:
-  falcosecurity/test-infra: #Name of the org/repo
-  - name: build-drivers-amazonlinux-presubmit
-    decorate: true
-    skip_report: false
-    agent: kubernetes
-    branches:
-      - ^master$
-    spec:
-      containers:
-      - command:
-        - /workspace/build-drivers.sh
-        - amazonlinux
-        env:
-        - name: AWS_REGION
-          value: eu-west-1
-        image: 292999226676.dkr.ecr.eu-west-1.amazonaws.com/test-infra/build-drivers:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-```
-
-A few things to call out.
-
-- branches: `^master$`  is telling prow to run this on any branch but Master
-- command: `/workspace/build-drivers.sh` this is telling the docker container to run as the test script. See the [script](images/build-drivers/build-drivers.sh)
-- privileged: `true` This is required when using Docker in Docker, or Docker builds.
-- decorate: `true` is adding pod utilities to the prow jobs as an init container. This pulls in source code for the job, to leverage scripts and files in the pull request. 
-
-
-3. Once we add this job, we're going to create our PR, and test this via Github / commands.
+Use the workload's existing service account, resource requests, node selectors
+and tolerations as references. The AWS job definitions are archived and are not
+part of the active catalog.
