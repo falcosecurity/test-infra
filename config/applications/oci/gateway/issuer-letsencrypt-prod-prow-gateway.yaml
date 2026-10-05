@@ -14,6 +14,35 @@ spec:
     solvers:
       - selector:
           dnsNames:
+            - prow.falco.org
+        http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                namespace: envoy-gateway-system
+                name: oci-public
+                sectionName: prow-public-http
+            serviceType: ClusterIP
+            podTemplate:
+              spec:
+                nodeSelector:
+                  Application: platform
+                  kubernetes.io/os: linux
+                tolerations:
+                  - key: dedicated.falco.org/platform
+                    operator: Equal
+                    value: "true"
+                    effect: NoSchedule
+                resources:
+                  requests:
+                    cpu: 10m
+                    memory: 64Mi
+                  limits:
+                    cpu: 100m
+                    memory: 64Mi
+      - selector:
+          dnsNames:
             - oci-prow.falco.org
         http01:
           gatewayHTTPRoute:

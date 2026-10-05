@@ -11,8 +11,14 @@ spec:
       kind: Gateway
       name: oci-public
       namespace: envoy-gateway-system
+      sectionName: grafana-public-http
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: oci-public
+      namespace: envoy-gateway-system
       sectionName: grafana-http
   hostnames:
+    - monitoring.prow.falco.org
     - oci-monitoring.prow.falco.org
   rules:
     - matches:
