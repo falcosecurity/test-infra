@@ -1,0 +1,44 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["custom.regex"],
+  "baseBranchPatterns": ["master"],
+  "automerge": false,
+  "dependencyDashboard": false,
+  "prConcurrentLimit": 1,
+  "prHourlyLimit": 1,
+  "branchPrefix": "renovate/prow-",
+  "gitAuthor": "poiana <51138685+poiana@users.noreply.github.com>",
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "prow",
+  "commitMessageTopic": "Prow images",
+  "commitMessageExtra": "",
+  "commitTrailers": ["Signed-off-by: poiana <51138685+poiana@users.noreply.github.com>"],
+  "prBodyTemplate": "{{{table}}}\n\nUpdates OCI Prow images, validation pins and the matching ProwJob CRD.",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^config/(prow|jobs)/oci/.*\\.yaml$/"],
+      "matchStrings": [
+        "(?<depName>us-docker\\.pkg\\.dev/k8s-infra-prow/images/[a-z0-9-]+):(?<currentValue>v[0-9]{8}-[a-f0-9]{6,40})@(?<currentDigest>sha256:[a-f0-9]{64})"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "regex:^v(?<major>[0-9]{8})-[a-f0-9]{6,40}$"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["custom.regex"],
+      "matchPackageNames": ["us-docker.pkg.dev/k8s-infra-prow/images/**"],
+      "groupName": "Prow images",
+      "groupSlug": "images",
+      "separateMajorMinor": false,
+      "pinDigests": true,
+      "postUpgradeTasks": {
+        "commands": ["bash tools/ci/sync-prow-release.sh"],
+        "executionMode": "branch",
+        "fileFilters": ["tools/ci/prow-version.sh", "config/prow/oci/prowjob-crd.yaml"]
+      }
+    }
+  ]
+}

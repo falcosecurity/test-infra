@@ -46,9 +46,10 @@ jobs:
             oci:
               - 'config/{applications,clusters,jobs,prow}/oci/**'
               - 'config/org.yaml'
-              - '.github/workflows/{ci-oci,terraform-oci}.yml'
+              - '.github/workflows/{ci-oci,terraform-oci,prow-autobump,cluster-maintenance}.yml'
+              - '.github/renovate.json'
               - 'tools/deploy_argocd_oci.sh'
-              - 'tools/ci/{oci-session,preflight-terraform-oci,prow-version,verify-prow}.sh'
+              - 'tools/ci/{oci-session,preflight-terraform-oci,prow-version,sync-prow-release,verify-prow}.sh'
               - '!config/clusters/oci/bootstrap/**'
               - '!**/*.md'
               - '!**/OWNERS'
@@ -61,7 +62,7 @@ jobs:
               - '.gitignore'
               - 'config/{applications,clusters,jobs,prow}/**'
               - '!config/{applications,clusters,jobs,prow}/{aws,oci}/**'
-              - '!tools/ci/{apply-terraform-aws,oci-session,preflight-terraform-oci,prow-version,verify-prow}.sh'
+              - '!tools/ci/{apply-terraform-aws,oci-session,preflight-terraform-oci,prow-version,sync-prow-release,verify-prow}.sh'
               - '!**/*.md'
               - '!**/OWNERS'
             # Check both clouds for line breaks that globstars may miss.

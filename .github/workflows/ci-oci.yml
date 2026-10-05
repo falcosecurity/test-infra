@@ -7,6 +7,21 @@ permissions:
   contents: read
 
 jobs:
+  autobump-config:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Validate Renovate configuration without credentials
+        run: >-
+          docker run --rm --network none --read-only --cap-drop ALL
+          --security-opt no-new-privileges --tmpfs /tmp:rw,nosuid,nodev,size=256m
+          --mount "type=bind,src=$GITHUB_WORKSPACE/.github/renovate.json,dst=/config/renovate.json,readonly"
+          ghcr.io/renovatebot/renovate:44.119.1@sha256:14ff6f133ddb30643b74212b5b90f2eb0bf4d3320345c8f13619ad4890938848
+          renovate-config-validator --strict /config/renovate.json
+
   manifests:
     runs-on: ubuntu-24.04
     timeout-minutes: 20

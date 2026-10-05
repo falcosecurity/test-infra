@@ -1,0 +1,31 @@
+name: Prow autobump
+
+on:
+  schedule:
+    - cron: '5 15 * * 4'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prow-autobump
+  cancel-in-progress: false
+
+jobs:
+  propose-update:
+    if: github.repository == 'falcosecurity/test-infra' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Propose a coordinated Prow update
+        uses: renovatebot/github-action@1cd96b855fee0da6f230617e89dbff0e06ea393a # v46.3.5
+        with:
+          token: ${{ secrets.PROW_OAUTH_TOKEN }}
+          renovate-image: ghcr.io/renovatebot/renovate:44.119.1@sha256:14ff6f133ddb30643b74212b5b90f2eb0bf4d3320345c8f13619ad4890938848
+          mount-docker-socket: false
+        env:
+          RENOVATE_REPOSITORIES: falcosecurity/test-infra
+          RENOVATE_ONBOARDING: 'false'
+          RENOVATE_REQUIRE_CONFIG: required
+          RENOVATE_ALLOWED_COMMANDS: '["^bash tools/ci/sync-prow-release\\.sh$"]'
