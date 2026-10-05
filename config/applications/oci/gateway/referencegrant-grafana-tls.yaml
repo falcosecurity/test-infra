@@ -13,4 +13,7 @@ spec:
   to:
     - group: ""
       kind: Secret
+      name: grafana-gateway-tls
+    - group: ""
+      kind: Secret
       name: grafana-oci-gateway-tls

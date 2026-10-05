@@ -13,4 +13,7 @@ spec:
   to:
     - group: ""
       kind: Secret
+      name: prow-gateway-tls
+    - group: ""
+      kind: Secret
       name: prow-oci-gateway-tls
