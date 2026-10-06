@@ -12,14 +12,8 @@ spec:
       name: oci-public
       namespace: envoy-gateway-system
       sectionName: grafana-public-https
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: oci-public
-      namespace: envoy-gateway-system
-      sectionName: grafana-https
   hostnames:
     - monitoring.prow.falco.org
-    - oci-monitoring.prow.falco.org
   rules:
     - matches:
         - path:

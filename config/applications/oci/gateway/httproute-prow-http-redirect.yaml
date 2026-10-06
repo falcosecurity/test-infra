@@ -12,14 +12,8 @@ spec:
       name: oci-public
       namespace: envoy-gateway-system
       sectionName: prow-public-http
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: oci-public
-      namespace: envoy-gateway-system
-      sectionName: prow-http
   hostnames:
     - prow.falco.org
-    - oci-prow.falco.org
   rules:
     - matches:
         - path:
