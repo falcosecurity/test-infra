@@ -100,7 +100,7 @@ spec:
         fsGroup: 65532
       containers:
         - name: tide
-          image: us-docker.pkg.dev/k8s-infra-prow/images/tide:v20260811-cafa49460@sha256:842e694f559ac984b3aa43d67b81560020d72dd32051c8facbaf07fbfda9b1e9
+          image: us-docker.pkg.dev/k8s-infra-prow/images/tide:v20261008-e012f2883@sha256:fbe5e8cd9f3969a7b8aea1e2c6bde58e1a0ecdcfee00532400e2b042fc109070
           args:
             - --dry-run=false
             - --github-token-path=/etc/github/oauth
