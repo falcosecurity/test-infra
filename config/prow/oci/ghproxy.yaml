@@ -79,7 +79,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: ghproxy
-          image: us-docker.pkg.dev/k8s-infra-prow/images/ghproxy:v20260811-cafa49460@sha256:e40113798952b457fcaab9fb9b8c19e95c71a93073bdf1710abc87d5bce91013
+          image: us-docker.pkg.dev/k8s-infra-prow/images/ghproxy:v20261008-e012f2883@sha256:a237ccce5e0e7a55cf04bbafe3a7318f2e56be4787015e8a1ae0a31f13c9bda4
           imagePullPolicy: IfNotPresent
           args:
             - --cache-dir=/cache
