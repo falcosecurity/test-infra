@@ -1,0 +1,10 @@
+kernelversion: "68"
+kernelrelease: 6.8.0-1065-aws
+target: ubuntu-aws
+architecture: arm64
+output:
+    module: output/10.2.0+driver/aarch64/falco_ubuntu-aws_6.8.0-1065-aws_68.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-aws-headers-6.8.0-1065_6.8.0-1065.68_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-6.8.0-1065-aws-64k_6.8.0-1065.68_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux-aws/linux-headers-6.8.0-1065-aws_6.8.0-1065.68_arm64.deb
