@@ -1,24 +1,18 @@
 approve:
   - repos:
       - falcosecurity/.github
-      - falcosecurity/advocacy
       - falcosecurity/charts
-      - falcosecurity/client-go
-      - falcosecurity/client-py
-      - falcosecurity/client-rs
       - falcosecurity/cncf-green-review-testing
       - falcosecurity/community
       - falcosecurity/contrib
       - falcosecurity/dbg-go
       - falcosecurity/deploy-kubernetes
       - falcosecurity/driverkit
-      - falcosecurity/ebpf-probe
       - falcosecurity/elftoolchain
       - falcosecurity/event-generator
       - falcosecurity/evolution
       - falcosecurity/falco-actions
       - falcosecurity/falco-aws-terraform
-      - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/falcoctl
       - falcosecurity/falco-operator
@@ -32,12 +26,7 @@ approve:
       - falcosecurity/k8s-metacollector
       - falcosecurity/kernel-crawler
       - falcosecurity/kernel-testing
-      - falcosecurity/kernel-module
-      - falcosecurity/kilt
       - falcosecurity/libs-sdk-go
-      - falcosecurity/libscap
-      - falcosecurity/libsinsp
-      - falcosecurity/pdig
       - falcosecurity/peribolos-syncer
       - falcosecurity/pigeon
       - falcosecurity/plugin-sdk-cpp
@@ -47,7 +36,6 @@ approve:
       - falcosecurity/prempti
       - falcosecurity/rules
       - falcosecurity/syscalls-bumper
-      - falcosecurity/template-repository
       - falcosecurity/test-infra
       - falcosecurity/testing
     lgtm_acts_as_approve: true
@@ -76,11 +64,7 @@ label:
 lgtm:
   - repos:
       - falcosecurity/.github
-      - falcosecurity/advocacy
       - falcosecurity/charts
-      - falcosecurity/client-go
-      - falcosecurity/client-py
-      - falcosecurity/client-rs
       - falcosecurity/cncf-green-review-testing
       - falcosecurity/community
       - falcosecurity/contrib
@@ -96,7 +80,6 @@ lgtm:
       - falcosecurity/falcosidekick-ui
       - falcosecurity/falco-actions
       - falcosecurity/falco-aws-terraform
-      - falcosecurity/falco-exporter
       - falcosecurity/falco-website
       - falcosecurity/falco-operator
       - falcosecurity/falco-lsp
@@ -106,10 +89,8 @@ lgtm:
       - falcosecurity/flycheck-falco-rules
       - falcosecurity/kernel-crawler
       - falcosecurity/kernel-testing
-      - falcosecurity/kilt
       - falcosecurity/libs
       - falcosecurity/libs-sdk-go
-      - falcosecurity/pdig
       - falcosecurity/peribolos-syncer
       - falcosecurity/pigeon
       - falcosecurity/plugins
@@ -119,7 +100,6 @@ lgtm:
       - falcosecurity/prempti
       - falcosecurity/rules
       - falcosecurity/syscalls-bumper
-      - falcosecurity/template-repository
       - falcosecurity/test-infra
       - falcosecurity/testing
     review_acts_as_lgtm: true
@@ -132,9 +112,6 @@ repo_milestone:
   falcosecurity/libs:
     maintainers_team: libs-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/libs
-  falcosecurity/pdig:
-    maintainers_team: pdig-maintainers
-    maintainers_friendly_name: maintainers of falcosecurity/pdig
   falcosecurity/falcoctl:
     maintainers_team: falcoctl-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/falcoctl
@@ -145,30 +122,6 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: .github
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: client-go
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: client-py
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: client-rs
     prs: true
     regexp: ^kind/
     missing_comment: |
@@ -274,14 +227,6 @@ require_matching_label:
       Please specify it either using `/kind <group>` or manually from the side menu.
   - missing_label: needs-kind
     org: falcosecurity
-    repo: falco-exporter
-    issues: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
     repo: falcoctl
     issues: true
     regexp: ^kind/
@@ -307,14 +252,6 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: k8s-metacollector
-    issues: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this issue.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: kilt
     issues: true
     regexp: ^kind/
     missing_comment: |
@@ -515,27 +452,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-  falcosecurity/advocacy:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - require-matching-label
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
   falcosecurity/charts:
     plugins:
       - approve
@@ -552,76 +468,6 @@ plugins:
       - lifecycle
       - lgtm
       - mergecommitblocker
-      - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/client-go:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - golint
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - release-note
-      - require-matching-label
-      - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/client-py:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - release-note
-      - require-matching-label
-      - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/client-rs:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - release-note
-      - require-matching-label
       - retitle
       - size
       - trigger
@@ -950,29 +796,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-  falcosecurity/falco-exporter:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - golint
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - require-matching-label
-      - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
   falcosecurity/falcoctl:
     plugins:
       - approve
@@ -1227,29 +1050,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-  falcosecurity/kilt:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - mergecommitblocker
-      - require-matching-label
-      - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
   falcosecurity/libs:
     plugins:
       - approve
@@ -1291,29 +1091,6 @@ plugins:
       - lifecycle
       - lgtm
       - require-matching-label
-      - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/pdig:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - goose
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
-      - mergecommitblocker
-      - milestone
       - retitle
       - size
       - trigger
@@ -1524,25 +1301,6 @@ plugins:
       - lgtm
       - require-matching-label
       - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
-  falcosecurity/template-repository:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - help
-      - hold
-      - label
-      - lifecycle
-      - lgtm
       - size
       - trigger
       - verify-owners
@@ -1596,23 +1354,7 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
-  falcosecurity/advocacy:
-    - name: needs-rebase
-      events:
-        - pull_request
   falcosecurity/charts:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/client-go:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/client-py:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/client-rs:
     - name: needs-rebase
       events:
         - pull_request
@@ -1672,10 +1414,6 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
-  falcosecurity/falco-exporter:
-    - name: needs-rebase
-      events:
-        - pull_request
   falcosecurity/falcoctl:
     - name: needs-rebase
       events:
@@ -1720,19 +1458,11 @@ external_plugins:
     - name: needs-rebase
       events:
         - pull_request
-  falcosecurity/kilt:
-    - name: needs-rebase
-      events:
-        - pull_request
   falcosecurity/libs:
     - name: needs-rebase
       events:
         - pull_request
   falcosecurity/libs-sdk-go:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/pdig:
     - name: needs-rebase
       events:
         - pull_request
@@ -1769,10 +1499,6 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/syscalls-bumper:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/template-repository:
     - name: needs-rebase
       events:
         - pull_request

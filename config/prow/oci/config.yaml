@@ -73,30 +73,11 @@ branch-protection:
           branches:
             main:
               protect: true
-        advocacy:
-          branches:
-            master:
-              protect: true
         charts:
           required_status_checks:
             contexts:
               - test
               - readme
-          branches:
-            master:
-              protect: true
-        client-go:
-          branches:
-            master:
-              protect: true
-          required_status_checks:
-            contexts:
-              - test
-        client-py:
-          branches:
-            master:
-              protect: true
-        client-rs:
           branches:
             master:
               protect: true
@@ -245,13 +226,6 @@ branch-protection:
           branches:
             main:
               protect: true
-        falco-exporter:
-          branches:
-            master:
-              protect: true
-          required_status_checks:
-            contexts:
-              - build-and-test
         falcoctl:
           branches:
             main:
@@ -355,10 +329,6 @@ branch-protection:
           branches:
             main:
               protect: true
-        kilt:
-          branches:
-            master:
-              protect: true
         libs:
           required_pull_request_reviews:
             required_approving_review_count: 2
@@ -424,10 +394,6 @@ branch-protection:
         libs-sdk-go:
           branches:
             main:
-              protect: true
-        pdig:
-          branches:
-            master:
               protect: true
         peribolos-syncer:
           branches:
@@ -520,11 +486,7 @@ tide:
               - build-update-dbg-image
   merge_method:
     falcosecurity/.github: rebase
-    falcosecurity/advocacy: rebase
     falcosecurity/charts: rebase
-    falcosecurity/client-go: rebase
-    falcosecurity/client-py: rebase
-    falcosecurity/client-rs: rebase
     falcosecurity/cncf-green-review-testing: rebase
     falcosecurity/community: rebase
     falcosecurity/contrib: rebase
@@ -538,7 +500,6 @@ tide:
     falcosecurity/falcosidekick: rebase
     falcosecurity/falcosidekick-ui: rebase
     falcosecurity/falco-aws-terraform: rebase
-    falcosecurity/falco-exporter: rebase
     falcosecurity/falcoctl: rebase
     falcosecurity/falco-actions: rebase
     falcosecurity/falco-operator: rebase
@@ -551,10 +512,8 @@ tide:
     falcosecurity/k8s-metacollector: rebase
     falcosecurity/kernel-crawler: rebase
     falcosecurity/kernel-testing: rebase
-    falcosecurity/kilt: rebase
     falcosecurity/libs: rebase
     falcosecurity/libs-sdk-go: rebase
-    falcosecurity/pdig: rebase
     falcosecurity/peribolos-syncer: rebase
     falcosecurity/pigeon: rebase
     falcosecurity/plugins: rebase
@@ -564,25 +523,11 @@ tide:
     falcosecurity/prempti: rebase
     falcosecurity/rules: rebase
     falcosecurity/syscalls-bumper: rebase
-    falcosecurity/template-repository: rebase
     falcosecurity/test-infra: rebase
     falcosecurity/testing: rebase
   queries:
     - repos:
         - falcosecurity/.github
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/advocacy
       labels:
         - approved
         - lgtm
@@ -608,20 +553,6 @@ tide:
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
-        - falcosecurity/client-go
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/event-generator
       labels:
         - approved
@@ -636,34 +567,6 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/client-py
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/client-rs
       labels:
         - approved
         - lgtm
@@ -879,19 +782,6 @@ tide:
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
-        - falcosecurity/falco-exporter
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/falco-website
       labels:
         - approved
@@ -1029,20 +919,6 @@ tide:
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
-        - falcosecurity/kilt
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
         - falcosecurity/libs
       labels:
         - approved
@@ -1068,19 +944,6 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/pdig
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
         - needs-rebase
       reviewApprovedRequired: true
     - repos:
@@ -1220,19 +1083,6 @@ tide:
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/testing
-      labels:
-        - approved
-        - lgtm
-        - 'dco-signoff: yes'
-      missingLabels:
-        - do-not-merge
-        - do-not-merge/hold
-        - do-not-merge/invalid-owners-file
-        - do-not-merge/work-in-progress
-        - needs-rebase
-      reviewApprovedRequired: true
-    - repos:
-        - falcosecurity/template-repository
       labels:
         - approved
         - lgtm
