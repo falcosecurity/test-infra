@@ -50,6 +50,7 @@ plank:
           path_strategy: explicit
         s3_credentials_secret: s3-credentials
 branch-protection:
+  required_linear_history: true
   enforce_admins: true
   restrictions:
     teams:
@@ -538,6 +539,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/charts
@@ -551,6 +553,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/event-generator
@@ -564,6 +567,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
@@ -578,6 +582,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/cncf-green-review-testing
@@ -592,6 +597,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/community
@@ -605,6 +611,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/contrib
@@ -618,6 +625,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/dbg-go
@@ -631,6 +639,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/deploy-kubernetes
@@ -645,6 +654,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/driverkit
@@ -658,6 +668,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/elftoolchain
@@ -671,6 +682,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/evolution
@@ -684,6 +696,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
@@ -698,6 +711,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falcosidekick
@@ -711,6 +725,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falcosidekick-ui
@@ -724,6 +739,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falcoctl
@@ -738,6 +754,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco
@@ -752,6 +769,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-actions
@@ -766,6 +784,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-aws-terraform
@@ -780,6 +799,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-website
@@ -793,6 +813,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-operator
@@ -807,6 +828,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-lsp
@@ -821,6 +843,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-playground
@@ -835,6 +858,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-rustlings
@@ -849,6 +873,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/falco-talon
@@ -863,6 +888,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/flycheck-falco-rules
@@ -877,6 +903,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/k8s-metacollector
@@ -890,6 +917,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/kernel-crawler
@@ -903,6 +931,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/kernel-testing
@@ -917,6 +946,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/libs
@@ -931,6 +961,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/libs-sdk-go
@@ -945,6 +976,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/peribolos-syncer
@@ -959,6 +991,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/pigeon
@@ -973,6 +1006,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/plugins
@@ -986,6 +1020,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/plugin-sdk-go
@@ -1000,6 +1035,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/plugin-sdk-cpp
@@ -1013,6 +1049,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/plugin-sdk-rs
@@ -1027,6 +1064,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/prempti
@@ -1041,6 +1079,7 @@ tide:
         - do-not-merge/work-in-progress
         - do-not-merge/release-note-label-needed
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/rules
@@ -1054,6 +1093,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/syscalls-bumper
@@ -1067,6 +1107,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/test-infra
@@ -1080,6 +1121,7 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
     - repos:
         - falcosecurity/testing
@@ -1093,4 +1135,5 @@ tide:
         - do-not-merge/invalid-owners-file
         - do-not-merge/work-in-progress
         - needs-rebase
+        - do-not-merge/contains-merge-commits
       reviewApprovedRequired: true
