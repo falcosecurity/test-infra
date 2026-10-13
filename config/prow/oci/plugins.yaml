@@ -43,6 +43,7 @@ approve:
       - falcosecurity/testing
     lgtm_acts_as_approve: true
     require_self_approval: false
+    ignore_review_state: false
     commandHelpLink: https://prow.falco.org/command-help
 blunderbuss:
   max_request_count: 2
@@ -103,6 +104,9 @@ lgtm:
       - falcosecurity/testing
     review_acts_as_lgtm: true
     store_tree_hash: true
+owners:
+  skip_collaborators:
+    - falcosecurity
 repo_milestone:
   falcosecurity/.github:
     maintainers_team: github-maintainers
