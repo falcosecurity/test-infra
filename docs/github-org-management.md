@@ -47,6 +47,28 @@ owners as team maintainers, and Peribolos manages the teams. This team role is
 separate from repository permissions and the roles in `OWNERS`. Purpose-specific
 teams, such as `admins` and `machine_users`, are managed separately.
 
+## How do pull request approvals work?
+
+The OCI Prow configuration uses the same review policy across repositories,
+including `falco` and `libs`: one GitHub approving review, plus the `approved` and
+`lgtm` labels. Review permissions come from `OWNERS`, including directory scopes.
+
+| PR author | GitHub approving review from | Outcome |
+| --- | --- | --- |
+| Non-approver | Approver covering all changed files | Both labels; eligible to merge |
+| Non-approver | Reviewer only | `lgtm`; waits for an approver's `/approve` |
+| Approver covering all changed files | Another eligible reviewer or approver | Author supplies `approved`; review supplies `lgtm`; eligible to merge |
+
+An author's implicit approval covers only files they own. Approval must cover
+every changed file, so changes across ownership boundaries may need additional
+approvers. LGTM requires an OWNERS reviewer or approver for the changed files;
+authors cannot LGTM their own PRs.
+
+Comment commands do not replace the required GitHub approving review. New code
+changes require renewed review: stale GitHub reviews are dismissed and LGTM is
+removed when the tree changes. CI and all other merge requirements still apply.
+The existing `falcoctl/gh-pages` publishing branch keeps its zero-review exception.
+
 ## What if I have further questions?
 
 Please open an issue in this repo and someone from the Falco infra team will be happy to help!

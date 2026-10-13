@@ -139,8 +139,6 @@ branch-protection:
             gsoc2024:
               protect: true
         falco:
-          required_pull_request_reviews:
-            required_approving_review_count: 2
           required_status_checks:
             contexts:
               - test-dev-packages / test-packages
@@ -335,8 +333,6 @@ branch-protection:
             main:
               protect: true
         libs:
-          required_pull_request_reviews:
-            required_approving_review_count: 2
           required_status_checks:
             contexts:
               - "build-libs-linux-amd64 \U0001F601 (system_deps)"
@@ -425,7 +421,7 @@ branch-protection:
             contexts:
               - run-tests
           branches:
-            master:
+            main:
               protect: true
         plugin-sdk-cpp:
           branches:
