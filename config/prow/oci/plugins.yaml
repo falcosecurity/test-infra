@@ -600,6 +600,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -648,6 +649,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -671,6 +673,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -694,6 +697,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -717,6 +721,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -741,6 +746,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -764,6 +770,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -788,6 +795,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -812,6 +820,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - require-matching-label
       - retitle
       - size
@@ -835,6 +844,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -934,6 +944,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -982,6 +993,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1006,6 +1018,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1030,6 +1043,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1054,6 +1068,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1078,6 +1093,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1102,6 +1118,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1125,6 +1142,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1173,6 +1191,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1221,6 +1240,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1269,6 +1289,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1293,6 +1314,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1317,6 +1339,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1439,6 +1462,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1486,6 +1510,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1509,6 +1534,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
@@ -1533,6 +1559,7 @@ plugins:
       - label
       - lgtm
       - lifecycle
+      - mergecommitblocker
       - milestone
       - require-matching-label
       - retitle
