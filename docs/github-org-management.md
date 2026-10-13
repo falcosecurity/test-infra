@@ -14,7 +14,7 @@ Peribolos will sync the content of [`config/org.yaml`](/config/org.yaml) with ou
 
 ## How do I add a new member to the organization?
 
-This is done by adding an entry to the org's `members` array inside `config/org.yaml`, and then to each `members` array of the teams he is supposed to be part of:
+Add an entry to the org's `members` array inside `config/org.yaml`, and then to each `members` array of the teams they are supposed to be part of:
 
 ```diff
 org:
@@ -35,6 +35,17 @@ org:
         members:
 +         - john-doe 
 ```
+
+For active repositories, each repository team must include all `approvers` and
+`reviewers` from its root and subdirectory `OWNERS` files. Do not include people
+listed only as emeritus. The `core-maintainers` team must match the
+[core maintainers list](https://github.com/falcosecurity/evolution/blob/main/MAINTAINERS.md#core-maintainers).
+
+Within these teams, list organization owners (the org's `admins`) under
+`maintainers` and everyone else under `members`. GitHub reports organization
+owners as team maintainers, and Peribolos manages the teams. This team role is
+separate from repository permissions and the roles in `OWNERS`. Purpose-specific
+teams, such as `admins` and `machine_users`, are managed separately.
 
 ## What if I have further questions?
 

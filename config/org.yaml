@@ -478,12 +478,13 @@ orgs:
         description: maintainers of falcosecurity/charts
         maintainers:
           - leogr
+          - ekoops
+          - c2ndev
         members:
           - cpanato
           - Issif
           - alacuku
-          - ekoops
-          - c2ndev
+          - bencer
         privacy: closed
         repos:
           charts: maintain
@@ -516,8 +517,8 @@ orgs:
         maintainers:
           - leogr
           - LucaGuerra
+        members:
           - maxgio92
-        members: []
         privacy: closed
         repos:
           cncf-green-review-testing: maintain
@@ -525,11 +526,13 @@ orgs:
         description: maintainers of falcosecurity/community
         maintainers:
           - leogr
+          - mstemm
         members:
           - Issif
           - araujof
           - maxgio92
           - terylt
+          - Kaizhe
         privacy: closed
         repos:
           community: maintain
@@ -537,9 +540,9 @@ orgs:
         description: maintainers of falcosecurity/contrib
         maintainers:
           - leogr
+          - jasondellaluce
         members:
           - maxgio92
-          - jasondellaluce
         privacy: closed
         repos:
           contrib: maintain
@@ -548,30 +551,31 @@ orgs:
         maintainers:
           - leogr
           - mstemm
+          - FedeDP
+          - jasondellaluce
+          - LucaGuerra
+          - ekoops
+          - c2ndev
         members:
           - gnosek
           - cpanato
           - Issif
-          - FedeDP
           - zuc
-          - jasondellaluce
           - Molter73
-          - LucaGuerra
           - alacuku
           - loresuso
           - sgaist
-          - ekoops
           - deepskyblue86
           - geraldcombs
           - irozzo-1A
-          - c2ndev
+          - therealbobo
         privacy: closed
       dbg-go-maintainers:
         description: maintainers of falcosecurity/dbg-go
         maintainers:
           - leogr
-        members:
           - FedeDP
+        members:
           - maxgio92
         privacy: closed
         repos:
@@ -580,22 +584,23 @@ orgs:
         description: maintainers of falcosecurity/deploy-kubernetes
         maintainers:
           - leogr
+          - jasondellaluce
         members:
           - zuc
-          - jasondellaluce
         privacy: closed
         repos:
           deploy-kubernetes: maintain
       driverkit-maintainers:
         description: maintainers of falcosecurity/driverkit
+        maintainers:
+          - FedeDP
+          - LucaGuerra
+          - leogr
         members:
           - leodido
           - dwindsor
-          - FedeDP
           - EXONER4TED
           - Lowaiz
-          - LucaGuerra
-          - leogr
         privacy: closed
         repos:
           driverkit: maintain
@@ -605,11 +610,11 @@ orgs:
           - leogr
           - mstemm
           - jasondellaluce
+          - FedeDP
+          - LucaGuerra
         members:
           - gnosek
-          - FedeDP
           - Molter73
-          - LucaGuerra
           - hbrueckner
         privacy: closed
         repos:
@@ -618,10 +623,10 @@ orgs:
         description: maintainers of falcosecurity/event-generator
         maintainers:
           - leogr
-        members:
           - FedeDP
-          - alacuku
           - ekoops
+        members:
+          - alacuku
         privacy: closed
         repos:
           event-generator: maintain
@@ -629,21 +634,21 @@ orgs:
         description: maintainers of falcosecurity/evolution
         maintainers:
           - leogr
-        members:
           - jasondellaluce
           - LucaGuerra
           - ekoops
+        members: []
         privacy: closed
         repos:
           evolution: maintain
       falco-actions-maintainers:
         description: maintainers of falcosecurity/falco-actions
         maintainers:
+          - leogr
+        members:
           - darryk10
           - loresuso
-          - leogr
           - cpanato
-        members: []
         privacy: closed
         repos:
           falco-actions: maintain
@@ -653,9 +658,9 @@ orgs:
           - ldegio
           - leogr
           - mstemm
+          - jasondellaluce
         members:
           - zuc
-          - jasondellaluce
         privacy: closed
         repos:
           falco-aws-terraform: maintain
@@ -673,14 +678,15 @@ orgs:
         maintainers:
           - leogr
           - mstemm
-        members:
           - FedeDP
           - jasondellaluce
           - LucaGuerra
-          - sgaist
           - ekoops
-          - irozzo-1A
           - c2ndev
+        members:
+          - sgaist
+          - irozzo-1A
+          - Kaizhe
         privacy: closed
         repos:
           falco: maintain
@@ -688,13 +694,14 @@ orgs:
         description: maintainers of falcosecurity/falco-website
         maintainers:
           - leogr
-        members:
-          - Issif
           - jasondellaluce
-          - vjjmiras
           - LucaGuerra
           - ekoops
           - c2ndev
+          - mstemm
+        members:
+          - Issif
+          - vjjmiras
         privacy: closed
         repos:
           falco-website: maintain
@@ -702,8 +709,8 @@ orgs:
         description: maintainers of falcosecurity/flycheck-falco-rules
         maintainers:
           - mstemm
-          - ewilderj
         members:
+          - ewilderj
         privacy: closed
         repos:
           flycheck-falco-rules: maintain
@@ -711,24 +718,24 @@ orgs:
         description: maintainers of falcosecurity/falcoctl
         maintainers:
           - leogr
+          - FedeDP
+          - c2ndev
         members:
           - zuc
-          - fededp
           - cpanato
           - alacuku
           - loresuso
-          - c2ndev
         privacy: closed
         repos:
           falcoctl: maintain
       falco-operator-maintainers:
         description: maintainers of falcosecurity/falco-operator
         maintainers:
-          - alacuku
           - c2ndev
           - leogr
-          - fededp
-        members: []
+          - FedeDP
+        members:
+          - alacuku
         privacy: closed
         repos:
           falco-operator: maintain
@@ -744,10 +751,10 @@ orgs:
       falco-playground-maintainers:
         description: maintainers of falcosecurity/falco-playground
         maintainers:
-          - rohith-raju
           - jasondellaluce
           - leogr
-        members: []
+        members:
+          - rohith-raju
         privacy: closed
         repos:
           falco-playground: maintain
@@ -755,21 +762,21 @@ orgs:
         description: maintainers of falcosecurity/falco-rustlings
         maintainers:
           - LucaGuerra
+        members:
           - deepskyblue86
           - gnosek
           - rabbitstack
-        members: []
         privacy: closed
         repos:
           falco-rustlings: maintain
       falco-talon-maintainers:
         description: maintainers of falcosecurity/falco-talon
         maintainers:
+          - leogr
+        members:
           - Issif
           - IgorEulalio
-          - leogr
           - cpanato
-        members: []
         privacy: closed
         repos:
           falco-talon: maintain
@@ -786,6 +793,7 @@ orgs:
           falcosidekick: maintain
       falcosidekick-ui-maintainers:
         description: maintainers of falcosecurity/falcosidekick-ui
+        maintainers: []
         members:
           - cpanato
           - Issif
@@ -797,21 +805,22 @@ orgs:
         description: maintainers of falcosecurity/.github
         maintainers:
           - leogr
-        members:
           - jasondellaluce
           - LucaGuerra
           - ekoops
+          - c2ndev
+        members: []
         privacy: closed
         repos:
           .github: maintain
       k8s-metacollector-maintainers:
         description: maintainers of falcosecurity/k8s-metacollector
         maintainers:
-          - alacuku
           - leogr
-          - Issif
-        members:
           - c2ndev
+        members:
+          - alacuku
+          - Issif
         privacy: closed
         repos:
           k8s-metacollector: maintain
@@ -820,21 +829,21 @@ orgs:
         maintainers:
           - leogr
           - FedeDP
+        members:
           - maxgio92
           - zuc
           - EXONER4TED
-        members: []
         privacy: closed
         repos:
           kernel-crawler: maintain
       kernel-testing-maintainers:
         description: maintainers of falcosecurity/kernel-testing
         maintainers:
-          - alacuku
           - FedeDP
-          - therealbobo
           - ekoops
-        members: []
+        members:
+          - alacuku
+          - therealbobo
         privacy: closed
         repos:
           kernel-testing: maintain
@@ -853,13 +862,13 @@ orgs:
           - leogr
           - mstemm
           - jasondellaluce
+          - FedeDP
+          - LucaGuerra
+          - ekoops
         members:
           - gnosek
-          - FedeDP
           - Molter73
-          - LucaGuerra
           - hbrueckner
-          - ekoops
           - geraldcombs
           - irozzo-1A
           - deepskyblue86
@@ -872,10 +881,11 @@ orgs:
         description: maintainers of falcosecurity/libs-sdk-go
         maintainers:
           - leogr
+          - jasondellaluce
         members:
           - araujof
-          - jasondellaluce
           - terylt
+          - andreaterzolo  # Formerly andreagit97 in libs-sdk-go/OWNERS.
         privacy: closed
         repos:
           libs-sdk-go: maintain
@@ -941,10 +951,10 @@ orgs:
       peribolos-syncer-maintainers:
         description: maintainers of falcosecurity/perperibolos-syncer
         maintainers:
-          - maxgio92
           - leogr
           - FedeDP
-        members: []
+        members:
+          - maxgio92
         privacy: closed
         repos:
           peribolos-syncer: maintain
@@ -952,9 +962,9 @@ orgs:
         description: maintainers of falcosecurity/pigeon
         maintainers:
           - jasondellaluce
+          - FedeDP
         members:
           - cappellinsamuele
-          - fededp
         privacy: closed
         repos:
           pigeon: maintain
@@ -964,9 +974,9 @@ orgs:
           - ldegio
           - leogr
           - mstemm
+          - FedeDP
         members:
           - leodido
-          - FedeDP
         privacy: closed
         repos:
           plugin-sdk-cpp: maintain
@@ -974,18 +984,18 @@ orgs:
         description: maintainers of falcosecurity/plugin-sdk-go
         maintainers:
           - leogr
-        members:
           - jasondellaluce
+        members: []
         privacy: closed
         repos:
           plugin-sdk-go: maintain
       plugin-sdk-rs-maintainers:
         description: maintainers of falcosecurity/plugin-sdk-rs
         maintainers:
-          - gnosek
-        members:
-          - mrgian
           - ekoops
+        members:
+          - gnosek
+          - mrgian
         privacy: closed
         repos:
           plugin-sdk-rs: maintain
@@ -994,14 +1004,18 @@ orgs:
         maintainers:
           - leogr
           - mstemm
-        members:
           - jasondellaluce
-          - ahmedameenaim
-          - sboschman
           - LucaGuerra
           - ekoops
+        members:
+          - ahmedameenaim
+          - sboschman
           - irozzo-1A
           - deepskyblue86
+          - hmadison
+          - IgorEulalio
+          - Issif
+          - scraly
         privacy: closed
         repos:
           plugins: maintain
@@ -1011,9 +1025,9 @@ orgs:
           - leogr
           - ldegio
           - c2ndev
-          - irozzo-1A
           - ekoops
-        members: []
+        members:
+          - irozzo-1A
         privacy: closed
         repos:
           prempti: maintain
@@ -1021,22 +1035,22 @@ orgs:
         description: maintainers of falcosecurity/.project
         maintainers:
           - leogr
-        members:
-          - alacuku
           - c2ndev
-          - cpanato
-          - deepskyblue86
           - ekoops
           - FedeDP
+          - jasondellaluce
+          - LucaGuerra
+          - mstemm
+        members:
+          - alacuku
+          - cpanato
+          - deepskyblue86
           - geraldcombs
           - gnosek
           - irozzo-1A
           - Issif
-          - jasondellaluce
           - loresuso
-          - LucaGuerra
           - Molter73
-          - mstemm
           - sgaist
           - therealbobo
           - zuc
@@ -1048,12 +1062,15 @@ orgs:
         maintainers:
           - leogr
           - LucaGuerra
-        members:
-          - fededp
+          - FedeDP
           - jasondellaluce
           - mstemm
-          - darryk10
           - ekoops
+        members:
+          - darryk10
+          - Kaizhe
+          - leodido
+          - loresuso
         privacy: closed
         repos:
           rules: maintain
@@ -1061,8 +1078,8 @@ orgs:
         description: maintainers of falcosecurity/syscalls-bumper
         maintainers:
           - leogr
-        members:
           - FedeDP
+        members: []
         privacy: closed
         repos:
           syscalls-bumper: maintain
@@ -1070,15 +1087,15 @@ orgs:
         description: maintainers of falcosecurity/test-infra
         maintainers:
           - leogr
+          - FedeDP
+          - ekoops
+          - LucaGuerra
+          - c2ndev
         members:
           - maxgio92
           - zuc
           - jonahjon
-          - fededp
-          - ekoops
-          - LucaGuerra
           - alacuku
-          - c2ndev
         privacy: closed
         repos:
           test-infra: maintain
@@ -1087,8 +1104,8 @@ orgs:
         maintainers:
           - jasondellaluce
           - leogr
-        members:
-          - lucaguerra
+          - LucaGuerra
+        members: []
         privacy: closed
         repos:
           testing: maintain
