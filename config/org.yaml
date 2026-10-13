@@ -885,7 +885,6 @@ orgs:
         members:
           - araujof
           - terylt
-          - andreaterzolo  # Formerly andreagit97 in libs-sdk-go/OWNERS.
         privacy: closed
         repos:
           libs-sdk-go: maintain
