@@ -1,6 +1,7 @@
 approve:
   - repos:
       - falcosecurity/.github
+      - falcosecurity/.project
       - falcosecurity/charts
       - falcosecurity/cncf-green-review-testing
       - falcosecurity/community
@@ -60,6 +61,7 @@ label:
 lgtm:
   - repos:
       - falcosecurity/.github
+      - falcosecurity/.project
       - falcosecurity/charts
       - falcosecurity/cncf-green-review-testing
       - falcosecurity/community
@@ -105,6 +107,9 @@ repo_milestone:
   falcosecurity/.github:
     maintainers_team: github-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/.github
+  falcosecurity/.project:
+    maintainers_team: project-maintainers
+    maintainers_friendly_name: maintainers of falcosecurity/.project
   falcosecurity/charts:
     maintainers_team: charts-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/charts
@@ -223,6 +228,15 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: .github
+    issues: true
+    prs: true
+    regexp: ^kind/
+    missing_comment: |
+      There is not a label identifying the kind of this issue or PR.
+      Please specify it either using `/kind <group>` or manually from the side menu.
+  - missing_label: needs-kind
+    org: falcosecurity
+    repo: .project
     issues: true
     prs: true
     regexp: ^kind/
@@ -586,6 +600,30 @@ triggers:
     only_org_members: true
 plugins:
   falcosecurity/.github:
+    plugins:
+      - approve
+      - assign
+      - blunderbuss
+      - branchcleaner
+      - cat
+      - dco
+      - dog
+      - goose
+      - help
+      - hold
+      - label
+      - lgtm
+      - lifecycle
+      - mergecommitblocker
+      - milestone
+      - require-matching-label
+      - retitle
+      - size
+      - trigger
+      - verify-owners
+      - welcome
+      - wip
+  falcosecurity/.project:
     plugins:
       - approve
       - assign
@@ -1570,6 +1608,10 @@ plugins:
       - wip
 external_plugins:
   falcosecurity/.github:
+    - name: needs-rebase
+      events:
+        - pull_request
+  falcosecurity/.project:
     - name: needs-rebase
       events:
         - pull_request

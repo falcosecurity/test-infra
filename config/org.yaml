@@ -75,6 +75,14 @@ orgs:
         description: Default community health files
         has_projects: false
         has_wiki: false
+      .project:
+        allow_merge_commit: false
+        allow_rebase_merge: true
+        allow_squash_merge: false
+        default_branch: main
+        description: Project metadata for Falco - CNCF .project automation
+        has_projects: true
+        has_wiki: false
       advocacy:
         allow_merge_commit: false
         allow_rebase_merge: true
@@ -878,6 +886,7 @@ orgs:
         privacy: closed
         repos:
           .github: admin
+          .project: admin
           charts: admin
           client-go: admin
           cncf-green-review-testing: admin
@@ -1008,6 +1017,32 @@ orgs:
         privacy: closed
         repos:
           prempti: maintain
+      project-maintainers:
+        description: maintainers of falcosecurity/.project
+        maintainers:
+          - leogr
+        members:
+          - alacuku
+          - c2ndev
+          - cpanato
+          - deepskyblue86
+          - ekoops
+          - FedeDP
+          - geraldcombs
+          - gnosek
+          - irozzo-1A
+          - Issif
+          - jasondellaluce
+          - loresuso
+          - LucaGuerra
+          - Molter73
+          - mstemm
+          - sgaist
+          - therealbobo
+          - zuc
+        privacy: closed
+        repos:
+          .project: maintain
       rules-maintainers:
         description: maintainers of falcosecurity/rules
         maintainers:

@@ -74,6 +74,10 @@ branch-protection:
           branches:
             main:
               protect: true
+        .project:
+          branches:
+            main:
+              protect: true
         charts:
           required_status_checks:
             contexts:
@@ -480,6 +484,11 @@ tide:
     orgs:
       falcosecurity:
         repos:
+          .project:
+            # Metadata workflows are skipped for changes outside the two YAML files.
+            required-if-present-contexts:
+              - validate-project
+              - validate-maintainers
           test-infra:
             required-if-present-contexts:
               - Terraform OCI / plan
@@ -487,6 +496,7 @@ tide:
               - build-update-dbg-image
   merge_method:
     falcosecurity/.github: rebase
+    falcosecurity/.project: rebase
     falcosecurity/charts: rebase
     falcosecurity/cncf-green-review-testing: rebase
     falcosecurity/community: rebase
@@ -529,6 +539,7 @@ tide:
   queries:
     - repos:
         - falcosecurity/.github
+        - falcosecurity/.project
         - falcosecurity/charts
         - falcosecurity/cncf-green-review-testing
         - falcosecurity/community
