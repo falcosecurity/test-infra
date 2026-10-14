@@ -64,7 +64,7 @@
 
 ## Prow resources
 
-- The AWS Prow autobump job is [archived](../config/backup/aws/jobs/autobump/autobump.yaml); version updates are no longer scheduled.
+- The retired AWS Prow autobump job is preserved in [Git history](https://github.com/falcosecurity/test-infra/blob/b0bcf5f882cf9735693814c3e79b5d8a9e6b124e/config/backup/aws/jobs/autobump/autobump.yaml); version updates are no longer scheduled.
 - One's that are not udated and must be done manually
 - - [Check config](../config/prow/aws/manifests/check-config.yaml)
 - - [Prowjob CRD](../config/prow/aws/manifests/prowjob-crd/prowjob_custromresourcedefinition.yaml)
