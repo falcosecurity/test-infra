@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: Apache-2.0
 # Shared OCI release pins for manifest and Prow configuration validation.
-prow_version=v20260811-cafa49460
-prow_commit=cafa494600840c6b58f9b765aa7133ca6e82bb48
-checkconfig_image="us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:$prow_version@sha256:0ec431c5efcdee82117fa6d272497ed657fd2bce1b1620acd164e41212fde2f3"
+prow_version=v20261013-b4d923a1a
+prow_commit=b4d923a1a60cedd794f9461c529df11ebd8e1abc
+checkconfig_image="us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20261013-b4d923a1a@sha256:efa715acd95ff646161c708df1d756d53c10193e1de7cf6148087a49b6290a3d"
 
 assert_prow_version() {
   local images image
