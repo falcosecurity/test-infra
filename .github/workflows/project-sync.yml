@@ -1,0 +1,31 @@
+name: Project sync
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - 'tools/project-sync/**'
+      - '.github/workflows/project-sync.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'tools/project-sync/**'
+      - '.github/workflows/project-sync.yml'
+permissions:
+  contents: read
+jobs:
+  project-sync-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    container:
+      image: golang:1.26.7-bookworm@sha256:e8c859f5632dcfde7b32d2012b4351728f6437930887c2f6a91ea242459e5514
+    defaults:
+      run:
+        working-directory: tools/project-sync
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: test -z "$(gofmt -l *.go)"
+      - run: go test -mod=readonly -race -cover ./...
+      - run: go vet -mod=readonly ./...
+      - run: go build -mod=readonly ./...
