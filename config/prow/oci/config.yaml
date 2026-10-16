@@ -75,6 +75,11 @@ branch-protection:
             main:
               protect: true
         .project:
+          required_status_checks:
+            contexts:
+              - validate-project
+              - validate-maintainers
+              - validate-governance
           branches:
             main:
               protect: true
@@ -396,10 +401,6 @@ branch-protection:
           branches:
             main:
               protect: true
-        peribolos-syncer:
-          branches:
-            main:
-              protect: true
         pigeon:
           branches:
             main:
@@ -481,10 +482,8 @@ tide:
       falcosecurity:
         repos:
           .project:
-            # Metadata workflows are skipped for changes outside the two YAML files.
             required-if-present-contexts:
-              - validate-project
-              - validate-maintainers
+              - peribolos-pre-submit
           test-infra:
             required-if-present-contexts:
               - Terraform OCI / plan
@@ -521,7 +520,6 @@ tide:
     falcosecurity/kernel-testing: rebase
     falcosecurity/libs: rebase
     falcosecurity/libs-sdk-go: rebase
-    falcosecurity/peribolos-syncer: rebase
     falcosecurity/pigeon: rebase
     falcosecurity/plugins: rebase
     falcosecurity/plugin-sdk-go: rebase
@@ -562,7 +560,6 @@ tide:
         - falcosecurity/kernel-crawler
         - falcosecurity/kernel-testing
         - falcosecurity/libs-sdk-go
-        - falcosecurity/peribolos-syncer
         - falcosecurity/pigeon
         - falcosecurity/plugin-sdk-cpp
         - falcosecurity/plugins
