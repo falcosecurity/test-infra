@@ -489,6 +489,7 @@ tide:
               - Terraform OCI / plan
               - validate-dbg
               - build-update-dbg-image
+              - project-sync-tests
   merge_method:
     falcosecurity/.github: rebase
     falcosecurity/.project: rebase

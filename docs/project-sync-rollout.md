@@ -17,10 +17,12 @@ GitHub membership or archive repositories.
    in test-infra PR #2024; the central tool now replaces it. The local migration's
    `--retire` option only models this planned step. Activation refuses an active
    repository missing from the catalog, so do not skip the actual archival.
-4. Merge test-infra and wait for OCI job configuration deployment. This switches
-   Peribolos to `.project`, enables project-sync, and removes the old daily generator.
-   Inspect the Peribolos dry-run output and membership delta before allowing changes;
-   its existing removal limits and minimum-admin protection remain in force.
+4. Before merging test-infra, run the pinned Peribolos image against the accepted
+   `.project/config/org.yaml` without `--confirm`, using its existing read credentials
+   and `--fix-*` options. Review the membership delta. Then merge test-infra and wait
+   for OCI deployment: this switches Peribolos to `.project`, enables project-sync,
+   and removes the old generator. Existing removal limits and minimum-admin
+   protection remain in force. The first periodic run can apply the new config.
 5. Merge evolution to remove duplicate YAML/JSON metadata and its obsolete Go utils,
    publish the generated documentation, and document the new process. If the old
    generator opened a PR before shutdown, close that superseded PR after review.
