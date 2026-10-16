@@ -30,7 +30,6 @@ approve:
       - falcosecurity/kernel-testing
       - falcosecurity/libs
       - falcosecurity/libs-sdk-go
-      - falcosecurity/peribolos-syncer
       - falcosecurity/pigeon
       - falcosecurity/plugin-sdk-cpp
       - falcosecurity/plugin-sdk-go
@@ -91,7 +90,6 @@ lgtm:
       - falcosecurity/kernel-testing
       - falcosecurity/libs
       - falcosecurity/libs-sdk-go
-      - falcosecurity/peribolos-syncer
       - falcosecurity/pigeon
       - falcosecurity/plugin-sdk-cpp
       - falcosecurity/plugin-sdk-go
@@ -195,9 +193,6 @@ repo_milestone:
   falcosecurity/libs-sdk-go:
     maintainers_team: libs-sdk-go-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/libs-sdk-go
-  falcosecurity/peribolos-syncer:
-    maintainers_team: peribolos-syncer-maintainers
-    maintainers_friendly_name: maintainers of falcosecurity/peribolos-syncer
   falcosecurity/pigeon:
     maintainers_team: pigeon-maintainers
     maintainers_friendly_name: maintainers of falcosecurity/pigeon
@@ -484,15 +479,6 @@ require_matching_label:
   - missing_label: needs-kind
     org: falcosecurity
     repo: libs-sdk-go
-    issues: true
-    prs: true
-    regexp: ^kind/
-    missing_comment: |
-      There is not a label identifying the kind of this issue or PR.
-      Please specify it either using `/kind <group>` or manually from the side menu.
-  - missing_label: needs-kind
-    org: falcosecurity
-    repo: peribolos-syncer
     issues: true
     prs: true
     regexp: ^kind/
@@ -1340,31 +1326,6 @@ plugins:
       - verify-owners
       - welcome
       - wip
-  falcosecurity/peribolos-syncer:
-    plugins:
-      - approve
-      - assign
-      - blunderbuss
-      - branchcleaner
-      - cat
-      - dco
-      - dog
-      - golint
-      - goose
-      - help
-      - hold
-      - label
-      - lgtm
-      - lifecycle
-      - mergecommitblocker
-      - milestone
-      - require-matching-label
-      - retitle
-      - size
-      - trigger
-      - verify-owners
-      - welcome
-      - wip
   falcosecurity/pigeon:
     plugins:
       - approve
@@ -1728,10 +1689,6 @@ external_plugins:
       events:
         - pull_request
   falcosecurity/libs-sdk-go:
-    - name: needs-rebase
-      events:
-        - pull_request
-  falcosecurity/peribolos-syncer:
     - name: needs-rebase
       events:
         - pull_request
