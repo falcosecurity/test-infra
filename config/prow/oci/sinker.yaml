@@ -168,7 +168,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: sinker
-          image: us-docker.pkg.dev/k8s-infra-prow/images/sinker:v20260811-cafa49460@sha256:67d02929ae25696a2168ce72ad4a191927b06d11ba835a90518c2bd30b11656a
+          image: us-docker.pkg.dev/k8s-infra-prow/images/sinker:v20261013-b4d923a1a@sha256:31eba7aa937318463886d9e7f9d08e3ae274ea2334edbb885fa90bc0d726150b
           imagePullPolicy: IfNotPresent
           args:
             - --dry-run=false
