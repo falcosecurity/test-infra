@@ -12,7 +12,7 @@ postsubmits:
       job_queue_name: driverkit-x86
       branches:
         - ^master$
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux_.+|^driverkit/rebuild/build-new-drivers-amazonlinux-postsubmit\.txt$'
       spec: &driver-pod
         serviceAccountName: driver-kit
         automountServiceAccountToken: false
@@ -142,7 +142,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-amazonlinux-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux_.+|^driverkit/rebuild/build-new-drivers-amazonlinux-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -164,7 +164,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-amazonlinux2-postsubmit
       job_queue_name: driverkit-x86
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2_.+|^driverkit/rebuild/build-new-drivers-amazonlinux2-postsubmit\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -186,7 +186,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-amazonlinux2-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2_.+|^driverkit/rebuild/build-new-drivers-amazonlinux2-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -208,7 +208,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-amazonlinux2022-postsubmit
       job_queue_name: driverkit-x86
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2022_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2022_.+|^driverkit/rebuild/build-new-drivers-amazonlinux2022-postsubmit\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -230,7 +230,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-amazonlinux2022-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2022_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2022_.+|^driverkit/rebuild/build-new-drivers-amazonlinux2022-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -252,7 +252,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-amazonlinux2023-postsubmit
       job_queue_name: driverkit-x86
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2023_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/amazonlinux2023_.+|^driverkit/rebuild/build-new-drivers-amazonlinux2023-postsubmit\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -274,7 +274,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-amazonlinux2023-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2023_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/amazonlinux2023_.+|^driverkit/rebuild/build-new-drivers-amazonlinux2023-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
