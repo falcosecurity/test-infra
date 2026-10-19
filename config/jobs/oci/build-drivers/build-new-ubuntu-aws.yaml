@@ -12,7 +12,7 @@ postsubmits:
       job_queue_name: driverkit-x86
       branches:
         - ^master$
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_3.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_3.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-3-postsubmit\.txt$'
       spec: &driver-pod
         serviceAccountName: driver-kit
         automountServiceAccountToken: false
@@ -143,7 +143,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-ubuntu-aws-3-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_3.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_3.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-3-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -166,7 +166,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-ubuntu-aws-4-postsubmit
       job_queue_name: driverkit-x86
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_4.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_4.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-4-postsubmit\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -189,7 +189,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-ubuntu-aws-4-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_4.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_4.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-4-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -212,7 +212,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-ubuntu-aws-5-postsubmit
       job_queue_name: driverkit-x86
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_5.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_5.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-5-postsubmit\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -235,7 +235,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-ubuntu-aws-5-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_5.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_5.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-5-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -258,7 +258,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-ubuntu-aws-6-postsubmit
       job_queue_name: driverkit-x86
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_6.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/ubuntu-aws_6.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-6-postsubmit\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
@@ -281,7 +281,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-ubuntu-aws-6-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_6.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/ubuntu-aws_6.+|^driverkit/rebuild/build-new-drivers-ubuntu-aws-6-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
