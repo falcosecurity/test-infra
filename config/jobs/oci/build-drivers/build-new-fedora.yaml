@@ -12,7 +12,7 @@ postsubmits:
       job_queue_name: driverkit-x86
       branches:
         - ^master$
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/fedora_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/x86_64/fedora_.+|^driverkit/rebuild/build-new-drivers-fedora-postsubmit\.txt$'
       spec: &driver-pod
         serviceAccountName: driver-kit
         automountServiceAccountToken: false
@@ -142,7 +142,7 @@ postsubmits:
     - <<: *driver-build
       name: build-new-drivers-fedora-postsubmit-arm
       job_queue_name: driverkit-arm
-      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/fedora_.+'
+      run_if_changed: '^driverkit/config/[a-z0-9.+-]{5,}/aarch64/fedora_.+|^driverkit/rebuild/build-new-drivers-fedora-postsubmit-arm\.txt$'
       spec:
         <<: *driver-pod
         nodeSelector:
