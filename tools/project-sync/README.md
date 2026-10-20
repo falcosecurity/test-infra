@@ -43,6 +43,13 @@ reconciliation fails with an actionable conflict instead of overriding either th
 membership rule or the manually maintained team. Removed public repositories must
 be cleaned up explicitly; missing catalog snapshots stop reconciliation.
 
+An explicit `archived: true` entry in `config/org.yaml` requests archival through
+Peribolos. While GitHub still reports the repository as active, reconciliation
+waits without rewriting metadata or publishing downstream PRs. The request can
+remain outside the active catalog during migration. After GitHub confirms
+archival, the bot proposes removing its metadata; accepting that cleanup releases
+downstream generation. Removing a configuration entry alone never archives a repo.
+
 ## Local commands
 
 Use Go 1.26 or later. Credentials are only required for GitHub reads or publication.
@@ -104,6 +111,13 @@ Each run stops after proposing metadata changes. Once those merge, it can propos
 documentation, trigger-catalog, and Special OWNERS changes. Further merged OWNERS
 changes then bring the repository teams into line. Daily recovery covers missed
 events and newly registered repositories whose trigger PR has not merged yet.
+
+During this migration, test-infra retains a marked, identical `config/org.yaml`
+copy for jobs still using the old location. Both the old merge job and the new
+Peribolos configuration postsubmit can apply the pending archival; the periodic
+provides recovery. After archival and accepted metadata cleanup, the bot's
+test-infra trigger PR removes that marked copy. It refuses to remove an unmarked
+configuration. See the [rollout](../../docs/project-sync-rollout.md) for merge order.
 
 To recover from failure, fix the reported input or transient API issue and rerun
 `project-sync-reconcile` in Prow. Closed unmerged branches need operator inspection
