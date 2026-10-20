@@ -80,7 +80,7 @@ postsubmits:
       max_concurrency: 1
       skip_report: false
       run_if_changed: ^config/org\.yaml$
-      extra_refs:
+      extra_refs: &peribolos-accepted-metadata
         - org: falcosecurity
           repo: .project
           base_ref: main
@@ -88,7 +88,7 @@ postsubmits:
           workdir: true
           clone_depth: 1
           skip_submodules: true
-      spec:
+      spec: &peribolos-apply-spec
         containers:
           - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
             command:
@@ -150,6 +150,21 @@ postsubmits:
             operator: Equal
             value: "true"
             effect: NoSchedule
+      job_queue_name: governance
+      decoration_config:
+        timeout: 1h
+  falcosecurity/test-infra:
+    # Apply accepted .project configuration when the Peribolos jobs change.
+    # This also activates the pending archival during the coordinated migration.
+    - name: peribolos-configuration-post-submit
+      branches:
+        - ^master$
+      decorate: true
+      max_concurrency: 1
+      skip_report: false
+      run_if_changed: ^config/jobs/oci/peribolos/|^config/org\.yaml$
+      extra_refs: *peribolos-accepted-metadata
+      spec: *peribolos-apply-spec
       job_queue_name: governance
       decoration_config:
         timeout: 1h
