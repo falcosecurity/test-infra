@@ -6,7 +6,10 @@ GitHub membership or archive repositories.
 
 1. Review the generated `.project` migration and its organization membership diff.
    The migration copies repository descriptions once from evolution into `org.yaml`.
-   Invalid historical emeritus references are reported, not added as organization members.
+   Use a fresh authenticated membership and account snapshot. Active roles qualify
+   for membership; emeritus maintainers retain existing membership without new
+   invitations. Verify historical renames against immutable account IDs, preserve
+   requested departures, and report unusable historical entries without altering OWNERS.
 2. Merge the `.project` PR to establish `config/org.yaml`, `config/repository.yaml`,
    `config/affiliations.yaml`, and the CNCF-format `maintainers.yaml`. Its validator
    references the tool commit from the companion test-infra PR, which must be pushed
@@ -23,6 +26,8 @@ GitHub membership or archive repositories.
    for OCI deployment: this switches Peribolos to `.project`, enables project-sync,
    and removes the old generator. Existing removal limits and minimum-admin
    protection remain in force. The first periodic run can apply the new config.
+   Refresh the reviewed membership diff if GitHub membership or OWNERS changed
+   since the migration snapshot; do not apply a stale proposal.
 5. Merge evolution to remove duplicate YAML/JSON metadata and its obsolete Go utils,
    publish the generated documentation, and document the new process. If the old
    generator opened a PR before shutdown, close that superseded PR after review.

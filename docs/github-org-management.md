@@ -19,11 +19,20 @@ GitHub team. Only approvers enter the CNCF repository roster. Root approvers of
 Core repositories form `core-maintainers`; Special root approvers follow that
 roster through bot PRs, including `elftoolchain`.
 
-Organization eligibility includes valid approvers, reviewers, and emeritus owners
-in active repositories. Removing the last role removes organization membership.
-The manually edited `admins` list is the only exception. Invalid active accounts
-stop reconciliation; invalid emeritus accounts are omitted and reported. Archived
-repositories contribute no roles and are removed from all active metadata.
+Active approvers and reviewers qualify for organization membership. Emeritus
+maintainers retain existing membership when present in both GitHub and the accepted
+`org.yaml`; absent emeritus-only accounts are not invited. Former reviewers have no
+emeritus retention exception. The manually edited `admins` list is preserved.
+Archived repositories contribute no roles and are removed from all active metadata.
+Otherwise, removing the last eligible role removes organization membership.
+
+Honor an emeritus-only maintainer's requested departure by removing their membership
+from `org.yaml` through a reviewed PR. Keep historical OWNERS entries. Record
+out-of-band departures before the next Peribolos run, which applies accepted YAML.
+Verified historical renames may use `github_id` and `emeritus_aliases` in affiliations;
+these preserve existing membership without granting review permissions.
+Invalid active accounts stop reconciliation; invalid emeritus accounts are omitted
+and reported. Failed membership/account reads stop the run.
 
 In generated teams, eligible organization admins have the GitHub team `maintainer`
 role; everyone else is a `member`. Purpose-specific teams remain manually managed.
@@ -33,8 +42,9 @@ and require an explicit edit. These team roles do not change OWNERS permissions.
 Edit repository descriptions/settings, organization settings/admins, and
 purpose-specific teams in `.project/config/org.yaml`; edit scope/status in
 `config/repository.yaml` and display names/companies in `config/affiliations.yaml`.
-Each metadata file documents its editable fields. Do not edit generated rosters,
-organization members, or repository/core team membership directly.
+Each metadata file documents its editable fields. Apart from requested emeritus-only
+departures, organization membership is generated. Do not edit generated rosters or
+repository/core team membership directly.
 
 ## How do pull request approvals work?
 
