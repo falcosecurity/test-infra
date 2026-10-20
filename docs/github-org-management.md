@@ -5,6 +5,8 @@ OCI Prow runs Peribolos against the authoritative
 It applies accepted changes to organization membership, settings, teams, and
 repository permissions after that file merges and every 24 hours. The presubmit
 job provides a dry run. Existing Peribolos change limits remain enabled.
+Changes to its test-infra job configuration also trigger an apply of accepted
+`.project/main` metadata.
 
 ## Updating ownership and metadata
 
@@ -25,6 +27,10 @@ maintainers retain existing membership when present in both GitHub and the accep
 emeritus retention exception. The manually edited `admins` list is preserved.
 Archived repositories contribute no roles and are removed from all active metadata.
 Otherwise, removing the last eligible role removes organization membership.
+
+Repository archival is requested with `archived: true` in `config/org.yaml`.
+Peribolos performs it. Project-sync waits for GitHub to confirm archival before
+proposing metadata cleanup and downstream documentation changes.
 
 Honor an emeritus-only maintainer's requested departure by removing their membership
 from `org.yaml` through a reviewed PR. Keep historical OWNERS entries. Record

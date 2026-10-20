@@ -14,24 +14,38 @@ GitHub membership or archive repositories.
    `config/affiliations.yaml`, and the CNCF-format `maintainers.yaml`. Its validator
    references the tool commit from the companion test-infra PR, which must be pushed
    and accessible before running that workflow. Existing Peribolos still reads the
-   old test-infra configuration during this step.
-3. After the coordinated archival proposal is accepted, an organization admin must
-   archive `falcosecurity/peribolos-syncer` on GitHub. Its jobs were already removed
-   in test-infra PR #2024; the central tool now replaces it. The local migration's
-   `--retire` option only models this planned step. Activation refuses an active
-   repository missing from the catalog, so do not skip the actual archival.
-4. Before merging test-infra, run the pinned Peribolos image against the accepted
+   old test-infra configuration during this step. The new org.yaml includes
+   `repos.peribolos-syncer.archived: true` as a pending archival instruction;
+   it is not evidence that GitHub has archived the repository yet.
+3. Before merging test-infra, run the pinned Peribolos image against the accepted
    `.project/config/org.yaml` without `--confirm`, using its existing read credentials
-   and `--fix-*` options. Review the membership delta. Then merge test-infra and wait
+   and `--fix-*` options. Review both the archival and membership delta.
+   Ensure test-infra's marked temporary `config/org.yaml` is identical in YAML
+   content to the accepted `.project/config/org.yaml`; regenerate the copy if needed.
+   This preserves the existing presubmit and merge-time Peribolos jobs during
+   deployment. Then merge test-infra and wait
    for OCI deployment: this switches Peribolos to `.project`, enables project-sync,
    and removes the old generator. Existing removal limits and minimum-admin
-   protection remain in force. The first periodic run can apply the new config.
+   protection remain in force.
    Refresh the reviewed membership diff if GitHub membership or OWNERS changed
    since the migration snapshot; do not apply a stale proposal.
-5. Merge evolution to remove duplicate YAML/JSON metadata and its obsolete Go utils,
-   publish the generated documentation, and document the new process. If the old
+4. Wait for Peribolos to archive `peribolos-syncer`. The existing merge job can
+   consume the temporary migration copy; the new test-infra configuration postsubmit
+   and the 24-hour periodic read `.project/main`. All apply jobs enable
+   `--confirm`, `--fix-repos`, and `--allow-repo-archival`. The periodic covers a
+   missed activation event during deployment. Confirm a successful apply run and
+   GitHub's `archived: true` state; no manual GitHub archival is required.
+   Until then, project-sync leaves the request intact and proposes no downstream
+   changes. If archival fails, correct the reported issue and rerun Peribolos.
+5. After archival is confirmed and the old generator is disabled, merge evolution
+   to remove duplicate YAML/JSON metadata and its obsolete Go utils, publish
+   documentation reflecting the completed retirement, and document the new process. If the old
    generator opened a PR before shutdown, close that superseded PR after review.
-6. Run `project-sync-reconcile` once and inspect its logs and bot PRs. Rebase or
+6. Run `project-sync-reconcile` and inspect its logs and bot PRs. It proposes
+   removing the confirmed archival entry from `.project`; after that cleanup
+   merges, its test-infra trigger PR also removes the marked temporary
+   `config/org.yaml`. Neither copy remains as permanent metadata for archived
+   repositories. Rebase or
    regenerate the migration preview if OWNERS changed during review. Accept metadata
    first, then documentation and Special OWNERS proposals, then any resulting team
    updates. Special repositories include `.github`, `.project`, `community`,
@@ -40,8 +54,10 @@ GitHub membership or archive repositories.
 ## Validation and rollback
 
 Run the tool tests, OCI Prow and manifest checks, CNCF schema validators, and local
-metadata/documentation generation before opening the PRs. Confirm a repeated
-reconciliation against the same verified snapshot produces no changes. Check
+metadata/documentation generation before opening the PRs. Test both the pending
+and confirmed archival states: pending requests must survive unchanged; confirmed
+archives must produce cleanup; repeated reconciliation after accepting cleanup
+must produce no changes. Check
 organization additions/removals independently of team roles.
 
 If activation fails, disable the project-sync jobs and Peribolos writes while
