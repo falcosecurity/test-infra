@@ -116,10 +116,11 @@ func parseOwnership(repo RepoSnapshot) (Ownership, error) {
 		if err := yaml.Unmarshal([]byte(text), &e); err != nil {
 			return o, err
 		}
-		all := append(e.Approvers, e.Reviewers...)
+		// Only emeritus maintainers retain organization membership under the
+		// documented policy. Former reviewers receive no such exception.
+		all := append([]string{}, e.Approvers...)
 		for _, f := range e.Filters {
 			all = append(all, f.Approvers...)
-			all = append(all, f.Reviewers...)
 		}
 		em, err := expand(all)
 		if err != nil {

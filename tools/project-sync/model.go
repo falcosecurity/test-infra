@@ -25,6 +25,10 @@ type Repository struct {
 type Person struct {
 	Name    string `yaml:"name" json:"name"`
 	Company string `yaml:"company" json:"company"`
+	// Historical aliases apply only to emeritus membership retention, never
+	// to active review permissions. The immutable ID prevents handle reuse.
+	GitHubID        int64    `yaml:"github_id,omitempty" json:"github_id,omitempty"`
+	EmeritusAliases []string `yaml:"emeritus_aliases,omitempty" json:"emeritus_aliases,omitempty"`
 }
 type Team struct {
 	Name    string   `yaml:"name" json:"name"`
@@ -49,6 +53,7 @@ type RepoSnapshot struct {
 type Snapshot struct {
 	Repositories map[string]RepoSnapshot `json:"repositories"`
 	Accounts     map[string]Account      `json:"accounts,omitempty"`
+	Members      map[string]Account      `json:"members"`
 }
 type Account struct {
 	Login string `json:"login"`
