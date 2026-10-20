@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"reflect"
 	"sort"
 	"strings"
 	"sync"
@@ -102,6 +103,37 @@ func (g *GitHub) head(ctx context.Context, repo, branch string) (string, error) 
 	err := g.request(ctx, "GET", "/repos/"+organization+"/"+repo+"/git/ref/heads/"+url.PathEscape(branch), nil, &ref)
 	return ref.Object.SHA, err
 }
+func (g *GitHub) members(ctx context.Context) (map[string]Account, error) {
+	// Non-members can receive only the public membership list. Never treat
+	// that partial response as evidence for organization removals.
+	var membership struct {
+		State string `json:"state"`
+	}
+	if err := g.request(ctx, "GET", "/user/memberships/orgs/"+organization, nil, &membership); err != nil {
+		return nil, err
+	}
+	if membership.State != "active" {
+		return nil, fmt.Errorf("complete membership scan requires an active organization member")
+	}
+	out := map[string]Account{}
+	for page := 1; ; page++ {
+		var entries []Account
+		if err := g.request(ctx, "GET", fmt.Sprintf("/orgs/%s/members?role=all&per_page=100&page=%d", organization, page), nil, &entries); err != nil {
+			return nil, err
+		}
+		for _, a := range entries {
+			key := strings.ToLower(a.Login)
+			if a.Type != "User" || a.ID <= 0 || !loginPattern.MatchString(a.Login) || out[key].ID != 0 {
+				return nil, fmt.Errorf("invalid or duplicate account in organization membership response")
+			}
+			out[key] = a
+		}
+		if len(entries) < 100 {
+			break
+		}
+	}
+	return out, nil
+}
 func (g *GitHub) snapshot(ctx context.Context) (Snapshot, error) {
 	repos, err := g.inventory(ctx)
 	if err != nil {
@@ -144,6 +176,11 @@ func (g *GitHub) snapshot(ctx context.Context) (Snapshot, error) {
 	return out, err
 }
 func (g *GitHub) accounts(ctx context.Context, s *Snapshot) error {
+	members, err := g.members(ctx)
+	if err != nil {
+		return err
+	}
+	s.Members = members
 	people := set{}
 	for _, r := range s.Repositories {
 		if r.Archived {
@@ -158,6 +195,9 @@ func (g *GitHub) accounts(ctx context.Context, s *Snapshot) error {
 		people.union(o.Emeritus)
 	}
 	s.Accounts = map[string]Account{}
+	for login, account := range members {
+		s.Accounts[login] = account
+	}
 	for _, login := range people.list() {
 		var account Account
 		err := g.request(ctx, "GET", "/users/"+login, nil, &account)
@@ -216,6 +256,13 @@ func (g *GitHub) readOwners(ctx context.Context, r RepoSnapshot) (RepoSnapshot, 
 	return r, nil
 }
 func (g *GitHub) verifySnapshot(ctx context.Context, s Snapshot) error {
+	members, err := g.members(ctx)
+	if err != nil {
+		return err
+	}
+	if !reflect.DeepEqual(members, s.Members) {
+		return fmt.Errorf("organization membership changed; retry with a fresh snapshot")
+	}
 	current, err := g.inventory(ctx)
 	if err != nil {
 		return err

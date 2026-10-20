@@ -40,7 +40,7 @@ func TestInvalidAccountsPolicy(t *testing.T) {
 					if err != nil {
 						t.Fatal(err)
 					}
-					if !strings.Contains(strings.Join(r.Summary, "\n"), "ignored invalid emeritus account invalid") {
+					if role == "emeritus_approvers" && !strings.Contains(strings.Join(r.Summary, "\n"), "ignored invalid emeritus account invalid") {
 						t.Fatal("missing warning")
 					}
 					if strings.Contains(string(r.Files["config/org.yaml"]), "- invalid") {
@@ -159,6 +159,10 @@ func TestSnapshotRejectsIncompleteTreeAndAccountFailure(t *testing.T) {
 					t.Error("missing authentication")
 				}
 				switch {
+				case r.URL.Path == "/user/memberships/orgs/falcosecurity":
+					fmt.Fprint(w, `{"state":"active"}`)
+				case r.URL.Path == "/orgs/falcosecurity/members":
+					fmt.Fprint(w, `[]`)
 				case strings.HasPrefix(r.URL.Path, "/orgs/"):
 					fmt.Fprint(w, `[{"name":"engine","default_branch":"main"},{"name":"archived","archived":true,"default_branch":"main"}]`)
 				case strings.Contains(r.URL.Path, "/git/ref/"):

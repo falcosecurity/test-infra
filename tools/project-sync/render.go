@@ -128,9 +128,23 @@ func validateEditable(p *Project) error {
 			return fmt.Errorf("invalid status %q", r.Status)
 		}
 	}
+	aliases, logins := set{}, set{}
 	for login := range p.Affiliations {
-		if !loginPattern.MatchString(login) {
+		if !loginPattern.MatchString(login) || logins[strings.ToLower(login)] {
 			return fmt.Errorf("invalid affiliation login %q", login)
+		}
+		logins.add(login)
+	}
+	for login, person := range p.Affiliations {
+		if len(person.EmeritusAliases) > 0 && person.GitHubID <= 0 {
+			return fmt.Errorf("historical aliases for %s require a verified github_id", login)
+		}
+		for _, alias := range person.EmeritusAliases {
+			key := strings.ToLower(alias)
+			if !loginPattern.MatchString(alias) || aliases[key] || logins[key] {
+				return fmt.Errorf("invalid or conflicting historical alias %q", alias)
+			}
+			aliases.add(alias)
 		}
 	}
 	return nil

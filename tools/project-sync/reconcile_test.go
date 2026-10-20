@@ -60,6 +60,10 @@ func fixture(t *testing.T) (*Project, Snapshot) {
 		"special":  {Name: "special", DefaultBranch: "main", SHA: "special-sha", Files: map[string]string{"OWNERS": "approvers: [alice]\n"}},
 		"archived": {Name: "archived", Archived: true, Files: map[string]string{"OWNERS": "approvers: [obsolete]\n"}},
 	}}
+	s.Members = map[string]Account{}
+	for i, login := range []string{"admin", "alice", "bob", "retired", "obsolete"} {
+		s.Members[login] = Account{Login: login, ID: int64(i + 1), Type: "User"}
+	}
 	return p, s
 }
 func TestReconcileMembershipAndIdempotence(t *testing.T) {
@@ -168,7 +172,7 @@ func TestAliasesAndFilteredOwners(t *testing.T) {
 	if strings.Join(o.Approvers.list(), ",") != "alice,bob,nested" || strings.Join(o.RootApprovers.list(), ",") != "alice,bob" {
 		t.Fatalf("bad approvers: %+v", o)
 	}
-	if !o.Emeritus["former"] || !o.Emeritus["retired"] || !o.Reviewers["reader"] {
+	if o.Emeritus["former"] || !o.Emeritus["retired"] || !o.Reviewers["reader"] {
 		t.Fatal("lost roles")
 	}
 	r.Files["OWNERS"] = "approvers: [alice]\napprovers: [bob]\n"
