@@ -4,11 +4,13 @@ on:
     branches: [master]
     paths:
       - 'tools/project-sync/**'
+      - 'config/jobs/oci/peribolos/**'
       - '.github/workflows/project-sync.yml'
   push:
     branches: [master]
     paths:
       - 'tools/project-sync/**'
+      - 'config/jobs/oci/peribolos/**'
       - '.github/workflows/project-sync.yml'
 permissions:
   contents: read

@@ -234,6 +234,10 @@ func synchronize(ctx context.Context, g *GitHub, o options) error {
 	if err != nil {
 		return err
 	}
+	if len(r.PendingArchivals) > 0 {
+		fmt.Println(strings.Join(r.Summary, "\n"))
+		return nil
+	}
 	changed, err := applyResult(dir, r, true)
 	if err != nil {
 		return err
@@ -271,9 +275,16 @@ func synchronize(ctx context.Context, g *GitHub, o options) error {
 	if err != nil {
 		return err
 	}
+	legacyRemoved, err := retireLegacyOrg(infraDir, true)
+	if err != nil {
+		return err
+	}
+	if legacyRemoved {
+		jobFiles = append(jobFiles, "config/org.yaml")
+	}
 	fmt.Println("Trigger changes:", jobFiles)
 	if o.Publish {
-		if err = g.publish(ctx, infraDir, "test-infra", infra.DefaultBranch, "project-sync/triggers", "chore(prow): synchronize ownership triggers", "Update ownership triggers from the accepted .project repository catalog.\n\n/kind cleanup\n", jobFiles, signEnv); err != nil {
+		if err = g.publish(ctx, infraDir, "test-infra", infra.DefaultBranch, "project-sync/triggers", "chore(prow): synchronize ownership triggers", "Update ownership triggers from the accepted .project repository catalog and remove the temporary migration configuration when present. Archival requests have been applied and their metadata cleanup accepted before this proposal.\n\n/kind cleanup\n", jobFiles, signEnv); err != nil {
 			return err
 		}
 	}
