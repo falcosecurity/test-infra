@@ -1,51 +1,56 @@
-# Github organization management
+# GitHub organization management
 
-The Falcosecurity project uses [peribolos](https://github.com/kubernetes/test-infra/blob/master/prow/cmd/peribolos/README.md) to manage the following aspects of the Github organization:
-- Organization membership and org-wide rights
-- Organization settings
-- Teams and team members
-- Repos and team repo rights
+OCI Prow runs Peribolos against the authoritative
+[`.project/config/org.yaml`](https://github.com/falcosecurity/.project/blob/main/config/org.yaml).
+It applies accepted changes to organization membership, settings, teams, and
+repository permissions after that file merges and every 24 hours. The presubmit
+job provides a dry run. Existing Peribolos change limits remain enabled.
+Changes to its test-infra job configuration also trigger an apply of accepted
+`.project/main` metadata.
 
-## How does this work?
+## Updating ownership and metadata
 
-Peribolos will sync the content of [`config/org.yaml`](/config/org.yaml) with our Github org settings in the following moments:
-- each time that file is updated and merged onto `master`
-- every 24 hours
+Change approvers, reviewers, and emeritus roles in repository `OWNERS` files.
+The [project-sync tool](../tools/project-sync/README.md) opens reviewed PRs to
+reconcile `.project` metadata, evolution documentation, and Special repository
+ownership. Metadata edits also trigger reconciliation; daily recovery catches
+missed events. See [rollout instructions](project-sync-rollout.md) for the migration.
 
-## How do I add a new member to the organization?
+All approvers and reviewers from root and nested OWNERS join the repository's
+GitHub team. Only approvers enter the CNCF repository roster. Root approvers of
+Core repositories form `core-maintainers`; Special root approvers follow that
+roster through bot PRs, including `elftoolchain`.
 
-Add an entry to the org's `members` array inside `config/org.yaml`, and then to each `members` array of the teams they are supposed to be part of:
+Active approvers and reviewers qualify for organization membership. Emeritus
+maintainers retain existing membership when present in both GitHub and the accepted
+`org.yaml`; absent emeritus-only accounts are not invited. Former reviewers have no
+emeritus retention exception. The manually edited `admins` list is preserved.
+Archived repositories contribute no roles and are removed from all active metadata.
+Otherwise, removing the last eligible role removes organization membership.
 
-```diff
-org:
-  falcosecurity:
-  [...]
-    members:
-+     - john-doe
-  [...]
-    teams:
-      somerepo-maintainers:
-        description: Maintainers of somerepo
-        [...]
-        members:
-+         - john-doe 
-      someotherrepo-maintainers:
-        description: Maintainers of someotherrepo
-        [...]
-        members:
-+         - john-doe 
-```
+Repository archival is requested with `archived: true` in `config/org.yaml`.
+Peribolos performs it. Project-sync waits for GitHub to confirm archival before
+proposing metadata cleanup and downstream documentation changes.
 
-For active repositories, each repository team must include all `approvers` and
-`reviewers` from its root and subdirectory `OWNERS` files. Do not include people
-listed only as emeritus. The `core-maintainers` team must match the
-[core maintainers list](https://github.com/falcosecurity/evolution/blob/main/MAINTAINERS.md#core-maintainers).
+Honor an emeritus-only maintainer's requested departure by removing their membership
+from `org.yaml` through a reviewed PR. Keep historical OWNERS entries. Record
+out-of-band departures before the next Peribolos run, which applies accepted YAML.
+Verified historical renames may use `github_id` and `emeritus_aliases` in affiliations;
+these preserve existing membership without granting review permissions.
+Invalid active accounts stop reconciliation; invalid emeritus accounts are omitted
+and reported. Failed membership/account reads stop the run.
 
-Within these teams, list organization owners (the org's `admins`) under
-`maintainers` and everyone else under `members`. GitHub reports organization
-owners as team maintainers, and Peribolos manages the teams. This team role is
-separate from repository permissions and the roles in `OWNERS`. Purpose-specific
-teams, such as `admins` and `machine_users`, are managed separately.
+In generated teams, eligible organization admins have the GitHub team `maintainer`
+role; everyone else is a `member`. Purpose-specific teams remain manually managed.
+Their people must still satisfy organization eligibility; conflicts stop the run
+and require an explicit edit. These team roles do not change OWNERS permissions.
+
+Edit repository descriptions/settings, organization settings/admins, and
+purpose-specific teams in `.project/config/org.yaml`; edit scope/status in
+`config/repository.yaml` and display names/companies in `config/affiliations.yaml`.
+Each metadata file documents its editable fields. Apart from requested emeritus-only
+departures, organization membership is generated. Do not edit generated rosters or
+repository/core team membership directly.
 
 ## How do pull request approvals work?
 
