@@ -180,7 +180,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: crier
-          image: us-docker.pkg.dev/k8s-infra-prow/images/crier:v20260811-cafa49460@sha256:9dd8df36b816fc383e5004ccf4eca793240772d11ef5e2949f55a1275c48a355
+          image: us-docker.pkg.dev/k8s-infra-prow/images/crier:v20261022-def2183c3@sha256:297928c5120ab48ebcd83cacd2260113115bc8810efa0eb3324b0e595a514bdc
           imagePullPolicy: IfNotPresent
           env:
             - name: AWS_REQUEST_CHECKSUM_CALCULATION
