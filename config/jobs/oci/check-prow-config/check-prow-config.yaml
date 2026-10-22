@@ -8,7 +8,7 @@ periodics:
         base_ref: master
     spec:
       containers:
-        - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20260811-cafa49460@sha256:0ec431c5efcdee82117fa6d272497ed657fd2bce1b1620acd164e41212fde2f3
+        - image: us-docker.pkg.dev/k8s-infra-prow/images/checkconfig:v20261022-def2183c3@sha256:6e56028a788d9063e6e7af1be67996a801b140e1fb6466cfbfbe72a8e8a2a274
           command:
             - /ko-app/checkconfig
           args:
