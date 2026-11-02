@@ -5,7 +5,7 @@ metadata:
   namespace: falco
 spec:
   type: DaemonSet
-  version: "0.44.1"
+  version: "0.45.2"
   podTemplateSpec:
     spec:
       # Security DaemonSet: tolerate every taint so Falco runs on all nodes.
