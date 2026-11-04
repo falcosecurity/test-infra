@@ -784,6 +784,7 @@ orgs:
         description: maintainers of falcosecurity/falcosidekick
         maintainers:
           - leogr
+          - c2ndev
         members:
           - cpanato
           - Issif
