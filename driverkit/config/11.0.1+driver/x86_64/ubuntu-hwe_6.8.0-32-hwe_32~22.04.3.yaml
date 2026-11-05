@@ -7,5 +7,7 @@ output:
 kernelurls:
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.8/linux-headers-6.8.0-32-generic_6.8.0-32.32~22.04.3_amd64.deb
     - http://archive.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.8/linux-hwe-6.8-headers-6.8.0-32_6.8.0-32.32~22.04.3_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-6.8/linux-headers-6.8.0-32-generic_6.8.0-32.32~22.04.3_amd64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux-hwe-6.8/linux-hwe-6.8-headers-6.8.0-32_6.8.0-32.32~22.04.3_all.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.8/linux-headers-6.8.0-32-generic_6.8.0-32.32~22.04.3_amd64.deb
     - http://security.ubuntu.com/ubuntu/pool/main/l/linux-hwe-6.8/linux-hwe-6.8-headers-6.8.0-32_6.8.0-32.32~22.04.3_all.deb
