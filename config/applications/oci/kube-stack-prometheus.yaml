@@ -93,7 +93,7 @@ spec:
           dashboards:
             falcosecurity:
               falco:
-                url: https://raw.githubusercontent.com/falcosecurity/charts/falco-9.1.0/charts/falco/dashboards/falco-dashboard.json
+                url: https://raw.githubusercontent.com/falcosecurity/charts/falco-9.2.2/charts/falco/dashboards/falco-dashboard.json
                 datasource: Prometheus
               k8s-metacollector:
                 url: https://raw.githubusercontent.com/falcosecurity/charts/k8s-metacollector-0.3.1/charts/k8s-metacollector/dashboards/k8s-metacollector-dashboard.json
