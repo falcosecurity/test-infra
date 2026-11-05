@@ -16,7 +16,7 @@ postsubmits:
           skip_submodules: true
       spec:
         containers:
-          - image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20260811-cafa49460@sha256:3c0832ea1e8255f92a1edacd1aadf01f49a561debbc806746ed051163c556012
+          - image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20261105-a23969f42@sha256:cf0c7b30e7ff66b2a5931eed0798f4c9c29b268596dd200ff63fcee4e147dc97
             command:
               - /ko-app/branchprotector
             args:
@@ -83,7 +83,7 @@ periodics:
     max_concurrency: 1
     spec:
       containers:
-        - image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20260811-cafa49460@sha256:3c0832ea1e8255f92a1edacd1aadf01f49a561debbc806746ed051163c556012
+        - image: us-docker.pkg.dev/k8s-infra-prow/images/branchprotector:v20261105-a23969f42@sha256:cf0c7b30e7ff66b2a5931eed0798f4c9c29b268596dd200ff63fcee4e147dc97
           command:
             - /ko-app/branchprotector
           args:
