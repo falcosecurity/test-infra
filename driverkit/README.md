@@ -81,3 +81,35 @@ A: Assuming that both kernel-crawler and driverkit already supports your distro,
 
 If instead one between kernel-crawler or driverkit does not support the distro, you must first implement it there.  
 For more informations, please see https://falco.org/blog/falco-prebuilt-drivers-new-distro/.
+
+### Q: How can I request a missing DBG build?
+
+A: After the rebuild filters in the [OCI build jobs](../config/jobs/oci/build-drivers)
+have been deployed, open a small, separate PR that changes a marker named
+`driverkit/rebuild/<job-name>.txt`. Each marker selects exactly one existing
+postsubmit job on `master`. For example, to request the x86-64 Debian build:
+
+```shell
+mkdir -p driverkit/rebuild
+printf '%s\n' 'Retry missing 11.0.1+driver Debian builds (request 1)' > \
+  driverkit/rebuild/build-new-drivers-debian-postsubmit.txt
+```
+
+Use the exact job name from its `name` field. For another request, change the
+marker contents so Git records a new change. The text is for reviewers only;
+it does not change the job arguments or select a driver version. Keep the
+markers after merging: deleting a marker also triggers its job.
+
+The job uses its existing architecture, distribution and kernel filters,
+queues, credentials and `--skip-existing` behavior. It checks all configured
+driver versions in the merged tree and attempts any missing builds, including
+previously failed builds. A successful job does not mean every kernel built
+successfully; inspect its logs and published artifacts.
+
+Keep recovery requests separate from large configuration updates and include
+only the jobs that need another attempt. Large pushes can expose an incomplete
+changed-file list to path-based triggering; a compact marker-only PR avoids
+depending on all the configuration paths being present in that list. This is
+a manual recovery mechanism, not automatic reconciliation or a fix for Prow's
+changed-file collection. Merging the filter change itself does not request
+any builds; wait for deployment before opening a marker PR.
