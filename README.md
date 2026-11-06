@@ -13,7 +13,7 @@ Infrastructure is separated by area and cloud:
 | Terraform | [Cluster](config/clusters/aws/) | [Cluster](config/clusters/oci/) |
 | Applications | [Applications](config/applications/aws/) | [Applications](config/applications/oci/) |
 | Prow | [Configuration](config/prow/aws/) | [Configuration](config/prow/oci/) |
-| Prow jobs | [Archived jobs](config/backup/aws/jobs/) | [Active jobs](config/jobs/oci/) |
+| Prow jobs | [Historical jobs](https://github.com/falcosecurity/test-infra/tree/b0bcf5f882cf9735693814c3e79b5d8a9e6b124e/config/backup/aws/jobs/) | [Active jobs](config/jobs/oci/) |
 
 AWS and OCI have independent Prow versions, configuration, and node scheduling.
 The [OCI bootstrap](config/clusters/oci/bootstrap/) is managed and validated
