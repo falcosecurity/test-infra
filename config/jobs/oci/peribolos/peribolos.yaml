@@ -1,12 +1,12 @@
 presubmits:
-  falcosecurity/test-infra:
+  falcosecurity/.project:
     - name: peribolos-pre-submit
       branches:
-        - ^master$
+        - ^main$
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: ^config/org.yaml$|^config/jobs/oci/peribolos/.*
+      run_if_changed: ^config/org\.yaml$
       spec:
         containers:
           - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
@@ -72,23 +72,23 @@ presubmits:
       decoration_config:
         timeout: 1h
 postsubmits:
-  falcosecurity/test-infra:
+  falcosecurity/.project:
     - name: peribolos-post-submit
       branches:
-        - ^master$
+        - ^main$
       decorate: true
       max_concurrency: 1
       skip_report: false
-      run_if_changed: ^config/org.yaml$|^config/jobs/oci/peribolos/.*
-      extra_refs:
+      run_if_changed: ^config/org\.yaml$
+      extra_refs: &peribolos-accepted-metadata
         - org: falcosecurity
-          repo: test-infra
-          base_ref: master
-          path_alias: github.com/falcosecurity/test-infra-governance
+          repo: .project
+          base_ref: main
+          path_alias: github.com/falcosecurity/project-governance
           workdir: true
           clone_depth: 1
           skip_submodules: true
-      spec:
+      spec: &peribolos-apply-spec
         containers:
           - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
             command:
@@ -153,6 +153,21 @@ postsubmits:
       job_queue_name: governance
       decoration_config:
         timeout: 1h
+  falcosecurity/test-infra:
+    # Apply accepted .project configuration when the Peribolos jobs change.
+    # This also activates the pending archival during the coordinated migration.
+    - name: peribolos-configuration-post-submit
+      branches:
+        - ^master$
+      decorate: true
+      max_concurrency: 1
+      skip_report: false
+      run_if_changed: ^config/jobs/oci/peribolos/|^config/org\.yaml$
+      extra_refs: *peribolos-accepted-metadata
+      spec: *peribolos-apply-spec
+      job_queue_name: governance
+      decoration_config:
+        timeout: 1h
 periodics:
   - name: peribolos-periodic
     interval: 24h
@@ -160,8 +175,8 @@ periodics:
     max_concurrency: 1
     extra_refs:
       - org: falcosecurity
-        repo: test-infra
-        base_ref: master
+        repo: .project
+        base_ref: main
     spec:
       containers:
         - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
