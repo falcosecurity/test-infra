@@ -190,6 +190,8 @@ branch-protection:
           branches:
             master:
               protect: true
+            2.x:
+              protect: true
         falcosidekick-ui:
           required_status_checks:
             contexts:
