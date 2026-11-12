@@ -96,7 +96,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: horologium
-          image: us-docker.pkg.dev/k8s-infra-prow/images/horologium:v20260811-cafa49460@sha256:5e7dcaac31aaff2fabbc8dba7d69e9b9e0637c027765a0268dc507be46cf3b49
+          image: us-docker.pkg.dev/k8s-infra-prow/images/horologium:v20261107-d4aa52fd2@sha256:4fa5ca33f735d0a681cfd60e4aa24b8917160251b89f793d9662817ab4dfc657
           args:
             - --dry-run=false
             - --config-path=/etc/prow/config/config.yaml
