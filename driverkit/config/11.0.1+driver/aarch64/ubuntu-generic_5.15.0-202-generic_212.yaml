@@ -1,0 +1,10 @@
+kernelversion: "212"
+kernelrelease: 5.15.0-202-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/11.0.1+driver/aarch64/falco_ubuntu-generic_5.15.0-202-generic_212.ko
+kernelurls:
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.15.0-202-generic-64k_5.15.0-202.212_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.15.0-202-generic_5.15.0-202.212_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-5.15.0-202_5.15.0-202.212_all.deb

@@ -1,0 +1,19 @@
+kernelversion: "43"
+kernelrelease: 7.0.0-43-generic
+target: ubuntu-generic
+architecture: arm64
+output:
+    module: output/11.0.1+driver/aarch64/falco_ubuntu-generic_7.0.0-43-generic_43.ko
+kernelurls:
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43-generic-64k_7.0.0-43.43_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43-generic_7.0.0-43.43_arm64.deb
+    - http://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43_7.0.0-43.43_all.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43-generic-64k_7.0.0-43.43_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43-generic_7.0.0-43.43_arm64.deb
+    - http://mirrors.edge.kernel.org/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43_7.0.0-43.43_all.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-43-generic-64k_7.0.0-43.43_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-43-generic_7.0.0-43.43_arm64.deb
+    - http://ports.ubuntu.com/ubuntu-ports/pool/main/l/linux/linux-headers-7.0.0-43_7.0.0-43.43_all.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43-generic-64k_7.0.0-43.43_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43-generic_7.0.0-43.43_arm64.deb
+    - http://security.ubuntu.com/ubuntu/pool/main/l/linux/linux-headers-7.0.0-43_7.0.0-43.43_all.deb
