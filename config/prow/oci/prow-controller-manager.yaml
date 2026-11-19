@@ -179,7 +179,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: prow-controller-manager
-          image: us-docker.pkg.dev/k8s-infra-prow/images/prow-controller-manager:v20260811-cafa49460@sha256:184a3aacdb93bc9864a1aa4133aebdb0ae5f02dd9a9c99c9ca34be2f5e48e6bc
+          image: us-docker.pkg.dev/k8s-infra-prow/images/prow-controller-manager:v20261118-9c8eff7c9@sha256:34550d70c5f75a435a63138ed0ce3a97bbea3bc8c8cd99838d639004865691fa
           imagePullPolicy: IfNotPresent
           args:
             - --dry-run=false

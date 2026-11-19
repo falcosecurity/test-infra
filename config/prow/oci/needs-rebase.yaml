@@ -66,7 +66,7 @@ spec:
         fsGroup: 65532
       containers:
         - name: needs-rebase
-          image: us-docker.pkg.dev/k8s-infra-prow/images/needs-rebase:v20260811-cafa49460@sha256:68e65e169e75357b880f00f60e821021d80c4663eb624a4b7dec7dce98bb93be
+          image: us-docker.pkg.dev/k8s-infra-prow/images/needs-rebase:v20261118-9c8eff7c9@sha256:7ce04879bebe90a90c4c33ec8bea95b62893e0e8ea2a423dd12d55ae0cc142e6
           args:
             - --dry-run=false
             - --github-token-path=/etc/github/oauth
