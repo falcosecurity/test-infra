@@ -676,6 +676,7 @@ orgs:
       falcosidekick-maintainers:
         description: maintainers of falcosecurity/falcosidekick
         maintainers:
+          - c2ndev
           - leogr
         members:
           - cpanato
