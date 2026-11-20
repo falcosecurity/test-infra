@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
-      images: ${{ github.event_name == 'workflow_dispatch' && '["build-plugins","sync-charts","update-falco-k8s-manifests","update-maintainers","update-rules-index"]' || steps.images.outputs.changes }}
+      images: ${{ github.event_name == 'workflow_dispatch' && '["build-plugins","sync-charts","update-falco-k8s-manifests","update-rules-index"]' || steps.images.outputs.changes }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -42,9 +42,6 @@ jobs:
               - '.github/workflows/automation-images.yml'
             update-falco-k8s-manifests:
               - 'images/update-falco-k8s-manifests/**'
-              - '.github/workflows/automation-images.yml'
-            update-maintainers:
-              - 'images/update-maintainers/**'
               - '.github/workflows/automation-images.yml'
             update-rules-index:
               - 'images/update-rules-index/**'
