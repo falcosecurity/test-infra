@@ -21,14 +21,9 @@ Then, located at `tools/local_prowjob.sh` there is a script that when executed w
 
 Do not forget to provide correct environment variables to this script.
 
-For example, from the `test-infra` repository root, run:
-
-```console
-DEBUG=true \
-JOB_CONFIG_PATH="$(pwd)/config/jobs/aws/update-maintainers/update-maintainers.yaml" \
-IMAGE_PATH="$(pwd)/images/update-maintainers" \
-./tools/local_prowjob.sh update-maintainers
-```
+For the current OCI governance workflow, use the dry-run commands in
+[project-sync](../tools/project-sync/README.md). The examples below describe the
+legacy AWS environment.
 
 ## Testing the build-new-drivers ProwJobs locally
 

@@ -1,0 +1,90 @@
+# Runtime code always comes from the trusted test-infra default branch, never
+# from the repository whose OWNERS change triggered this job.
+name: project-sync
+decorate: true
+max_concurrency: 1
+job_queue_name: governance
+decoration_config:
+  timeout: 1h
+skip_submodules: true
+extra_refs:
+  - org: falcosecurity
+    repo: test-infra
+    base_ref: master
+    path_alias: github.com/falcosecurity/test-infra-governance
+    workdir: true
+    clone_depth: 1
+    skip_submodules: true
+spec:
+  serviceAccountName: automation
+  automountServiceAccountToken: false
+  enableServiceLinks: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65532
+    runAsGroup: 65532
+    fsGroup: 65532
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - name: automation
+      image: golang:1.26.7-bookworm@sha256:e8c859f5632dcfde7b32d2012b4351728f6437930887c2f6a91ea242459e5514
+      command: [bash, -ceu]
+      args:
+        - |
+          cd tools/project-sync
+          go build -mod=readonly -p 2 -o /tmp/project-sync .
+          exec /tmp/project-sync sync --publish --github-token-path=/etc/github-token/oauth --gpg-key=/etc/gpg/poiana.asc
+      env:
+        - name: HOME
+          value: /tmp
+        - name: GOCACHE
+          value: /tmp/go-build
+        - name: GOMODCACHE
+          value: /tmp/go-mod
+        - name: GOMEMLIMIT
+          value: 3GiB
+      resources:
+        requests:
+          cpu: "1"
+          memory: 1Gi
+          ephemeral-storage: 4Gi
+        limits:
+          cpu: "4"
+          memory: 6Gi
+          ephemeral-storage: 12Gi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: [ALL]
+      volumeMounts:
+        - name: github
+          mountPath: /etc/github-token
+          readOnly: true
+        - name: signing
+          mountPath: /etc/gpg
+          readOnly: true
+  volumes:
+    - name: github
+      secret:
+        secretName: oauth-token
+        defaultMode: 0440
+        items:
+          - key: oauth
+            path: oauth
+    - name: signing
+      secret:
+        secretName: poiana-gpg-signing-key
+        defaultMode: 0440
+        items:
+          - key: poiana.asc
+            path: poiana.asc
+  nodeSelector:
+    Application: automation
+    Archtype: x86
+    kubernetes.io/arch: amd64
+  tolerations:
+    - key: dedicated.falco.org/automation
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
