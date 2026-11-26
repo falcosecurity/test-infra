@@ -146,7 +146,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: deck
-          image: us-docker.pkg.dev/k8s-infra-prow/images/deck:v20260811-cafa49460@sha256:d3926335f02367fbb9a8bda575640a885ff5a0bce4e6679713241525eb1e923c
+          image: us-docker.pkg.dev/k8s-infra-prow/images/deck:v20261124-6f9f58136@sha256:24e487a78324097fc01356dadc3a2cb2a47353749d9a7a1d3db015f5d3783644
           imagePullPolicy: IfNotPresent
           args:
             - --config-path=/etc/prow/config/config.yaml

@@ -75,7 +75,7 @@ spec:
         fsGroup: 65532
       containers:
         - name: status-reconciler
-          image: us-docker.pkg.dev/k8s-infra-prow/images/status-reconciler:v20260811-cafa49460@sha256:88afadbd272a6a9943c74f11adb05cdb53833d77ae74a91fc6ea2ceb6c0f7f43
+          image: us-docker.pkg.dev/k8s-infra-prow/images/status-reconciler:v20261124-6f9f58136@sha256:700f36eaae2c559c4dcfc9b6d212c23ff1eac22842da5ce89c4c54cebfd21786
           args:
             - --dry-run=false
             - --github-token-path=/etc/github/oauth

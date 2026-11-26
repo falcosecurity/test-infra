@@ -9,7 +9,7 @@ presubmits:
       run_if_changed: ^config/org.yaml$|^config/jobs/oci/peribolos/.*
       spec:
         containers:
-          - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
+          - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20261124-6f9f58136@sha256:55f0e0e5dbfcbf39efb145a30c349ce930d1933d638ccebb433a0f4eba2b6a81
             command:
               - /ko-app/peribolos
             args:
@@ -90,7 +90,7 @@ postsubmits:
           skip_submodules: true
       spec:
         containers:
-          - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
+          - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20261124-6f9f58136@sha256:55f0e0e5dbfcbf39efb145a30c349ce930d1933d638ccebb433a0f4eba2b6a81
             command:
               - /ko-app/peribolos
             args:
@@ -164,7 +164,7 @@ periodics:
         base_ref: master
     spec:
       containers:
-        - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20260811-cafa49460@sha256:b86c98c82cf1d835b1ba37d134f62f4d2429156adfe050ec7718875e8e783c5d
+        - image: us-docker.pkg.dev/k8s-infra-prow/images/peribolos:v20261124-6f9f58136@sha256:55f0e0e5dbfcbf39efb145a30c349ce930d1933d638ccebb433a0f4eba2b6a81
           command:
             - /ko-app/peribolos
           args:
