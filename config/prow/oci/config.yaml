@@ -41,10 +41,10 @@ plank:
           name: github-clone-readonly
           key: private-key
         utility_images:
-          clonerefs: us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20260811-cafa49460@sha256:b024d55113e195e69b66ef5b8973144d48cd1db11346dd1097e9af9294783bf2
-          initupload: us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20260811-cafa49460@sha256:fa08b00d6a34a8ffd8e8a4285702b06bfa2b25ff115e07cd1cfe2851899b534d
-          entrypoint: us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20260811-cafa49460@sha256:f6e41df39f5894fba72e2c66e5da8d5cbde0b45683995dfffb6031222397d1df
-          sidecar: us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20260811-cafa49460@sha256:d52d5dc7ae13272fe814e1ae8689d6236f6c2271987a2ca64b727590444b83d3
+          clonerefs: us-docker.pkg.dev/k8s-infra-prow/images/clonerefs:v20261124-6f9f58136@sha256:364360f9cbef6ce7ebd710b2fa7dbe7bb0eed25c1bc55206d7e4df9db4b52fe6
+          initupload: us-docker.pkg.dev/k8s-infra-prow/images/initupload:v20261124-6f9f58136@sha256:7ef275fdcd1b446ae537a0dadfb4f8fa6701c248636d08fcaa208a60b2c0228a
+          entrypoint: us-docker.pkg.dev/k8s-infra-prow/images/entrypoint:v20261124-6f9f58136@sha256:d12f70b9fabdc2a868e4b6e84fdf3f7c54dbe14180b189d1f8fce0189efc011a
+          sidecar: us-docker.pkg.dev/k8s-infra-prow/images/sidecar:v20261124-6f9f58136@sha256:6c4c6723f444d19826990209074db68790df1f8b6d42b8734b45915782d30c6b
         gcs_configuration:
           bucket: s3://falco-prow-logs
           path_strategy: explicit

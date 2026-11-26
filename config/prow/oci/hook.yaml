@@ -113,7 +113,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: hook
-          image: us-docker.pkg.dev/k8s-infra-prow/images/hook:v20260811-cafa49460@sha256:58ef2ff23c0f5d76fa80b02a12cffbdce51c82b7ec888570e4b6b31110c93ccb
+          image: us-docker.pkg.dev/k8s-infra-prow/images/hook:v20261124-6f9f58136@sha256:ea1129be2385197b98b9dcbaaaec90d186a76e320f8874e0682f82858bf15c3c
           imagePullPolicy: IfNotPresent
           args:
             - --dry-run=false
